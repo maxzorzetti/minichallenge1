@@ -1,2 +1,2 @@
 # minichallenge1
-BEPiD Minichallenge 1
+Something to do with sports and people
