@@ -14,6 +14,7 @@
 		8406A8E41EA6761500C60267 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8406A8E31EA6761500C60267 /* Assets.xcassets */; };
 		8406A8E71EA6761500C60267 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8406A8E51EA6761500C60267 /* LaunchScreen.storyboard */; };
 		8406A8F11EA6763900C60267 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8406A8F01EA6763900C60267 /* CloudKit.framework */; };
+		8D09C4E31EA6AF040072146F /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D09C4E21EA6AF040072146F /* FBSDKLoginKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		8406A8E81EA6761500C60267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8406A8EE1EA6763600C60267 /* SportsApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SportsApp.entitlements; sourceTree = "<group>"; };
 		8406A8F01EA6763900C60267 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		8D09C4E21EA6AF040072146F /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../Downloads/FacebookSDKs-iOS-4/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +39,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8406A8F11EA6763900C60267 /* CloudKit.framework in Frameworks */,
+				8D09C4E31EA6AF040072146F /* FBSDKLoginKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,6 +91,7 @@
 		8406A8EF1EA6763900C60267 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8D09C4E21EA6AF040072146F /* FBSDKLoginKit.framework */,
 				8406A8F01EA6763900C60267 /* CloudKit.framework */,
 			);
 			name = Frameworks;
@@ -340,6 +344,7 @@
 				8406A8ED1EA6761500C60267 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
