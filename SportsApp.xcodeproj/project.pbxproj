@@ -16,6 +16,7 @@
 		8406A8F11EA6763900C60267 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8406A8F01EA6763900C60267 /* CloudKit.framework */; };
 		847F5E351EA714180091BAE9 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E341EA714180091BAE9 /* Event.m */; };
 		847F5E391EA715170091BAE9 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E381EA715170091BAE9 /* Person.m */; };
+		847F5E3E1EA716FA0091BAE9 /* MatchMakingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E3D1EA716FA0091BAE9 /* MatchMakingViewController.m */; };
 		8D09C5391EA6EB720072146F /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D09C5371EA6EB720072146F /* FBSDKCoreKit.framework */; };
 		8D09C53A1EA6EB720072146F /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D09C5381EA6EB720072146F /* FBSDKLoginKit.framework */; };
 /* End PBXBuildFile section */
@@ -37,6 +38,8 @@
 		847F5E341EA714180091BAE9 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		847F5E371EA715170091BAE9 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		847F5E381EA715170091BAE9 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		847F5E3C1EA716FA0091BAE9 /* MatchMakingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchMakingViewController.h; sourceTree = "<group>"; };
+		847F5E3D1EA716FA0091BAE9 /* MatchMakingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchMakingViewController.m; sourceTree = "<group>"; };
 		8D09C5371EA6EB720072146F /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		8D09C5381EA6EB720072146F /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -123,6 +126,8 @@
 			children = (
 				8406A8DD1EA6761500C60267 /* ViewController.h */,
 				8406A8DE1EA6761500C60267 /* ViewController.m */,
+				847F5E3C1EA716FA0091BAE9 /* MatchMakingViewController.h */,
+				847F5E3D1EA716FA0091BAE9 /* MatchMakingViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -218,6 +223,7 @@
 				847F5E351EA714180091BAE9 /* Event.m in Sources */,
 				8406A8DF1EA6761500C60267 /* ViewController.m in Sources */,
 				847F5E391EA715170091BAE9 /* Person.m in Sources */,
+				847F5E3E1EA716FA0091BAE9 /* MatchMakingViewController.m in Sources */,
 				8406A8DC1EA6761500C60267 /* AppDelegate.m in Sources */,
 				8406A8D91EA6761500C60267 /* main.m in Sources */,
 			);
