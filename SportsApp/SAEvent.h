@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Event : NSObject
+@interface SAEvent : NSObject
 
 @property (nonatomic) NSString *name;
 @property (nonatomic) int requiredNumberPerson, currentNumberPerson;

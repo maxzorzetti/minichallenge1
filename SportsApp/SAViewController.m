@@ -6,16 +6,16 @@
 //  Copyright © 2017 Bruno Scheltzke. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "SAViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 
-@interface ViewController ()
+@interface SAViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *myLabel;
 
 @end
 
-@implementation ViewController
+@implementation SAViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

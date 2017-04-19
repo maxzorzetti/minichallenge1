@@ -1,13 +1,13 @@
 //
-//  Person.m
+//  MatchMakingViewController.h
 //  SportsApp
 //
 //  Created by Bruno Scheltzke on 2017-04-19.
 //  Copyright © 2017 Bruno Scheltzke. All rights reserved.
 //
 
-#import "Person.h"
+#import <UIKit/UIKit.h>
 
-@implementation Person
+@interface SAMatchMakingViewController : UIViewController
 
 @end

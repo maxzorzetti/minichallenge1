@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Person : NSObject
+@interface SAPerson : NSObject
 
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSMutableArray *events;

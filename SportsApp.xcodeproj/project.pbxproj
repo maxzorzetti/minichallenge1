@@ -7,16 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29028B7D1EA7EE5F00367FE4 /* SAMatchmaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 29028B7C1EA7EE5F00367FE4 /* SAMatchmaker.m */; };
+		29028B801EA7EEB600367FE4 /* SAParty.m in Sources */ = {isa = PBXBuildFile; fileRef = 29028B7F1EA7EEB600367FE4 /* SAParty.m */; };
 		8406A8D91EA6761500C60267 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8406A8D81EA6761500C60267 /* main.m */; };
 		8406A8DC1EA6761500C60267 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8406A8DB1EA6761500C60267 /* AppDelegate.m */; };
-		8406A8DF1EA6761500C60267 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8406A8DE1EA6761500C60267 /* ViewController.m */; };
+		8406A8DF1EA6761500C60267 /* SAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8406A8DE1EA6761500C60267 /* SAViewController.m */; };
 		8406A8E21EA6761500C60267 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8406A8E01EA6761500C60267 /* Main.storyboard */; };
 		8406A8E41EA6761500C60267 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8406A8E31EA6761500C60267 /* Assets.xcassets */; };
 		8406A8E71EA6761500C60267 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8406A8E51EA6761500C60267 /* LaunchScreen.storyboard */; };
 		8406A8F11EA6763900C60267 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8406A8F01EA6763900C60267 /* CloudKit.framework */; };
-		847F5E351EA714180091BAE9 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E341EA714180091BAE9 /* Event.m */; };
-		847F5E391EA715170091BAE9 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E381EA715170091BAE9 /* Person.m */; };
-		847F5E3E1EA716FA0091BAE9 /* MatchMakingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E3D1EA716FA0091BAE9 /* MatchMakingViewController.m */; };
+		847F5E351EA714180091BAE9 /* SAEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E341EA714180091BAE9 /* SAEvent.m */; };
+		847F5E391EA715170091BAE9 /* SAPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E381EA715170091BAE9 /* SAPerson.m */; };
+		847F5E3E1EA716FA0091BAE9 /* SAMatchMakingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E3D1EA716FA0091BAE9 /* SAMatchMakingViewController.m */; };
 		8D09C5391EA6EB720072146F /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D09C5371EA6EB720072146F /* FBSDKCoreKit.framework */; };
 		8D09C53A1EA6EB720072146F /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D09C5381EA6EB720072146F /* FBSDKLoginKit.framework */; };
 		D02D36DC3B0EA2B7089928CB /* libPods-SportsApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D828BD3FF47E822127BA720 /* libPods-SportsApp.a */; };
@@ -24,25 +26,29 @@
 
 /* Begin PBXFileReference section */
 		1181F65BA0715271D7E885B4 /* Pods-SportsApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-SportsApp/Pods-SportsApp.release.xcconfig"; sourceTree = "<group>"; };
+		29028B7B1EA7EE5F00367FE4 /* SAMatchmaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMatchmaker.h; sourceTree = "<group>"; };
+		29028B7C1EA7EE5F00367FE4 /* SAMatchmaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMatchmaker.m; sourceTree = "<group>"; };
+		29028B7E1EA7EEB600367FE4 /* SAParty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAParty.h; sourceTree = "<group>"; };
+		29028B7F1EA7EEB600367FE4 /* SAParty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAParty.m; sourceTree = "<group>"; };
 		7D828BD3FF47E822127BA720 /* libPods-SportsApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SportsApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8406A8D41EA6761500C60267 /* SportsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8406A8D81EA6761500C60267 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8406A8DA1EA6761500C60267 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8406A8DB1EA6761500C60267 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		8406A8DD1EA6761500C60267 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		8406A8DE1EA6761500C60267 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		8406A8DD1EA6761500C60267 /* SAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SAViewController.h; sourceTree = "<group>"; };
+		8406A8DE1EA6761500C60267 /* SAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SAViewController.m; sourceTree = "<group>"; };
 		8406A8E11EA6761500C60267 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8406A8E31EA6761500C60267 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8406A8E61EA6761500C60267 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8406A8E81EA6761500C60267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8406A8EE1EA6763600C60267 /* SportsApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SportsApp.entitlements; sourceTree = "<group>"; };
 		8406A8F01EA6763900C60267 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		847F5E331EA714180091BAE9 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		847F5E341EA714180091BAE9 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
-		847F5E371EA715170091BAE9 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
-		847F5E381EA715170091BAE9 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
-		847F5E3C1EA716FA0091BAE9 /* MatchMakingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchMakingViewController.h; sourceTree = "<group>"; };
-		847F5E3D1EA716FA0091BAE9 /* MatchMakingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchMakingViewController.m; sourceTree = "<group>"; };
+		847F5E331EA714180091BAE9 /* SAEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEvent.h; sourceTree = "<group>"; };
+		847F5E341EA714180091BAE9 /* SAEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEvent.m; sourceTree = "<group>"; };
+		847F5E371EA715170091BAE9 /* SAPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAPerson.h; sourceTree = "<group>"; };
+		847F5E381EA715170091BAE9 /* SAPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAPerson.m; sourceTree = "<group>"; };
+		847F5E3C1EA716FA0091BAE9 /* SAMatchMakingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMatchMakingViewController.h; sourceTree = "<group>"; };
+		847F5E3D1EA716FA0091BAE9 /* SAMatchMakingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMatchMakingViewController.m; sourceTree = "<group>"; };
 		8D09C5371EA6EB720072146F /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		8D09C5381EA6EB720072146F /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		ECB8D9221E12E0DF893859DE /* Pods-SportsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SportsApp/Pods-SportsApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -120,10 +126,14 @@
 		847F5E361EA714F70091BAE9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				847F5E331EA714180091BAE9 /* Event.h */,
-				847F5E341EA714180091BAE9 /* Event.m */,
-				847F5E371EA715170091BAE9 /* Person.h */,
-				847F5E381EA715170091BAE9 /* Person.m */,
+				847F5E331EA714180091BAE9 /* SAEvent.h */,
+				847F5E341EA714180091BAE9 /* SAEvent.m */,
+				847F5E371EA715170091BAE9 /* SAPerson.h */,
+				847F5E381EA715170091BAE9 /* SAPerson.m */,
+				29028B7B1EA7EE5F00367FE4 /* SAMatchmaker.h */,
+				29028B7C1EA7EE5F00367FE4 /* SAMatchmaker.m */,
+				29028B7E1EA7EEB600367FE4 /* SAParty.h */,
+				29028B7F1EA7EEB600367FE4 /* SAParty.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -131,10 +141,10 @@
 		847F5E3A1EA715530091BAE9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				8406A8DD1EA6761500C60267 /* ViewController.h */,
-				8406A8DE1EA6761500C60267 /* ViewController.m */,
-				847F5E3C1EA716FA0091BAE9 /* MatchMakingViewController.h */,
-				847F5E3D1EA716FA0091BAE9 /* MatchMakingViewController.m */,
+				8406A8DD1EA6761500C60267 /* SAViewController.h */,
+				8406A8DE1EA6761500C60267 /* SAViewController.m */,
+				847F5E3C1EA716FA0091BAE9 /* SAMatchMakingViewController.h */,
+				847F5E3D1EA716FA0091BAE9 /* SAMatchMakingViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -287,10 +297,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				847F5E351EA714180091BAE9 /* Event.m in Sources */,
-				8406A8DF1EA6761500C60267 /* ViewController.m in Sources */,
-				847F5E391EA715170091BAE9 /* Person.m in Sources */,
-				847F5E3E1EA716FA0091BAE9 /* MatchMakingViewController.m in Sources */,
+				29028B801EA7EEB600367FE4 /* SAParty.m in Sources */,
+				29028B7D1EA7EE5F00367FE4 /* SAMatchmaker.m in Sources */,
+				847F5E351EA714180091BAE9 /* SAEvent.m in Sources */,
+				8406A8DF1EA6761500C60267 /* SAViewController.m in Sources */,
+				847F5E391EA715170091BAE9 /* SAPerson.m in Sources */,
+				847F5E3E1EA716FA0091BAE9 /* SAMatchMakingViewController.m in Sources */,
 				8406A8DC1EA6761500C60267 /* AppDelegate.m in Sources */,
 				8406A8D91EA6761500C60267 /* main.m in Sources */,
 			);

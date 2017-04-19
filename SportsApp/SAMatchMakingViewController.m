@@ -6,14 +6,14 @@
 //  Copyright © 2017 Bruno Scheltzke. All rights reserved.
 //
 
-#import "MatchMakingViewController.h"
+#import "SAMatchMakingViewController.h"
 #import <CloudKit/CloudKit.h>
 
-@interface MatchMakingViewController ()
+@interface SAMatchMakingViewController ()
 
 @end
 
-@implementation MatchMakingViewController
+@implementation SAMatchMakingViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
