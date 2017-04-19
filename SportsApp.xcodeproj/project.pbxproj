@@ -14,7 +14,8 @@
 		8406A8E41EA6761500C60267 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8406A8E31EA6761500C60267 /* Assets.xcassets */; };
 		8406A8E71EA6761500C60267 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8406A8E51EA6761500C60267 /* LaunchScreen.storyboard */; };
 		8406A8F11EA6763900C60267 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8406A8F01EA6763900C60267 /* CloudKit.framework */; };
-		8D09C4E31EA6AF040072146F /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D09C4E21EA6AF040072146F /* FBSDKLoginKit.framework */; };
+		8D09C5391EA6EB720072146F /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D09C5371EA6EB720072146F /* FBSDKCoreKit.framework */; };
+		8D09C53A1EA6EB720072146F /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D09C5381EA6EB720072146F /* FBSDKLoginKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,7 +31,8 @@
 		8406A8E81EA6761500C60267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8406A8EE1EA6763600C60267 /* SportsApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SportsApp.entitlements; sourceTree = "<group>"; };
 		8406A8F01EA6763900C60267 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		8D09C4E21EA6AF040072146F /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../Downloads/FacebookSDKs-iOS-4/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
+		8D09C5371EA6EB720072146F /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		8D09C5381EA6EB720072146F /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,7 +41,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8406A8F11EA6763900C60267 /* CloudKit.framework in Frameworks */,
-				8D09C4E31EA6AF040072146F /* FBSDKLoginKit.framework in Frameworks */,
+				8D09C5391EA6EB720072146F /* FBSDKCoreKit.framework in Frameworks */,
+				8D09C53A1EA6EB720072146F /* FBSDKLoginKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -49,6 +52,8 @@
 		8406A8CB1EA6761500C60267 = {
 			isa = PBXGroup;
 			children = (
+				8D09C5371EA6EB720072146F /* FBSDKCoreKit.framework */,
+				8D09C5381EA6EB720072146F /* FBSDKLoginKit.framework */,
 				8406A8D61EA6761500C60267 /* SportsApp */,
 				8406A8D51EA6761500C60267 /* Products */,
 				8406A8EF1EA6763900C60267 /* Frameworks */,
@@ -91,7 +96,6 @@
 		8406A8EF1EA6763900C60267 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8D09C4E21EA6AF040072146F /* FBSDKLoginKit.framework */,
 				8406A8F01EA6763900C60267 /* CloudKit.framework */,
 			);
 			name = Frameworks;
@@ -303,6 +307,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SportsApp/SportsApp.entitlements;
 				DEVELOPMENT_TEAM = M3PUPH2NBH;
+				FRAMEWORK_SEARCH_PATHS = "~/Documents/FacebookSDK";
 				INFOPLIST_FILE = SportsApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -317,6 +322,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SportsApp/SportsApp.entitlements;
 				DEVELOPMENT_TEAM = M3PUPH2NBH;
+				FRAMEWORK_SEARCH_PATHS = "~/Documents/FacebookSDK";
 				INFOPLIST_FILE = SportsApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
