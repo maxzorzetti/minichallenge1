@@ -9,6 +9,9 @@
 #import "SAViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <UNIRest.h>
+
+
 
 @interface SAViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *myLabel;
@@ -36,8 +39,12 @@
     }
     //se nao, pede pra ele!
     else{
+     //   GET graph.facebook.com
+       // /{node-id}
 		
-        _myLabel.text = @"You're logged!";
+       /// _myLabel.text = @"You're logged!";
+        //[self presentModalViewController:tabBarController animated:YES];
+        //[self performSegueWithIdentifier:mySegue sender:self];
     }
 
 }

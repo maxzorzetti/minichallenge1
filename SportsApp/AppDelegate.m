@@ -29,6 +29,24 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     return YES;
 }
 
+
+/*- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    if (shouldShowAnotherViewControllerAsRoot) {
+        UIStoryboard *storyboard = self.window.rootViewController.storyboard;
+        UIViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"rootNavigationController"];
+        self.window.rootViewController = rootViewController;
+        [self.window makeKeyAndVisible];
+    }
+    
+    return YES;
+}*/
+
+
+
+
+
+
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     
