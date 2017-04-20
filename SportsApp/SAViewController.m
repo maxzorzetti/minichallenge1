@@ -15,7 +15,7 @@
 
 @interface SAViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *myLabel;
-
+@property id number;
 @end
 
 @implementation SAViewController
@@ -39,6 +39,26 @@
     }
     //se nao, pede pra ele!
     else{
+//        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
+//                                      initWithGraphPath:@"/{user-id}"
+//                                      parameters:nil                                      HTTPMethod:@"GET"];
+//        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
+//                                              id result,
+//                                              NSError *error) {
+//            
+//            NSLog(@"ID POHAAAAAA ==%@", result);
+//            // Handle the result
+//            
+//        }];
+        
+            [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
+             startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                 if (!error) {
+                     NSLog(@"fetched user:%@", result);
+                 }
+             }];
+        
+       // GET graph.facebook.com   /{node-id};
      //   GET graph.facebook.com
        // /{node-id}
 		
