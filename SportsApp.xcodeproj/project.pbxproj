@@ -19,6 +19,7 @@
 		847F5E351EA714180091BAE9 /* SAEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E341EA714180091BAE9 /* SAEvent.m */; };
 		847F5E391EA715170091BAE9 /* SAPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E381EA715170091BAE9 /* SAPerson.m */; };
 		847F5E3E1EA716FA0091BAE9 /* SAMatchMakingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E3D1EA716FA0091BAE9 /* SAMatchMakingViewController.m */; };
+		8D7A63BA1EAA5A9000418D39 /* SAProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7A63B91EAA5A9000418D39 /* SAProfileViewController.m */; };
 		D02D36DC3B0EA2B7089928CB /* libPods-SportsApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D828BD3FF47E822127BA720 /* libPods-SportsApp.a */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,8 @@
 		847F5E381EA715170091BAE9 /* SAPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAPerson.m; sourceTree = "<group>"; };
 		847F5E3C1EA716FA0091BAE9 /* SAMatchMakingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMatchMakingViewController.h; sourceTree = "<group>"; };
 		847F5E3D1EA716FA0091BAE9 /* SAMatchMakingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMatchMakingViewController.m; sourceTree = "<group>"; };
+		8D7A63B81EAA5A9000418D39 /* SAProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAProfileViewController.h; sourceTree = "<group>"; };
+		8D7A63B91EAA5A9000418D39 /* SAProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAProfileViewController.m; sourceTree = "<group>"; };
 		ECB8D9221E12E0DF893859DE /* Pods-SportsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SportsApp/Pods-SportsApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -137,6 +140,8 @@
 				8406A8DE1EA6761500C60267 /* SAViewController.m */,
 				847F5E3C1EA716FA0091BAE9 /* SAMatchMakingViewController.h */,
 				847F5E3D1EA716FA0091BAE9 /* SAMatchMakingViewController.m */,
+				8D7A63B81EAA5A9000418D39 /* SAProfileViewController.h */,
+				8D7A63B91EAA5A9000418D39 /* SAProfileViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -293,6 +298,7 @@
 				29028B7D1EA7EE5F00367FE4 /* SAMatchmaker.m in Sources */,
 				847F5E351EA714180091BAE9 /* SAEvent.m in Sources */,
 				8406A8DF1EA6761500C60267 /* SAViewController.m in Sources */,
+				8D7A63BA1EAA5A9000418D39 /* SAProfileViewController.m in Sources */,
 				847F5E391EA715170091BAE9 /* SAPerson.m in Sources */,
 				847F5E3E1EA716FA0091BAE9 /* SAMatchMakingViewController.m in Sources */,
 				8406A8DC1EA6761500C60267 /* AppDelegate.m in Sources */,

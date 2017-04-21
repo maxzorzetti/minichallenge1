@@ -10,12 +10,13 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <UNIRest.h>
+#import "FBSDKLoginButton.h"
 
 
 
 @interface SAViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *myLabel;
-@property id number;
+
 @end
 
 @implementation SAViewController
@@ -27,47 +28,27 @@
     //Checa-se se o usuario ja aceitou os termos de uso
     if (! [FBSDKAccessToken currentAccessToken]) {
         // User is logged in, do work such as go to next view controller.
-		
-		FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
-		// Optional: Place the button in the center of your view.
-		loginButton.center = self.view.center;
-		[self.view addSubview:loginButton];
-		loginButton.readPermissions =
-		@[@"public_profile", @"email", @"user_friends"];
-		
-		
+        
+        FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
+        // Optional: Place the button in the center of your view.
+        loginButton.center = self.view.center;
+        [self.view addSubview:loginButton];
+        loginButton.readPermissions =
+        @[@"public_profile", @"email", @"user_friends"];
+        
+        
     }
     //se nao, pede pra ele!
-    else{
-//        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
-//                                      initWithGraphPath:@"/{user-id}"
-//                                      parameters:nil                                      HTTPMethod:@"GET"];
-//        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
-//                                              id result,
-//                                              NSError *error) {
-//            
-//            NSLog(@"ID POHAAAAAA ==%@", result);
-//            // Handle the result
-//            
-//        }];
-        
-            [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
-             startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-                 if (!error) {
-                     NSLog(@"fetched user:%@", result);
-                 }
-             }];
-        
-       // GET graph.facebook.com   /{node-id};
-     //   GET graph.facebook.com
-       // /{node-id}
-		
-       /// _myLabel.text = @"You're logged!";
-        //[self presentModalViewController:tabBarController animated:YES];
-        //[self performSegueWithIdentifier:mySegue sender:self];
-    }
-
+    else
+        [self performSegueWithIdentifier:@"mySegue" sender:self];
+    NSLog(@"user logged");
+    
+    // FBSDKLoginResult.declinedPermissions
+    //[imageData release];
+    
 }
+
+
 
 
 - (void)didReceiveMemoryWarning {
@@ -77,3 +58,4 @@
 
 
 @end
+
