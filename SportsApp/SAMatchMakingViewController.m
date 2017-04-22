@@ -8,48 +8,51 @@
 
 #import "SAMatchMakingViewController.h"
 #import <CloudKit/CloudKit.h>
+#import "SAParty.h"
 
 @interface SAMatchMakingViewController ()
+@property (nonatomic) NSSet *activities;
 
 @end
 
 @implementation SAMatchMakingViewController
+CKContainer *myContainer;
+CKDatabase *publicDatabase;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    myContainer = [CKContainer defaultContainer];
+    publicDatabase = [myContainer publicCloudDatabase];
+    
+    //Fetch activity options and populates the activity selection component
+    NSPredicate *anyPredicate = [NSPredicate predicateWithValue:YES];
+    CKQuery *activitiesQuery = [[CKQuery alloc]initWithRecordType:@"SAActivity" predicate:anyPredicate];
+    [publicDatabase performQuery:activitiesQuery inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
+        if (error) {
+            // Error handling for failed fetch from public database
+            NSLog(@"%@", error.description);
+        }
+        else {
+            for (CKRecord *activity in results) {
+                NSLog(@"%@", activity[@"name"]);
+                //TODO populate the activities selection component
+            }
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+
 - (IBAction)startMatchMaking:(UIButton *)sender {
-    CKContainer *myContainer = [CKContainer defaultContainer];
-    CKDatabase *publicDatabase = [myContainer publicCloudDatabase];
     
-    
-    
-    CKRecordID *eventId = [[CKRecordID alloc]initWithRecordName:@"100"];
-    
-    CKRecord *eventRecord = [[CKRecord alloc] initWithRecordType:@"Event" recordID:eventId];
-    
-    eventRecord[@"atividade"] = @"Futebol";
-    eventRecord[@"requiredNumberPerson"] = @10;
-    eventRecord[@"currentNumberPerson"] = @1;
-    
-    
-    
-    [publicDatabase saveRecord:eventRecord completionHandler:^(CKRecord *eventRecord, NSError *error){
-        if (error) {
-            NSLog(@"!!!!!!!!!!!!!Deu erro: %@", error.description);
-        }
-        else{
-            NSLog(@"Bombo!!!!!!!!!!!!!!!!!");
-        }
-    }];
-    
-    
+    SAParty *myParty = [[SAParty alloc]initWithPeople:nil maxParticipants:nil AndminParticipants:nil];
+    //send this party information to a webservermethod that returns whether it was attached to another party or made an event out of it
 }
 
 /*
