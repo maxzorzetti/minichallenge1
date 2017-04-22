@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+@class SAParty;
 
 @interface SAMatchmaker : NSObject
+
++ (void)enterMatchMakingWithParty:(SAParty *)party;
 
 @end

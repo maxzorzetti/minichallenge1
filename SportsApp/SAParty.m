@@ -8,6 +8,7 @@
 
 #import "SAParty.h"
 #import "SAPerson.h"
+#import <CloudKit/CloudKit.h>
 
 @interface SAParty()
 @property (nonatomic) NSMutableSet *privatePeople;
@@ -18,20 +19,18 @@
 @implementation SAParty
 
 
-- (instancetype) initWithPeople:(NSSet *)people maxParticipants:(int)maxParticipants AndminParticipants:(int)minParticipants
+- (instancetype) initWithPeople:(NSSet *)people activity:(NSString *)activity  maxParticipants:(int)maxParticipants AndminParticipants:(int)minParticipants
 {
     self = [super init];
     if (self) {
         _privatePeople = [[NSMutableSet alloc]initWithSet:people];
         _maxParticipants = maxParticipants;
         _minParticipants = minParticipants;
+        _activity = activity;
         
     }
     return self;
 }
-
-
-
 
 - (void)addPeople:(SAPerson *)person{
     [self.privatePeople addObject:person];

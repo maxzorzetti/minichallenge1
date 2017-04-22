@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CloudKit/CloudKit.h>
 
 @interface SAPerson : NSObject
 
+@property (nonatomic, readonly) CKRecordID *id;
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSMutableArray *events;
 
