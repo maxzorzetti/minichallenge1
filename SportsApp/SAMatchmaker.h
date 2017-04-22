@@ -11,6 +11,8 @@
 
 @interface SAMatchmaker : NSObject
 
-+ (void)enterMatchMakingWithParty:(SAParty *)party;
++ (void)enterMatchmakingWithParty:(SAParty *)party;
+
++ (void)leaveMatchmakingWithParty:(SAParty *)party;
 
 @end

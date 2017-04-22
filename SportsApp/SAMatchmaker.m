@@ -13,7 +13,7 @@
 
 @implementation SAMatchmaker
 
-+ (void)enterMatchMakingWithParty:(SAParty *)party{
++ (void)enterMatchmakingWithParty:(SAParty *)party{
     CKContainer *container = [CKContainer defaultContainer];
     CKDatabase *publicDatabase = [container publicCloudDatabase];
     
@@ -36,6 +36,10 @@
     }];
     
     
+}
+
++ (void)leaveMatchmakingWithParty:(SAParty *)party{
+	
 }
 
 @end
