@@ -7,13 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+@class SAPerson;
 
 @interface SAEvent : NSObject
 
 @property (nonatomic) NSString *name;
 @property (nonatomic) int requiredNumberPerson, currentNumberPerson;
 @property (nonatomic) NSString *activity;
-@property (nonatomic) NSMutableArray *participants;
+@property (nonatomic, readonly) NSSet<SAPerson *> *participants;
+@property (nonatomic, readonly) NSDictionary<SAPerson *, NSString *> *participantsRoles;
 
+- (void)addParticipant:(SAPerson *)person withRole:(NSString *)role;
+
+- (void)removeParticipant:(SAPerson *)person;
+
+- (NSString *)getParticipantRole:(SAPerson *)person;
 
 @end
