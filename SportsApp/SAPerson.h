@@ -8,11 +8,22 @@
 
 #import <Foundation/Foundation.h>
 #import <CloudKit/CloudKit.h>
+@class SAEvent;
+@class SAActivity;
 
-@interface SAPerson : NSObject
+@interface SAPerson : NSObject <NSCopying>
 
 @property (nonatomic, readonly) CKRecordID *id;
 @property (nonatomic) NSString *name;
-@property (nonatomic) NSMutableArray *events;
+@property (nonatomic) NSString *email;
+@property (nonatomic) NSString *telephone;
+@property (nonatomic) NSMutableArray<SAActivity *> *interests;
+@property (nonatomic) NSMutableArray<SAEvent *> *events;
+
+- (void)addInterest:(SAActivity *)interest;
+- (void)removeInterest:(SAActivity *)interest;
+
+- (void)addEvent:(SAEvent *)event;
+- (void)removeEvent:(SAEvent *)event;
 
 @end

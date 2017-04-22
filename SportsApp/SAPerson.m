@@ -8,6 +8,22 @@
 
 #import "SAPerson.h"
 
-@implementation SAPerson
+@implementation SAPerson //	TODO implement NSCopying
+
+- (void)addInterest:(SAActivity *)interest{
+	
+}
+
+- (void)removeInterest:(SAActivity *)interest{
+	
+}
+
+- (void)addEvent:(SAEvent *)event{
+	
+}
+
+- (void)removeEvent:(SAEvent *)event{
+	
+}
 
 @end
