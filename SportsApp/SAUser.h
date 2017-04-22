@@ -7,7 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+@class SAPerson;
+@class SAActivity;
 
 @interface SAUser : NSObject
+
+@property (atomic) SAPerson *person;
+
++ (SAUser *)currentUser;
+
+- (void)setPreferredActivity:(SAActivity *) activity;
 
 @end
