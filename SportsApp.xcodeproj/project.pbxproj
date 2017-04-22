@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		29028B7D1EA7EE5F00367FE4 /* SAMatchmaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 29028B7C1EA7EE5F00367FE4 /* SAMatchmaker.m */; };
 		29028B801EA7EEB600367FE4 /* SAParty.m in Sources */ = {isa = PBXBuildFile; fileRef = 29028B7F1EA7EEB600367FE4 /* SAParty.m */; };
+		29FF42531EABD8F700304B26 /* SAUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 29FF42521EABD8F700304B26 /* SAUser.m */; };
 		8406A8D91EA6761500C60267 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8406A8D81EA6761500C60267 /* main.m */; };
 		8406A8DC1EA6761500C60267 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8406A8DB1EA6761500C60267 /* AppDelegate.m */; };
 		8406A8DF1EA6761500C60267 /* SAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8406A8DE1EA6761500C60267 /* SAViewController.m */; };
@@ -29,6 +30,8 @@
 		29028B7C1EA7EE5F00367FE4 /* SAMatchmaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMatchmaker.m; sourceTree = "<group>"; };
 		29028B7E1EA7EEB600367FE4 /* SAParty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAParty.h; sourceTree = "<group>"; };
 		29028B7F1EA7EEB600367FE4 /* SAParty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAParty.m; sourceTree = "<group>"; };
+		29FF42511EABD8F700304B26 /* SAUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAUser.h; sourceTree = "<group>"; };
+		29FF42521EABD8F700304B26 /* SAUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAUser.m; sourceTree = "<group>"; };
 		7D828BD3FF47E822127BA720 /* libPods-SportsApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SportsApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8406A8D41EA6761500C60267 /* SportsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8406A8D81EA6761500C60267 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -129,6 +132,8 @@
 				29028B7C1EA7EE5F00367FE4 /* SAMatchmaker.m */,
 				29028B7E1EA7EEB600367FE4 /* SAParty.h */,
 				29028B7F1EA7EEB600367FE4 /* SAParty.m */,
+				29FF42511EABD8F700304B26 /* SAUser.h */,
+				29FF42521EABD8F700304B26 /* SAUser.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -298,6 +303,7 @@
 				29028B7D1EA7EE5F00367FE4 /* SAMatchmaker.m in Sources */,
 				847F5E351EA714180091BAE9 /* SAEvent.m in Sources */,
 				8406A8DF1EA6761500C60267 /* SAViewController.m in Sources */,
+				29FF42531EABD8F700304B26 /* SAUser.m in Sources */,
 				8D7A63BA1EAA5A9000418D39 /* SAProfileViewController.m in Sources */,
 				847F5E391EA715170091BAE9 /* SAPerson.m in Sources */,
 				847F5E3E1EA716FA0091BAE9 /* SAMatchMakingViewController.m in Sources */,
