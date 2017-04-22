@@ -16,7 +16,9 @@
 @property (nonatomic) int maxParticipants, minParticipants;
 @property (nonatomic) NSString *activity;
 
-- (void)addPeople:(SAPerson *)person;
+- (void)addPerson:(SAPerson *)person;
+- (void)removePerson:(SAPerson *)person;
+
 - (instancetype) initWithPeople:(NSSet *)people activity:(NSString *)activity maxParticipants:(int)maxParticipants AndminParticipants:(int)minParticipants;
 
 

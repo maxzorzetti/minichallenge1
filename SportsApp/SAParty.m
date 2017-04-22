@@ -14,13 +14,10 @@
 @property (nonatomic) NSMutableSet *privatePeople;
 @end
 
-
-
 @implementation SAParty
 
 
-- (instancetype) initWithPeople:(NSSet *)people activity:(NSString *)activity  maxParticipants:(int)maxParticipants AndminParticipants:(int)minParticipants
-{
+- (instancetype) initWithPeople:(NSSet *)people activity:(NSString *)activity  maxParticipants:(int)maxParticipants AndminParticipants:(int)minParticipants{
     self = [super init];
     if (self) {
         _privatePeople = [[NSMutableSet alloc]initWithSet:people];
@@ -32,8 +29,12 @@
     return self;
 }
 
-- (void)addPeople:(SAPerson *)person{
+- (void)addPerson:(SAPerson *)person{
     [self.privatePeople addObject:person];
+}
+
+- (void)removePerson:(SAPerson *)person{
+	[self.privatePeople removeObject:person];
 }
 
 - (NSSet *)people{
