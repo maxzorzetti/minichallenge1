@@ -6,16 +6,16 @@
 //  Copyright © 2017 Bruno Scheltzke. All rights reserved.
 //
 
-#import "SAMatchmaker.h"
 #import <CloudKit/CloudKit.h>
-#import "SAParty.h"
-#import "SAPerson.h"
+#import "SAMatchmaker.h"
 #import "SAMatchMakerCore.h"
+#import "SAPerson.h"
+#import "SAParty.h"
 
 @implementation SAMatchmaker
 
 + (void)enterMatchmakingWithParty:(SAParty *)party{
-    [SAMatchMakerCore registerPary:party];
+    [SAMatchMakerCore registerParty:party];
 }
 
 + (void)leaveMatchmakingWithParty:(SAParty *)party{

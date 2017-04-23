@@ -11,7 +11,8 @@
 
 @interface SAMatchMakerCore : NSObject
 
-+ (void)registerPary:(SAParty *)party;
+- (void)startMatchmakingForParty:(SAParty *)party;
++ (void)registerParty:(SAParty *)party;
 + (void)removeParty:(SAParty *)party;
 
 @end
