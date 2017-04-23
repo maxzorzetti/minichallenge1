@@ -56,7 +56,7 @@ CKDatabase *publicDatabase;
     
     SAParty *myParty = [[SAParty alloc]initWithPeople:people activity:@"Futebol Salao" maxParticipants:15 AndminParticipants:10];
     
-    [SAMatchmaker enterMatchMakingWithParty:myParty];
+    [SAMatchmaker enterMatchmakingWithParty:myParty];
     
     //send this party information to a webservermethod that returns whether it was attached to another party or made an event out of it
 }

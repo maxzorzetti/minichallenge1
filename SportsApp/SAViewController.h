@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+//#import <FacebookSDK/FacebookSDK.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <CloudKit/CloudKit.h>
 
-@interface SAViewController : UIViewController
 
+
+@interface SAViewController : UIViewController <FBSDKLoginButtonDelegate>
+
+-(void)toggleHiddenState:(BOOL)shouldHide;
 
 @end
 

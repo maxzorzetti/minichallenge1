@@ -26,9 +26,9 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
     // Add any custom logic here.
+    NSLog(@"alllooooo");
     return YES;
 }
-
 
 /*- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

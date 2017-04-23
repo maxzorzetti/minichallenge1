@@ -20,6 +20,8 @@
 @property (nonatomic) NSMutableArray<SAActivity *> *interests;
 @property (nonatomic) NSMutableArray<SAEvent *> *events;
 
+@property (nonatomic) id facebookId;
+
 - (void)addInterest:(SAActivity *)interest;
 - (void)removeInterest:(SAActivity *)interest;
 
