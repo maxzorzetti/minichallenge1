@@ -44,6 +44,7 @@
                 for (id person in [[result objectForKey:@"friends"]objectForKey:@"data"] )
                 {
                     //NSLog(@"%@", [person objectForKey:@"name"]);
+                    //_userInfo.text = [_userInfo.text stringByAppendingString:@"\r"];
                     _userInfo.text = [_userInfo.text stringByAppendingString:[person objectForKey:@"name"]];
                     
                     
@@ -51,6 +52,8 @@
                 
                 NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
                 _profilePhoto.image = [UIImage imageWithData: imageData];
+                
+                
             }
             
             // FBSDKLoginResult.declinedPermissions
