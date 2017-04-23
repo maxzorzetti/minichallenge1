@@ -1,5 +1,5 @@
 //
-//  SAMatchMakerCore.h
+//  SAPersonCore.h
 //  SportsApp
 //
 //  Created by Bruno Scheltzke on 2017-04-23.
@@ -7,11 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-@class SAParty;
+@class SAPerson;
 
-@interface SAMatchMakerCore : NSObject
+@interface SAPersonCore : NSObject
 
-+ (void)registerPary:(SAParty *)party;
-+ (void)removeParty:(SAParty *)party;
++ (void)registerPerson:(SAPerson *)person;
 
 @end
