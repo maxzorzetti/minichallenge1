@@ -38,8 +38,9 @@
              CKDatabase *publicDatabase = [container publicCloudDatabase];
              
              CKRecord *personRecord = [[CKRecord alloc]initWithRecordType:@"SAPerson"];
+             CKRecord *identityRecord = [[CKRecord alloc]initWithRecordType:@"SAIdentity"];
              
-             
+             CKReference *ref = [[CKReference alloc]initWithRecordID:personRecord.recordID action:CKReferenceActionNone];
              
              NSString *userFacebookID = [[FBSDKAccessToken currentAccessToken] userID];
              NSString *userName = [result valueForKey:@"name"];
@@ -47,13 +48,25 @@
              
              personRecord[@"name"] = userName;
              personRecord[@"email"] = userEmail;
-             personRecord[@"facebookId"] = userFacebookID;
+             //personRecord[@"facebookId"] = userFacebookID;
+             
+             identityRecord[@"adapter"] = @"Facebook";
+             identityRecord[@"hash"] = userFacebookID;
+             identityRecord[@"userId"] = ref; //referencia com string ????
+             
              
              [publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
                  if (error) {
                      NSLog(@"Record Party not created. Error: %@", error.description);
                  }
                  NSLog(@"Record Person created");
+             }];
+             
+             [publicDatabase saveRecord:identityRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
+                 if (error) {
+                     NSLog(@"Record Identity not created. Error: %@", error.description);
+                 }
+                 NSLog(@"Record Identity created");
              }];
 
          }
