@@ -6,9 +6,9 @@
 //  Copyright © 2017 Bruno Scheltzke. All rights reserved.
 //
 
-#import "SAPersonCore.h"
+#import "SAPersonDAO.h"
 
-@implementation SAPersonCore
+@implementation SAPersonDAO
 
 
 @end
