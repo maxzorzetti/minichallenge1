@@ -20,6 +20,9 @@
 		847F5E351EA714180091BAE9 /* SAEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E341EA714180091BAE9 /* SAEvent.m */; };
 		847F5E391EA715170091BAE9 /* SAPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E381EA715170091BAE9 /* SAPerson.m */; };
 		847F5E3E1EA716FA0091BAE9 /* SAMatchMakingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E3D1EA716FA0091BAE9 /* SAMatchMakingViewController.m */; };
+		84DC117D1EACF32100A9A90C /* SAActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC117C1EACF32100A9A90C /* SAActivity.m */; };
+		84DC11801EACF3D200A9A90C /* SAMatchMakerCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC117F1EACF3D200A9A90C /* SAMatchMakerCore.m */; };
+		84DC11841EAD00BD00A9A90C /* SAPersonCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC11831EAD00BD00A9A90C /* SAPersonCore.m */; };
 		8D7A63BA1EAA5A9000418D39 /* SAProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7A63B91EAA5A9000418D39 /* SAProfileViewController.m */; };
 		D02D36DC3B0EA2B7089928CB /* libPods-SportsApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D828BD3FF47E822127BA720 /* libPods-SportsApp.a */; };
 /* End PBXBuildFile section */
@@ -51,6 +54,12 @@
 		847F5E381EA715170091BAE9 /* SAPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAPerson.m; sourceTree = "<group>"; };
 		847F5E3C1EA716FA0091BAE9 /* SAMatchMakingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMatchMakingViewController.h; sourceTree = "<group>"; };
 		847F5E3D1EA716FA0091BAE9 /* SAMatchMakingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMatchMakingViewController.m; sourceTree = "<group>"; };
+		84DC117B1EACF32100A9A90C /* SAActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAActivity.h; sourceTree = "<group>"; };
+		84DC117C1EACF32100A9A90C /* SAActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAActivity.m; sourceTree = "<group>"; };
+		84DC117E1EACF3D200A9A90C /* SAMatchMakerCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMatchMakerCore.h; sourceTree = "<group>"; };
+		84DC117F1EACF3D200A9A90C /* SAMatchMakerCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMatchMakerCore.m; sourceTree = "<group>"; };
+		84DC11821EAD00BD00A9A90C /* SAPersonCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAPersonCore.h; sourceTree = "<group>"; };
+		84DC11831EAD00BD00A9A90C /* SAPersonCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAPersonCore.m; sourceTree = "<group>"; };
 		8D7A63B81EAA5A9000418D39 /* SAProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAProfileViewController.h; sourceTree = "<group>"; };
 		8D7A63B91EAA5A9000418D39 /* SAProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAProfileViewController.m; sourceTree = "<group>"; };
 		ECB8D9221E12E0DF893859DE /* Pods-SportsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SportsApp/Pods-SportsApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -99,6 +108,7 @@
 				8406A8E31EA6761500C60267 /* Assets.xcassets */,
 				8406A8E51EA6761500C60267 /* LaunchScreen.storyboard */,
 				8406A8E81EA6761500C60267 /* Info.plist */,
+				84DC11811EACF3DD00A9A90C /* WebService */,
 				8406A8D71EA6761500C60267 /* Supporting Files */,
 			);
 			path = SportsApp;
@@ -134,6 +144,8 @@
 				29028B7F1EA7EEB600367FE4 /* SAParty.m */,
 				29FF42511EABD8F700304B26 /* SAUser.h */,
 				29FF42521EABD8F700304B26 /* SAUser.m */,
+				84DC117B1EACF32100A9A90C /* SAActivity.h */,
+				84DC117C1EACF32100A9A90C /* SAActivity.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -157,6 +169,17 @@
 				8406A8E01EA6761500C60267 /* Main.storyboard */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		84DC11811EACF3DD00A9A90C /* WebService */ = {
+			isa = PBXGroup;
+			children = (
+				84DC117E1EACF3D200A9A90C /* SAMatchMakerCore.h */,
+				84DC117F1EACF3D200A9A90C /* SAMatchMakerCore.m */,
+				84DC11821EAD00BD00A9A90C /* SAPersonCore.h */,
+				84DC11831EAD00BD00A9A90C /* SAPersonCore.m */,
+			);
+			name = WebService;
 			sourceTree = "<group>";
 		};
 		8941D79761B5581575F984D4 /* Pods */ = {
@@ -308,7 +331,10 @@
 				847F5E391EA715170091BAE9 /* SAPerson.m in Sources */,
 				847F5E3E1EA716FA0091BAE9 /* SAMatchMakingViewController.m in Sources */,
 				8406A8DC1EA6761500C60267 /* AppDelegate.m in Sources */,
+				84DC117D1EACF32100A9A90C /* SAActivity.m in Sources */,
 				8406A8D91EA6761500C60267 /* main.m in Sources */,
+				84DC11801EACF3D200A9A90C /* SAMatchMakerCore.m in Sources */,
+				84DC11841EAD00BD00A9A90C /* SAPersonCore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
