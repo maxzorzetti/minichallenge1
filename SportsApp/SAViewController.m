@@ -37,6 +37,7 @@
              CKContainer *container = [CKContainer defaultContainer];
              CKDatabase *publicDatabase = [container publicCloudDatabase];
              
+             ;
              CKRecord *personRecord = [[CKRecord alloc]initWithRecordType:@"SAPerson"];
              CKRecord *identityRecord = [[CKRecord alloc]initWithRecordType:@"SAIdentity"];
              
@@ -44,29 +45,67 @@
              
              NSString *userFacebookID = [[FBSDKAccessToken currentAccessToken] userID];
              NSString *userName = [result valueForKey:@"name"];
-             NSString *userEmail =[result valueForKey:@"email"];
+            NSString *userEmail =[result valueForKey:@"email"];
+           
              
              personRecord[@"name"] = userName;
              personRecord[@"email"] = userEmail;
              //personRecord[@"facebookId"] = userFacebookID;
              
+             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"email = %@", userEmail];
+             CKQuery *query = [[CKQuery alloc] initWithRecordType:@"SAPerson" predicate:predicate];
+             
+             
+             [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
+                 if (error) {
+                     NSLog(@"error: %@",error.localizedDescription);
+                 }
+                 else {
+                     //if (![results firstObject]) {
+                     if ([results count] == 0)
+                     {
+                         [publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
+                             if (error) {
+                                 NSLog(@"Record Party not created. Error: %@", error.description);
+                             }
+                             else
+                                 NSLog(@"Record Person created");
+                         }];
+                     }
+                     else
+                         NSLog(@"pessoa existente");
+                 }
+             }];
+
+             
              identityRecord[@"adapter"] = @"Facebook";
              identityRecord[@"hash"] = userFacebookID;
-             identityRecord[@"userId"] = ref; //referencia com string ????
+             identityRecord[@"userId"] = ref;
              
              
-             [publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
+             NSPredicate *identityPredicate = [NSPredicate predicateWithFormat:@"adapter = %@", identityRecord[@"adapter"]];
+             CKQuery *identityQuery = [[CKQuery alloc] initWithRecordType:@"SAIdentity" predicate:identityPredicate];
+             
+             [publicDatabase performQuery:identityQuery inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error){
                  if (error) {
-                     NSLog(@"Record Party not created. Error: %@", error.description);
+                     NSLog(@"error: %@",error.localizedDescription);
                  }
-                 NSLog(@"Record Person created");
-             }];
+                 else {
+                     if ([results count] == 0)
+                     {
+                         [publicDatabase saveRecord:identityRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
+                             if (error) {
+                                 NSLog(@"Record Identity not created. Error: %@", error.description);
+                             }
+                             else
+                                 NSLog(@"Record Identity created");
+                         }];
+                     }
+                     else
+                         NSLog(@"identity existente");
+                     
+             }
              
-             [publicDatabase saveRecord:identityRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
-                 if (error) {
-                     NSLog(@"Record Identity not created. Error: %@", error.description);
-                 }
-                 NSLog(@"Record Identity created");
              }];
 
          }
