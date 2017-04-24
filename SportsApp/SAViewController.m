@@ -18,9 +18,24 @@
 @interface SAViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *myLabel;
 //@property CKReference *ref;
+
+@property (weak, nonatomic) IBOutlet UITextField *emailField;
+
+@property (weak, nonatomic) IBOutlet UITextField *passwordField;
+
+
+
 @end
 
 @implementation SAViewController 
+
+
+
+
+
+
+
+
 
 -(void) loginButtonDidLogOut:(FBSDKLoginButton *)loginButton{
     
@@ -219,6 +234,11 @@
     [self toggleHiddenState:NO];
 }*/
 
+
+
+
+
+
 -(void)toggleHiddenState:(BOOL)shouldHide{
    // self.lblUsername.hidden = shouldHide;
    // self.lblEmail.hidden = shouldHide;
@@ -240,7 +260,7 @@
         NSLog(@"oioioioioi");
         FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
         // Optional: Place the button in the center of your view.
-        loginButton.center = self.view.center;
+        loginButton.center = ((UIView *)[self.view viewWithTag:1]).center;
         [self.view addSubview:loginButton];
         loginButton.readPermissions =
         @[@"public_profile", @"email", @"user_friends"];
