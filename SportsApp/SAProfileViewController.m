@@ -17,6 +17,11 @@
 @property (weak, nonatomic) IBOutlet UIImageView *profilePhoto;
 @property (weak, nonatomic) IBOutlet UILabel *userInfo;
 
+
+
+
+
+
 @end
 
 @implementation SAProfileViewController
