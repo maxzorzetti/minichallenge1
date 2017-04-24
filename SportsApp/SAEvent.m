@@ -24,6 +24,12 @@
 	[self.privateParticipantsRoles setObject:role forKey:person]; //TODO implement NSCopying
 }
 
+- (void)addParticipants:(NSSet *)participants{
+	for (SAPerson *person in participants) {
+		[self.privateParticipantsRoles setObject:@"None" forKey:person];
+	}
+}
+
 - (void)removeParticipant:(SAPerson *)person{
 	[self.privateParticipantsRoles removeObjectForKey:person];
 }

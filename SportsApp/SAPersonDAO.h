@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 @class SAPerson;
 
-@interface SAPersonCore : NSObject
+@interface SAPersonDAO : NSObject
 
 + (void)registerPerson:(SAPerson *)person;
 

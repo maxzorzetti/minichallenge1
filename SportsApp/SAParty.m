@@ -17,7 +17,7 @@
 @implementation SAParty
 
 
-- (instancetype) initWithPeople:(NSSet *)people activity:(NSString *)activity  maxParticipants:(int)maxParticipants AndminParticipants:(int)minParticipants{
+- (instancetype) initWithPeople:(NSSet *)people activity:(SAActivity *)activity  maxParticipants:(int)maxParticipants AndminParticipants:(int)minParticipants{
     self = [super init];
     if (self) {
         _privatePeople = [[NSMutableSet alloc]initWithSet:people];
