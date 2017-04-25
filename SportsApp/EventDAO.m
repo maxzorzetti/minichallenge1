@@ -12,25 +12,19 @@
 
 @implementation EventDAO
 
-+ (SAEvent *)getEventById:(CKRecordID *)eventId{
++ (void)getEventById:(CKRecordID *)eventId handler:(void (^)(CKRecord * _Nullable record, NSError * _Nullable error))handler{
     CKContainer *container = [CKContainer defaultContainer];
     CKDatabase *publicDatabase = [container publicCloudDatabase];
     
     [publicDatabase fetchRecordWithID:eventId completionHandler:^(CKRecord *eventRecord, NSError *error) {
         if (error) {
             NSLog(@"Error: %@", error.description);
+            handler(nil, error);
         }
         else {
-            SAEvent *event = [[SAEvent alloc]initWithName:eventRecord[@"name"] AndRequiredParticipants:eventRecord[@"minPeople"] AndMaxParticipants:eventRecord[@"maxPeople"] AndActivity:@"FALTA PEGAR A ACTIVITY" andId:eventRecord.recordID andCategory:eventRecord[@"category"] AndSex:eventRecord[@"sex"] AndDates:eventRecord[@"date"]];
-            //return event;
+            handler(eventRecord,error);
         }
     }];
-
-    
-    
-    
-    
-    return nil;
 }
 
 @end

@@ -10,8 +10,8 @@
 #import <UIKit/UIKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import <UNIRest.h>
-#import "FBSDKLoginButton.h"
+//#import <UNIRest.h>
+//#import "FBSDKLoginButton.h"
 //#import "FBLoginView.h"
 
 

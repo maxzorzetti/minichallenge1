@@ -10,8 +10,8 @@
 #import "SAProfileViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import <UNIRest.h>
-#import "FBSDKLoginButton.h"
+//#import <UNIRest.h>
+//#import "FBSDKLoginButton.h"
 
 @interface SAProfileViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *profilePhoto;

@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@class SAEvent;
 @class CKRecordID;
+@class CKRecord;
 
 @interface EventDAO : NSObject
 
-+ (SAEvent *)getEventById:(CKRecordID *)eventId;
++ (void)getEventById:(CKRecordID *_Nonnull)eventId handler:(void (^_Nonnull)(CKRecord * _Nullable record, NSError * _Nullable error))handler;
 
 @end
