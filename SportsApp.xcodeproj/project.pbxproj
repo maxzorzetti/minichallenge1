@@ -479,6 +479,7 @@
 				DEVELOPMENT_TEAM = M3PUPH2NBH;
 				FRAMEWORK_SEARCH_PATHS = "~/Documents/FacebookSDK";
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = SportsApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -498,6 +499,7 @@
 				DEVELOPMENT_TEAM = M3PUPH2NBH;
 				FRAMEWORK_SEARCH_PATHS = "~/Documents/FacebookSDK";
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = SportsApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

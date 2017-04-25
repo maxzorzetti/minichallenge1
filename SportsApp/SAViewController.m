@@ -7,9 +7,9 @@
 //
 
 #import "SAViewController.h"
-#import <UIKit/UIKit.h>
+//#import <UIKit/UIKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
+//#import <FBSDKLoginKit/FBSDKLoginKit.h>
 //#import <UNIRest.h>
 //#import "FBSDKLoginButton.h"
 //#import "FBLoginView.h"
@@ -18,19 +18,169 @@
 @interface SAViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *myLabel;
 //@property CKReference *ref;
+@property (weak, nonatomic) IBOutlet UITextField *firstNameField;
 
-@property (weak, nonatomic) IBOutlet UITextField *emailField;
+
+
+
+
+
+@property (weak, nonatomic) IBOutlet UITextField *lastNameField;
 
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
 
+@property (weak, nonatomic) IBOutlet UITextField *answer1;
+
+@property (weak, nonatomic) IBOutlet UITextField *answer2;
+
+
+@property NSString *firstName;
+@property NSString *lastName;
+@property NSString *fullName;
+@property NSString *answer;
+
+@property int questionNumber; //POR QUE ID
+
+@property NSArray <NSString *> *securityQuestions;
+
 
 @end
 
-@implementation SAViewController 
+@implementation SAViewController
 
 
 
+- (IBAction)logInButtonPressed:(UIButton *)sender {
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}
+
+
+
+
+
+
+
+
+
+- (IBAction)finishedSignIn:(UIButton *)sender {
+    
+    _answer = [[NSString alloc] initWithString:  _answer1.text];
+}
+
+
+
+
+- (IBAction)question1Chosen:(UIButton *)sender {
+    
+    _questionNumber = 1;
+    
+}
+
+- (IBAction)question2Chosen:(UIButton *)sender {
+    
+    
+    _questionNumber = 2;
+    
+}
+
+- (IBAction)signInButtonPressed:(UIButton *)sender {
+    
+    _questionNumber = 0;
+    _answer = nil;
+    
+    _firstName = [NSString stringWithFormat:@"%@", _firstNameField.text];
+    _lastName = [NSString stringWithFormat:@"%@", _lastNameField.text];
+    
+    _fullName = [NSString stringWithFormat:@"%@ %@", _firstName, _lastName];
+    
+    
+    CKContainer *container = [CKContainer defaultContainer];
+    CKDatabase *publicDatabase = [container publicCloudDatabase];
+    
+    CKRecord *personRecord = [[CKRecord alloc]initWithRecordType:@"SAPerson"];
+    CKRecord *identityRecord = [[CKRecord alloc]initWithRecordType:@"SAIdentity"];
+    
+    personRecord[@"name"] = _fullName;
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name = %@", _fullName];
+    CKQuery *query = [[CKQuery alloc] initWithRecordType:@"SAPerson" predicate:predicate];
+    
+    
+    identityRecord[@"adapter"] = @"appLogin";
+    identityRecord[@"hash"] = _passwordField.text;
+    
+    
+    [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
+        if (error) {
+            NSLog(@"error: %@",error.localizedDescription);
+        }
+        else {
+            //if (![results firstObject]) {
+            if ([results count] == 0) //nao tem registro com aquele nome
+            {
+                while ( !(_questionNumber  &&  _answer))
+                {
+                    //NSLog(@"chose!");
+                    
+                }
+                
+                //[personRecord[@"questions"] addObject:_questionNumber];
+                //[personRecord[@"answers"] addObject: _answer];
+                
+                [personRecord setObject:[NSNumber numberWithInt:_questionNumber] forKey:@"questions"];
+                [personRecord setObject:_answer forKey:@"answer"];
+                
+                //         [personRecord[@"answers"] addObject:_questionNumber];
+                
+                
+                
+                
+                
+                
+                
+                [publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
+                    if (error) {
+                        NSLog(@"Record Party not created. Error: %@", error.description);
+                    }
+                    else{
+                        CKReference *ref = [[CKReference alloc]initWithRecordID:personRecord.recordID action:CKReferenceActionNone];
+                        identityRecord[@"userId"] = ref;
+                        
+                        NSLog(@"Record Person created");
+                        [publicDatabase saveRecord:identityRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
+                            if (error) {
+                                NSLog(@"Record Identity not created. Error: %@", error.description);
+                            }
+                            else
+                                NSLog(@"Record Identity created. New person in the app.");
+                            
+                            
+                            
+                            
+                            
+                            
+                        }];
+                    }
+                    
+                }];
+            }
+            else{
+                NSLog(@"This username already exists");
+                
+            }
+        }
+    }];
+    
+}
 
 
 
@@ -52,7 +202,7 @@
              CKContainer *container = [CKContainer defaultContainer];
              CKDatabase *publicDatabase = [container publicCloudDatabase];
              
-             ;
+             
              CKRecord *personRecord = [[CKRecord alloc]initWithRecordType:@"SAPerson"];
              CKRecord *identityRecord = [[CKRecord alloc]initWithRecordType:@"SAIdentity"];
              
@@ -60,11 +210,11 @@
              NSString *userFacebookID = [[FBSDKAccessToken currentAccessToken] userID];
              NSString *userName = [result valueForKey:@"name"];
              NSString *userEmail =[result valueForKey:@"email"];
-           
+             
              
              personRecord[@"name"] = userName;
              personRecord[@"email"] = userEmail;
-             personRecord[@"facebookId"] = userFacebookID;
+             //personRecord[@"facebookId"] = userFacebookID;
              
              NSPredicate *predicate = [NSPredicate predicateWithFormat:@"email = %@", userEmail];
              CKQuery *query = [[CKQuery alloc] initWithRecordType:@"SAPerson" predicate:predicate];
@@ -72,9 +222,9 @@
              
              identityRecord[@"adapter"] = @"Facebook";
              identityRecord[@"hash"] = userFacebookID;
-              //mexer
-
-            CKRecord *user;
+             //mexer
+             
+             // CKRecord *user;
              
              
              [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
@@ -101,7 +251,7 @@
                                      else
                                          NSLog(@"Record Identity created. New person in the app.");
                                  }];
-                                
+                                 
                                  
                                  
                                  
@@ -118,10 +268,10 @@
                          // Equivalent ways to get a value.
                          id value = [[results firstObject] objectForKey:@"recordID"];
                          value = [results firstObject][@"recordID"];
-                        //user = [results firstObject];
-                        // _ref = [[CKReference alloc]initWithRecordID:user.recordID action:CKReferenceActionNone];
+                         //user = [results firstObject];
+                         // _ref = [[CKReference alloc]initWithRecordID:user.recordID action:CKReferenceActionNone];
                          //[self ref] = ref2;
-                      //   CKReference *ref2 = [[CKReference alloc]initWithRecordID:user.recordID action:CKReferenceActionNone];
+                         //   CKReference *ref2 = [[CKReference alloc]initWithRecordID:user.recordID action:CKReferenceActionNone];
                          
                          //user.adapter;
                          
@@ -132,48 +282,15 @@
                          NSPredicate *adapterPredicate = [NSPredicate predicateWithFormat:@"adapter = %@", identityRecord[@"adapter"]];
                          CKQuery *adapterQuery = [[CKQuery alloc] initWithRecordType:@"SAIdentity" predicate:adapterPredicate];
                          
-
+                         
                          
                          [publicDatabase performQuery:useridQuery inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error){
                              if (error) {
                                  NSLog(@"error: %@",error.localizedDescription);
                              }
                              else {
-//                                 if ([results count] == 0)
-//                                 {
-//                                     [publicDatabase saveRecord:identityRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
-//                                         if (error) {
-//                                             NSLog(@"Record Identity not created. Error: %@", error.description);
-//                                         }
-//                                         else
-//                                             NSLog(@"Record Identity created.");
-//                                     }];
-//                                 }
-                                 //else
-                                // {
-                                     NSLog(@"userId already exists");
-//                                     
-//                                     [publicDatabase performQuery:adapterQuery inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error){
-//                                         if (error) {
-//                                             NSLog(@"error: %@",error.localizedDescription);
-//                                         }
-//                                         else {
-//                                             if ([results count] == 0)
-//                                             {
-//                                                 [publicDatabase saveRecord:identityRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
-//                                                     if (error) {
-//                                                         NSLog(@"Record Identity not created. Error: %@", error.description);
-//                                                     }
-//                                                     else
-//                                                         NSLog(@"Record Identity created. New person using facebook.");
-//                                                 }];
-//                                             }
-//                                             else
-//                                                 NSLog(@"This person already uses facebook as login");
-//                                             
-//                                         }
-//                                         
-//                                     }];
+                                 NSLog(@"userId already exists");
+                                 
                                  
                                  int flag=0;
                                  
@@ -189,22 +306,22 @@
                                  if (!flag)
                                  {
                                      [publicDatabase saveRecord:identityRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
-                                                                                              if (error) {
-                                                                                                  NSLog(@"Record Identity not created. Error: %@", error.description);
-                                                                                              }
-                                                                                              else
-                                                                                                  NSLog(@"Record Identity created. New person using facebook.");
-                                                                                          }];
+                                         if (error) {
+                                             NSLog(@"Record Identity not created. Error: %@", error.description);
+                                         }
+                                         else
+                                             NSLog(@"Record Identity created. New person using facebook.");
+                                     }];
                                      
                                  }
-                                     
-                                     
-                                // }
+                                 
+                                 
+                                 
                                  
                              }
                              
                          }];
-
+                         
                          
                          
                          
@@ -215,7 +332,7 @@
              
              
              
-            
+             
              
              
              
@@ -229,10 +346,10 @@
 }
 
 /*-(void)loginViewShowingLoggedInUser:(FBLoginView *)loginView{
-    //self.lblLoginStatus.text = @"You are logged in.";
-    
-    [self toggleHiddenState:NO];
-}*/
+ //self.lblLoginStatus.text = @"You are logged in.";
+ 
+ [self toggleHiddenState:NO];
+ }*/
 
 
 
@@ -240,8 +357,8 @@
 
 
 -(void)toggleHiddenState:(BOOL)shouldHide{
-   // self.lblUsername.hidden = shouldHide;
-   // self.lblEmail.hidden = shouldHide;
+    // self.lblUsername.hidden = shouldHide;
+    // self.lblEmail.hidden = shouldHide;
     //self.profilePicture.hidden = shouldHide;
 }
 
@@ -272,13 +389,13 @@
     //se nao, pede pra ele!
     else
     {
-       
+        
         
         NSLog(@"lallallala");
         
         
-       // [self performSegueWithIdentifier:@"mySegue" sender:self];
-   // NSLog(@"user logged");
+        // [self performSegueWithIdentifier:@"mySegue" sender:self];
+        // NSLog(@"user logged");
     }
     
     // FBSDKLoginResult.declinedPermissions
