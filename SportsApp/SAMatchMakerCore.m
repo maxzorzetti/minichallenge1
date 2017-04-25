@@ -9,6 +9,7 @@
 #import <CloudKit/CloudKit.h>
 #import "SAActivity.h"
 #import "SAEvent.h"
+#import "SAEventDAO.h"
 #import "SAMatchMakerCore.h"
 #import "SAPerson.h"
 #import "SAParty.h"
@@ -24,24 +25,22 @@
 @implementation SAMatchMakerCore
 
 - (void)startMatchmakingForParty:(SAParty *)party{ //return event?
-	
-	NSArray* eventQueue = [self getEventQueue];
-	
-	SAEvent* compatibleEvent = nil;
-	for (SAEvent *event in eventQueue) {
-		if ([self matchParty:party withEvent:event]) {
-			compatibleEvent = event;
-			break;
+	[self getEventQueueForActivity:party.activity completionHandler:^(NSArray<SAEvent *> *events, NSError *error){
+		
+		SAEvent * compatibleEvent = nil;
+		for (SAEvent *event in events){
+			if ([self matchParty:party withEvent:event]){
+				compatibleEvent = event;
+				break;
+			}
 		}
-	}
-	
-	if (compatibleEvent == nil) {
-		compatibleEvent = [self createEventForParty:party];
-	} else {
-		[compatibleEvent addParticipants:party.people];
-	}
-	
-	[self updateEvent: compatibleEvent];
+		
+		if (compatibleEvent == nil) compatibleEvent = [self createEventForParty:party];
+		else [compatibleEvent addParticipants:party.people];
+		
+		[self updateEvent:compatibleEvent];
+		
+	}];
 }
 
 - (BOOL)matchParty:(SAParty *)party withEvent:(SAEvent *)event{
@@ -64,18 +63,25 @@
 }
 
 - (void)updateEvent:(SAEvent *)event{
+	SAEventDAO *eventDAO =  [SAEventDAO new];
+	//[eventDAO save: event];
 	//send event to cloudkit
 }
 
-- (NSArray<SAEvent *> *)getEventQueue{
-	NSArray* events /*get all joinable events from server, filter by activity if possible*/;
-	
-	NSArray* eventQueue = [events sortedArrayUsingComparator:^NSComparisonResult(SAEvent* _Nonnull event1, SAEvent*  _Nonnull event2) {
-		if (event1.participants.count > event2.participants.count) return NSOrderedAscending;
-		else return NSOrderedDescending;
+- (void)getEventQueueForActivity:(SAActivity *)activity completionHandler: (void (^)(NSArray<SAEvent *> *, NSError *))handler{
+	SAEventDAO *eventDAO = [SAEventDAO new];
+	[eventDAO getAvailableEventsOfActivity:activity completionHandler:^(NSArray *events, NSError *error) {
+		if (!error) {
+			NSArray* eventQueue = [events sortedArrayUsingComparator:^NSComparisonResult(SAEvent* _Nonnull event1, SAEvent*  _Nonnull event2) {
+				if (event1.participants.count > event2.participants.count) return NSOrderedAscending;
+				else return NSOrderedDescending;
+			}];
+			
+			handler(eventQueue, error);
+		} else {
+			NSLog(@"Error on %s", __PRETTY_FUNCTION__);
+		}
 	}];
-	
-	return eventQueue;
 }
 
 + (void)registerParty:(SAParty *)party{
