@@ -8,14 +8,15 @@
 
 #import "SAEventConnector.h"
 #import "SAEvent.h"
-#import "EventDAO.h"
+#import "SAEventDAO.h"
 #import <CloudKit/CloudKit.h>
 
 
 @implementation SAEventConnector
 
 + (void)getEventById:(CKRecordID *)eventId handler:(void (^)(SAEvent * _Nullable event, NSError * _Nullable error))handler{
-    [EventDAO getEventById:(eventId) handler:^(CKRecord * eventRecord, NSError * erro) {
+	SAEventDAO *eventDAO = [SAEventDAO new];
+    [eventDAO getEventById:(eventId) handler:^(CKRecord * eventRecord, NSError * erro) {
         if(erro){
             NSLog(@"%@", erro.description);
             handler(nil, erro);

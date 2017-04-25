@@ -17,7 +17,7 @@
 		8406A8E41EA6761500C60267 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8406A8E31EA6761500C60267 /* Assets.xcassets */; };
 		8406A8E71EA6761500C60267 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8406A8E51EA6761500C60267 /* LaunchScreen.storyboard */; };
 		8406A8F11EA6763900C60267 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8406A8F01EA6763900C60267 /* CloudKit.framework */; };
-		842B42591EAF67EA0096BD37 /* EventDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 842B42581EAF67EA0096BD37 /* EventDAO.m */; };
+		842B42591EAF67EA0096BD37 /* SAEventDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 842B42581EAF67EA0096BD37 /* SAEventDAO.m */; };
 		842B42601EAF7BEA0096BD37 /* SAEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842B425F1EAF7BEA0096BD37 /* SAEventViewController.m */; };
 		842B42631EAF7C400096BD37 /* SAEventConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 842B42621EAF7C400096BD37 /* SAEventConnector.m */; };
 		847F5E351EA714180091BAE9 /* SAEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E341EA714180091BAE9 /* SAEvent.m */; };
@@ -51,8 +51,8 @@
 		8406A8E81EA6761500C60267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8406A8EE1EA6763600C60267 /* SportsApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SportsApp.entitlements; sourceTree = "<group>"; };
 		8406A8F01EA6763900C60267 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		842B42581EAF67EA0096BD37 /* EventDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDAO.m; sourceTree = "<group>"; };
-		842B425A1EAF67F10096BD37 /* EventDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDAO.h; sourceTree = "<group>"; };
+		842B42581EAF67EA0096BD37 /* SAEventDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEventDAO.m; sourceTree = "<group>"; };
+		842B425A1EAF67F10096BD37 /* SAEventDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEventDAO.h; sourceTree = "<group>"; };
 		842B425E1EAF7BEA0096BD37 /* SAEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEventViewController.h; sourceTree = "<group>"; };
 		842B425F1EAF7BEA0096BD37 /* SAEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEventViewController.m; sourceTree = "<group>"; };
 		842B42611EAF7C400096BD37 /* SAEventConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEventConnector.h; sourceTree = "<group>"; };
@@ -187,8 +187,8 @@
 		84DC11811EACF3DD00A9A90C /* WebService */ = {
 			isa = PBXGroup;
 			children = (
-				842B425A1EAF67F10096BD37 /* EventDAO.h */,
-				842B42581EAF67EA0096BD37 /* EventDAO.m */,
+				842B425A1EAF67F10096BD37 /* SAEventDAO.h */,
+				842B42581EAF67EA0096BD37 /* SAEventDAO.m */,
 				84DC117E1EACF3D200A9A90C /* SAMatchMakerCore.h */,
 				84DC117F1EACF3D200A9A90C /* SAMatchMakerCore.m */,
 				84DC11821EAD00BD00A9A90C /* SAPersonDAO.h */,
@@ -352,7 +352,7 @@
 				84DC11801EACF3D200A9A90C /* SAMatchMakerCore.m in Sources */,
 				84DC11841EAD00BD00A9A90C /* SAPersonDAO.m in Sources */,
 				842B42631EAF7C400096BD37 /* SAEventConnector.m in Sources */,
-				842B42591EAF67EA0096BD37 /* EventDAO.m in Sources */,
+				842B42591EAF67EA0096BD37 /* SAEventDAO.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
