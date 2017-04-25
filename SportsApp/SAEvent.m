@@ -15,6 +15,23 @@
 
 @implementation SAEvent
 
+
+- (instancetype)initWithName:(NSString *)name AndRequiredParticipants:(int)requiredParticipants AndMaxParticipants:(int)maxParticipants AndActivity:(SAActivity *)activity andId:(CKRecordID *)eventId andCategory:(NSString *)category AndSex:(NSString *)sex AndDates:(NSArray *)dates
+{
+    self = [super init];
+    if (self) {
+        _name = name;
+        _requiredParticipants = requiredParticipants;
+        _maxParticipants = maxParticipants;
+        _activity = activity;
+        _eventId = eventId;
+        _category = category;
+        _sex = sex;
+        _dates = dates;
+    }
+    return self;
+}
+
 - (NSSet<SAPerson *> *)participants {
 	NSSet* participants = [[NSSet alloc] initWithArray: self.participantsRoles.allKeys];
 	return [participants copy];
@@ -34,8 +51,10 @@
 	[self.privateParticipantsRoles removeObjectForKey:person];
 }
 
+
 - (NSString *)getParticipantRole:(SAPerson *)person{
-	return [[self.participantsRoles objectForKey:person] copy];
+    return nil;
 }
+
 
 @end
