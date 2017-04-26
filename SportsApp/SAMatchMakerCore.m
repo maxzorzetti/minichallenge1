@@ -50,12 +50,17 @@
 
 	if (party.people.count + event.participants.count > event.activity.maximumPeople) return NO;
 	
+	if (![party.dates containsObject:event.date]) return NO;
+	
 	return YES;
 }
 
 - (SAEvent *)createEventForParty:(SAParty *)party{
 	SAEvent* event = [SAEvent new];
-	event.activity = [party.activity copy];
+	NSSortDescriptor *dateDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeIntervalSinceReferenceDate" ascending:YES];
+	event.activity =  nil;//[party.activity copy];
+	event.name = party.activity.name;
+	event.date = [party.dates sortedArrayUsingDescriptors:@[dateDescriptor]][0];
 	event.maxParticipants = party.maxParticipants;
 	event.requiredParticipants = party.minParticipants;
 	[event addParticipants:party.people];

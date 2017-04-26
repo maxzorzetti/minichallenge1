@@ -36,9 +36,9 @@ CKDatabase *publicDatabase;
     NSMutableSet *people;
     
     
-    SAParty *myParty = [[SAParty alloc]initWithPeople:people date:[NSDate date]activity:@"Futebol Salao" maxParticipants:15 AndminParticipants:10];
+    //SAParty *myParty = [[SAParty alloc]initWithPeople:people date:[NSDate date] activity:@"Futebol Salao" maxParticipants:15 AndminParticipants:10];
     
-    [SAMatchmaker enterMatchmakingWithParty:myParty];
+    //[SAMatchmaker enterMatchmakingWithParty:myParty];
     
     //send this party information to a webservermethod that returns whether it was attached to another party or made an event out of it
 }

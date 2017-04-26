@@ -63,7 +63,7 @@
         if (!error) {
             for (CKRecord *recordEvent in events) {
                 SAEvent *event = [self getEventFromRecord:recordEvent];
-                [eventsFromRecord addObject:events];
+                [eventsFromRecord addObject:event];
             }
         }
         handler(eventsFromRecord, error);
@@ -72,7 +72,7 @@
 
 
 + (SAEvent *)getEventFromRecord:(CKRecord *)event{
-    SAEvent *eventFromRecord = [[SAEvent alloc]initWithName:event[@"name"] andRequiredParticipants:event[@"minPeople"] andMaxParticipants:event[@"maxPeople"] andActivity:@"FALTA PEGAR A ACTIVITY" andId:event.recordID andCategory:event[@"category"] andSex:event[@"sex"] andDate:event[@"date"]];
+    SAEvent *eventFromRecord = [[SAEvent alloc]initWithName:event[@"name"] andRequiredParticipants:(int)event[@"minPeople"] andMaxParticipants:(int)event[@"maxPeople"] andActivity:nil andId:event.recordID andCategory:event[@"category"] andSex:event[@"sex"] andDate:event[@"date"]];
     
     return eventFromRecord;
 }

@@ -17,14 +17,14 @@
 @implementation SAParty
 
 
-- (instancetype) initWithPeople:(NSSet *)people date:(NSDate *)date activity:(SAActivity *)activity  maxParticipants:(int)maxParticipants AndminParticipants:(int)minParticipants{
+- (instancetype) initWithPeople:(NSSet *)people dates:(NSSet<NSDate *> *)dates activity:(SAActivity *)activity  maxParticipants:(int)maxParticipants AndminParticipants:(int)minParticipants{
     self = [super init];
     if (self) {
         _privatePeople = [[NSMutableSet alloc]initWithSet:people];
         _maxParticipants = maxParticipants;
         _minParticipants = minParticipants;
         _activity = activity;
-        _date = date;
+        _dates = dates;
     }
     return self;
 }

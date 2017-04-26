@@ -16,12 +16,12 @@
 @property (nonatomic, readonly) NSSet *people;
 @property (nonatomic) int maxParticipants, minParticipants;
 @property (nonatomic) SAActivity *activity;
-@property (nonatomic) NSDate *date;
+@property (nonatomic) NSSet<NSDate *> *dates;
 
 - (void)addPerson:(SAPerson *)person;
 - (void)removePerson:(SAPerson *)person;
 
-- (instancetype) initWithPeople:(NSSet *)people date:(NSDate *)date activity:(SAActivity *)activity maxParticipants:(int)maxParticipants AndminParticipants:(int)minParticipants;
+- (instancetype) initWithPeople:(NSSet *)people dates:(NSSet<NSDate *> *)dates activity:(SAActivity *)activity maxParticipants:(int)maxParticipants AndminParticipants:(int)minParticipants;
 
 
 @end
