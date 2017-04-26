@@ -49,7 +49,10 @@ CKDatabase *publicDatabase;
     CGFloat distanceAllowed = proximity;
     
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K IN %@ AND distanceToLocation:fromLocation:(location, %@) < %f AND %K BETWEEN %@ AND %@", @"activity", interestedReferencedActivities, usersLocation, distanceAllowed, @"date", now, oneDayFromNow];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K IN %@ AND distanceToLocation:fromLocation:(location, %@) < %f AND %K > %@ AND %K <%@", @"activity", interestedReferencedActivities, usersLocation, distanceAllowed, @"date", now, @"date", oneDayFromNow];
+    
+    //"%K IN %@ AND distanceToLocation:fromLocation:(location, %@) < %f AND %K BETWEEN %@ AND %@"
+    //@"activity", interestedReferencedActivities, usersLocation, distanceAllowed, @"date", now, oneDayFromNow
     
     CKQuery *query = [[CKQuery alloc]initWithRecordType:@"Event" predicate:predicate];
     
@@ -85,6 +88,10 @@ CKDatabase *publicDatabase;
 	}];
 	
 }
+
+
+
+
 
 - (void)connectToPublicDatabase{
 	if (container == nil) container = [CKContainer defaultContainer];

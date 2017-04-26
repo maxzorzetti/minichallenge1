@@ -23,6 +23,6 @@
 
 - (void)getNext24hoursInterestedEventsWithActivities:(NSArray<CKReference *>*_Nonnull)interestedReferencedActivities AndCurrentLocation:(CLLocation *_Nonnull)usersLocation andDistanceInMeters:(int)proximity handler:(void (^_Nonnull)(NSArray<CKRecord *>* _Nullable events, NSError * _Nullable error))handler;
 
-- (void)saveEvent:(SAEvent *)event;
+- (void)saveEvent:(SAEvent *_Nonnull)event;
 
 @end

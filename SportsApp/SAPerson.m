@@ -26,4 +26,18 @@
 	
 }
 
+
+- (instancetype)initWithName:(NSString *)name personId:(CKRecordID *)personId email:(NSString *)email telephone:(NSString *)telephone andEvents:(NSArray<SAEvent *> *)events
+{
+    self = [super init];
+    if (self) {
+        _name = name;
+        _personId = personId;
+        _email = email;
+        _telephone = telephone;
+        _events = [[NSMutableArray alloc]initWithArray:events];
+    }
+    return self;
+}
+
 @end

@@ -13,7 +13,7 @@
 
 @interface SAPerson : NSObject
 
-@property (nonatomic, readonly) CKRecordID *id;
+@property (nonatomic, readonly) CKRecordID *personId;
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSString *email;
 @property (nonatomic) NSString *telephone;
@@ -27,5 +27,8 @@
 
 - (void)addEvent:(SAEvent *)event;
 - (void)removeEvent:(SAEvent *)event;
+
+- (instancetype)initWithName:(NSString *)name personId:(CKRecordID *)personId email:(NSString *)email telephone:(NSString *)telephone andEvents:(NSArray<SAEvent *> *)events;
+
 
 @end

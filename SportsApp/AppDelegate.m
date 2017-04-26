@@ -12,6 +12,8 @@
 #import "SAActivityConnector.h"
 #import "SAActivity.h"
 #import "SAEvent.h"
+#import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface AppDelegate ()
 
@@ -30,7 +32,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
     // Add any custom logic here.
-    NSLog(@"alllooooo");
 
     
     
@@ -62,6 +63,35 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 //            }
 //        }
 //    }];
+    
+    
+    
+    [SAActivityConnector getAllActivities:^(NSArray * _Nullable activities, NSError * _Nullable error) {
+        if (!error) {
+            
+            CLLocation *fixedLoc = [[CLLocation alloc] initWithLatitude:-30.033285 longitude:-51.213884];
+            
+            [SAEventConnector getComingEventsBasedOnFavoriteActivities:activities AndCurrentLocation:fixedLoc AndRadiusOfDistanceDesiredInMeters:100 handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
+                if(!error){
+                    for (SAEvent *event in events) {
+                        NSLog(@"Saca!!!! %@", event.name);
+                    }
+                }else{
+                    NSLog(@"Error pra buscar eventos, sente: %@", error.description);
+                }
+            }];
+        }else{
+            NSLog(@"Error pra buscar activity, sente: %@", error.description);
+        }
+    }];
+    
+    
+    
+    
+    
+    
+    
+    
     
     return YES;
 }

@@ -25,6 +25,7 @@
 		847F5E3E1EA716FA0091BAE9 /* SAMatchMakingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E3D1EA716FA0091BAE9 /* SAMatchMakingViewController.m */; };
 		849AC2141EB012B800A7BD22 /* SAActivityDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 849AC2131EB012B800A7BD22 /* SAActivityDAO.m */; };
 		849AC2171EB012C600A7BD22 /* SAActivityConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 849AC2161EB012C600A7BD22 /* SAActivityConnector.m */; };
+		84CBE4691EB152EA00ACD0DF /* SAPersonConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CBE4681EB152EA00ACD0DF /* SAPersonConnector.m */; };
 		84DC117D1EACF32100A9A90C /* SAActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC117C1EACF32100A9A90C /* SAActivity.m */; };
 		84DC11801EACF3D200A9A90C /* SAMatchMakerCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC117F1EACF3D200A9A90C /* SAMatchMakerCore.m */; };
 		84DC11841EAD00BD00A9A90C /* SAPersonDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC11831EAD00BD00A9A90C /* SAPersonDAO.m */; };
@@ -74,6 +75,8 @@
 		849AC2131EB012B800A7BD22 /* SAActivityDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAActivityDAO.m; sourceTree = "<group>"; };
 		849AC2151EB012C600A7BD22 /* SAActivityConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAActivityConnector.h; sourceTree = "<group>"; };
 		849AC2161EB012C600A7BD22 /* SAActivityConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAActivityConnector.m; sourceTree = "<group>"; };
+		84CBE4671EB152EA00ACD0DF /* SAPersonConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAPersonConnector.h; sourceTree = "<group>"; };
+		84CBE4681EB152EA00ACD0DF /* SAPersonConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAPersonConnector.m; sourceTree = "<group>"; };
 		84DC117B1EACF32100A9A90C /* SAActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAActivity.h; sourceTree = "<group>"; };
 		84DC117C1EACF32100A9A90C /* SAActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAActivity.m; sourceTree = "<group>"; };
 		84DC117E1EACF3D200A9A90C /* SAMatchMakerCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMatchMakerCore.h; sourceTree = "<group>"; };
@@ -219,6 +222,8 @@
 				849AC2161EB012C600A7BD22 /* SAActivityConnector.m */,
 				842B42611EAF7C400096BD37 /* SAEventConnector.h */,
 				842B42621EAF7C400096BD37 /* SAEventConnector.m */,
+				84CBE4671EB152EA00ACD0DF /* SAPersonConnector.h */,
+				84CBE4681EB152EA00ACD0DF /* SAPersonConnector.m */,
 			);
 			name = Connectors;
 			sourceTree = "<group>";
@@ -388,6 +393,7 @@
 				8406A8DF1EA6761500C60267 /* SAViewController.m in Sources */,
 				29FF42531EABD8F700304B26 /* SAUser.m in Sources */,
 				8D7A63BA1EAA5A9000418D39 /* SAProfileViewController.m in Sources */,
+				84CBE4691EB152EA00ACD0DF /* SAPersonConnector.m in Sources */,
 				847F5E391EA715170091BAE9 /* SAPerson.m in Sources */,
 				847F5E3E1EA716FA0091BAE9 /* SAMatchMakingViewController.m in Sources */,
 				849AC2171EB012C600A7BD22 /* SAActivityConnector.m in Sources */,

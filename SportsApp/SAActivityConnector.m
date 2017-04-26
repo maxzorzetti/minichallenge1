@@ -23,7 +23,7 @@
         }else{
             NSMutableArray *arrayOfActivities = [NSMutableArray new];
             for (CKRecord *activity in activities) {
-                SAActivity *activityFromRecord = [[SAActivity alloc]initWithName:activity[@"name"] minimumPeople:activity[@"minimumPeople"] maximumPeople:activity[@"maximumPeople"] AndActivityId:activity.recordID];
+                SAActivity *activityFromRecord = [self activityFromRecord:activity];
                 [arrayOfActivities addObject:activityFromRecord];
             }
             handler(arrayOfActivities, nil);
@@ -44,7 +44,7 @@
 
 
 + (SAActivity *)activityFromRecord:(CKRecord *)activityRecord{
-    SAActivity *activity = [[SAActivity alloc]initWithName:activityRecord[@"name"] minimumPeople:activityRecord[@"minimumPeople"] maximumPeople:activityRecord[@"maximumPeople"] AndActivityId:activityRecord.recordID];
+    SAActivity *activity = [[SAActivity alloc]initWithName:activityRecord[@"name"] minimumPeople:(int)activityRecord[@"minimumPeople"] maximumPeople:(int)activityRecord[@"maximumPeople"] AndActivityId:activityRecord.recordID];
     return activity;
 }
 
