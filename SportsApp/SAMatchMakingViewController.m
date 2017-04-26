@@ -23,24 +23,6 @@ CKDatabase *publicDatabase;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    myContainer = [CKContainer defaultContainer];
-    publicDatabase = [myContainer publicCloudDatabase];
-    
-    //Fetch activity options and populates the activity selection component
-    NSPredicate *anyPredicate = [NSPredicate predicateWithValue:YES];
-    CKQuery *activitiesQuery = [[CKQuery alloc]initWithRecordType:@"SAActivity" predicate:anyPredicate];
-    [publicDatabase performQuery:activitiesQuery inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
-        if (error) {
-            // Error handling for failed fetch from public database
-            NSLog(@"%@", error.description);
-        }
-        else {
-            for (CKRecord *activity in results) {
-                NSLog(@"%@", activity[@"name"]);
-                //TODO populate the activities selection component
-            }
-        }
-    }];
 }
 
 - (void)didReceiveMemoryWarning {
