@@ -29,8 +29,24 @@
             handler(arrayOfActivities, nil);
         }
     }];
-    
-    
 }
+
++ (void)getActivityById:(CKRecordID *)activityId handler:(void (^)(SAActivity * _Nullable, NSError * _Nullable))handler{
+    SAActivityDAO *activityDAO = [SAActivityDAO new];
+    [activityDAO getActivityByActivityId:activityId handler:^(CKRecord * _Nullable activityRecord, NSError * _Nullable error) {
+        SAActivity *activity = [SAActivity new];
+        if (!error) {
+            activity = [self activityFromRecord:activityRecord];
+        }
+        handler(activity, nil);
+    }];
+}
+
+
++ (SAActivity *)activityFromRecord:(CKRecord *)activityRecord{
+    SAActivity *activity = [[SAActivity alloc]initWithName:activityRecord[@"name"] minimumPeople:activityRecord[@"minimumPeople"] maximumPeople:activityRecord[@"maximumPeople"] AndActivityId:activityRecord.recordID];
+    return activity;
+}
+
 
 @end

@@ -23,6 +23,17 @@ CKDatabase *publicDatabase;
     [publicDatabase performQuery:activitiesQuery inZoneWithID:nil completionHandler:handler];
 }
 
+
+- (void)getActivityByActivityId:(CKRecordID *_Nonnull)activityId handler:(void (^_Nonnull)(CKRecord *_Nullable, NSError *_Nullable))handler{
+    [self connectToPublicDatabase];
+    
+    [publicDatabase fetchRecordWithID:activityId completionHandler:^(CKRecord *activityRecord, NSError *error) {
+        handler(activityRecord, error);
+    }];
+}
+
+
+
 - (void)connectToPublicDatabase{
     if (container == nil) container = [CKContainer defaultContainer];
     if (publicDatabase == nil) publicDatabase = [container publicCloudDatabase];

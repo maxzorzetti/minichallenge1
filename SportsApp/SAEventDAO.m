@@ -21,13 +21,7 @@ CKDatabase *publicDatabase;
 	[self connectToPublicDatabase];
     
     [publicDatabase fetchRecordWithID:eventId completionHandler:^(CKRecord *eventRecord, NSError *error) {
-        if (error) {
-            NSLog(@"Error: %@", error.description);
-            handler(nil, error);
-        }
-        else {
-            handler(eventRecord,error);
-        }
+        handler(eventRecord,error);
     }];
 }
 

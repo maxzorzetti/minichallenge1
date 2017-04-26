@@ -7,9 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+@class CKRecord;
+@class CKRecordID;
 
 @interface SAActivityDAO : NSObject
 
 - (void)getAllActivitiesHandler:(void (^_Nonnull)(NSArray *_Nullable, NSError *_Nullable))handler;
+
+- (void)getActivityByActivityId:(CKRecordID *_Nonnull)activityId handler:(void (^_Nonnull)(CKRecord *_Nullable, NSError *_Nullable))handler;
 
 @end

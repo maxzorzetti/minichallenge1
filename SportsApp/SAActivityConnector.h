@@ -8,9 +8,12 @@
 
 #import <Foundation/Foundation.h>
 @class SAActivity;
+@class CKRecordID;
 
 @interface SAActivityConnector : NSObject
 
 + (void)getAllActivities:(void (^_Nonnull)(NSArray *_Nullable, NSError *_Nullable))handler;
+
++ (void)getActivityById:(CKRecordID *_Nonnull)activityId handler:(void (^ _Nonnull)(SAActivity * _Nullable activity, NSError *_Nullable error))handler;
 
 @end
