@@ -16,7 +16,7 @@
 @implementation SAEvent
 
 
-- (instancetype)initWithName:(NSString *)name AndRequiredParticipants:(int)requiredParticipants AndMaxParticipants:(int)maxParticipants AndActivity:(SAActivity *)activity andId:(CKRecordID *)eventId andCategory:(NSString *)category AndSex:(NSString *)sex AndDates:(NSDate *)dates
+- (instancetype)initWithName:(NSString *)name andRequiredParticipants:(int)requiredParticipants andMaxParticipants:(int)maxParticipants andActivity:(SAActivity *)activity andId:(CKRecordID *)eventId andCategory:(NSString *)category andSex:(NSString *)sex andDate:(NSDate *)date
 {
     self = [super init];
     if (self) {
@@ -27,7 +27,7 @@
         _eventId = eventId;
         _category = category;
         _sex = sex;
-        _dates = dates;
+        _date = date;
     }
     return self;
 }

@@ -64,8 +64,8 @@
 
 - (void)updateEvent:(SAEvent *)event{
 	SAEventDAO *eventDAO =  [SAEventDAO new];
-	//[eventDAO save: event];
-	//send event to cloudkit
+	
+	[eventDAO saveEvent:event];
 }
 
 - (void)getEventQueueForActivity:(SAActivity *)activity completionHandler: (void (^)(NSArray<SAEvent *> *, NSError *))handler{

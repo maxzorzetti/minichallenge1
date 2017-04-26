@@ -8,9 +8,11 @@
 
 #import "SAEventDAO.h"
 #import "SAActivity.h"
+#import "SAPerson.h"
 #import <CloudKit/CloudKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
+#import "SAEvent.h"
 
 @implementation SAEventDAO
 
@@ -54,6 +56,35 @@ CKDatabase *publicDatabase;
     [publicDatabase performQuery:query inZoneWithID:nil completionHandler:handler];
 }
 
+- (void)saveEvent:(SAEvent *)event{
+	[self connectToPublicDatabase];
+	
+	CKRecord *eventRecord = [[CKRecord alloc]initWithRecordType:@"SAEvent"];
+
+	CKReference *activityRef = [[CKReference alloc]initWithRecordID:event.activity.activityId action:CKReferenceActionNone];
+	NSMutableArray *personList = [NSMutableArray new];
+	for (SAPerson *person in event.participants) {
+		[personList addObject: [[CKReference alloc]initWithRecordID:person.id action:CKReferenceActionNone]];
+	}
+	
+	eventRecord[@"name"] = event.name;
+	eventRecord[@"participants"] = personList;
+	eventRecord[@"activity"] = activityRef;
+	eventRecord[@"minPeople"] = [NSNumber numberWithInt:event.requiredParticipants];
+	eventRecord[@"maxPeople"] = [NSNumber numberWithInt:event.maxParticipants];
+	eventRecord[@"category"] = event.category;
+	eventRecord[@"date"] = event.date;
+	eventRecord[@"shift"] = event.shift;
+	eventRecord[@"sex"] = event.sex;
+	
+	[publicDatabase saveRecord:eventRecord completionHandler:^(CKRecord *eventRecord, NSError *error){
+		if (error) {
+			NSLog(@"Record Party not created. Error: %@", error.description);
+		}
+		NSLog(@"Event record created");
+	}];
+	
+}
 
 - (void)connectToPublicDatabase{
 	if (container == nil) container = [CKContainer defaultContainer];
