@@ -11,11 +11,14 @@
 @class CKRecord;
 @class CKRecordID;
 @class SAActivity;
+@class CLLocation;
 
 @interface SAEventConnector : NSObject
 
 + (void)getEventById:(CKRecordID *_Nonnull)eventId handler:(void (^_Nonnull)(SAEvent * _Nullable event, NSError * _Nullable error))handler;
 
 + (void)getEventsByActivity:(SAActivity *_Nonnull)activity handler:(void (^ _Nonnull)(NSArray * _Nullable events, NSError *_Nullable error))handler;
+
++ (void)getComingEventsBasedOnFavoriteActivities:(NSArray<SAActivity *>*_Nonnull)activities AndCurrentLocation:(CLLocation *_Nonnull)location AndRadiusOfDistanceDesiredInMeters:(int)distance handler:(void (^_Nonnull)(NSArray<SAEvent *>* _Nullable events, NSError * _Nullable error))handler;
 
 @end

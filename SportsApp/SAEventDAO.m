@@ -8,8 +8,9 @@
 
 #import "SAEventDAO.h"
 #import "SAActivity.h"
-#import "SAEvent.h"
 #import <CloudKit/CloudKit.h>
+#import <CoreLocation/CoreLocation.h>
+#import <UIKit/UIKit.h>
 
 @implementation SAEventDAO
 
@@ -41,19 +42,24 @@ CKDatabase *publicDatabase;
 	[publicDatabase performQuery:activitiesQuery inZoneWithID:nil completionHandler:handler];
 }
 
-- (SAEvent *)getEventFromRecord:(CKRecord *)record{
-	SAEvent *event ;//= [[SAEvent alloc] initWithName:<#(NSString *)#> AndRequiredParticipants:<#(int)#> AndMaxParticipants:<#(int)#> AndActivity:<#(SAActivity *)#> andId:<#(CKRecordID *)#> andCategory:<#(NSString *)#> AndSex:<#(NSString *)#> AndDates:<#(NSArray *)#>];
-	NSString *name = (NSString *)record[@"name"];
-	int maxPeople = (int)record[@"maxPeople"];
-	int minPeople = (int)record[@"minPeople"];
-	NSDate *date = (NSDate *)record[@"date"];
-	NSString *category = (NSString *)record[@"category"];
-	
-	CKReference *activityReference = (CKReference *)record[@"activity"];
-	//event.activity = record[@""];
-	
-	return event;
+
+- (void)getNext24hoursInterestedEventsWithActivities:(NSArray<CKReference *>*_Nonnull)interestedReferencedActivities AndCurrentLocation:(CLLocation *)usersLocation andDistanceInMeters:(int)proximity handler:(void (^_Nonnull)(NSArray<CKRecord *>* _Nullable events, NSError * _Nullable error))handler{
+    
+    [self connectToPublicDatabase];
+    
+    NSDate *now = [NSDate date];
+    NSDate *oneDayFromNow = [NSDate dateWithTimeIntervalSinceNow:86400];
+    
+    CGFloat distanceAllowed = proximity;
+    
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K IN %@ AND distanceToLocation:fromLocation:(location, %@) < %f AND %K BETWEEN %@ AND %@", @"activity", interestedReferencedActivities, usersLocation, distanceAllowed, @"date", now, oneDayFromNow];
+    
+    CKQuery *query = [[CKQuery alloc]initWithRecordType:@"Event" predicate:predicate];
+    
+    [publicDatabase performQuery:query inZoneWithID:nil completionHandler:handler];
 }
+
 
 - (void)connectToPublicDatabase{
 	if (container == nil) container = [CKContainer defaultContainer];

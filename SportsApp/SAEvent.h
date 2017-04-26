@@ -20,10 +20,10 @@
 @property (nonatomic, readonly) CKRecordID *eventId;
 @property (nonatomic) NSString *category;
 @property (nonatomic) NSString *sex;
-@property (nonatomic) NSArray *dates;
+@property (nonatomic) NSDate *dates;
 @property (nonatomic, readonly) NSDictionary<SAPerson *, NSString *> *participantsRoles;
 
-- (instancetype)initWithName:(NSString *)name AndRequiredParticipants:(int)requiredParticipants AndMaxParticipants:(int)maxParticipants AndActivity:(SAActivity *)activity andId:(CKRecordID *)eventId andCategory:(NSString *)category AndSex:(NSString *)sex AndDates:(NSArray *)dates;
+- (instancetype)initWithName:(NSString *)name AndRequiredParticipants:(int)requiredParticipants AndMaxParticipants:(int)maxParticipants AndActivity:(SAActivity *)activity andId:(CKRecordID *)eventId andCategory:(NSString *)category AndSex:(NSString *)sex AndDates:(NSDate *)dates;
 
 - (void)addParticipant:(SAPerson *)person withRole:(NSString *)role;
 

@@ -36,7 +36,7 @@ CKDatabase *publicDatabase;
     NSMutableSet *people;
     
     
-    SAParty *myParty = [[SAParty alloc]initWithPeople:people activity:@"Futebol Salao" maxParticipants:15 AndminParticipants:10];
+    SAParty *myParty = [[SAParty alloc]initWithPeople:people date:[NSDate date]activity:@"Futebol Salao" maxParticipants:15 AndminParticipants:10];
     
     [SAMatchmaker enterMatchmakingWithParty:myParty];
     

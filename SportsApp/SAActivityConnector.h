@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+@class SAActivity;
 
 @interface SAActivityConnector : NSObject
 
 + (void)getAllActivities:(void (^_Nonnull)(NSArray *_Nullable, NSError *_Nullable))handler;
-
 
 @end
