@@ -17,7 +17,7 @@ CKContainer *container;
 CKDatabase *publicDatabase;
 
 - (void)getEventById:(CKRecordID *)eventId handler:(void (^)(CKRecord * _Nullable record, NSError * _Nullable error))handler{
-	[self connectToDefaultDatabase];
+	[self connectToPublicDatabase];
     
     [publicDatabase fetchRecordWithID:eventId completionHandler:^(CKRecord *eventRecord, NSError *error) {
         if (error) {
@@ -31,10 +31,12 @@ CKDatabase *publicDatabase;
 }
 
 - (void)getAvailableEventsOfActivity:(SAActivity *)activity completionHandler:(void (^)(NSArray *, NSError *))handler{
-	[self connectToDefaultDatabase];
+	[self connectToPublicDatabase];
+    
+    CKReference *activityRef = [[CKReference alloc]initWithRecordID:activity.activityId action:CKReferenceActionNone];
 	
-	NSPredicate *activityPredicate = [NSPredicate predicateWithFormat:@"activity.name = %@", activity.name];
-	CKQuery *activitiesQuery = [[CKQuery alloc]initWithRecordType:@"SAEvent" predicate:activityPredicate];
+	NSPredicate *activityPredicate = [NSPredicate predicateWithFormat:@"activity = %@", activityRef];
+	CKQuery *activitiesQuery = [[CKQuery alloc]initWithRecordType:@"Event" predicate:activityPredicate];
 	
 	[publicDatabase performQuery:activitiesQuery inZoneWithID:nil completionHandler:handler];
 }
@@ -53,7 +55,7 @@ CKDatabase *publicDatabase;
 	return event;
 }
 
-- (void)connectToDefaultDatabase{
+- (void)connectToPublicDatabase{
 	if (container == nil) container = [CKContainer defaultContainer];
 	if (publicDatabase == nil) publicDatabase = [container publicCloudDatabase];
 }

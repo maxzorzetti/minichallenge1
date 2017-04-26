@@ -10,4 +10,16 @@
 
 @implementation SAActivity
 
+- (instancetype)initWithName:(NSString *)name minimumPeople:(int)minimumPeople maximumPeople:(int)maximumPeople AndActivityId:(CKRecordID *)activityId
+{
+    self = [super init];
+    if (self) {
+        _name = name;
+        _minimumPeople = minimumPeople;
+        _maximumPeople = maximumPeople;
+        _activityId = activityId;
+    }
+    return self;
+}
+
 @end

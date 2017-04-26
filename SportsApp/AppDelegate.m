@@ -8,6 +8,10 @@
 
 #import "AppDelegate.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import "SAEventConnector.h"
+#import "SAActivityConnector.h"
+#import "SAActivity.h"
+#import "SAEvent.h"
 
 @interface AppDelegate ()
 
@@ -27,6 +31,38 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
                              didFinishLaunchingWithOptions:launchOptions];
     // Add any custom logic here.
     NSLog(@"alllooooo");
+
+    
+    
+//UGLIEST CODE TO TEST ABILITY TO FETCH EVENTS BY ACTIVITIES AND BY ID
+//    [ActivityConnector getAllActivities:^(NSArray * _Nullable activities, NSError * _Nullable error) {
+//        if (error) {
+//            NSLog(@"%@", error.description);
+//        } else {
+//            for (SAActivity *activity in activities) {
+//                NSLog(@"%@", activity.name);
+//                
+//                [SAEventConnector getEventsByActivity:activity handler:^(NSArray * _Nullable events, NSError * _Nullable error) {
+//                    if (error) {
+//                        NSLog(@"%@", error.description);
+//                    } else {
+//                        for (SAEvent *event in events) {
+//                            NSLog(@"Events from activities: %@", event.name);
+//                            
+//                            [SAEventConnector getEventById:event.eventId handler:^(SAEvent * _Nullable eventFromid, NSError * _Nullable error) {
+//                                if (error) {
+//                                    NSLog(@"%@", error.description);
+//                                } else {
+//                                    NSLog(@"Event from id: %@", eventFromid.name);
+//                                }
+//                            }];
+//                        }
+//                    }
+//                }];
+//            }
+//        }
+//    }];
+    
     return YES;
 }
 
