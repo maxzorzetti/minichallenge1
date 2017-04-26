@@ -29,6 +29,11 @@
 		84DC11801EACF3D200A9A90C /* SAMatchMakerCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC117F1EACF3D200A9A90C /* SAMatchMakerCore.m */; };
 		84DC11841EAD00BD00A9A90C /* SAPersonDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC11831EAD00BD00A9A90C /* SAPersonDAO.m */; };
 		8D7A63BA1EAA5A9000418D39 /* SAProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7A63B91EAA5A9000418D39 /* SAProfileViewController.m */; };
+		AE66FF2E1EB10EA2008EBC5E /* Secondary.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE66FF2C1EB10EA2008EBC5E /* Secondary.storyboard */; };
+		AE66FF371EB10EFA008EBC5E /* SAFirstProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE66FF301EB10EFA008EBC5E /* SAFirstProfileViewController.m */; };
+		AE66FF381EB10EFA008EBC5E /* SAForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE66FF321EB10EFA008EBC5E /* SAForgotPasswordViewController.m */; };
+		AE66FF391EB10EFA008EBC5E /* SAJoinLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE66FF341EB10EFA008EBC5E /* SAJoinLoginViewController.m */; };
+		AE66FF3A1EB10EFA008EBC5E /* SASecondaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE66FF361EB10EFA008EBC5E /* SASecondaryViewController.m */; };
 		D02D36DC3B0EA2B7089928CB /* libPods-SportsApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D828BD3FF47E822127BA720 /* libPods-SportsApp.a */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +82,15 @@
 		84DC11831EAD00BD00A9A90C /* SAPersonDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAPersonDAO.m; sourceTree = "<group>"; };
 		8D7A63B81EAA5A9000418D39 /* SAProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAProfileViewController.h; sourceTree = "<group>"; };
 		8D7A63B91EAA5A9000418D39 /* SAProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAProfileViewController.m; sourceTree = "<group>"; };
+		AE66FF2D1EB10EA2008EBC5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Secondary.storyboard; sourceTree = "<group>"; };
+		AE66FF2F1EB10EFA008EBC5E /* SAFirstProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAFirstProfileViewController.h; sourceTree = "<group>"; };
+		AE66FF301EB10EFA008EBC5E /* SAFirstProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAFirstProfileViewController.m; sourceTree = "<group>"; };
+		AE66FF311EB10EFA008EBC5E /* SAForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAForgotPasswordViewController.h; sourceTree = "<group>"; };
+		AE66FF321EB10EFA008EBC5E /* SAForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAForgotPasswordViewController.m; sourceTree = "<group>"; };
+		AE66FF331EB10EFA008EBC5E /* SAJoinLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAJoinLoginViewController.h; sourceTree = "<group>"; };
+		AE66FF341EB10EFA008EBC5E /* SAJoinLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAJoinLoginViewController.m; sourceTree = "<group>"; };
+		AE66FF351EB10EFA008EBC5E /* SASecondaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASecondaryViewController.h; sourceTree = "<group>"; };
+		AE66FF361EB10EFA008EBC5E /* SASecondaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SASecondaryViewController.m; sourceTree = "<group>"; };
 		ECB8D9221E12E0DF893859DE /* Pods-SportsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SportsApp/Pods-SportsApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -169,6 +183,14 @@
 		847F5E3A1EA715530091BAE9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				AE66FF2F1EB10EFA008EBC5E /* SAFirstProfileViewController.h */,
+				AE66FF301EB10EFA008EBC5E /* SAFirstProfileViewController.m */,
+				AE66FF311EB10EFA008EBC5E /* SAForgotPasswordViewController.h */,
+				AE66FF321EB10EFA008EBC5E /* SAForgotPasswordViewController.m */,
+				AE66FF331EB10EFA008EBC5E /* SAJoinLoginViewController.h */,
+				AE66FF341EB10EFA008EBC5E /* SAJoinLoginViewController.m */,
+				AE66FF351EB10EFA008EBC5E /* SASecondaryViewController.h */,
+				AE66FF361EB10EFA008EBC5E /* SASecondaryViewController.m */,
 				8406A8DD1EA6761500C60267 /* SAViewController.h */,
 				8406A8DE1EA6761500C60267 /* SAViewController.m */,
 				847F5E3C1EA716FA0091BAE9 /* SAMatchMakingViewController.h */,
@@ -184,6 +206,7 @@
 		847F5E3B1EA715730091BAE9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				AE66FF2C1EB10EA2008EBC5E /* Secondary.storyboard */,
 				8406A8E01EA6761500C60267 /* Main.storyboard */,
 			);
 			name = View;
@@ -297,6 +320,7 @@
 				8406A8E71EA6761500C60267 /* LaunchScreen.storyboard in Resources */,
 				8406A8E41EA6761500C60267 /* Assets.xcassets in Resources */,
 				8406A8E21EA6761500C60267 /* Main.storyboard in Resources */,
+				AE66FF2E1EB10EA2008EBC5E /* Secondary.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +382,7 @@
 				29028B801EA7EEB600367FE4 /* SAParty.m in Sources */,
 				29028B7D1EA7EE5F00367FE4 /* SAMatchmaker.m in Sources */,
 				847F5E351EA714180091BAE9 /* SAEvent.m in Sources */,
+				AE66FF391EB10EFA008EBC5E /* SAJoinLoginViewController.m in Sources */,
 				849AC2141EB012B800A7BD22 /* SAActivityDAO.m in Sources */,
 				842B42601EAF7BEA0096BD37 /* SAEventViewController.m in Sources */,
 				8406A8DF1EA6761500C60267 /* SAViewController.m in Sources */,
@@ -367,12 +392,15 @@
 				847F5E3E1EA716FA0091BAE9 /* SAMatchMakingViewController.m in Sources */,
 				849AC2171EB012C600A7BD22 /* SAActivityConnector.m in Sources */,
 				8406A8DC1EA6761500C60267 /* AppDelegate.m in Sources */,
+				AE66FF381EB10EFA008EBC5E /* SAForgotPasswordViewController.m in Sources */,
 				84DC117D1EACF32100A9A90C /* SAActivity.m in Sources */,
 				8406A8D91EA6761500C60267 /* main.m in Sources */,
 				84DC11801EACF3D200A9A90C /* SAMatchMakerCore.m in Sources */,
 				84DC11841EAD00BD00A9A90C /* SAPersonDAO.m in Sources */,
+				AE66FF371EB10EFA008EBC5E /* SAFirstProfileViewController.m in Sources */,
 				842B42631EAF7C400096BD37 /* SAEventConnector.m in Sources */,
 				842B42591EAF67EA0096BD37 /* SAEventDAO.m in Sources */,
+				AE66FF3A1EB10EFA008EBC5E /* SASecondaryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,6 +421,14 @@
 				8406A8E61EA6761500C60267 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		AE66FF2C1EB10EA2008EBC5E /* Secondary.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AE66FF2D1EB10EA2008EBC5E /* Base */,
+			);
+			name = Secondary.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
