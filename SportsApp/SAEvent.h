@@ -13,17 +13,18 @@
 
 @interface SAEvent : NSObject
 
+@property (nonatomic, readonly) CKRecordID *eventId;
 @property (nonatomic) NSString *name;
 @property (nonatomic) int requiredParticipants, maxParticipants;
 @property (nonatomic) SAActivity *activity;
 @property (nonatomic, readonly) NSSet<SAPerson *> *participants;
-@property (nonatomic, readonly) CKRecordID *eventId;
 @property (nonatomic) NSString *category;
+@property (nonatomic) NSString *shift;
 @property (nonatomic) NSString *sex;
-@property (nonatomic) NSDate *dates;
+@property (nonatomic) NSDate *date;
 @property (nonatomic, readonly) NSDictionary<SAPerson *, NSString *> *participantsRoles;
 
-- (instancetype)initWithName:(NSString *)name AndRequiredParticipants:(int)requiredParticipants AndMaxParticipants:(int)maxParticipants AndActivity:(SAActivity *)activity andId:(CKRecordID *)eventId andCategory:(NSString *)category AndSex:(NSString *)sex AndDates:(NSDate *)dates;
+- (instancetype)initWithName:(NSString *)name andRequiredParticipants:(int)requiredParticipants andMaxParticipants:(int)maxParticipants andActivity:(SAActivity *)activity andId:(CKRecordID *)eventId andCategory:(NSString *)category andSex:(NSString *)sex andDate:(NSDate *)date;
 
 - (void)addParticipant:(SAPerson *)person withRole:(NSString *)role;
 

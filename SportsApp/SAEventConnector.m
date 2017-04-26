@@ -72,7 +72,7 @@
 
 
 + (SAEvent *)getEventFromRecord:(CKRecord *)event{
-    SAEvent *eventFromRecord = [[SAEvent alloc]initWithName:event[@"name"] AndRequiredParticipants:event[@"minPeople"] AndMaxParticipants:event[@"maxPeople"] AndActivity:@"FALTA PEGAR A ACTIVITY" andId:event.recordID andCategory:event[@"category"] AndSex:event[@"sex"] AndDates:event[@"date"]];
+    SAEvent *eventFromRecord = [[SAEvent alloc]initWithName:event[@"name"] andRequiredParticipants:event[@"minPeople"] andMaxParticipants:event[@"maxPeople"] andActivity:@"FALTA PEGAR A ACTIVITY" andId:event.recordID andCategory:event[@"category"] andSex:event[@"sex"] andDate:event[@"date"]];
     
     return eventFromRecord;
 }
