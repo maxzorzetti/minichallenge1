@@ -12,6 +12,7 @@
 #import "SAActivityConnector.h"
 #import "SAActivity.h"
 #import <CloudKit/CloudKit.h>
+#import "SAEventsTableViewCell.h"
 
 @interface SAEventListViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableWithEvents;
@@ -35,7 +36,6 @@
             [self updateTableWithEventList:events];
         }
     }];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,8 +44,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *customCell = [tableView dequeueReusableCellWithIdentifier:@""];
+    SAEventsTableViewCell *customCell = [tableView dequeueReusableCellWithIdentifier:@"eventCell" forIndexPath:indexPath];
     
+    customCell.event = self.arrayOfEvents[indexPath.row];
     
     return customCell;
 }
@@ -56,13 +57,8 @@
 
 - (void)updateTableWithEventList:(NSArray<SAEvent *>*)events{
     [self.arrayOfEvents addObjectsFromArray:events];
-    NSLog(@"CHEGOU AQUI PELO MENOS");
     
-    for (SAEvent *event in self.arrayOfEvents) {
-        NSLog(@"CARALHO CUZAO DEU CERTO!!!!");
-    }
-    
-    //[self.tableWithEvents reloadData];
+    [self.tableWithEvents reloadData];
 }
 
 

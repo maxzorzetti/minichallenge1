@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@class SAEvent;
 
 @interface SAEventsTableViewCell : UITableViewCell
+
+@property (nonatomic) SAEvent *event;
+
+@property (weak, nonatomic) IBOutlet UILabel *eventName;
 
 @end
