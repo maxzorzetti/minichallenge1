@@ -32,6 +32,7 @@
 		84DC11841EAD00BD00A9A90C /* SAPersonDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC11831EAD00BD00A9A90C /* SAPersonDAO.m */; };
 		8D7A63BA1EAA5A9000418D39 /* SAProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7A63B91EAA5A9000418D39 /* SAProfileViewController.m */; };
 		8DF8642E1EB2267D00777E98 /* SALogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DF8642D1EB2267D00777E98 /* SALogInViewController.m */; };
+		8DF864341EB22EE400777E98 /* SANewsFeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DF864331EB22EE400777E98 /* SANewsFeedTableViewController.m */; };
 		AE66FF2E1EB10EA2008EBC5E /* Secondary.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE66FF2C1EB10EA2008EBC5E /* Secondary.storyboard */; };
 		AE66FF371EB10EFA008EBC5E /* SAFirstProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE66FF301EB10EFA008EBC5E /* SAFirstProfileViewController.m */; };
 		AE66FF381EB10EFA008EBC5E /* SAForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE66FF321EB10EFA008EBC5E /* SAForgotPasswordViewController.m */; };
@@ -90,6 +91,8 @@
 		8D7A63B91EAA5A9000418D39 /* SAProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAProfileViewController.m; sourceTree = "<group>"; };
 		8DF8642C1EB2267D00777E98 /* SALogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SALogInViewController.h; sourceTree = "<group>"; };
 		8DF8642D1EB2267D00777E98 /* SALogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SALogInViewController.m; sourceTree = "<group>"; };
+		8DF864321EB22EE400777E98 /* SANewsFeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANewsFeedTableViewController.h; sourceTree = "<group>"; };
+		8DF864331EB22EE400777E98 /* SANewsFeedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANewsFeedTableViewController.m; sourceTree = "<group>"; };
 		AE66FF2D1EB10EA2008EBC5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Secondary.storyboard; sourceTree = "<group>"; };
 		AE66FF2F1EB10EFA008EBC5E /* SAFirstProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAFirstProfileViewController.h; sourceTree = "<group>"; };
 		AE66FF301EB10EFA008EBC5E /* SAFirstProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAFirstProfileViewController.m; sourceTree = "<group>"; };
@@ -209,6 +212,8 @@
 				842B425F1EAF7BEA0096BD37 /* SAEventViewController.m */,
 				8DF8642C1EB2267D00777E98 /* SALogInViewController.h */,
 				8DF8642D1EB2267D00777E98 /* SALogInViewController.m */,
+				8DF864321EB22EE400777E98 /* SANewsFeedTableViewController.h */,
+				8DF864331EB22EE400777E98 /* SANewsFeedTableViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -413,6 +418,7 @@
 				8406A8D91EA6761500C60267 /* main.m in Sources */,
 				84DC11801EACF3D200A9A90C /* SAMatchMakerCore.m in Sources */,
 				84DC11841EAD00BD00A9A90C /* SAPersonDAO.m in Sources */,
+				8DF864341EB22EE400777E98 /* SANewsFeedTableViewController.m in Sources */,
 				AE66FF371EB10EFA008EBC5E /* SAFirstProfileViewController.m in Sources */,
 				842B42631EAF7C400096BD37 /* SAEventConnector.m in Sources */,
 				842B42591EAF67EA0096BD37 /* SAEventDAO.m in Sources */,

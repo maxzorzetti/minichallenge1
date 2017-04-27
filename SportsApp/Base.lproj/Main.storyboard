@@ -371,10 +371,10 @@
             </objects>
             <point key="canvasLocation" x="1560.8" y="-325.18740629685158"/>
         </scene>
-        <!--Table View Controller-->
+        <!--News Feed Table View Controller-->
         <scene sceneID="afN-HR-j0P">
             <objects>
-                <tableViewController id="781-5X-G13" sceneMemberID="viewController">
+                <tableViewController id="781-5X-G13" customClass="SANewsFeedTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="3vO-Aj-D6O">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
