@@ -7,15 +7,20 @@
 //
 
 #import "SANewsFeedTableViewController.h"
+#import "SAEvent.h"
+#import "SANewsFeedTableViewCell.h"
+
 
 @interface SANewsFeedTableViewController ()
-
+@property NSArray<SAEvent *> *eventArray;
 @end
 
 @implementation SANewsFeedTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -27,6 +32,8 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
+    
 }
 
 #pragma mark - Table view data source
@@ -37,19 +44,21 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+   
+    NSInteger numberOfEvents = _eventArray.count;
+    return numberOfEvents;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"myCell" forIndexPath:indexPath];
     
     // Configure the cell...
+    SANewsFeedTableViewCell *cell = [SANewsFeedTableViewCell alloc] init
     
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.
