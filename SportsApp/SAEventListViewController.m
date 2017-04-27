@@ -29,10 +29,6 @@
     self.tableWithEvents.delegate = self;
     self.tableWithEvents.dataSource = self;
     
-    for (SAEvent *event in self.arrayOfEvents) {
-        NSLog(@"ANTES DE TUDO :(");
-    }
-    
     
     //UGLIEST CODE JUST TO TEST THO, CHILL MAN
     [SAActivityConnector getAllActivities:^(NSArray * _Nullable activities, NSError * _Nullable error) {
@@ -48,7 +44,7 @@
                     } else {
                         NSMutableArray *eventList = [NSMutableArray new];
                         for (SAEvent *event in events) {
-                            NSLog(@"Events from activities: %@", event.name);
+                            //NSLog(@"Events from activities: %@", event.name);
                             
                             [SAEventConnector getEventById:event.eventId handler:^(SAEvent * _Nullable eventFromid, NSError * _Nullable error) {
                                 if (error) {
@@ -92,7 +88,7 @@
         NSLog(@"CARALHO CUZAO DEU CERTO!!!!");
     }
     
-    [self.tableWithEvents reloadData];
+    //[self.tableWithEvents reloadData];
 }
 
 

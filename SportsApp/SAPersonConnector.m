@@ -12,10 +12,10 @@
 
 @implementation SAPersonConnector
 
-+ (void)getPeopleFromEmails:(NSArray<NSString *> *_Nonnull)emails handler:(void (^_Nonnull)(NSArray<SAPerson *> *_Nullable, NSError *_Nullable))handler{
++ (void)getPeopleFromFacebookIds:(NSArray<NSString *> *_Nonnull)facebookIds handler:(void (^_Nonnull)(NSArray<SAPerson *> *_Nullable, NSError *_Nullable))handler{
     SAPersonDAO *personDAO = [SAPersonDAO new];
     
-    [personDAO getPeopleFromEmails:emails handler:^(NSArray<CKRecord *> * _Nullable personRecords, NSError * _Nullable error) {
+    [personDAO getPeopleFromFacebookIds:facebookIds handler:^(NSArray<CKRecord *> * _Nullable personRecords, NSError * _Nullable error) {
         if (!error) {
             NSMutableArray *arrayOfPeople = [NSMutableArray new];
             for (CKRecord *personRecord in personRecords) {

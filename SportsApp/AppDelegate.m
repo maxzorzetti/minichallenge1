@@ -88,15 +88,15 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 //    }];
 //    
     
-    NSArray *arrayOfEmails = @[@"email", @"lau@hot.com", @"emailto.com"];
-    
-    [SAPersonConnector getPeopleFromEmails:arrayOfEmails handler:^(NSArray<SAPerson *> * _Nullable people, NSError * _Nullable error) {
-        if (!error) {
-            for (SAPerson * person in people) {
-                NSLog(@"Opa, deu certo: %@", person.name);
-            }
-        }
-    }];
+//    NSArray *arrayOfEmails = @[@"email", @"lau@hot.com", @"emailto.com"];
+//    
+//    [SAPersonConnector getPeopleFromEmails:arrayOfEmails handler:^(NSArray<SAPerson *> * _Nullable people, NSError * _Nullable error) {
+//        if (!error) {
+//            for (SAPerson * person in people) {
+//                NSLog(@"Opa, deu certo: %@", person.name);
+//            }
+//        }
+//    }];
     return YES;
 }
 
