@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SAEvent.h"
 
 @interface SANewsFeedTableViewCell : UITableViewCell
+
+
+@property SAEvent *cellEvent;
+- (void)initWithEvent:(SAEvent *)cellEvent;
 
 @end
