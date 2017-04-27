@@ -7,14 +7,13 @@
 //
 
 #import "SASecondaryViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface SASecondaryViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *imgLogoSecondary;
 @property (weak, nonatomic) IBOutlet UITextField *txtUser;
 @property (weak, nonatomic) IBOutlet UITextField *txtPassword;
 @property (weak, nonatomic) IBOutlet UIButton *btnJoinUs;
-
-@property (weak, nonatomic) IBOutlet UIButton *btnForgotPassword;
 
 @end
 
@@ -23,11 +22,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    _btnJoinUs.layer.cornerRadius = 5;
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (BOOL)shouldAutorotate{
+    return NO;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 /*
