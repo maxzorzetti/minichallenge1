@@ -43,7 +43,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J8N-k4-r0Q">
-                                <rect key="frame" x="31" y="358" width="313" height="50"/>
+                                <rect key="frame" x="39" y="358" width="294" height="50"/>
                                 <color key="backgroundColor" red="0.75686274509803919" green="0.77254901960784317" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="7Z4-ac-5Xw"/>
@@ -63,7 +63,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <containerView opaque="NO" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jO6-dr-2cJ">
-                                <rect key="frame" x="31" y="562" width="313" height="50"/>
+                                <rect key="frame" x="39" y="562" width="294" height="50"/>
                             </containerView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="   Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SUy-pP-9B4">
                                 <rect key="frame" x="39" y="288" width="294" height="50"/>
@@ -97,12 +97,12 @@
                             <constraint firstItem="Au8-Dq-nOb" firstAttribute="centerX" secondItem="3hP-Uf-wCE" secondAttribute="centerX" id="JcB-uR-B3D"/>
                             <constraint firstItem="4D3-Xg-d40" firstAttribute="trailing" secondItem="SUy-pP-9B4" secondAttribute="trailing" id="Kwg-zk-fzE"/>
                             <constraint firstItem="JS3-sL-9qt" firstAttribute="top" secondItem="3hP-Uf-wCE" secondAttribute="bottom" constant="8" symbolic="YES" id="PDA-kf-RiQ"/>
-                            <constraint firstItem="J8N-k4-r0Q" firstAttribute="leading" secondItem="EdB-Zb-5HH" secondAttribute="leadingMargin" constant="15" id="PyS-Cg-xMv"/>
+                            <constraint firstItem="J8N-k4-r0Q" firstAttribute="leading" secondItem="EdB-Zb-5HH" secondAttribute="leadingMargin" constant="23" id="PyS-Cg-xMv"/>
                             <constraint firstItem="Au8-Dq-nOb" firstAttribute="top" secondItem="YhB-6O-MhS" secondAttribute="bottom" constant="60" id="S5Q-3J-xkz"/>
                             <constraint firstItem="KWj-FB-wWD" firstAttribute="leading" secondItem="EdB-Zb-5HH" secondAttribute="leading" constant="132" id="UdX-VY-kvs"/>
                             <constraint firstItem="3hP-Uf-wCE" firstAttribute="centerX" secondItem="JS3-sL-9qt" secondAttribute="centerX" id="Ypb-HJ-ifp"/>
                             <constraint firstItem="jO6-dr-2cJ" firstAttribute="top" secondItem="EdB-Zb-5HH" secondAttribute="top" constant="562" id="hHB-bR-up7"/>
-                            <constraint firstItem="Au8-Dq-nOb" firstAttribute="centerX" secondItem="J8N-k4-r0Q" secondAttribute="centerX" id="i28-2M-rYQ"/>
+                            <constraint firstItem="Au8-Dq-nOb" firstAttribute="centerX" secondItem="J8N-k4-r0Q" secondAttribute="centerX" constant="1" id="i28-2M-rYQ"/>
                             <constraint firstItem="3hP-Uf-wCE" firstAttribute="top" secondItem="Au8-Dq-nOb" secondAttribute="bottom" constant="29" id="k5q-mD-PxP"/>
                             <constraint firstItem="4D3-Xg-d40" firstAttribute="top" secondItem="JS3-sL-9qt" secondAttribute="bottom" constant="16" id="ksQ-GV-ubJ"/>
                             <constraint firstItem="4D3-Xg-d40" firstAttribute="leading" secondItem="SUy-pP-9B4" secondAttribute="leading" id="vlD-zV-eVx"/>
@@ -317,7 +317,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select you interests" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Vt-PU-Mw7">
-                                            <rect key="frame" x="112" y="13" width="151" height="21"/>
+                                            <rect key="frame" x="112" y="14.5" width="151" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
