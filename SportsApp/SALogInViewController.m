@@ -1,42 +1,47 @@
 //
-//  SAForgotPasswordViewController.m
+//  SALogInViewController.m
 //  SportsApp
 //
-//  Created by Bharbara Cechin on 25/04/17.
+//  Created by Laura Corssac on 26/04/17.
 //  Copyright © 2017 Bruno Scheltzke. All rights reserved.
 //
 
-#import "SAForgotPasswordViewController.h"
+#import "SALogInViewController.h"
 #import <CloudKit/CloudKit.h>
 
 #import <CommonCrypto/CommonDigest.h>
 
-@interface SAForgotPasswordViewController ()
 
-@property (weak, nonatomic) IBOutlet UILabel *question;
-
-@property (weak, nonatomic) IBOutlet UITextField *answerField;
-@property (weak, nonatomic) IBOutlet UITextField *usernameField;
-
-
+@interface SALogInViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
 
 
+@property NSString *email;
+@property NSString *password;
+
 @end
 
-@implementation SAForgotPasswordViewController
+@implementation SALogInViewController
 
 
-- (IBAction)answerSent:(UIButton *)sender {
+
+
+- (IBAction)logingButtonPressed:(UIButton *)sender {
+    
+    
+    _password = [[NSString alloc] initWithString:  _passwordField.text];
+    _email = [[NSString alloc] initWithString:  _emailField.text];
     
     
     CKContainer *container = [CKContainer defaultContainer];
     CKDatabase *publicDatabase = [container publicCloudDatabase];
     
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"email = %@", _usernameField.text];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"email = %@", _email];
     CKQuery *query = [[CKQuery alloc] initWithRecordType:@"SAPerson" predicate:predicate];
+    
     
     
     [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
@@ -44,14 +49,12 @@
             NSLog(@"error: %@",error.localizedDescription);
         }
         else {
+            
             if (results.count == 0)
                 NSLog(@"Wrong username");
+            
             else
             {
-                NSArray *userQuestions = [results firstObject][@"questions"];
-                _question.text = userQuestions[0];
-                NSArray *userAnswers = [results firstObject][@"answers"];
-                
                 
                 id value = [[results firstObject] objectForKey:@"recordID"];
                 value = [results firstObject][@"recordID"];
@@ -67,35 +70,31 @@
                     
                     else
                     {
+                        NSString *adapter = [results firstObject][@"hash"];
+                        
+                        //NSString *adapterHash = [self sha1:adapter];
+                        NSString *passwordHash = [self sha1:_password];
                         
                         
+                        if ([adapter isEqualToString: passwordHash])
+                            NSLog(@"You are logged in");
                         
-                        
-                        if ( [_answerField.text isEqualToString:userAnswers[0]])
-                        {
-                            NSLog(@"certo");
-                            NSString *newPassword = [ self sha1:_passwordField.text];
-                            [results firstObject][@"hash"] = newPassword;
-                            
-                            [publicDatabase saveRecord:[results firstObject]  completionHandler:^(CKRecord *artworkRecord, NSError *error){
-                                if (error) {
-                                    NSLog(@"Record Identity not created. Error: %@", error.description);
-                                }
-                                else
-                                    NSLog(@"Senha alterada");
-                            }];
-                            
-                        }
                         else
-                            NSLog(@"errada a resposta");
-                    }}];
-                
+                            NSLog(@"Wrong password");
+                        
+                    }
+                    
+                    
+                }];
                 
             }}}];
     
     
     
+    
+    
 }
+
 
 - (NSString *)sha1:(NSString *)password
 {
@@ -113,12 +112,6 @@
     
     return output;
 }
-
-
-
-- (IBAction)newPasswordSent:(UIButton *)sender {
-}
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
