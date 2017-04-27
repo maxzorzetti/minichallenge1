@@ -1,5 +1,5 @@
-//
-//  SAEventListViewController.h
+
+//  SAEventsTableViewCell.h
 //  SportsApp
 //
 //  Created by Bruno Scheltzke on 27/04/17.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SAEventListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface SAEventsTableViewCell : UITableViewCell
 
 @end
