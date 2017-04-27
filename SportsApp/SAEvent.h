@@ -15,7 +15,7 @@
 
 @property (nonatomic, readonly) CKRecordID *eventId;
 @property (nonatomic) NSString *name;
-@property (nonatomic) int requiredParticipants, maxParticipants;
+@property (nonatomic) int minPeople, maxPeople;
 @property (nonatomic) SAActivity *activity;
 @property (nonatomic, readonly) NSSet<SAPerson *> *participants;
 @property (nonatomic) NSString *category;

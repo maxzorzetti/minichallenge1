@@ -46,7 +46,7 @@
 - (BOOL)matchParty:(SAParty *)party withEvent:(SAEvent *)event{
 	if (![party.activity.name isEqualToString:event.activity.name]) return NO;
 	
-	if (party.maxParticipants < event.maxParticipants) return NO;
+	if (party.maxParticipants < event.maxPeople) return NO;
 
 	if (party.people.count + event.participants.count > event.activity.maximumPeople) return NO;
 	
@@ -61,8 +61,8 @@
 	event.activity =  nil;//[party.activity copy];
 	event.name = party.activity.name;
 	event.date = [party.dates sortedArrayUsingDescriptors:@[dateDescriptor]][0];
-	event.maxParticipants = party.maxParticipants;
-	event.requiredParticipants = party.minParticipants;
+	event.maxPeople = party.maxParticipants;
+	event.minPeople = party.minParticipants;
 	[event addParticipants:party.people];
 	return event;
 }

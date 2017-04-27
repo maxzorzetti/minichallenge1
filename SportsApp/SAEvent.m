@@ -21,8 +21,8 @@
     self = [super init];
     if (self) {
         _name = name;
-        _requiredParticipants = requiredParticipants;
-        _maxParticipants = maxParticipants;
+        _minPeople = requiredParticipants;
+        _maxPeople = maxParticipants;
         _activity = activity;
         _eventId = eventId;
         _category = category;
