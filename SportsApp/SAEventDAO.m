@@ -50,14 +50,26 @@ CKDatabase *publicDatabase;
     
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K IN %@ AND distanceToLocation:fromLocation:(location, %@) < %f AND %K > %@ AND %K <%@", @"activity", interestedReferencedActivities, usersLocation, distanceAllowed, @"date", now, @"date", oneDayFromNow];
+    CKQuery *query = [[CKQuery alloc]initWithRecordType:@"Event" predicate:predicate];
     
-    //"%K IN %@ AND distanceToLocation:fromLocation:(location, %@) < %f AND %K BETWEEN %@ AND %@"
-    //@"activity", interestedReferencedActivities, usersLocation, distanceAllowed, @"date", now, oneDayFromNow
+    [publicDatabase performQuery:query inZoneWithID:nil completionHandler:handler];
+}
+
+- (void)getSugestedEventsWithActivities:(NSArray<CKReference *>*_Nullable)interestedReferencedActivities AndCurrentLocation:(CLLocation *)usersLocation andDistanceInMeters:(int)proximity AndFriends:(NSArray<CKReference *>*_Nonnull)friends handler:(void (^_Nonnull)(NSArray<CKRecord *>* _Nullable events, NSError * _Nullable error))handler{
+    [self connectToPublicDatabase];
+    
+    NSDate *now = [NSDate date];
+    
+    CGFloat distanceAllowed = proximity;
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K IN %@ AND distanceToLocation:fromLocation:(location, %@) < %f AND %K > %@", @"participants", friends, usersLocation, distanceAllowed, @"date", now];
     
     CKQuery *query = [[CKQuery alloc]initWithRecordType:@"Event" predicate:predicate];
     
     [publicDatabase performQuery:query inZoneWithID:nil completionHandler:handler];
 }
+
+
 
 - (void)saveEvent:(SAEvent *)event{
 	[self connectToPublicDatabase];
@@ -67,7 +79,7 @@ CKDatabase *publicDatabase;
 	CKReference *activityRef = [[CKReference alloc]initWithRecordID:event.activity.activityId action:CKReferenceActionNone];
 	NSMutableArray *personList = [NSMutableArray new];
 	for (SAPerson *person in event.participants) {
-		[personList addObject: [[CKReference alloc]initWithRecordID:person.id action:CKReferenceActionNone]];
+		[personList addObject: [[CKReference alloc]initWithRecordID:person.personId action:CKReferenceActionNone]];
 	}
 	
 	eventRecord[@"name"] = event.name;
