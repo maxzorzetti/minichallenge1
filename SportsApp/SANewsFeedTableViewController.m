@@ -54,7 +54,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"myCell" forIndexPath:indexPath];
     
     // Configure the cell...
-    SANewsFeedTableViewCell *cell = [SANewsFeedTableViewCell alloc] init
+    //SANewsFeedTableViewCell *cell = [SANewsFeedTableViewCell alloc] init
     
     return cell;
 }
