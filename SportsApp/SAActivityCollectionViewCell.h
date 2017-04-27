@@ -1,5 +1,5 @@
 //
-//  SANewEvent1ViewController.h
+//  SAActivityCollectionViewCell.h
 //  SportsApp
 //
 //  Created by Max Zorzetti on 27/04/17.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SANewEvent1ViewController : UIViewController <UICollectionViewDataSource>
+@interface SAActivityCollectionViewCell : UICollectionViewCell
 
 @end

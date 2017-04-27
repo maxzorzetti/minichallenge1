@@ -14,6 +14,7 @@
 		29A4CA4F1EB22F8D00DCA3FA /* SANewEvent2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A4CA4E1EB22F8D00DCA3FA /* SANewEvent2ViewController.m */; };
 		29A4CA521EB22F9C00DCA3FA /* SANewEvent3ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A4CA511EB22F9C00DCA3FA /* SANewEvent3ViewController.m */; };
 		29A4CA551EB22FA800DCA3FA /* SANewEvent4ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A4CA541EB22FA800DCA3FA /* SANewEvent4ViewController.m */; };
+		29A4CA591EB2320700DCA3FA /* SAActivityCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A4CA581EB2320700DCA3FA /* SAActivityCollectionViewCell.m */; };
 		29FF42531EABD8F700304B26 /* SAUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 29FF42521EABD8F700304B26 /* SAUser.m */; };
 		8406A8D91EA6761500C60267 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8406A8D81EA6761500C60267 /* main.m */; };
 		8406A8DC1EA6761500C60267 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8406A8DB1EA6761500C60267 /* AppDelegate.m */; };
@@ -61,6 +62,8 @@
 		29A4CA511EB22F9C00DCA3FA /* SANewEvent3ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANewEvent3ViewController.m; sourceTree = "<group>"; };
 		29A4CA531EB22FA800DCA3FA /* SANewEvent4ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANewEvent4ViewController.h; sourceTree = "<group>"; };
 		29A4CA541EB22FA800DCA3FA /* SANewEvent4ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANewEvent4ViewController.m; sourceTree = "<group>"; };
+		29A4CA571EB2320700DCA3FA /* SAActivityCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAActivityCollectionViewCell.h; sourceTree = "<group>"; };
+		29A4CA581EB2320700DCA3FA /* SAActivityCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAActivityCollectionViewCell.m; sourceTree = "<group>"; };
 		29FF42511EABD8F700304B26 /* SAUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAUser.h; sourceTree = "<group>"; };
 		29FF42521EABD8F700304B26 /* SAUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAUser.m; sourceTree = "<group>"; };
 		7D828BD3FF47E822127BA720 /* libPods-SportsApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SportsApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -257,6 +260,8 @@
 				AE66FF2C1EB10EA2008EBC5E /* Secondary.storyboard */,
 				8406A8E01EA6761500C60267 /* Main.storyboard */,
 				29A4CA481EB20D2500DCA3FA /* NewEvent.storyboard */,
+				29A4CA571EB2320700DCA3FA /* SAActivityCollectionViewCell.h */,
+				29A4CA581EB2320700DCA3FA /* SAActivityCollectionViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -460,6 +465,7 @@
 				842B42631EAF7C400096BD37 /* SAEventConnector.m in Sources */,
 				842B42591EAF67EA0096BD37 /* SAEventDAO.m in Sources */,
 				AE66FF3A1EB10EFA008EBC5E /* SASecondaryViewController.m in Sources */,
+				29A4CA591EB2320700DCA3FA /* SAActivityCollectionViewCell.m in Sources */,
 				29A4CA551EB22FA800DCA3FA /* SANewEvent4ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

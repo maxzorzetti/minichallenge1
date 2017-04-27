@@ -34,4 +34,18 @@
 }
 */
 
+- (void)collectionView:numberOfItemsInSection{
+	
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+	
+	return nil;
+}
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+	
+	return nil;
+}
+
 @end
