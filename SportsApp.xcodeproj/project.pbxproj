@@ -36,6 +36,7 @@
 		84DC117D1EACF32100A9A90C /* SAActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC117C1EACF32100A9A90C /* SAActivity.m */; };
 		84DC11801EACF3D200A9A90C /* SAMatchMakerCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC117F1EACF3D200A9A90C /* SAMatchMakerCore.m */; };
 		84DC11841EAD00BD00A9A90C /* SAPersonDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC11831EAD00BD00A9A90C /* SAPersonDAO.m */; };
+		8D4824911EB2353400D2FE5B /* SANewsFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4824901EB2353400D2FE5B /* SANewsFeedTableViewCell.m */; };
 		8D7A63BA1EAA5A9000418D39 /* SAProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7A63B91EAA5A9000418D39 /* SAProfileViewController.m */; };
 		8DF8642E1EB2267D00777E98 /* SALogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DF8642D1EB2267D00777E98 /* SALogInViewController.m */; };
 		8DF864341EB22EE400777E98 /* SANewsFeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DF864331EB22EE400777E98 /* SANewsFeedTableViewController.m */; };
@@ -105,6 +106,8 @@
 		84DC117F1EACF3D200A9A90C /* SAMatchMakerCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMatchMakerCore.m; sourceTree = "<group>"; };
 		84DC11821EAD00BD00A9A90C /* SAPersonDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAPersonDAO.h; sourceTree = "<group>"; };
 		84DC11831EAD00BD00A9A90C /* SAPersonDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAPersonDAO.m; sourceTree = "<group>"; };
+		8D48248F1EB2353400D2FE5B /* SANewsFeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANewsFeedTableViewCell.h; sourceTree = "<group>"; };
+		8D4824901EB2353400D2FE5B /* SANewsFeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANewsFeedTableViewCell.m; sourceTree = "<group>"; };
 		8D7A63B81EAA5A9000418D39 /* SAProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAProfileViewController.h; sourceTree = "<group>"; };
 		8D7A63B91EAA5A9000418D39 /* SAProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAProfileViewController.m; sourceTree = "<group>"; };
 		8DF8642C1EB2267D00777E98 /* SALogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SALogInViewController.h; sourceTree = "<group>"; };
@@ -250,6 +253,8 @@
 				29A4CA561EB2303100DCA3FA /* NewEvent */,
 				84CBE46D1EB230E300ACD0DF /* SAEventListViewController.h */,
 				84CBE46E1EB230E300ACD0DF /* SAEventListViewController.m */,
+				8D48248F1EB2353400D2FE5B /* SANewsFeedTableViewCell.h */,
+				8D4824901EB2353400D2FE5B /* SANewsFeedTableViewCell.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -464,6 +469,7 @@
 				AE66FF371EB10EFA008EBC5E /* SAFirstProfileViewController.m in Sources */,
 				842B42631EAF7C400096BD37 /* SAEventConnector.m in Sources */,
 				842B42591EAF67EA0096BD37 /* SAEventDAO.m in Sources */,
+				8D4824911EB2353400D2FE5B /* SANewsFeedTableViewCell.m in Sources */,
 				AE66FF3A1EB10EFA008EBC5E /* SASecondaryViewController.m in Sources */,
 				29A4CA591EB2320700DCA3FA /* SAActivityCollectionViewCell.m in Sources */,
 				29A4CA551EB22FA800DCA3FA /* SANewEvent4ViewController.m in Sources */,
