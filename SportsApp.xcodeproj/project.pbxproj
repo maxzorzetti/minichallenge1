@@ -30,6 +30,7 @@
 		84DC11801EACF3D200A9A90C /* SAMatchMakerCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC117F1EACF3D200A9A90C /* SAMatchMakerCore.m */; };
 		84DC11841EAD00BD00A9A90C /* SAPersonDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC11831EAD00BD00A9A90C /* SAPersonDAO.m */; };
 		8D7A63BA1EAA5A9000418D39 /* SAProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7A63B91EAA5A9000418D39 /* SAProfileViewController.m */; };
+		8DF8642E1EB2267D00777E98 /* SALogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DF8642D1EB2267D00777E98 /* SALogInViewController.m */; };
 		AE66FF2E1EB10EA2008EBC5E /* Secondary.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE66FF2C1EB10EA2008EBC5E /* Secondary.storyboard */; };
 		AE66FF371EB10EFA008EBC5E /* SAFirstProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE66FF301EB10EFA008EBC5E /* SAFirstProfileViewController.m */; };
 		AE66FF381EB10EFA008EBC5E /* SAForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE66FF321EB10EFA008EBC5E /* SAForgotPasswordViewController.m */; };
@@ -85,6 +86,8 @@
 		84DC11831EAD00BD00A9A90C /* SAPersonDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAPersonDAO.m; sourceTree = "<group>"; };
 		8D7A63B81EAA5A9000418D39 /* SAProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAProfileViewController.h; sourceTree = "<group>"; };
 		8D7A63B91EAA5A9000418D39 /* SAProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAProfileViewController.m; sourceTree = "<group>"; };
+		8DF8642C1EB2267D00777E98 /* SALogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SALogInViewController.h; sourceTree = "<group>"; };
+		8DF8642D1EB2267D00777E98 /* SALogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SALogInViewController.m; sourceTree = "<group>"; };
 		AE66FF2D1EB10EA2008EBC5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Secondary.storyboard; sourceTree = "<group>"; };
 		AE66FF2F1EB10EFA008EBC5E /* SAFirstProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAFirstProfileViewController.h; sourceTree = "<group>"; };
 		AE66FF301EB10EFA008EBC5E /* SAFirstProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAFirstProfileViewController.m; sourceTree = "<group>"; };
@@ -202,6 +205,8 @@
 				8D7A63B91EAA5A9000418D39 /* SAProfileViewController.m */,
 				842B425E1EAF7BEA0096BD37 /* SAEventViewController.h */,
 				842B425F1EAF7BEA0096BD37 /* SAEventViewController.m */,
+				8DF8642C1EB2267D00777E98 /* SALogInViewController.h */,
+				8DF8642D1EB2267D00777E98 /* SALogInViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -398,6 +403,7 @@
 				847F5E3E1EA716FA0091BAE9 /* SAMatchMakingViewController.m in Sources */,
 				849AC2171EB012C600A7BD22 /* SAActivityConnector.m in Sources */,
 				8406A8DC1EA6761500C60267 /* AppDelegate.m in Sources */,
+				8DF8642E1EB2267D00777E98 /* SALogInViewController.m in Sources */,
 				AE66FF381EB10EFA008EBC5E /* SAForgotPasswordViewController.m in Sources */,
 				84DC117D1EACF32100A9A90C /* SAActivity.m in Sources */,
 				8406A8D91EA6761500C60267 /* main.m in Sources */,

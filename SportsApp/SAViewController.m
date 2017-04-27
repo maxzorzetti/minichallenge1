@@ -9,6 +9,8 @@
 #import "SAViewController.h"
 //#import <UIKit/UIKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+
+#import <CommonCrypto/CommonDigest.h>
 //#import <FBSDKLoginKit/FBSDKLoginKit.h>
 //#import <UNIRest.h>
 //#import "FBSDKLoginButton.h"
@@ -16,12 +18,16 @@
 
 
 @interface SAViewController ()
+
+
+
 @property (weak, nonatomic) IBOutlet UILabel *myLabel;
 //@property CKReference *ref;
 @property (weak, nonatomic) IBOutlet UITextField *firstNameField;
 
 
 
+@property (weak, nonatomic) IBOutlet UITextField *emailField;
 
 
 
@@ -40,7 +46,11 @@
 @property NSString *fullName;
 @property NSString *answer;
 
-@property int questionNumber; //POR QUE ID
+
+@property NSString *email;
+@property NSArray <NSString *>*choosenQuestions; //POR QUE ID
+
+@property  int questionNumber;
 
 @property NSArray <NSString *> *securityQuestions;
 
@@ -51,29 +61,13 @@
 
 
 
-- (IBAction)logInButtonPressed:(UIButton *)sender {
-    
-    
-    
-    
-    
-    
-    
-    
-    
-}
-
-
-
-
-
-
 
 
 
 - (IBAction)finishedSignIn:(UIButton *)sender {
     
     _answer = [[NSString alloc] initWithString:  _answer1.text];
+    _email = [[NSString alloc] initWithString:  _emailField.text];
 }
 
 
@@ -81,21 +75,35 @@
 
 - (IBAction)question1Chosen:(UIButton *)sender {
     
-    _questionNumber = 1;
+    _questionNumber =1;
     
 }
 
-- (IBAction)question2Chosen:(UIButton *)sender {
-    
-    
-    _questionNumber = 2;
-    
-}
+//- (IBAction)question2Chosen:(UIButton *)sender {
+//    
+//    
+//    
+//    
+//    
+//    
+//    
+//    
+//    
+//}
 
 - (IBAction)signInButtonPressed:(UIButton *)sender {
     
+    NSString *question1 = @"What is the name of your first pet?";
+    NSString *question2 = @"Which country would you like to visit most?";
+    NSString *question3 = @"What is the name of your grandmother?";
+    
+    NSArray <NSString *> *arrayQuestions = [[NSArray alloc] initWithObjects:question1, nil];
+    NSArray <NSString *> *arrayAnswers = [[NSArray alloc] init];
+    
+    
     _questionNumber = 0;
     _answer = nil;
+    _email = nil;
     
     _firstName = [NSString stringWithFormat:@"%@", _firstNameField.text];
     _lastName = [NSString stringWithFormat:@"%@", _lastNameField.text];
@@ -109,14 +117,22 @@
     CKRecord *personRecord = [[CKRecord alloc]initWithRecordType:@"SAPerson"];
     CKRecord *identityRecord = [[CKRecord alloc]initWithRecordType:@"SAIdentity"];
     
-    personRecord[@"name"] = _fullName;
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name = %@", _fullName];
+    _email = _emailField.text;
+    personRecord[@"name"] = _fullName;
+    personRecord[@"email"] = _emailField.text;
+    
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"email = %@", _email];
     CKQuery *query = [[CKQuery alloc] initWithRecordType:@"SAPerson" predicate:predicate];
     
     
     identityRecord[@"adapter"] = @"appLogin";
-    identityRecord[@"hash"] = _passwordField.text;
+    
+    
+    
+    
+    identityRecord[@"hash"] = [self sha1:_passwordField.text];
     
     
     [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
@@ -127,24 +143,16 @@
             //if (![results firstObject]) {
             if ([results count] == 0) //nao tem registro com aquele nome
             {
-                while ( !(_questionNumber  &&  _answer))
-                {
-                    //NSLog(@"chose!");
-                    
-                }
-                
-                //[personRecord[@"questions"] addObject:_questionNumber];
-                //[personRecord[@"answers"] addObject: _answer];
-                
-                [personRecord setObject:[NSNumber numberWithInt:_questionNumber] forKey:@"questions"];
-                [personRecord setObject:_answer forKey:@"answer"];
-                
-                //         [personRecord[@"answers"] addObject:_questionNumber];
                 
                 
+                if (_questionNumber == 1 )
+                    [personRecord setObject:arrayQuestions forKey:@"answers"];
                 
                 
+                //ajeitar isso pra answers
                 
+                [personRecord setObject:arrayQuestions forKey:@"questions"];
+                [personRecord setObject:_emailField.text forKey:@"email"];
                 
                 
                 [publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
@@ -162,10 +170,6 @@
                             }
                             else
                                 NSLog(@"Record Identity created. New person in the app.");
-                            
-                            
-                            
-                            
                             
                             
                         }];
@@ -350,6 +354,25 @@
  
  [self toggleHiddenState:NO];
  }*/
+
+- (NSString *)sha1:(NSString *)password
+{
+    NSData *data = [password dataUsingEncoding:NSUTF8StringEncoding];
+    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+    
+    CC_SHA1(data.bytes, data.length, digest);
+    
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+    
+    for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
+    {
+        [output appendFormat:@"%02x", digest[i]];
+    }
+    
+    return output;
+}
+
+
 
 
 
