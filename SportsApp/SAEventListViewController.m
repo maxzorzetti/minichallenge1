@@ -29,39 +29,13 @@
     self.tableWithEvents.delegate = self;
     self.tableWithEvents.dataSource = self;
     
-    
-    //UGLIEST CODE JUST TO TEST THO, CHILL MAN
-    [SAActivityConnector getAllActivities:^(NSArray * _Nullable activities, NSError * _Nullable error) {
-        if (error) {
-            NSLog(@"%@", error.description);
-        } else {
-            for (SAActivity *activity in activities) {
-                NSLog(@"%@", activity.name);
-                
-                [SAEventConnector getEventsByActivity:activity handler:^(NSArray * _Nullable events, NSError * _Nullable error) {
-                    if (error) {
-                        NSLog(@"%@", error.description);
-                    } else {
-                        NSMutableArray *eventList = [NSMutableArray new];
-                        for (SAEvent *event in events) {
-                            //NSLog(@"Events from activities: %@", event.name);
-                            
-                            [SAEventConnector getEventById:event.eventId handler:^(SAEvent * _Nullable eventFromid, NSError * _Nullable error) {
-                                if (error) {
-                                    NSLog(@"%@", error.description);
-                                } else {
-                                    NSLog(@"ERA PRA DAR CERTO POU: %@", eventFromid.name);
-                                    [eventList addObject:eventFromid];
-                                }
-                            }];
-                        }
-                        
-                        [self updateTableWithEventList:eventList];
-                    }
-                }];
-            }
+    CKRecordID *personId = [[CKRecordID alloc]initWithRecordName:@"35D1ADBD-53F8-4D4F-80AB-D44419A25DB0"];
+    [SAEventConnector getEventsByPersonId:personId handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
+        if (!error) {
+            [self updateTableWithEventList:events];
         }
     }];
+    
 }
 
 - (void)didReceiveMemoryWarning {

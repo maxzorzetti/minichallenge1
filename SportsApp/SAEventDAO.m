@@ -27,6 +27,16 @@ CKDatabase *publicDatabase;
     }];
 }
 
+- (void)getEventsByUserReference:(CKReference *)userId handler:(void (^)(NSArray<CKRecord *>* _Nullable record, NSError * _Nullable error))handler{
+    [self connectToPublicDatabase];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ IN participants", userId];
+    
+    CKQuery *query = [[CKQuery alloc]initWithRecordType:@"Event" predicate:predicate];
+    
+    [publicDatabase performQuery:query inZoneWithID:nil completionHandler:handler];
+}
+
 - (void)getAvailableEventsOfActivity:(SAActivity *)activity completionHandler:(void (^)(NSArray *, NSError *))handler{
 	[self connectToPublicDatabase];
     
