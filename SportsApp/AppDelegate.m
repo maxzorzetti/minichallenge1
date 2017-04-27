@@ -14,6 +14,8 @@
 #import "SAEvent.h"
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "SAPersonConnector.h"
+#import "SAPerson.h"
 
 @interface AppDelegate ()
 
@@ -65,34 +67,36 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 //    }];
     
     
+//UGLY CODE TO TEST ABILITY TO FETCH EVENTS FEED STYLE
+//    [SAActivityConnector getAllActivities:^(NSArray * _Nullable activities, NSError * _Nullable error) {
+//        if (!error) {
+//            
+//            CLLocation *fixedLoc = [[CLLocation alloc] initWithLatitude:-30.033285 longitude:-51.213884];
+//            
+//            [SAEventConnector getComingEventsBasedOnFavoriteActivities:activities AndCurrentLocation:fixedLoc AndRadiusOfDistanceDesiredInMeters:100 handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
+//                if(!error){
+//                    for (SAEvent *event in events) {
+//                        NSLog(@"Saca!!!! %@", event.name);
+//                    }
+//                }else{
+//                    NSLog(@"Error pra buscar eventos, sente: %@", error.description);
+//                }
+//            }];
+//        }else{
+//            NSLog(@"Error pra buscar activity, sente: %@", error.description);
+//        }
+//    }];
+//    
     
-    [SAActivityConnector getAllActivities:^(NSArray * _Nullable activities, NSError * _Nullable error) {
+    NSArray *arrayOfEmails = @[@"email", @"lau@hot.com", @"emailto.com"];
+    
+    [SAPersonConnector getPeopleFromEmails:arrayOfEmails handler:^(NSArray<SAPerson *> * _Nullable people, NSError * _Nullable error) {
         if (!error) {
-            
-            CLLocation *fixedLoc = [[CLLocation alloc] initWithLatitude:-30.033285 longitude:-51.213884];
-            
-            [SAEventConnector getComingEventsBasedOnFavoriteActivities:activities AndCurrentLocation:fixedLoc AndRadiusOfDistanceDesiredInMeters:100 handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
-                if(!error){
-                    for (SAEvent *event in events) {
-                        NSLog(@"Saca!!!! %@", event.name);
-                    }
-                }else{
-                    NSLog(@"Error pra buscar eventos, sente: %@", error.description);
-                }
-            }];
-        }else{
-            NSLog(@"Error pra buscar activity, sente: %@", error.description);
+            for (SAPerson * person in people) {
+                NSLog(@"Opa, deu certo: %@", person.name);
+            }
         }
     }];
-    
-    
-    
-    
-    
-    
-    
-    
-    
     return YES;
 }
 

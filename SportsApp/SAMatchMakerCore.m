@@ -96,7 +96,7 @@
     CKRecord *partyRecord = [[CKRecord alloc]initWithRecordType:@"SAParty"];
     
     for (SAPerson *person in party.people) {
-        CKReference *ref = [[CKReference alloc]initWithRecordID:person.id action:CKReferenceActionNone];
+        CKReference *ref = [[CKReference alloc]initWithRecordID:person.personId action:CKReferenceActionNone];
         [partyRecord setObject:ref forKey:@"people"];
     }
     

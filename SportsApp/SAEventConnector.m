@@ -11,6 +11,7 @@
 #import "SAEventDAO.h"
 #import <CloudKit/CloudKit.h>
 #import "SAActivity.h"
+#import "SAPerson.h"
 
 @implementation SAEventConnector
 
@@ -67,6 +68,28 @@
             }
         }
         handler(eventsFromRecord, error);
+    }];
+}
+
++ (void)getSugestedEventsWithActivities:(NSArray<SAActivity *>*_Nullable)interestedReferencedActivities AndCurrentLocation:(CLLocation *_Nonnull)usersLocation andDistanceInMeters:(int)proximity AndFriends:(NSArray<SAPerson *>*_Nonnull)friends handler:(void (^_Nonnull)(NSArray<SAEvent *>* _Nullable events, NSError * _Nullable error))handler{
+    SAEventDAO *dao = [SAEventDAO new];
+    
+    NSMutableArray *arrayOfPersonReferences = [NSMutableArray new];
+    
+    for (SAPerson *person in friends) {
+        CKReference *ref = [[CKReference alloc]initWithRecordID:person.personId action:CKReferenceActionNone];
+        [arrayOfPersonReferences addObject:ref];
+    }
+    
+    [dao getSugestedEventsWithActivities:nil AndCurrentLocation:usersLocation andDistanceInMeters:proximity AndFriends:arrayOfPersonReferences handler:^(NSArray<CKRecord *> * _Nullable eventRecords, NSError * _Nullable error) {
+        NSMutableArray *arrayOfEvents = [NSMutableArray new];
+        if (!error) {
+            for (CKRecord *eventRecord in eventRecords) {
+                SAEvent *event = [self getEventFromRecord:eventRecord];
+                [arrayOfEvents addObject:event];
+            }
+        }
+        handler(arrayOfEvents, error);
     }];
 }
 
