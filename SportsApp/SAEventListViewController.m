@@ -12,6 +12,7 @@
 #import "SAActivityConnector.h"
 #import "SAActivity.h"
 #import <CloudKit/CloudKit.h>
+#import "SAEventsTableViewCell.h"
 
 @interface SAEventListViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableWithEvents;
@@ -29,37 +30,10 @@
     self.tableWithEvents.delegate = self;
     self.tableWithEvents.dataSource = self;
     
-    
-    //UGLIEST CODE JUST TO TEST THO, CHILL MAN
-    [SAActivityConnector getAllActivities:^(NSArray * _Nullable activities, NSError * _Nullable error) {
-        if (error) {
-            NSLog(@"%@", error.description);
-        } else {
-            for (SAActivity *activity in activities) {
-                NSLog(@"%@", activity.name);
-                
-                [SAEventConnector getEventsByActivity:activity handler:^(NSArray * _Nullable events, NSError * _Nullable error) {
-                    if (error) {
-                        NSLog(@"%@", error.description);
-                    } else {
-                        NSMutableArray *eventList = [NSMutableArray new];
-                        for (SAEvent *event in events) {
-                            //NSLog(@"Events from activities: %@", event.name);
-                            
-                            [SAEventConnector getEventById:event.eventId handler:^(SAEvent * _Nullable eventFromid, NSError * _Nullable error) {
-                                if (error) {
-                                    NSLog(@"%@", error.description);
-                                } else {
-                                    NSLog(@"ERA PRA DAR CERTO POU: %@", eventFromid.name);
-                                    [eventList addObject:eventFromid];
-                                }
-                            }];
-                        }
-                        
-                        [self updateTableWithEventList:eventList];
-                    }
-                }];
-            }
+    CKRecordID *personId = [[CKRecordID alloc]initWithRecordName:@"35D1ADBD-53F8-4D4F-80AB-D44419A25DB0"];
+    [SAEventConnector getEventsByPersonId:personId handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
+        if (!error) {
+            [self updateTableWithEventList:events];
         }
     }];
 }
@@ -70,8 +44,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *customCell = [tableView dequeueReusableCellWithIdentifier:@""];
+    SAEventsTableViewCell *customCell = [tableView dequeueReusableCellWithIdentifier:@"eventCell" forIndexPath:indexPath];
     
+    customCell.event = self.arrayOfEvents[indexPath.row];
     
     return customCell;
 }
@@ -82,13 +57,8 @@
 
 - (void)updateTableWithEventList:(NSArray<SAEvent *>*)events{
     [self.arrayOfEvents addObjectsFromArray:events];
-    NSLog(@"CHEGOU AQUI PELO MENOS");
     
-    for (SAEvent *event in self.arrayOfEvents) {
-        NSLog(@"CARALHO CUZAO DEU CERTO!!!!");
-    }
-    
-    //[self.tableWithEvents reloadData];
+    [self.tableWithEvents reloadData];
 }
 
 

@@ -7,6 +7,7 @@
 //
 
 #import "SAEventsTableViewCell.h"
+#import "SAEvent.h"
 
 @implementation SAEventsTableViewCell
 
@@ -19,6 +20,13 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+
+-(void)setEvent:(SAEvent *)event{
+    _event = event;
+    
+    self.eventName.text = event.name;
 }
 
 @end

@@ -93,6 +93,22 @@
     }];
 }
 
++ (void)getEventsByPersonId:(CKRecordID *_Nonnull)userId handler:(void (^_Nonnull)(NSArray<SAEvent *>* _Nullable events, NSError * _Nullable error))handler{
+    CKReference *ref = [[CKReference alloc]initWithRecordID:userId action:CKReferenceActionNone];
+    
+    SAEventDAO *dao = [SAEventDAO new];
+    [dao getEventsByUserReference:ref handler:^(NSArray<CKRecord *> * _Nullable eventRecords, NSError * _Nullable error) {
+        NSMutableArray *arrayOfEvents = [NSMutableArray new];
+        if (!error) {
+            for (CKRecord *eventRecord in eventRecords) {
+                SAEvent *event = [self getEventFromRecord:eventRecord];
+                [arrayOfEvents addObject:event];
+            }
+        }
+        handler(arrayOfEvents, error);
+    }];
+    
+}
 
 + (SAEvent *)getEventFromRecord:(CKRecord *)event{
     SAEvent *eventFromRecord = [[SAEvent alloc]initWithName:event[@"name"] andRequiredParticipants:(int)event[@"minPeople"] andMaxParticipants:(int)event[@"maxPeople"] andActivity:nil andId:event.recordID andCategory:event[@"category"] andSex:event[@"sex"] andDate:event[@"date"]];
