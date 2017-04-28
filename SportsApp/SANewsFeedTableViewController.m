@@ -12,42 +12,27 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "SANewsFeedTableViewCell.h"
 #import <CloudKit/CloudKit.h>
-#import "SAFacebookIdDAO.h"
+
 #import "SAPersonConnector.h"
 #import "SAPerson.h"
 #import "SAEventConnector.h"
 
+
 @interface SANewsFeedTableViewController ()
-@property NSArray<SAEvent *> *eventArray;
-@property int flaaag;
+@property NSMutableArray *eventArray;
+@property (weak, nonatomic) IBOutlet UITableView *tableWithEvents;
+
 
 @end
 
 
 @implementation SANewsFeedTableViewController
-/*
-- (void)userFriendsFacebookIds:(NSString *)userFacebookId callback:(ConverteArrayCallback) callback {
-    NSMutableArray *coordinates = [[NSMutableArray alloc] initWithCapacity:0];
-    SAFacebookIdDAO *faceIdDAO = [[SAFacebookIdDAO alloc] init];
-    [faceIdDAO userFriendsFacebookIdsHandler:^(NSArray * _Nullable activities, NSError * _Nullable error) {
-        if (error) {
-            NSLog(@"%@", error.description);
-            handler(nil, error);
-        }else{
-            NSMutableArray *arrayOfActivities = [NSMutableArray new];
-            for (CKRecord *activity in activities) {
-                SAActivity *activityFromRecord = [self activityFromRecord:activity];
-                [arrayOfActivities addObject:activityFromRecord];
-            }
-            handler(arrayOfActivities, nil);
-        }
-    }];
 
-}*/
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _eventArray = [[NSMutableArray alloc]init];
     NSMutableArray *friendList = [[NSMutableArray alloc] init];
     
     if ( [FBSDKAccessToken currentAccessToken]) {
@@ -67,32 +52,9 @@
                 
                 for (id person in [[result objectForKey:@"friends"]objectForKey:@"data"] )
                 {
-                    _flaaag = 0;
-                    
                     NSString *userID = [person objectForKey:@"id"];
-                    
-                   // NSPredicate *predicate = [NSPredicate predicateWithFormat:@"facebookId = %@", userID];
-                   // CKQuery *query = [[CKQuery alloc] initWithRecordType:@"SAPerson" predicate:predicate];
-                    
-                   /*
-                    [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray*results, NSError *error) {
-                        if (error) {
-                            NSLog(@"error: %@",error.localizedDescription);
-                        }
-                        else {
-                            
-                            if (results.count != 0 )
-                                [friendList addObject:userID];
-                            else
-                                NSLog(@"man not in the app");
-                        }}];
-                    
-                    if (_flaaag)*/
                         [friendList addObject:userID];
-                    
-                    
-                    
-                    
+  
                 }
                 
                 [SAPersonConnector getPeopleFromFacebookIds:friendList handler:^(NSArray<SAPerson *> * _Nullable results, NSError * _Nullable error) {
@@ -100,7 +62,7 @@
                     {
                         CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:-30.033285 longitude:-51.213884];
                         
-                      [SAEventConnector getSugestedEventsWithActivities:nil AndCurrentLocation:currentLocation andDistanceInMeters:100000000 AndFriends:results handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
+                      [SAEventConnector getSugestedEventsWithActivities:nil AndCurrentLocation:currentLocation andDistanceInMeters:1000000 AndFriends:results handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
                           
                           
                           if(!error)
@@ -108,6 +70,7 @@
                               for (SAEvent *event in events) {
                                   NSLog(@"eventos = %@", event.name);
                               }
+                              [self updateTableWithEventList:events];
                               
                           }else{
                               NSLog(@"tome: %@", error.description);
@@ -143,25 +106,39 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     NSInteger numberOfEvents = _eventArray.count;
     return numberOfEvents;
+    
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
     SANewsFeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
-    [cell initWithEvent:_eventArray[indexPath.row]];
+    if (!cell)
+    {
+        [tableView registerNib:[UINib nibWithNibName:@"SACustomCell" bundle:nil] forCellReuseIdentifier:@"myCell"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
+    }
+    [cell initWithEvent:self.eventArray[indexPath.row]];
+    //cell.cellEvent = self.eventArray[indexPath.row];
+    //cell.ownerName.text = @"vamooooooooo";
     
     
     return cell;
 }
+
+- (void)updateTableWithEventList:(NSArray<SAEvent *>*)events{
+    [self.eventArray addObjectsFromArray:events];
+    
+    [self.tableWithEvents reloadData];
+}
+
 
 
 /*

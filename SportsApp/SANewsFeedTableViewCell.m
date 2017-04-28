@@ -10,6 +10,8 @@
 
 @implementation SANewsFeedTableViewCell
 
+
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
@@ -26,8 +28,7 @@
 - (void)initWithEvent:(SAEvent *)cellEvent
 {
     _cellEvent = cellEvent;
-    
+    _eventName.text = _cellEvent.name;
 }
-
 
 @end
