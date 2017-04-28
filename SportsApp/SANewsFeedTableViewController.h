@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SANewsFeedTableViewCell.h"
 
-typedef void (^ConverteArrayCallback)(NSArray *coordinates);
 @interface SANewsFeedTableViewController : UITableViewController
-- (void)userFriendsFacebookIds:(NSString *)userFacebookid callback:(ConverteArrayCallback) callback;
+- (void)updateTableWithEventList:(NSArray<SAEvent *>*)events;
+
 @end

@@ -15,6 +15,7 @@
 @property SAEvent *cellEvent;
 - (void)initWithEvent:(SAEvent *)cellEvent;
 
+
 @property (weak, nonatomic) IBOutlet UIImageView *ownerProfilePicture;
 
 @property (weak, nonatomic) IBOutlet UILabel *ownerName;

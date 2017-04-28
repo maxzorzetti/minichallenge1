@@ -8,9 +8,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SANewsFeedTableViewController"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="myCell" selectionStyle="default" indentationWidth="10" rowHeight="104" id="Dhb-dR-4ut" customClass="SANewsFeedTableViewCell">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="myCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="myCell" rowHeight="104" id="Dhb-dR-4ut" customClass="SANewsFeedTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="375" height="104"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dhb-dR-4ut" id="yy5-QM-btT">
@@ -72,7 +72,7 @@
                 <outlet property="ownerName" destination="IDL-PW-wy2" id="8VS-xY-7J8"/>
                 <outlet property="ownerProfilePicture" destination="s9t-jw-XZD" id="X60-8s-vlx"/>
             </connections>
-            <point key="canvasLocation" x="-2272.5" y="-3183"/>
+            <point key="canvasLocation" x="-2210" y="-3173"/>
         </tableViewCell>
     </objects>
     <resources>
