@@ -19,7 +19,7 @@
 @property (nonatomic) NSString *telephone;
 @property (nonatomic) NSMutableArray<SAActivity *> *interests;
 @property (nonatomic) NSMutableArray<SAEvent *> *events;
-
+@property NSData *photo;
 @property (nonatomic) id facebookId;
 
 - (void)addInterest:(SAActivity *)interest;
@@ -28,7 +28,7 @@
 - (void)addEvent:(SAEvent *)event;
 - (void)removeEvent:(SAEvent *)event;
 
-- (instancetype)initWithName:(NSString *)name personId:(CKRecordID *)personId email:(NSString *)email telephone:(NSString *)telephone andEvents:(NSArray<SAEvent *> *)events;
+- (instancetype)initWithName:(NSString *)name personId:(CKRecordID *)personId email:(NSString *)email telephone:(NSString *)telephone andPhoto:(NSData *)photo andEvents:(NSArray<SAEvent *> *)events;
 
 
 @end

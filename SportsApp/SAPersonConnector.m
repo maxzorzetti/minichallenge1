@@ -9,26 +9,103 @@
 #import "SAPersonConnector.h"
 #import "SAPersonDAO.h"
 #import "SAPerson.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 @implementation SAPersonConnector
 
+
 + (void)getPeopleFromFacebookIds:(NSArray<NSString *> *_Nonnull)facebookIds handler:(void (^_Nonnull)(NSArray<SAPerson *> *_Nullable, NSError *_Nullable))handler{
+    __block NSMutableArray *arrayOfPeople = [NSMutableArray new];
     SAPersonDAO *personDAO = [SAPersonDAO new];
     
     [personDAO getPeopleFromFacebookIds:facebookIds handler:^(NSArray<CKRecord *> * _Nullable personRecords, NSError * _Nullable error) {
         if (!error) {
-            NSMutableArray *arrayOfPeople = [NSMutableArray new];
-            for (CKRecord *personRecord in personRecords) {
-                SAPerson *person = [self getPersonFromRecord:personRecord];
-                [arrayOfPeople addObject:person];
+            for (int i = 0; i<personRecords.count; i++) {
+                CKRecord *personRecord = personRecords[i];
+                
+                NSString *pathGraph = [[NSString alloc]initWithFormat:@"/%@",personRecord[@"facebookId"]];
+                
+                FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
+                                              initWithGraphPath:pathGraph
+                                              parameters:@{ @"fields": @"picture",}
+                                              HTTPMethod:@"GET"];
+                
+                [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                    if(!error){
+                        NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
+                        
+                        SAPerson *person = [self getPersonFromRecord:personRecord andPicture:photo];
+                        [arrayOfPeople addObject:person];
+                        if (arrayOfPeople.count==personRecords.count) {
+                            handler(arrayOfPeople, error);
+                        }
+                    }else{
+                        NSLog(@"%@", error.description);
+                    }
+                }];
             }
-            handler(arrayOfPeople, error);
         }
     }];
 }
 
-+ (SAPerson *)getPersonFromRecord:(CKRecord *)personRecord{
-    SAPerson *person = [[SAPerson alloc]initWithName:personRecord[@"name"] personId:personRecord.recordID email:personRecord[@"email"] telephone:personRecord[@"telephone"] andEvents:nil];
++ (void)getPeopleFromId:(NSArray<CKRecordID *> *_Nonnull)peopleId handler:(void (^_Nonnull)(NSArray<SAPerson *> *_Nullable, NSError *_Nullable))handler{
+    __block NSMutableArray *arrayOfPeople = [NSMutableArray new];
+    SAPersonDAO *personDAO = [SAPersonDAO new];
+    
+    [personDAO getPeopleFromIds:peopleId handler:^(NSArray<CKRecord *> * _Nullable personRecords, NSError * _Nullable error) {
+        if (!error) {
+            for (int i = 0; i<personRecords.count; i++) {
+                CKRecord *personRecord = personRecords[i];
+                
+                //if person is a facebook user, load his/her picture before creating a SAPerson object and adding to array
+                if (![personRecord[@"facebookId"] isEqual:nil]) {
+                    NSString *pathGraph = [[NSString alloc]initWithFormat:@"/%@",personRecord[@"facebookId"]];
+                    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
+                                                  initWithGraphPath:pathGraph
+                                                  parameters:@{ @"fields": @"picture",}
+                                                  HTTPMethod:@"GET"];
+                    
+                    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                        if(!error){
+                            
+                            NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
+                            
+                            SAPerson *person = [self getPersonFromRecord:personRecord andPicture:photo];
+                            [arrayOfPeople addObject:person];
+                            
+                            //calling the block end when the last person got his/her facebook picture loaded
+                            if (arrayOfPeople.count==personRecords.count) {
+                                handler(arrayOfPeople, error);
+                            }
+                        }else{
+                            NSLog(@"%@", error.description);
+                        }
+                    }];
+                }
+                //if the person ain't a facebook user, use a placeholder to create a SAPerson object and add the object to array
+                else{
+                    //get placeholder from NSUserDefaults
+                    NSData *photo = nil;
+                    
+                    SAPerson *person = [self getPersonFromRecord:personRecord andPicture:photo];
+                    [arrayOfPeople addObject:person];
+                }
+                
+                
+                //this condition will never be met if there is a facebookUser's picture yet to be loaded. Don't worry, the picture will call the block
+                if (arrayOfPeople.count==personRecords.count) {
+                    handler(arrayOfPeople, error);
+                }
+            }
+        }
+    }];
+}
+
+
+
++ (SAPerson *_Nonnull)getPersonFromRecord:(CKRecord *_Nonnull)personRecord andPicture:(NSData *_Nullable)photo{
+    SAPerson *person = [[SAPerson alloc]initWithName:personRecord[@"name"] personId:personRecord.recordID email:personRecord[@"email"] telephone:personRecord[@"telephone"] andPhoto:photo andEvents:nil];
     return person;
 }
 

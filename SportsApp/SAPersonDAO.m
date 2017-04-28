@@ -23,6 +23,21 @@ CKDatabase *publicDatabase;
     [publicDatabase performQuery:query inZoneWithID:nil completionHandler:handler];
 }
 
+- (void)getPersonFromId:(CKRecordID *_Nonnull)personId handler:(void (^_Nonnull)(CKRecord *_Nullable, NSError *_Nullable))handler{
+    [self connectToPublicDatabase];
+    
+    [publicDatabase fetchRecordWithID:personId completionHandler:handler];
+}
+
+- (void)getPeopleFromIds:(NSArray<CKRecordID *> *_Nonnull)personIds handler:(void (^_Nonnull)(NSArray<CKRecord *> *_Nullable, NSError *_Nullable))handler{
+    [self connectToPublicDatabase];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"recordID IN %@", personIds];
+    CKQuery *query = [[CKQuery alloc]initWithRecordType:@"SAPerson" predicate:predicate];
+    
+    [publicDatabase performQuery:query inZoneWithID:nil completionHandler:handler];
+}
+
 - (void)connectToPublicDatabase{
     if (container == nil) container = [CKContainer defaultContainer];
     if (publicDatabase == nil) publicDatabase = [container publicCloudDatabase];

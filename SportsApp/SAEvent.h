@@ -23,6 +23,7 @@
 @property (nonatomic) NSString *sex;
 @property (nonatomic) NSDate *date;
 @property (nonatomic, readonly) NSDictionary<SAPerson *, NSString *> *participantsRoles;
+@property (nonatomic) SAPerson *owner;
 
 - (instancetype)initWithName:(NSString *)name andRequiredParticipants:(int)requiredParticipants andMaxParticipants:(int)maxParticipants andActivity:(SAActivity *)activity andId:(CKRecordID *)eventId andCategory:(NSString *)category andSex:(NSString *)sex andDate:(NSDate *)date;
 

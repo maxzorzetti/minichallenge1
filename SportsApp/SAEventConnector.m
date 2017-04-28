@@ -12,6 +12,8 @@
 #import <CloudKit/CloudKit.h>
 #import "SAActivity.h"
 #import "SAPerson.h"
+#import "SAPersonDAO.h"
+#import "SAPersonConnector.h"
 
 @implementation SAEventConnector
 
