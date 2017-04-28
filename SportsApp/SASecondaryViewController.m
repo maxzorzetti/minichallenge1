@@ -52,7 +52,8 @@
 }
 
 - (void) changeUserTextField{
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(1, 1, _txtUser.frame.size.width, _txtUser.frame.size.height-1) byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(6.0, 6.0)];
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:
+                              CGRectMake(1, 1, _txtUser.frame.size.width, _txtUser.frame.size.height-1) byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(7.0, 7.0)];
     
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
     maskLayer.frame = _txtUser.bounds;
@@ -65,7 +66,8 @@
 }
 
 - (void) changePwdTextField{
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(1, 0, _txtPassword.frame.size.width, _txtPassword.frame.size.height-1) byRoundingCorners: UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(6.0, 6.0)];
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:
+                              CGRectMake(1, 0, _txtPassword.frame.size.width, _txtPassword.frame.size.height-1) byRoundingCorners: UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(6.0, 6.0)];
     
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
     maskLayer.frame = _txtPassword.bounds;
@@ -76,6 +78,28 @@
     
     [_txtPassword.layer addSublayer:maskLayer];
 }
+
+- (void) changeTextFieldBorderWithField: (UITextField *)textField andOption: (NSUInteger)options{
+    
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(1, 0, _txtPassword.frame.size.width, _txtPassword.frame.size.height-1) byRoundingCorners: UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(6.0, 6.0)];
+    
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = _txtPassword.bounds;
+    maskLayer.path = maskPath.CGPath;
+    maskLayer.lineWidth = 1.0;
+    maskLayer.strokeColor = [UIColor colorWithRed:156.0f/255.0f green:156.0f/255.0f blue:156.0f/255.0f alpha:1.0f].CGColor;
+    maskLayer.fillColor = [UIColor clearColor].CGColor;
+    
+    [_txtPassword.layer addSublayer:maskLayer];
+    
+}
+
+
+
+
+
+
+
 
 - (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error{
     

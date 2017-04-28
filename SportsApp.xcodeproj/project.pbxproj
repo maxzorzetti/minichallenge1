@@ -41,6 +41,10 @@
 		8D7A63BA1EAA5A9000418D39 /* SAProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7A63B91EAA5A9000418D39 /* SAProfileViewController.m */; };
 		8DF8642E1EB2267D00777E98 /* SALogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DF8642D1EB2267D00777E98 /* SALogInViewController.m */; };
 		8DF864341EB22EE400777E98 /* SANewsFeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DF864331EB22EE400777E98 /* SANewsFeedTableViewController.m */; };
+		AE1602891EB3B81F00E8E68F /* SACollectionButtonViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1602871EB3B81F00E8E68F /* SACollectionButtonViewCell.m */; };
+		AE16028A1EB3B81F00E8E68F /* SACollectionButtonViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE1602881EB3B81F00E8E68F /* SACollectionButtonViewCell.xib */; };
+		AE1877D91EB38E8300CAFD1A /* SAInterestsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1877D81EB38E8300CAFD1A /* SAInterestsCollectionViewController.m */; };
+		AE1877DC1EB3909900CAFD1A /* SAInterestsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1877DB1EB3909900CAFD1A /* SAInterestsCollectionViewCell.m */; };
 		AE66FF2E1EB10EA2008EBC5E /* Secondary.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE66FF2C1EB10EA2008EBC5E /* Secondary.storyboard */; };
 		AE66FF371EB10EFA008EBC5E /* SAFirstProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE66FF301EB10EFA008EBC5E /* SAFirstProfileViewController.m */; };
 		AE66FF381EB10EFA008EBC5E /* SAForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE66FF321EB10EFA008EBC5E /* SAForgotPasswordViewController.m */; };
@@ -117,6 +121,13 @@
 		8DF8642D1EB2267D00777E98 /* SALogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SALogInViewController.m; sourceTree = "<group>"; };
 		8DF864321EB22EE400777E98 /* SANewsFeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANewsFeedTableViewController.h; sourceTree = "<group>"; };
 		8DF864331EB22EE400777E98 /* SANewsFeedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANewsFeedTableViewController.m; sourceTree = "<group>"; };
+		AE1602861EB3B81F00E8E68F /* SACollectionButtonViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SACollectionButtonViewCell.h; sourceTree = "<group>"; };
+		AE1602871EB3B81F00E8E68F /* SACollectionButtonViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SACollectionButtonViewCell.m; sourceTree = "<group>"; };
+		AE1602881EB3B81F00E8E68F /* SACollectionButtonViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACollectionButtonViewCell.xib; sourceTree = "<group>"; };
+		AE1877D71EB38E8300CAFD1A /* SAInterestsCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAInterestsCollectionViewController.h; sourceTree = "<group>"; };
+		AE1877D81EB38E8300CAFD1A /* SAInterestsCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAInterestsCollectionViewController.m; sourceTree = "<group>"; };
+		AE1877DA1EB3909900CAFD1A /* SAInterestsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAInterestsCollectionViewCell.h; sourceTree = "<group>"; };
+		AE1877DB1EB3909900CAFD1A /* SAInterestsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAInterestsCollectionViewCell.m; sourceTree = "<group>"; };
 		AE66FF2D1EB10EA2008EBC5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Secondary.storyboard; sourceTree = "<group>"; };
 		AE66FF2F1EB10EFA008EBC5E /* SAFirstProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAFirstProfileViewController.h; sourceTree = "<group>"; };
 		AE66FF301EB10EFA008EBC5E /* SAFirstProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAFirstProfileViewController.m; sourceTree = "<group>"; };
@@ -260,6 +271,8 @@
 				8D4824901EB2353400D2FE5B /* SANewsFeedTableViewCell.m */,
 				84CBE4701EB238DB00ACD0DF /* SAEventsTableViewCell.h */,
 				84CBE4711EB238DB00ACD0DF /* SAEventsTableViewCell.m */,
+				AE1877D71EB38E8300CAFD1A /* SAInterestsCollectionViewController.h */,
+				AE1877D81EB38E8300CAFD1A /* SAInterestsCollectionViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -272,6 +285,11 @@
 				29A4CA481EB20D2500DCA3FA /* NewEvent.storyboard */,
 				29A4CA571EB2320700DCA3FA /* SAActivityCollectionViewCell.h */,
 				29A4CA581EB2320700DCA3FA /* SAActivityCollectionViewCell.m */,
+				AE1877DA1EB3909900CAFD1A /* SAInterestsCollectionViewCell.h */,
+				AE1877DB1EB3909900CAFD1A /* SAInterestsCollectionViewCell.m */,
+				AE1602861EB3B81F00E8E68F /* SACollectionButtonViewCell.h */,
+				AE1602871EB3B81F00E8E68F /* SACollectionButtonViewCell.m */,
+				AE1602881EB3B81F00E8E68F /* SACollectionButtonViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -383,6 +401,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE16028A1EB3B81F00E8E68F /* SACollectionButtonViewCell.xib in Resources */,
 				8406A8E71EA6761500C60267 /* LaunchScreen.storyboard in Resources */,
 				8406A8E41EA6761500C60267 /* Assets.xcassets in Resources */,
 				8406A8E21EA6761500C60267 /* Main.storyboard in Resources */,
@@ -448,6 +467,7 @@
 			files = (
 				29028B801EA7EEB600367FE4 /* SAParty.m in Sources */,
 				29028B7D1EA7EE5F00367FE4 /* SAMatchmaker.m in Sources */,
+				AE1877D91EB38E8300CAFD1A /* SAInterestsCollectionViewController.m in Sources */,
 				847F5E351EA714180091BAE9 /* SAEvent.m in Sources */,
 				84CBE46F1EB230E300ACD0DF /* SAEventListViewController.m in Sources */,
 				AE66FF391EB10EFA008EBC5E /* SAJoinLoginViewController.m in Sources */,
@@ -473,11 +493,13 @@
 				29A4CA4F1EB22F8D00DCA3FA /* SANewEvent2ViewController.m in Sources */,
 				AE66FF371EB10EFA008EBC5E /* SAFirstProfileViewController.m in Sources */,
 				842B42631EAF7C400096BD37 /* SAEventConnector.m in Sources */,
+				AE1877DC1EB3909900CAFD1A /* SAInterestsCollectionViewCell.m in Sources */,
 				842B42591EAF67EA0096BD37 /* SAEventDAO.m in Sources */,
 				8D4824911EB2353400D2FE5B /* SANewsFeedTableViewCell.m in Sources */,
 				AE66FF3A1EB10EFA008EBC5E /* SASecondaryViewController.m in Sources */,
 				84CBE4721EB238DB00ACD0DF /* SAEventsTableViewCell.m in Sources */,
 				29A4CA591EB2320700DCA3FA /* SAActivityCollectionViewCell.m in Sources */,
+				AE1602891EB3B81F00E8E68F /* SACollectionButtonViewCell.m in Sources */,
 				29A4CA551EB22FA800DCA3FA /* SANewEvent4ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
