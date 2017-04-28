@@ -7,7 +7,17 @@
 //
 
 #import "SAActivityCollectionViewCell.h"
+#import "SAActivity.h"
+
+@interface SAActivityCollectionViewCell ()
+
+@end
 
 @implementation SAActivityCollectionViewCell
+
+- (void)configureWithActivity:(SAActivity *)activity{
+	self.title.text = activity.name;
+	self.icon.image = [UIImage imageNamed:@"ic_favorite"];//activity.icon;
+}
 
 @end

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SANewEvent2ViewController : UIViewController
+@interface SANewEvent2ViewController : UIViewController <UICollectionViewDataSource>
 
 @end

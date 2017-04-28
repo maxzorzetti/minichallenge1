@@ -7,8 +7,14 @@
 //
 
 #import "SANewEvent1ViewController.h"
+#import "SAActivityConnector.h"
+#import "SAActivity.h"
+#import "SAActivityCollectionViewCell.h"
 
 @interface SANewEvent1ViewController ()
+
+@property (nonatomic) NSArray *activities;
+@property (weak, nonatomic) IBOutlet UICollectionView *activitiesCollectionView;
 
 @end
 
@@ -16,7 +22,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+	
+	self.activitiesCollectionView.dataSource = self;
+	
+	SAActivity *futebas = [[SAActivity alloc]initWithName:@"Futebas" minimumPeople:14 maximumPeople:16 AndActivityId:nil];
+	SAActivity *volei = [[SAActivity alloc]initWithName:@"Volei" minimumPeople:14 maximumPeople:16 AndActivityId:nil];
+	SAActivity *tenis = [[SAActivity alloc]initWithName:@"Tenis" minimumPeople:14 maximumPeople:16 AndActivityId:nil];
+	SAActivity *golf = [[SAActivity alloc]initWithName:@"Golf" minimumPeople:14 maximumPeople:16 AndActivityId:nil];
+	SAActivity *basquete = [[SAActivity alloc]initWithName:@"Basquete" minimumPeople:14 maximumPeople:16 AndActivityId:nil];
+	
+	self.activities = @[futebas, volei, tenis, golf, basquete];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,18 +49,22 @@
 }
 */
 
-- (void)collectionView:numberOfItemsInSection{
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 	
+	SAActivityCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"buttonCell" forIndexPath:indexPath];
+	[cell configureWithActivity: self.activities[indexPath.row]];
+	
+	return cell;
 }
 
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 	
-	return nil;
-}
-
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-	
-	return nil;
+	NSInteger numberOfItems;
+	switch (section) {
+		case 0: numberOfItems = self.activities.count; break;
+		default: numberOfItems = 0;
+	}
+	return numberOfItems;
 }
 
 @end

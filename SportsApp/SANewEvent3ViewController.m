@@ -7,8 +7,13 @@
 //
 
 #import "SANewEvent3ViewController.h"
+#import "SAActivityCollectionViewCell.h"
 
 @interface SANewEvent3ViewController ()
+
+@property (weak, nonatomic) IBOutlet UICollectionView *peopleCollectionView;
+
+@property (nonatomic) NSArray *people;
 
 @end
 
@@ -16,7 +21,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+	
+	self.peopleCollectionView.dataSource = self;
+	
+	self.people = @[@"with friends", @"with anyone"];
+	
+	
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,6 +34,25 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+	
+	NSInteger numberOfItems;
+	switch (section) {
+		case 0:	numberOfItems = self.people.count; break;
+		default: numberOfItems = 0;
+	}
+	return numberOfItems;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+	
+	SAActivityCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"buttonCell" forIndexPath:indexPath];
+	
+	cell.title.text = self.people[indexPath.row];
+	cell.icon.image = [UIImage imageNamed:@"ic_favorite"];
+	
+	return cell;
+}
 /*
 #pragma mark - Navigation
 

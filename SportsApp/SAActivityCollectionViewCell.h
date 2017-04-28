@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+@class SAActivity;
 
 @interface SAActivityCollectionViewCell : UICollectionViewCell
+
+@property (weak, nonatomic) IBOutlet UIImageView *icon;
+
+@property (weak, nonatomic) IBOutlet UITextField *title;
+
+- (void)configureWithActivity:(SAActivity *)activity;
 
 @end
