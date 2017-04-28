@@ -10,7 +10,7 @@
 
 @implementation SAActivity
 
-- (instancetype)initWithName:(NSString *)name minimumPeople:(int)minimumPeople maximumPeople:(int)maximumPeople AndActivityId:(CKRecordID *)activityId
+- (instancetype)initWithName:(NSString *)name minimumPeople:(int)minimumPeople maximumPeople:(int)maximumPeople picture:(NSData *)picture AndActivityId:(CKRecordID *)activityId
 {
     self = [super init];
     if (self) {
@@ -18,6 +18,7 @@
         _minimumPeople = minimumPeople;
         _maximumPeople = maximumPeople;
         _activityId = activityId;
+        _picture = picture;
     }
     return self;
 }

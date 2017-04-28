@@ -14,7 +14,8 @@
 @property (nonatomic, readonly) NSString *name;
 @property (nonatomic, readonly) int minimumPeople, maximumPeople;
 @property (nonatomic, readonly) CKRecordID *activityId;
+@property (nonatomic) NSData *picture;
 
--(instancetype)initWithName:(NSString *)name minimumPeople:(int)minimumPeople maximumPeople:(int)maximumPeople AndActivityId:(CKRecordID *)activityId;
+-(instancetype)initWithName:(NSString *)name minimumPeople:(int)minimumPeople maximumPeople:(int)maximumPeople picture:(NSData *)picture AndActivityId:(CKRecordID *)activityId;
 
 @end

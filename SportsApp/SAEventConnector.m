@@ -109,11 +109,26 @@
         }
         handler(arrayOfEvents, error);
     }];
-    
 }
 
 + (SAEvent *)getEventFromRecord:(CKRecord *)event{
     SAEvent *eventFromRecord = [[SAEvent alloc]initWithName:event[@"name"] andRequiredParticipants:(int)event[@"minPeople"] andMaxParticipants:(int)event[@"maxPeople"] andActivity:nil andId:event.recordID andCategory:event[@"category"] andSex:event[@"sex"] andDate:event[@"date"]];
+    
+    
+    //TODO - CHECK IF OWNER IS IN NSUserdefauts
+    //TODO - CHECK IF ACTIVITY IS IN NSUserdefaustao
+    
+    //TODO - USE NSUserdaults placeholder profile picture
+    NSData *photo = nil;
+    SAPerson *owner = [[SAPerson alloc]initWithName:nil personId:event.creatorUserRecordID email:nil telephone:nil andPhoto:photo andEvents:nil];
+    
+    //TODO - USE NSUserdefaulstao placeholder activity picture
+    NSData *activityPhoto = nil;
+    CKReference *activityRef = event[@"activity"];
+    SAActivity *activity = [[SAActivity alloc]initWithName:nil minimumPeople:nil maximumPeople:nil picture:activityPhoto AndActivityId:activityRef.recordID];
+    
+    [eventFromRecord setOwner:owner];
+    [eventFromRecord setActivity:activity];
     
     return eventFromRecord;
 }

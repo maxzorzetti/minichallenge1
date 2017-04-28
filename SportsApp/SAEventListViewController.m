@@ -30,6 +30,7 @@
     self.tableWithEvents.delegate = self;
     self.tableWithEvents.dataSource = self;
     
+    //TODO get from User defaults instead
     CKRecordID *personId = [[CKRecordID alloc]initWithRecordName:@"35D1ADBD-53F8-4D4F-80AB-D44419A25DB0"];
     [SAEventConnector getEventsByPersonId:personId handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
         if (!error) {
