@@ -12,17 +12,43 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "SANewsFeedTableViewCell.h"
 #import <CloudKit/CloudKit.h>
-
+#import "SAFacebookIdDAO.h"
+#import "SAPersonConnector.h"
+#import "SAPerson.h"
+#import "SAEventConnector.h"
 
 @interface SANewsFeedTableViewController ()
 @property NSArray<SAEvent *> *eventArray;
+@property int flaaag;
+
 @end
 
+
 @implementation SANewsFeedTableViewController
+/*
+- (void)userFriendsFacebookIds:(NSString *)userFacebookId callback:(ConverteArrayCallback) callback {
+    NSMutableArray *coordinates = [[NSMutableArray alloc] initWithCapacity:0];
+    SAFacebookIdDAO *faceIdDAO = [[SAFacebookIdDAO alloc] init];
+    [faceIdDAO userFriendsFacebookIdsHandler:^(NSArray * _Nullable activities, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"%@", error.description);
+            handler(nil, error);
+        }else{
+            NSMutableArray *arrayOfActivities = [NSMutableArray new];
+            for (CKRecord *activity in activities) {
+                SAActivity *activityFromRecord = [self activityFromRecord:activity];
+                [arrayOfActivities addObject:activityFromRecord];
+            }
+            handler(arrayOfActivities, nil);
+        }
+    }];
+
+}*/
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSMutableArray *friendList = [[NSMutableArray alloc] init];
     
     if ( [FBSDKAccessToken currentAccessToken]) {
         FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
@@ -36,30 +62,19 @@
             }
             else
             {
-                //NSLog(@"fetched user:%@", result );
-                //NSLog(@"Nome: %@", [result objectForKey:@"name"]);
-                //_userInfo.text =[result objectForKey:@"name"];
-                // NSLog(@"Facebook id: %@", [result objectForKey:@"id"]);
-                //_userInfo.text = [_userInfo.text stringByAppendingString:[result objectForKey:@"id"]];
-                
-                NSMutableArray<SAPerson *> *friendList = [[NSMutableArray alloc] init];
                 CKContainer *container = [CKContainer defaultContainer];
                 CKDatabase *publicDatabase = [container publicCloudDatabase];
                 
                 for (id person in [[result objectForKey:@"friends"]objectForKey:@"data"] )
                 {
-                    
+                    _flaaag = 0;
                     
                     NSString *userID = [person objectForKey:@"id"];
                     
+                   // NSPredicate *predicate = [NSPredicate predicateWithFormat:@"facebookId = %@", userID];
+                   // CKQuery *query = [[CKQuery alloc] initWithRecordType:@"SAPerson" predicate:predicate];
                     
-                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"facebookId = %@", userID];
-                    CKQuery *query = [[CKQuery alloc] initWithRecordType:@"SAPerson" predicate:predicate];
-                    
-                    
-                    //NSLog(@"%@", person);
-                    
-                    
+                   /*
                     [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray*results, NSError *error) {
                         if (error) {
                             NSLog(@"error: %@",error.localizedDescription);
@@ -67,27 +82,45 @@
                         else {
                             
                             if (results.count != 0 )
-                                [friendList addObject:[results firstObject] ];
-                            //NSLog(@" meu amigo %@", [person objectForKey:@"name"]);
-                            
-                            
+                                [friendList addObject:userID];
+                            else
+                                NSLog(@"man not in the app");
                         }}];
+                    
+                    if (_flaaag)*/
+                        [friendList addObject:userID];
                     
                     
                     
                     
                 }
                 
-                NSLog(@"freiend list = %@", friendList);
+                [SAPersonConnector getPeopleFromFacebookIds:friendList handler:^(NSArray<SAPerson *> * _Nullable results, NSError * _Nullable error) {
+                    if (!error)
+                    {
+                        CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:-30.033285 longitude:-51.213884];
+                        
+                      [SAEventConnector getSugestedEventsWithActivities:nil AndCurrentLocation:currentLocation andDistanceInMeters:100000000 AndFriends:results handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
+                          
+                          
+                          if(!error)
+                          {
+                              for (SAEvent *event in events) {
+                                  NSLog(@"eventos = %@", event.name);
+                              }
+                              
+                          }else{
+                              NSLog(@"tome: %@", error.description);
+                          }
+                          }
+                      ];
+                        
+                    }
+                }];
+               NSLog(@" na moral funfa vai friend list = %@",  friendList);
                 
             }
-            
-            // FBSDKLoginResult.declinedPermissions
-            
         }];
-        
-        
-        
     }
     
     
