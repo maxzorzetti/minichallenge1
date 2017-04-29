@@ -418,16 +418,16 @@
         <scene sceneID="afN-HR-j0P">
             <objects>
                 <tableViewController id="781-5X-G13" customClass="SANewsFeedTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="191" sectionHeaderHeight="28" sectionFooterHeight="28" id="3vO-Aj-D6O">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="138" sectionHeaderHeight="28" sectionFooterHeight="28" id="3vO-Aj-D6O">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier=" " rowHeight="131" id="W82-zM-r5V" customClass="SANewsFeedTableViewCell">
-                                <rect key="frame" x="0.0" y="28" width="375" height="131"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier=" " rowHeight="138" id="W82-zM-r5V" customClass="SANewsFeedTableViewCell">
+                                <rect key="frame" x="0.0" y="28" width="375" height="138"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="W82-zM-r5V" id="WSF-We-63Q">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="138"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -437,7 +437,7 @@
                             <outlet property="delegate" destination="781-5X-G13" id="gih-Lj-GYF"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="eWN-Rg-jgh"/>
+                    <navigationItem key="navigationItem" id="81x-zs-3LR"/>
                     <connections>
                         <outlet property="tableWithEvents" destination="3vO-Aj-D6O" id="pUy-6N-g4r"/>
                     </connections>

@@ -17,6 +17,8 @@
 #import "SAPerson.h"
 #import "SAEventConnector.h"
 
+#import "SASectionView2.h"
+
 
 @interface SANewsFeedTableViewController ()
 @property NSMutableArray *eventArray;
@@ -32,7 +34,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+ 
+    
     _eventArray = [[NSMutableArray alloc]init];
+    SAEvent *event = [[SAEvent alloc]init];
+    SAPerson *person = [[SAPerson alloc]init];
+    person.name = @"Brubi";
+    person.facebookId = @"957060131063735";
+    event.name = @"Meu Evento";
+    event.date = [NSDate date];
+    event.owner = person;
+    [_eventArray addObject:event];
+    
+    
     NSMutableArray *friendList = [[NSMutableArray alloc] init];
     
     if ( [FBSDKAccessToken currentAccessToken]) {
@@ -105,7 +120,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
+
     return 1;
 }
 
@@ -120,6 +135,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     SANewsFeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
+    
+    
+    
     if (!cell)
     {
         [tableView registerNib:[UINib nibWithNibName:@"SACustomCell" bundle:nil] forCellReuseIdentifier:@"myCell"];
@@ -139,8 +157,41 @@
     [self.tableWithEvents reloadData];
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    static NSString *CellIdentifier = @"myHeader";
+    
+   
+    
+     SASectionView2  *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:CellIdentifier];
+    
+    if (headerView == nil){
+        //[NSException raise:@"headerView == nil.." format:@"No cells with matching CellIdentifier loaded from your storyboard"];
+        static NSString * const SectionHeaderViewIdentifier = @"myHeader";
+        
+        [self.tableView registerNib:[UINib nibWithNibName:@"SAHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:SectionHeaderViewIdentifier];
+
+        
+        
+    }
+    //UILabel *label = (UILabel *)[headerView viewWithTag:123];
+    //[label setText:@"Friends"];
+    return headerView;
+}
 
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 44;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    NSString *title =@"";
+    return title;
+}
+
+
+-(void) viewWillAppear:(BOOL)animated {
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+}
 /*
  // Override to support conditional editing of the table view.
  - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

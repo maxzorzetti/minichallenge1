@@ -15,6 +15,7 @@
 @property SAEvent *cellEvent;
 - (void)initWithEvent:(SAEvent *)cellEvent;
 
+@property (weak, nonatomic) IBOutlet UIView *myView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *ownerProfilePicture;
 
@@ -26,5 +27,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *eventDate;
 
-@property (weak, nonatomic) IBOutlet UILabel *eventName;
+@property (weak, nonatomic) IBOutlet UITextField *eventName;
+
 @end
