@@ -23,4 +23,24 @@
     return self;
 }
 
+-(void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeObject:self.name forKey:@"name"];
+    [aCoder encodeObject:[NSNumber numberWithInt:self.minimumPeople] forKey:@"minimumPeople"];
+    [aCoder encodeObject:[NSNumber numberWithInt:self.maximumPeople] forKey:@"maximumPeople"];
+    [aCoder encodeObject:self.activityId forKey:@"activityId"];
+    [aCoder encodeObject:self.picture forKey:@"picture"];
+}
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super init];
+    if (self) {
+        _name = [aDecoder decodeObjectForKey:@"name"];
+        _minimumPeople = (int)[aDecoder decodeObjectForKey:@"minimumPeople"];
+        _maximumPeople = (int)[aDecoder decodeObjectForKey:@"maximumPeople"];
+        _activityId = [aDecoder decodeObjectForKey:@"activityId"];
+        _picture = [aDecoder decodeObjectForKey:@"picture"];
+    }
+    return self;
+}
+
+
 @end

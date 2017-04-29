@@ -112,23 +112,35 @@
 }
 
 + (SAEvent *)getEventFromRecord:(CKRecord *)event{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
     SAEvent *eventFromRecord = [[SAEvent alloc]initWithName:event[@"name"] andRequiredParticipants:(int)event[@"minPeople"] andMaxParticipants:(int)event[@"maxPeople"] andActivity:nil andId:event.recordID andCategory:event[@"category"] andSex:event[@"sex"] andDate:event[@"date"]];
     
+    //CHECK IF ACTIVITY IS IN NSUserdefaustao
+    NSArray *arrayOfDictionaries = [userDefaults arrayForKey:@"ArrayOfDictionariesContainingActivites"];
     
-    //TODO - CHECK IF OWNER IS IN NSUserdefauts
-    //TODO - CHECK IF ACTIVITY IS IN NSUserdefaustao
+    CKReference *activityRefence = event[@"activity"];
+    CKRecordID *activityId = activityRefence.recordID;
+    SAActivity *activityToSetToEvent;
     
+    for (NSDictionary *activityDic in arrayOfDictionaries) {
+        if ([[activityDic objectForKey:@"activityId"] isEqualToString:activityId.recordName]) {
+            activityToSetToEvent = [NSKeyedUnarchiver unarchiveObjectWithData:activityDic[@"activityData"]];
+        }
+    }
+    if (activityToSetToEvent == nil) {
+        activityToSetToEvent = [[SAActivity alloc]initWithName:nil minimumPeople:nil maximumPeople:nil picture:[userDefaults objectForKey:@"ActivityPlaceholderIcon"] AndActivityId:activityId];
+    }
+    
+    //TODO - CHECK IF OWNER IS IN NSUserdefaults
     //TODO - USE NSUserdaults placeholder profile picture
     NSData *photo = nil;
     SAPerson *owner = [[SAPerson alloc]initWithName:nil personId:event.creatorUserRecordID email:nil telephone:nil andPhoto:photo andEvents:nil];
     
-    //TODO - USE NSUserdefaulstao placeholder activity picture
-    NSData *activityPhoto = nil;
-    CKReference *activityRef = event[@"activity"];
-    SAActivity *activity = [[SAActivity alloc]initWithName:nil minimumPeople:nil maximumPeople:nil picture:activityPhoto AndActivityId:activityRef.recordID];
+    
     
     [eventFromRecord setOwner:owner];
-    [eventFromRecord setActivity:activity];
+    [eventFromRecord setActivity:activityToSetToEvent];
     
     return eventFromRecord;
 }

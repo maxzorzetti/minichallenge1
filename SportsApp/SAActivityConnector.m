@@ -44,7 +44,7 @@
 
 
 + (SAActivity *)activityFromRecord:(CKRecord *)activityRecord{
-    SAActivity *activity = [[SAActivity alloc]initWithName:activityRecord[@"name"] minimumPeople:(int)activityRecord[@"minimumPeople"] maximumPeople:(int)activityRecord[@"maximumPeople"] AndActivityId:activityRecord.recordID];
+    SAActivity *activity = [[SAActivity alloc]initWithName:activityRecord[@"name"] minimumPeople:(int)activityRecord[@"minimumPeople"] maximumPeople:(int)activityRecord[@"maximumPeople"] picture:activityRecord[@"icon"] AndActivityId:activityRecord.recordID];
     return activity;
 }
 
