@@ -14,5 +14,9 @@
 @property (nonatomic) SAEvent *event;
 
 @property (weak, nonatomic) IBOutlet UILabel *eventName;
+@property (weak, nonatomic) IBOutlet UILabel *activityName;
+@property (weak, nonatomic) IBOutlet UILabel *ownerName;
+@property (weak, nonatomic) IBOutlet UIImageView *activityIcon;
+@property (weak, nonatomic) IBOutlet UIImageView *ownerPicture;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "SAActivity.h"
+#import <CloudKit/CloudKit.h>
 
 @implementation SAActivity
 
@@ -41,6 +42,23 @@
     }
     return self;
 }
+
++(void)saveToUserDefaults:(SAActivity *)activity{
+    NSMutableArray *arrayOfActivities = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"ArrayOfDictionariesContainingTheActivities"];
+    
+    NSData *activityData = [NSKeyedArchiver archivedDataWithRootObject:activity];
+    NSDictionary *activityDic = @{
+                                  @"activityId" : activity.activityId.recordName,
+                                  @"activityData" : activityData
+                                  };
+    
+    [arrayOfActivities addObject:activityDic];
+    
+    NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
+    
+    [userdefaults setObject:[NSArray arrayWithArray:arrayOfActivities] forKey:@"ArrayOfDictionariesContainingTheActivities"];
+}
+
 
 
 @end

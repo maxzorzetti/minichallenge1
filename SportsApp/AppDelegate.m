@@ -112,17 +112,9 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         //GET ALL ACTIVITIES INFO AVAILABLE
         [SAActivityConnector getAllActivities:^(NSArray * _Nullable activities, NSError * _Nullable error) {
             if (!error) {
-                NSMutableArray *arrayOfDictionaries = [NSMutableArray new];
                 for (SAActivity *activity in activities) {
-                    
-                    NSData *activityData = [NSKeyedArchiver archivedDataWithRootObject:activity];
-                    NSArray *objects = @[activity.activityId.recordName, activityData];
-                    NSArray *keys = @[@"activityId", @"activityData"];
-                    
-                    NSDictionary *activityDictionary = [[NSDictionary alloc]initWithObjects:objects forKeys:keys];
-                    [arrayOfDictionaries addObject:activityDictionary];
+                    [SAActivity saveToUserDefaults:activity];
                 }
-                [userDefaults setObject:arrayOfDictionaries forKey:@"ArrayOfDictionariesContainingActivites"];
             }
         }];
         
@@ -130,14 +122,16 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         [userDefaults synchronize];
     }
     
-    [SAEventConnector getEventById:[[CKRecordID alloc]initWithRecordName:@"382baaaf-1740-45bc-8cb6-496f43dce835"] handler:^(SAEvent * _Nullable event, NSError * _Nullable error) {
-        if(!error){
-            NSLog(@"Activity from event: %@", event.activity.name);
-        }
-        else{
-            NSLog(@"%@", error.description);
-        }
-    }];
+    
+//TO TEST IF ACTIVITY IS IN USER DEFAULTS
+//    [SAEventConnector getEventById:[[CKRecordID alloc]initWithRecordName:@"382baaaf-1740-45bc-8cb6-496f43dce835"] handler:^(SAEvent * _Nullable event, NSError * _Nullable error) {
+//        if(!error){
+//            NSLog(@"Activity from event: %@", event.activity.name);
+//        }
+//        else{
+//            NSLog(@"%@", error.description);
+//        }
+//    }];
     
     return YES;
 }

@@ -44,7 +44,11 @@
 
 
 + (SAActivity *)activityFromRecord:(CKRecord *)activityRecord{
-    SAActivity *activity = [[SAActivity alloc]initWithName:activityRecord[@"name"] minimumPeople:(int)activityRecord[@"minimumPeople"] maximumPeople:(int)activityRecord[@"maximumPeople"] picture:activityRecord[@"icon"] AndActivityId:activityRecord.recordID];
+    CKAsset *assetPhoto = activityRecord[@"icon"];
+    
+    NSData *icon = [NSData dataWithContentsOfURL:[assetPhoto fileURL]];
+    
+    SAActivity *activity = [[SAActivity alloc]initWithName:activityRecord[@"name"] minimumPeople:(int)activityRecord[@"minimumPeople"] maximumPeople:(int)activityRecord[@"maximumPeople"] picture:icon AndActivityId:activityRecord.recordID];
     return activity;
 }
 

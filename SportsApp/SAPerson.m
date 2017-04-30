@@ -7,6 +7,7 @@
 //
 
 #import "SAPerson.h"
+#import <CloudKit/CloudKit.h>
 
 @implementation SAPerson //	TODO implement NSCopying
 
@@ -39,6 +40,42 @@
         _photo = photo;
     }
     return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super init];
+    if (self) {
+        _name = [aDecoder decodeObjectForKey:@"name"];
+        _personId = [aDecoder decodeObjectForKey:@"personId"];
+        _email = [aDecoder decodeObjectForKey:@"email"];
+        _telephone = [aDecoder decodeObjectForKey:@"telephone"];
+        _events = [aDecoder decodeObjectForKey:@"events"];
+        _photo = [aDecoder decodeObjectForKey:@"photo"];
+    }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeObject:self.name forKey:@"name"];
+    [aCoder encodeObject:self.personId forKey:@"personId"];
+    [aCoder encodeObject:self.email forKey:@"email"];
+    [aCoder encodeObject:self.telephone forKey:@"telephone"];
+    [aCoder encodeObject:self.events forKey:@"events"];
+    [aCoder encodeObject:self.photo forKey:@"photo"];
+}
+
++ (void)saveToUserDefaults:(SAPerson *)person{
+    NSMutableArray *arrayOfPeople = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"ArrayOfDictionariesContainingPeople"];
+    
+    NSData *personData = [NSKeyedArchiver archivedDataWithRootObject:person];
+    NSDictionary *personDic = @{
+                                  @"personId" : person.personId.recordName,
+                                  @"personData" : personData
+                                  };
+    
+    [arrayOfPeople addObject:personDic];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:arrayOfPeople forKey:@"ArrayOfDictionariesContainingPeople"];
 }
 
 @end

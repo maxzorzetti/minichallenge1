@@ -16,14 +16,14 @@
 @property (nonatomic, readonly) CKRecordID *eventId;
 @property (nonatomic) NSString *name;
 @property (nonatomic) int minPeople, maxPeople;
-@property (nonatomic) SAActivity *activity;
+@property (atomic) SAActivity *activity;
 @property (nonatomic, readonly) NSSet<SAPerson *> *participants;
 @property (nonatomic) NSString *category;
 @property (nonatomic) NSString *shift;
 @property (nonatomic) NSString *sex;
 @property (nonatomic) NSDate *date;
 @property (nonatomic, readonly) NSDictionary<SAPerson *, NSString *> *participantsRoles;
-@property (nonatomic) SAPerson *owner;
+@property (atomic) SAPerson *owner;
 
 - (instancetype)initWithName:(NSString *)name andRequiredParticipants:(int)requiredParticipants andMaxParticipants:(int)maxParticipants andActivity:(SAActivity *)activity andId:(CKRecordID *)eventId andCategory:(NSString *)category andSex:(NSString *)sex andDate:(NSDate *)date;
 

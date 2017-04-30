@@ -117,7 +117,7 @@
     SAEvent *eventFromRecord = [[SAEvent alloc]initWithName:event[@"name"] andRequiredParticipants:(int)event[@"minPeople"] andMaxParticipants:(int)event[@"maxPeople"] andActivity:nil andId:event.recordID andCategory:event[@"category"] andSex:event[@"sex"] andDate:event[@"date"]];
     
     //CHECK IF ACTIVITY IS IN NSUserdefaustao
-    NSArray *arrayOfDictionaries = [userDefaults arrayForKey:@"ArrayOfDictionariesContainingActivites"];
+    NSArray *arrayOfDictionaries = [userDefaults arrayForKey:@"ArrayOfDictionariesContainingTheActivities"];
     
     CKReference *activityRefence = event[@"activity"];
     CKRecordID *activityId = activityRefence.recordID;
@@ -128,18 +128,32 @@
             activityToSetToEvent = [NSKeyedUnarchiver unarchiveObjectWithData:activityDic[@"activityData"]];
         }
     }
+    //USE placeholder activity picture
     if (activityToSetToEvent == nil) {
-        activityToSetToEvent = [[SAActivity alloc]initWithName:nil minimumPeople:nil maximumPeople:nil picture:[userDefaults objectForKey:@"ActivityPlaceholderIcon"] AndActivityId:activityId];
+        activityToSetToEvent = [[SAActivity alloc]initWithName:nil minimumPeople:nil maximumPeople:nil picture:[NSData dataWithContentsOfFile:@"img_placeholder.png"] AndActivityId:activityId];
     }
     
-    //TODO - CHECK IF OWNER IS IN NSUserdefaults
-    //TODO - USE NSUserdaults placeholder profile picture
-    NSData *photo = nil;
-    SAPerson *owner = [[SAPerson alloc]initWithName:nil personId:event.creatorUserRecordID email:nil telephone:nil andPhoto:photo andEvents:nil];
+    //CHECK IF OWNER IS IN NSUserdefaults
+    NSArray *arrayOfUsers = [userDefaults arrayForKey:@"ArrayOfDictionariesContainingPeople"];
     
+    CKReference *userRefence = event[@"owner"];
+    CKRecordID *userId = userRefence.recordID;
+    SAPerson *ownerToSetToEvent;
     
+    for (NSDictionary *ownerDic in arrayOfUsers) {
+        NSLog(@"%@", ownerDic[@"personId"]);
+        NSLog(@"%@", userId.recordName);
+        if ([[ownerDic objectForKey:@"personId"] isEqualToString:userId.recordName]) {
+            ownerToSetToEvent = [NSKeyedUnarchiver unarchiveObjectWithData:ownerDic[@"personData"]];
+        }
+    }
+    //USE placeholder profile picture
+    if(ownerToSetToEvent==nil){
+        CKReference *ref = event[@"owner"];
+        ownerToSetToEvent = [[SAPerson alloc]initWithName:nil personId:ref.recordID email:nil telephone:nil andPhoto:[NSData dataWithContentsOfFile:@"img_placeholder.png"] andEvents:nil];
+    }
     
-    [eventFromRecord setOwner:owner];
+    [eventFromRecord setOwner:ownerToSetToEvent];
     [eventFromRecord setActivity:activityToSetToEvent];
     
     return eventFromRecord;

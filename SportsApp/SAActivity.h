@@ -21,4 +21,6 @@
 -(void)encodeWithCoder:(NSCoder *)aCoder;
 -(id)initWithCoder:(NSCoder *)aDecoder;
 
++ (void)saveToUserDefaults:(SAActivity *)activity;
+
 @end
