@@ -13,9 +13,11 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *preferencesTextView;
 
-@property (weak, nonatomic) IBOutlet UITableView *friendsTableView;
+@property (weak, nonatomic) IBOutlet UITableView *locationsTableView;
 
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
+
+@property (nonatomic) NSString *selectedLocation;
 
 @end
 

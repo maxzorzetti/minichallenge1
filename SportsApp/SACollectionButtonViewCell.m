@@ -15,4 +15,14 @@
     // Initialization code
 }
 
+- (void)setSelected:(BOOL)selected {
+	if (selected) {
+		self.bgView.backgroundColor = [UIColor colorWithRed:119/255.0 green:90/255.0 blue:218/255.0 alpha:1];
+		self.titleLabel.textColor = [UIColor whiteColor];
+	} else {
+		self.bgView.backgroundColor = [UIColor clearColor];
+		self.titleLabel.textColor = [UIColor colorWithRed:35/255.0 green:31/255.0 blue:32/255.0 alpha:1];
+	}
+}
+
 @end

@@ -9,7 +9,7 @@
 #import "SANewEvent1ViewController.h"
 #import "SANewEvent2ViewController.h"
 #import "SANewEvent3ViewController.h"
-#import "SAActivityCollectionViewCell.h"
+#import "SACollectionButtonViewCell.h"
 
 @interface SANewEvent2ViewController ()
 
@@ -35,6 +35,7 @@
 	
 	[self processPreferencesTextView];
 	
+	[self.timetableCollectionView registerNib:[UINib nibWithNibName:@"SACollectionButtonViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
 
 	
 	self.timetable = @[@"Tomorrow", @"Next Week", @"Next Month", @"Today", @"This Week", @"Any Day"];
@@ -64,9 +65,10 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 	
-	SAActivityCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"buttonCell" forIndexPath:indexPath];
-	cell.title.text = self.timetable[indexPath.row];
-	cell.icon.image = [UIImage imageNamed:@"ic_favorite"];
+	SACollectionButtonViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+	
+	cell.iconImageView.image = [UIImage imageNamed:@"ic_favorite"];
+	cell.titleLabel.text = self.timetable[indexPath.item];
 	
 	return cell;
 }
@@ -85,21 +87,12 @@
 	
 	self.selectedSchedule = self.timetable[indexPath.item];
 	[collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
-	
-	SAActivityCollectionViewCell *cell = (SAActivityCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-	
-	cell.layer.borderColor = [[UIColor redColor] CGColor];
-	cell.layer.borderWidth = 5.0;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
 	
 	self.selectedSchedule = nil;
 	[collectionView deselectItemAtIndexPath:indexPath animated:YES];
-	
-	SAActivityCollectionViewCell *cell = (SAActivityCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-	
-	cell.layer.borderColor = [[UIColor clearColor] CGColor];
 }
 
 - (void)setSelectedSchedule:(NSString *)selectedSchedule {

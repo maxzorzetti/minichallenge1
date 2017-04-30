@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface SACollectionButtonViewCell : UICollectionViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UILabel *lblActivity;
+@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+//@property (weak, nonatomic) IBOutlet UIView *backgroundView;
+@property (weak, nonatomic) IBOutlet UIView *bgView;
 
 @end

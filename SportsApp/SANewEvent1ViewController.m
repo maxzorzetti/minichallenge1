@@ -11,6 +11,7 @@
 #import "SAActivityConnector.h"
 #import "SAActivity.h"
 #import "SAActivityCollectionViewCell.h"
+#import "SACollectionButtonViewCell.h"
 
 @interface SANewEvent1ViewController ()
 
@@ -32,13 +33,31 @@
 	self.activitiesCollectionView.dataSource = self;
 	self.activitiesCollectionView.delegate = self;
 	
-	self.activitiesCollectionView.allowsSelection = YES;
+	[self.activitiesCollectionView registerNib:[UINib nibWithNibName:@"SACollectionButtonViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
 	
-    SAActivity *futebas = [[SAActivity alloc]initWithName:@"Futebas" minimumPeople:14 maximumPeople:16 picture:nil AndActivityId:nil];
-	SAActivity *volei = [[SAActivity alloc]initWithName:@"Volei" minimumPeople:14 maximumPeople:16 picture:nil AndActivityId:nil];
-	SAActivity *tenis = [[SAActivity alloc]initWithName:@"Tenis" minimumPeople:14 maximumPeople:16 picture:nil AndActivityId:nil];
-	SAActivity *golf = [[SAActivity alloc]initWithName:@"Golf" minimumPeople:14 maximumPeople:16 picture:nil AndActivityId:nil];
-	SAActivity *basquete = [[SAActivity alloc]initWithName:@"Basquete" minimumPeople:14 maximumPeople:16 picture:nil AndActivityId:nil];
+	NSData *pic = [NSKeyedArchiver archivedDataWithRootObject:[UIImage imageNamed:@"ic_favorite"]];
+	
+    SAActivity *futebas = [[SAActivity alloc]initWithName:@"Futebas" minimumPeople:14 maximumPeople:16 picture:pic AndActivityId:nil];
+	SAActivity *volei = [[SAActivity alloc]initWithName:@"Volei" minimumPeople:14 maximumPeople:16 picture:pic AndActivityId:nil];
+	SAActivity *tenis = [[SAActivity alloc]initWithName:@"Tenis" minimumPeople:14 maximumPeople:16 picture:pic AndActivityId:nil];
+	SAActivity *golf = [[SAActivity alloc]initWithName:@"Golf" minimumPeople:14 maximumPeople:16 picture:pic AndActivityId:nil];
+	SAActivity *basquete = [[SAActivity alloc]initWithName:@"Basquete" minimumPeople:14 maximumPeople:16 picture:pic AndActivityId:nil];
+	
+//	NSMutableArray *arrayOfActivities = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"ArrayOfDictionariesContainingTheActivities"];
+//	
+//	NSLog(@"arrayofdictionaries %@", arrayOfActivities);
+//	
+//	NSMutableArray<SAActivity *> *activities = [NSMutableArray new];
+//	for (NSDictionary *activityDic in arrayOfActivities) {
+//		SAActivity *activity = [NSKeyedUnarchiver unarchiveObjectWithData:activityDic[@"activityData"]];
+//		NSLog(@"ACTIVITY %@", activity);
+//		[activities addObject: activity];
+//	}
+//	
+//	
+//	self.activities = activities;
+//	
+//	NSLog(@"ACTIVITIES %@", activities);
 	
 	self.activities = @[futebas, volei, tenis, golf, basquete, futebas, volei, tenis, basquete, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas];
 }
@@ -50,21 +69,12 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 	
-	SAActivityCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"buttonCell" forIndexPath:indexPath];
-	[cell configureWithActivity: self.activities[indexPath.item]];
-	cell.name.text = self.activities[indexPath.item].name;
+	SACollectionButtonViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
 	
-	NSLog(@"%s", __PRETTY_FUNCTION__);
-	//if (self.selectedActivityIndexPath != nil && [indexPath compare:self.selectedActivityIndexPath] == NSOrderedSame) {
-	if (cell.selected) {
-		//cell.backgroundColor = [UIColor redColor];
-		//cell.icon.layer.borderColor = [[UIColor redColor] CGColor];
-		//cell.icon.layer.borderWidth = 4.0;
-	} else {
-		//cell.icon.layer.borderColor = nil;
-		//cell.icon.layer.borderWidth = 0.0;
-	}
+	SAActivity *activity = self.activities[indexPath.item];
 	
+	cell.iconImageView.image = [UIImage imageNamed:@"ic_favorite"];
+	cell.titleLabel.text = activity.name;
 	
 	return cell;
 }
@@ -86,42 +96,12 @@
 	[collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
 	
 	[self performSegueWithIdentifier:@"newEvent1To2" sender:self];
-	
-	SAActivityCollectionViewCell *cell = (SAActivityCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-	
-	
-	//NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithObjects: indexPath, nil];
-	
-//	if (self.selectedActivityIndexPath) {
-//
-//		if ([self.selectedActivityIndexPath isEqual:indexPath]) {
-//			self.selectedActivityIndexPath = nil;
-//		} else {
-//			[indexPaths addObject:self.selectedActivityIndexPath];
-//			self.selectedActivityIndexPath = indexPath;
-//		}
-//
-//	} else self.selectedActivityIndexPath = indexPath;
-	
-	//[collectionView reloadItemsAtIndexPaths:indexPaths];
-	
-	NSLog(@"%@ SELECTED", self.selectedActivityIndexPath);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
 	
 	[collectionView deselectItemAtIndexPath:indexPath animated:YES];
 	self.selectedActivityIndexPath = nil;
-
-	SAActivityCollectionViewCell *cell = (SAActivityCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-	
-	[UIView animateWithDuration:1 animations:^{
-		cell.layer.borderColor = [[UIColor clearColor] CGColor];
-		//cell.layer.borderWidth = 0.0;
-	}];
-	
-	NSLog(@"%@ UNSELECTED", self.selectedActivityIndexPath);
-	//[collectionView reloadItemsAtIndexPaths:@[indexPath]];
 }
 
 - (void)setSelectedActivityIndexPath:(NSIndexPath *)selectedActivityIndexPath {
@@ -138,14 +118,11 @@
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	
 	if ([segue.identifier isEqualToString:@"newEvent1To2"]) {
 		SANewEvent2ViewController *newEvent2 = segue.destinationViewController;
 		newEvent2.selectedActivity = self.selectedActivity;
 	}
-	
 }
 
 - (IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {

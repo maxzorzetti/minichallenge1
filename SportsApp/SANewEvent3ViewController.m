@@ -9,7 +9,7 @@
 #import "SANewEvent1ViewController.h"
 #import "SANewEvent3ViewController.h"
 #import "SANewEvent4ViewController.h"
-#import "SAActivityCollectionViewCell.h"
+#import "SACollectionButtonViewCell.h"
 @class SAPerson;
 
 @interface SANewEvent3ViewController ()
@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UITextView *preferencesTextView;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *peopleCollectionView;
+
+@property (weak, nonatomic) IBOutlet UITableView *friendsTableView;
 
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
@@ -37,7 +39,10 @@
 	self.peopleCollectionView.dataSource = self;
 	self.peopleCollectionView.delegate = self;
 	
-	self.peopleType = @[@"with friends", @"with anyone"];
+	[self.peopleCollectionView registerNib:[UINib nibWithNibName:@"SACollectionButtonViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
+
+	
+	self.peopleType = @[@"My Friends", @"Anyone"];
 	
 }
 
@@ -82,10 +87,10 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 	
-	SAActivityCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"buttonCell" forIndexPath:indexPath];
+	SACollectionButtonViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
 	
-	cell.title.text = self.peopleType[indexPath.item];
-	cell.icon.image = [UIImage imageNamed:@"ic_favorite"];
+	cell.titleLabel.text = self.peopleType[indexPath.item];
+	cell.iconImageView.image = [UIImage imageNamed:@"ic_favorite"];
 	
 	return cell;
 }
@@ -94,19 +99,12 @@
 	
 	self.selectedPeopleType = self.peopleType[indexPath.item];
 	[collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
-	
-	SAActivityCollectionViewCell *cell = (SAActivityCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-	cell.layer.borderColor = [[UIColor redColor] CGColor];
-	cell.layer.borderWidth = 5.0;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
 	
 	self.selectedPeopleType = nil;
 	[collectionView deselectItemAtIndexPath:indexPath animated:YES];
-	
-	SAActivityCollectionViewCell *cell = (SAActivityCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-	cell.layer.borderColor = [[UIColor clearColor] CGColor];
 }
 
 - (void)setSelectedPeopleType:(NSString *)selectedPeopleType {
