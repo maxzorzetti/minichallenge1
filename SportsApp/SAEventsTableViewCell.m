@@ -39,7 +39,6 @@
         self.ownerPicture.image = [UIImage imageWithData:event.owner.photo];
     }
     
-    
     //case activity was not already loaded from the userdefaults, download from db and save to userdefaults
     if ([event.activity.name length]==0) {
         [SAActivityConnector getActivityById:event.activity.activityId handler:^(SAActivity * _Nullable activity, NSError * _Nullable error) {
