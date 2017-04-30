@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SAActivity.h"
 
-@interface SANewEvent1ViewController : UIViewController <UICollectionViewDataSource>
+@interface SANewEvent1ViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+
++ (UIColor *)preferenceColor;
+
+- (NSMutableAttributedString *)processPreferencesTextWithActivity:(SAActivity *)activity schedule:(NSString *)schedule people:(NSString *)people location:(NSString *)location ;
 
 @end
