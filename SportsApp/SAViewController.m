@@ -218,7 +218,7 @@
              
              personRecord[@"name"] = userName;
              personRecord[@"email"] = userEmail;
-             //personRecord[@"facebookId"] = userFacebookID;
+             personRecord[@"facebookId"] = userFacebookID;
              
              NSPredicate *predicate = [NSPredicate predicateWithFormat:@"email = %@", userEmail];
              CKQuery *query = [[CKQuery alloc] initWithRecordType:@"SAPerson" predicate:predicate];

@@ -12,6 +12,8 @@
 #import <CloudKit/CloudKit.h>
 #import "SAActivity.h"
 #import "SAPerson.h"
+#import "SAPersonDAO.h"
+#import "SAPersonConnector.h"
 
 @implementation SAEventConnector
 
@@ -107,11 +109,38 @@
         }
         handler(arrayOfEvents, error);
     }];
-    
 }
 
 + (SAEvent *)getEventFromRecord:(CKRecord *)event{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
     SAEvent *eventFromRecord = [[SAEvent alloc]initWithName:event[@"name"] andRequiredParticipants:(int)event[@"minPeople"] andMaxParticipants:(int)event[@"maxPeople"] andActivity:nil andId:event.recordID andCategory:event[@"category"] andSex:event[@"sex"] andDate:event[@"date"]];
+    
+    //CHECK IF ACTIVITY IS IN NSUserdefaustao
+    NSArray *arrayOfDictionaries = [userDefaults arrayForKey:@"ArrayOfDictionariesContainingActivites"];
+    
+    CKReference *activityRefence = event[@"activity"];
+    CKRecordID *activityId = activityRefence.recordID;
+    SAActivity *activityToSetToEvent;
+    
+    for (NSDictionary *activityDic in arrayOfDictionaries) {
+        if ([[activityDic objectForKey:@"activityId"] isEqualToString:activityId.recordName]) {
+            activityToSetToEvent = [NSKeyedUnarchiver unarchiveObjectWithData:activityDic[@"activityData"]];
+        }
+    }
+    if (activityToSetToEvent == nil) {
+        activityToSetToEvent = [[SAActivity alloc]initWithName:nil minimumPeople:nil maximumPeople:nil picture:[userDefaults objectForKey:@"ActivityPlaceholderIcon"] AndActivityId:activityId];
+    }
+    
+    //TODO - CHECK IF OWNER IS IN NSUserdefaults
+    //TODO - USE NSUserdaults placeholder profile picture
+    NSData *photo = nil;
+    SAPerson *owner = [[SAPerson alloc]initWithName:nil personId:event.creatorUserRecordID email:nil telephone:nil andPhoto:photo andEvents:nil];
+    
+    
+    
+    [eventFromRecord setOwner:owner];
+    [eventFromRecord setActivity:activityToSetToEvent];
     
     return eventFromRecord;
 }

@@ -8,10 +8,17 @@
 
 #import <Foundation/Foundation.h>
 @class CKRecord;
+@class CKRecordID;
 @class SAPerson;
 
 @interface SAPersonConnector : NSObject
 
 + (void)getPeopleFromFacebookIds:(NSArray<NSString *> *_Nonnull)facebookIds handler:(void (^_Nonnull)(NSArray<SAPerson *> *_Nullable, NSError *_Nullable))handler;
+
++ (void)getPeopleFromIds:(NSArray<CKRecordID *> *_Nonnull)peopleIds handler:(void (^_Nonnull)(NSArray<SAPerson *> *_Nullable, NSError *_Nullable))handler;
+
++ (void)getPersonFromId:(CKRecordID *_Nonnull)personId handler:(void (^_Nonnull)(SAPerson *_Nullable, NSError *_Nullable))handler;
+
++ (SAPerson *_Nonnull)getPersonFromRecord:(CKRecord *_Nonnull)personRecord andPicture:(NSData *_Nullable)photo;
 
 @end
