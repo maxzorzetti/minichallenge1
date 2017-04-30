@@ -34,20 +34,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-   
     
-    
-    
-
-
-
     
     _eventArray = [[NSMutableArray alloc]init];
     SAEvent *event = [[SAEvent alloc]init];
     SAPerson *person = [[SAPerson alloc]init];
-    person.name = @"Brubi";
+    person.name = @"Pablo Diego José Francisco de Paula Juan Nepomuceno María de los Remedios Cipriano de la Santísima Trinidad Ruiz y Picasso";
     person.facebookId = @"957060131063735";
-    event.name = @"Meu Evento";
+    event.name = @"Evento Pakas do Pablo Diego José Francisco de Paula Juan Nepomuceno María de los Remedios Cipriano de la Santísima Trinidad Ruiz y Picasso";
     event.date = [NSDate date];
     event.owner = person;
     [_eventArray addObject:event];
