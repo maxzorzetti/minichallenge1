@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SAActivity.h"
 
-@interface SANewEvent3ViewController : UIViewController <UICollectionViewDataSource>
+@interface SANewEvent3ViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+
+@property (nonatomic) SAActivity *selectedActivity;
+
+@property (nonatomic) NSString *selectedSchedule;
 
 @end

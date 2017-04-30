@@ -6,14 +6,22 @@
 //  Copyright © 2017 Bruno Scheltzke. All rights reserved.
 //
 
+#import "SANewEvent1ViewController.h"
 #import "SANewEvent2ViewController.h"
+#import "SANewEvent3ViewController.h"
 #import "SAActivityCollectionViewCell.h"
 
 @interface SANewEvent2ViewController ()
 
 @property (weak, nonatomic) IBOutlet UICollectionView *timetableCollectionView;
 
+@property (weak, nonatomic) IBOutlet UITextView *preferencesTextView;
+
 @property (nonatomic) NSArray *timetable;
+
+@property (nonatomic) NSString *selectedSchedule;
+
+@property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
 @end
 
@@ -23,8 +31,13 @@
     [super viewDidLoad];
 	
 	self.timetableCollectionView.dataSource = self;
+	self.timetableCollectionView.delegate = self;
 	
-	self.timetable = @[@"Tomorrow", @"Next week", @"Next month", @"Today", @"This Week", @"Any Day"];
+	[self processPreferencesTextView];
+	
+
+	
+	self.timetable = @[@"Tomorrow", @"Next Week", @"Next Month", @"Today", @"This Week", @"Any Day"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,15 +45,22 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
+- (void)processPreferencesTextView {
+	// Insert the preference in the text
+	NSMutableString *rawText = [[NSMutableString alloc] initWithString:self.preferencesTextView.text];
+	[rawText replaceOccurrencesOfString:@"<activity>" withString:self.selectedActivity.name options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
+	NSRange selectedActivityRange = [rawText rangeOfString:self.selectedActivity.name];
+	self.preferencesTextView.text = rawText;
+	
+	// Paint the preference
+	UIColor *preferenceColor = [SANewEvent1ViewController preferenceColor];
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+	NSDictionary *attrs = @{ NSForegroundColorAttributeName : preferenceColor };
+	NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithAttributedString:self.preferencesTextView.attributedText];
+	[attributedText addAttributes:attrs range:selectedActivityRange];
+	
+	self.preferencesTextView.attributedText = attributedText;
 }
-*/
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 	
@@ -59,6 +79,46 @@
 		default: numberOfItems = 0;
 	}
 	return numberOfItems;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+	
+	self.selectedSchedule = self.timetable[indexPath.item];
+	[collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+	
+	SAActivityCollectionViewCell *cell = (SAActivityCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+	
+	cell.layer.borderColor = [[UIColor redColor] CGColor];
+	cell.layer.borderWidth = 5.0;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+	
+	self.selectedSchedule = nil;
+	[collectionView deselectItemAtIndexPath:indexPath animated:YES];
+	
+	SAActivityCollectionViewCell *cell = (SAActivityCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+	
+	cell.layer.borderColor = [[UIColor clearColor] CGColor];
+}
+
+- (void)setSelectedSchedule:(NSString *)selectedSchedule {
+	_selectedSchedule = selectedSchedule;
+	self.nextButton.enabled = selectedSchedule != nil;
+}
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([segue.identifier isEqualToString:@"newEvent2To3"]) {
+		SANewEvent3ViewController *newEvent3 = segue.destinationViewController;
+		newEvent3.selectedActivity = self.selectedActivity;
+		newEvent3.selectedSchedule = self.selectedSchedule;
+	}
+}
+
+- (IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
+	
 }
 
 @end

@@ -15,6 +15,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *title;
 
+@property (weak, nonatomic) IBOutlet UILabel *name;
+
 - (void)configureWithActivity:(SAActivity *)activity;
 
 @end
