@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface SASectionView2 : UITableViewHeaderFooterView
+@property (weak, nonatomic) IBOutlet UITextField *sectionTitle;
 
 @end

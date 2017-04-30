@@ -41,7 +41,7 @@
 		8D7A63BA1EAA5A9000418D39 /* SAProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7A63B91EAA5A9000418D39 /* SAProfileViewController.m */; };
 		8D9A36641EB3BBDE00036272 /* SACustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D9A36631EB3BBDE00036272 /* SACustomCell.xib */; };
 		8D9A36701EB4E1F600036272 /* SASectionView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9A366F1EB4E1F600036272 /* SASectionView2.m */; };
-		8D9A36761EB4E47900036272 /* SAHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D9A36751EB4E47900036272 /* SAHeaderView.xib */; };
+		8D9A36761EB4E47900036272 /* SASectionView2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D9A36751EB4E47900036272 /* SASectionView2.xib */; };
 		8DF8642E1EB2267D00777E98 /* SALogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DF8642D1EB2267D00777E98 /* SALogInViewController.m */; };
 		8DF864341EB22EE400777E98 /* SANewsFeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DF864331EB22EE400777E98 /* SANewsFeedTableViewController.m */; };
 		AE1602891EB3B81F00E8E68F /* SACollectionButtonViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1602871EB3B81F00E8E68F /* SACollectionButtonViewCell.m */; };
@@ -123,7 +123,7 @@
 		8D9A36631EB3BBDE00036272 /* SACustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACustomCell.xib; sourceTree = "<group>"; };
 		8D9A366E1EB4E1F600036272 /* SASectionView2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASectionView2.h; sourceTree = "<group>"; };
 		8D9A366F1EB4E1F600036272 /* SASectionView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SASectionView2.m; sourceTree = "<group>"; };
-		8D9A36751EB4E47900036272 /* SAHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAHeaderView.xib; sourceTree = "<group>"; };
+		8D9A36751EB4E47900036272 /* SASectionView2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SASectionView2.xib; sourceTree = "<group>"; };
 		8DF8642C1EB2267D00777E98 /* SALogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SALogInViewController.h; sourceTree = "<group>"; };
 		8DF8642D1EB2267D00777E98 /* SALogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SALogInViewController.m; sourceTree = "<group>"; };
 		8DF864321EB22EE400777E98 /* SANewsFeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANewsFeedTableViewController.h; sourceTree = "<group>"; };
@@ -271,7 +271,7 @@
 				8DF8642D1EB2267D00777E98 /* SALogInViewController.m */,
 				8DF864321EB22EE400777E98 /* SANewsFeedTableViewController.h */,
 				8DF864331EB22EE400777E98 /* SANewsFeedTableViewController.m */,
-				8D9A36751EB4E47900036272 /* SAHeaderView.xib */,
+				8D9A36751EB4E47900036272 /* SASectionView2.xib */,
 				29A4CA561EB2303100DCA3FA /* NewEvent */,
 				84CBE46D1EB230E300ACD0DF /* SAEventListViewController.h */,
 				84CBE46E1EB230E300ACD0DF /* SAEventListViewController.m */,
@@ -416,7 +416,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D9A36641EB3BBDE00036272 /* SACustomCell.xib in Resources */,
-				8D9A36761EB4E47900036272 /* SAHeaderView.xib in Resources */,
+				8D9A36761EB4E47900036272 /* SASectionView2.xib in Resources */,
 				AE16028A1EB3B81F00E8E68F /* SACollectionButtonViewCell.xib in Resources */,
 				8406A8E71EA6761500C60267 /* LaunchScreen.storyboard in Resources */,
 				8406A8E41EA6761500C60267 /* Assets.xcassets in Resources */,

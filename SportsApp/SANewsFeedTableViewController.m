@@ -34,8 +34,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+   
     
- 
+    
+    
+
+
+
     
     _eventArray = [[NSMutableArray alloc]init];
     SAEvent *event = [[SAEvent alloc]init];
@@ -158,20 +163,18 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    static NSString *CellIdentifier = @"myHeader";
     
-   
-    
-     SASectionView2  *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:CellIdentifier];
+    static NSString *CellIdentifier = @"myHeader2";
+ 
+    SASectionView2  *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:CellIdentifier];
     
     if (headerView == nil){
         //[NSException raise:@"headerView == nil.." format:@"No cells with matching CellIdentifier loaded from your storyboard"];
-        static NSString * const SectionHeaderViewIdentifier = @"myHeader";
+       // static NSString * const SectionHeaderViewIdentifier = ;
         
-        [self.tableView registerNib:[UINib nibWithNibName:@"SAHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:SectionHeaderViewIdentifier];
-
-        
-        
+         [tableView registerNib:[UINib nibWithNibName:@"SASectionView2" bundle:nil] forHeaderFooterViewReuseIdentifier:@"myHeader2"];
+        headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"myHeader2"];
+    
     }
     //UILabel *label = (UILabel *)[headerView viewWithTag:123];
     //[label setText:@"Friends"];
@@ -184,9 +187,10 @@
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    NSString *title =@"";
-    return title;
+    
+    return @"";
 }
+
 
 
 -(void) viewWillAppear:(BOOL)animated {

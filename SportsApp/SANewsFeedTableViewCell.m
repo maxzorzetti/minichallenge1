@@ -30,31 +30,16 @@
 
 - (void)initWithEvent:(SAEvent *)cellEvent
 {
-    /*
-    // corner radius
-    _myView.layer.cornerRadius = 10;
     
-    // border
-    _myView.layer.borderWidth = 0.01;
-    _myView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    
-    // shadow
-    
-    _myView.layer.shadowOffset = CGSizeMake(5, 5);
-    _myView.layer.shadowOpacity = 0.7;
-    _myView.layer.shadowRadius = 11.0;
-    //[_myView.layer setShadowColor:[UIColor colorWithRed:217 green:226 blue:233 alpha:0.5].CGColor];
-    _myView.layer.shadowColor = [UIColor blackColor].CGColor;
-    _myView.layer.masksToBounds = YES;*/
-    
-    //_myView.borderStyle = none;
     _myView.layer.masksToBounds = FALSE;
     _myView.layer.cornerRadius = 5.0;
     _myView.layer.backgroundColor = [UIColor whiteColor].CGColor;
     _myView.layer.borderColor = [UIColor clearColor].CGColor;
-    _myView.layer.shadowColor = [UIColor blackColor ].CGColor;
+    UIColor *grayish = [UIColor colorWithRed:217.0/255.0 green:226.0/255.0 blue:233.0/255.0 alpha:0.5];
+    _myView.layer.shadowColor = grayish.CGColor;
+    //_myView.layer.shadowColor = [UIColor colorWithRed:217 green:226 blue:233 alpha:0.5 ].CGColor;
     _myView.layer.shadowOffset = CGSizeMake(0.0, 5.0);
-    _myView.layer.shadowOpacity = 0.2;
+    _myView.layer.shadowOpacity = 1.0;
     _myView.layer.shadowRadius = 11.0;
     
     

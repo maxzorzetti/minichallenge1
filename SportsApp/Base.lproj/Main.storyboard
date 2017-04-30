@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="781-5X-G13">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hWj-QZ-IYJ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -310,7 +310,7 @@
                                         <rect key="frame" x="0.0" y="28" width="319" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="d0l-Sw-DHt" id="yG8-Um-zII">
-                                            <rect key="frame" x="0.0" y="0.0" width="319" height="69"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="319" height="69.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VsE-HO-S8g">
@@ -398,14 +398,26 @@
         <!--Feed-->
         <scene sceneID="LHb-Fy-tkf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hWj-QZ-IYJ" sceneMemberID="viewController">
+                <navigationController title="Feed" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="hWj-QZ-IYJ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Feed" id="Pgn-h3-4rd"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eMw-nb-Y3O">
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="eMw-nb-Y3O">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                            <color key="textColor" red="0.13725490196078433" green="0.12156862745098039" blue="0.12549019607843137" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="XLF-XG-3YH">
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="781-5X-G13" kind="relationship" relationship="rootViewController" id="0tA-AK-Gl2"/>
                     </connections>
@@ -414,7 +426,7 @@
             </objects>
             <point key="canvasLocation" x="1560.8" y="-325.18740629685158"/>
         </scene>
-        <!--News Feed Table View Controller-->
+        <!--Feed-->
         <scene sceneID="afN-HR-j0P">
             <objects>
                 <tableViewController id="781-5X-G13" customClass="SANewsFeedTableViewController" sceneMemberID="viewController">
@@ -437,14 +449,18 @@
                             <outlet property="delegate" destination="781-5X-G13" id="gih-Lj-GYF"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="81x-zs-3LR"/>
+                    <navigationItem key="navigationItem" title="Feed" id="lon-kj-KC8">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Item" image="plus" id="8jP-PA-OTl">
+                            <color key="tintColor" red="0.46666666670000001" green="0.35294117650000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableWithEvents" destination="3vO-Aj-D6O" id="pUy-6N-g4r"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pcc-my-XvZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2564" y="-448.42578710644682"/>
+            <point key="canvasLocation" x="2316" y="-325"/>
         </scene>
         <!--Forgot Password View Controller-->
         <scene sceneID="nX7-EN-31e">
@@ -522,6 +538,7 @@
         <image name="Log In" width="320" height="100"/>
         <image name="login_button" width="625" height="100"/>
         <image name="logo" width="136" height="136"/>
+        <image name="plus" width="21" height="21"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="m4L-yB-W7M"/>
