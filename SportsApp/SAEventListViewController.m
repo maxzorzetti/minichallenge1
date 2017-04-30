@@ -12,6 +12,7 @@
 #import "SAActivityConnector.h"
 #import "SAActivity.h"
 #import <CloudKit/CloudKit.h>
+#import "SANewsFeedTableViewCell.h"
 #import "SAEventsTableViewCell.h"
 
 @interface SAEventListViewController ()
@@ -45,11 +46,18 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    SAEventsTableViewCell *customCell = [tableView dequeueReusableCellWithIdentifier:@"eventCell" forIndexPath:indexPath];
+    SANewsFeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
+
     
-    customCell.event = self.arrayOfEvents[indexPath.row];
+    if (!cell)
+    {
+        [tableView registerNib:[UINib nibWithNibName:@"SACustomCell" bundle:nil] forCellReuseIdentifier:@"myCell"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
+    }
+    [cell initWithEvent:self.arrayOfEvents[indexPath.row]];
     
-    return customCell;
+    
+    return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

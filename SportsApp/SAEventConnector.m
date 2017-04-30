@@ -141,16 +141,15 @@
     SAPerson *ownerToSetToEvent;
     
     for (NSDictionary *ownerDic in arrayOfUsers) {
-        NSLog(@"%@", ownerDic[@"personId"]);
-        NSLog(@"%@", userId.recordName);
         if ([[ownerDic objectForKey:@"personId"] isEqualToString:userId.recordName]) {
             ownerToSetToEvent = [NSKeyedUnarchiver unarchiveObjectWithData:ownerDic[@"personData"]];
         }
     }
+    
     //USE placeholder profile picture
     if(ownerToSetToEvent==nil){
         CKReference *ref = event[@"owner"];
-        ownerToSetToEvent = [[SAPerson alloc]initWithName:nil personId:ref.recordID email:nil telephone:nil andPhoto:[NSData dataWithContentsOfFile:@"img_placeholder.png"] andEvents:nil];
+        ownerToSetToEvent = [[SAPerson alloc]initWithName:nil personId:ref.recordID email:nil telephone:nil andPhoto:nil andEvents:nil];
     }
     
     [eventFromRecord setOwner:ownerToSetToEvent];

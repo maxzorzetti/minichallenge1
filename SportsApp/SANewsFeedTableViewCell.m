@@ -10,6 +10,9 @@
 #import "SAPerson.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import "SAActivity.h"
+#import "SAActivityConnector.h"
+#import "SAPersonConnector.h"
 
 @implementation SANewsFeedTableViewCell
 
@@ -28,7 +31,7 @@
 
 
 
-- (void)initWithEvent:(SAEvent *)cellEvent
+- (void)initWithEvent:(SAEvent *)event
 {
     
     _myView.layer.masksToBounds = FALSE;
@@ -42,27 +45,47 @@
     _myView.layer.shadowOpacity = 1.0;
     _myView.layer.shadowRadius = 11.0;
     
+    self.cellEvent = event;
+    
+    self.eventName.text = event.name;
+    self.ownerName.text = event.owner.name;
+    self.eventDate.text = [NSString stringWithFormat:@"%@",event.date];
     
     
-    _cellEvent = cellEvent;
-    _eventName.text = _cellEvent.name;
-    _ownerName.text = _cellEvent.owner.name;
-    _eventDate.text = [NSString stringWithFormat:@"%@",_cellEvent.date];
+    self.eventImage.image = [UIImage imageWithData:event.activity.picture];
     
+    if (event.owner.photo==nil) {
+        self.ownerProfilePicture.image = [UIImage imageNamed:@"img_placeholder.png"];
+    }else{
+        self.ownerProfilePicture.image = [UIImage imageWithData:event.owner.photo];
+    }
     
+    //case activity was not already loaded from the userdefaults, download from db and save to userdefaults
+    if ([event.activity.name length]==0) {
+        [SAActivityConnector getActivityById:event.activity.activityId handler:^(SAActivity * _Nullable activity, NSError * _Nullable error) {
+            if (!error) {
+                self.eventImage.image = [UIImage imageWithData:activity.picture];
+                
+                [event setActivity:activity];
+                [SAActivity saveToUserDefaults:activity];
+            }
+        }];
+    }
     
-    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
-                                  initWithGraphPath:@"/_cellEvent.owner.facebookId"
-                                  parameters:@{ @"fields": @"name, picture, friends",}
-                                  HTTPMethod:@"GET"];
-    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-        
-        if (!error)
-        {
-
-            NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
-            _ownerProfilePicture.image = [UIImage imageWithData: imageData];
-        }}];
+    //case owner was not already loaded from the userdefaults, download from db and save to userdefaults (actually decide if person will be stored in userdefaults)
+    if ([event.owner.name length] == 0) {
+        [SAPersonConnector getPersonFromId:event.owner.personId handler:^(SAPerson * _Nullable owner, NSError * _Nullable error) {
+            if (!error) {
+                [event setOwner:owner];
+                [SAPerson saveToUserDefaults:owner];
+                
+                self.ownerProfilePicture.image = [UIImage imageWithData:owner.photo];
+            }
+            else{
+                NSLog(@"%@", error.description);
+            }
+        }];
+    }
 
 }
 
