@@ -27,4 +27,7 @@
 
 + (void)getEventsByPersonId:(CKRecordID *_Nonnull)userId handler:(void (^_Nonnull)(NSArray<SAEvent *>* _Nullable events, NSError * _Nullable error))handler;
 
++ (void)getPastEventsByPersonId:(CKRecordID *_Nonnull)userId handler:(void (^_Nonnull)(NSArray<SAEvent *>* _Nullable events, NSError * _Nullable error))handler;
+
+
 @end

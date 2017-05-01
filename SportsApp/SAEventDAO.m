@@ -30,7 +30,17 @@ CKDatabase *publicDatabase;
 - (void)getEventsByUserReference:(CKReference *)userId handler:(void (^)(NSArray<CKRecord *>* _Nullable record, NSError * _Nullable error))handler{
     [self connectToPublicDatabase];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ IN participants", userId];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ IN participants AND date > %@", userId, [NSDate date]];
+    
+    CKQuery *query = [[CKQuery alloc]initWithRecordType:@"Event" predicate:predicate];
+    
+    [publicDatabase performQuery:query inZoneWithID:nil completionHandler:handler];
+}
+
+- (void)getPastEventsByUserReference:(CKReference *)userId handler:(void (^)(NSArray<CKRecord *>* _Nullable record, NSError * _Nullable error))handler{
+    [self connectToPublicDatabase];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ IN participants AND date < %@", userId, [NSDate date]];
     
     CKQuery *query = [[CKQuery alloc]initWithRecordType:@"Event" predicate:predicate];
     
