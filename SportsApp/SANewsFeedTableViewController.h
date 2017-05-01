@@ -10,6 +10,6 @@
 #import "SANewsFeedTableViewCell.h"
 
 @interface SANewsFeedTableViewController : UITableViewController
-- (void)updateTableWithEventList:(NSArray<SAEvent *>*)events;
+- (void)updateTableWithEventList:(NSArray<SAEvent *>*)events AndArray:(NSMutableArray *)array;
 
 @end
