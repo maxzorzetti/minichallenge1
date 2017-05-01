@@ -47,9 +47,13 @@
     
     self.cellEvent = event;
     
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"dd/MM/yyyy"];
+    self.eventDate.text= [dateFormat stringFromDate:event.date];
+    
     self.eventName.text = event.name;
     self.ownerName.text = event.owner.name;
-    self.eventDate.text = [NSString stringWithFormat:@"%@",event.date];
+    //self.eventDate.text = [NSString stringWithFormat:@"%@",event.date];
     
     
     self.eventImage.image = [UIImage imageWithData:event.activity.picture];
@@ -61,6 +65,7 @@
     }
     
     //case activity was not already loaded from the userdefaults, download from db and save to userdefaults
+    
     if ([event.activity.name length]==0) {
         [SAActivityConnector getActivityById:event.activity.activityId handler:^(SAActivity * _Nullable activity, NSError * _Nullable error) {
             if (!error) {

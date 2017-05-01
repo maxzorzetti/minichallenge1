@@ -16,14 +16,14 @@
 #import "SAPersonConnector.h"
 #import "SAPerson.h"
 #import "SAEventConnector.h"
-
+#import "SAActivity.h"
 #import "SASectionView2.h"
 
 
 @interface SANewsFeedTableViewController ()
 @property NSMutableArray *eventArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableWithEvents;
-
+@property CKRecordID *userRecordID;
 
 @end
 
@@ -34,71 +34,93 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+//    CKContainer *container = [CKContainer defaultContainer];
+//    
+//    [container fetchUserRecordIDWithCompletionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) {
+//        if (!error){
+//            _userRecordID = recordID;
+//        }
+//            
+//            }];
+  
+
     
     _eventArray = [[NSMutableArray alloc]init];
-    SAEvent *event = [[SAEvent alloc]init];
-    SAPerson *person = [[SAPerson alloc]init];
-    person.name = @"Pablo Diego José Francisco de Paula Juan Nepomuceno María de los Remedios Cipriano de la Santísima Trinidad Ruiz y Picasso";
-    person.facebookId = @"957060131063735";
-    event.name = @"Evento Pakas do Pablo Diego José Francisco de Paula Juan Nepomuceno María de los Remedios Cipriano de la Santísima Trinidad Ruiz y Picasso";
-    event.date = [NSDate date];
-    event.owner = person;
-    [_eventArray addObject:event];
+    
+    CKRecordID *personId = [[CKRecordID alloc]initWithRecordName:@"35D1ADBD-53F8-4D4F-80AB-D44419A25DB0"];
+    
+    [SAEventConnector getEventsByPersonId:personId handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
+        if (!error) {
+            [self updateTableWithEventList:events];
+        }
+    }];
     
     
-    NSMutableArray *friendList = [[NSMutableArray alloc] init];
+    //SAEvent *event = [[SAEvent alloc]init];
+    //SAPerson *person = [[SAPerson alloc]init];
+    //SAActivity *act = [[SAActivity alloc]initWithName:@"Futebol" minimumPeople:0 maximumPeople:0 picture:nil AndActivityId:nil];
+    //act.name = ;
+    //person.name = @"Pablo Diego José Francisco de Paula Juan Nepomuceno María de los Remedios Cipriano de la Santísima Trinidad Ruiz y Picasso";
+    //person.facebookId = @"957060131063735";
+    //event.name = @"Evento Pakas do Pablo Diego José Francisco de Paula Juan Nepomuceno María de los Remedios Cipriano de la Santísima Trinidad Ruiz y Picasso";
+    //event.date = [NSDate date];
+    //event.owner = person;
+    //event.activity= act;
+    //[_eventArray addObject:event];
     
-    if ( [FBSDKAccessToken currentAccessToken]) {
-        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
-                                      initWithGraphPath:@"/me"
-                                      parameters:@{ @"fields": @"name, picture, friends",}
-                                      HTTPMethod:@"GET"];
-        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-            
-            if ([error.userInfo[FBSDKGraphRequestErrorGraphErrorCode] isEqual:@200]) {
-                NSLog(@"permission error");
-            }
-            else
-            {
-                CKContainer *container = [CKContainer defaultContainer];
-                CKDatabase *publicDatabase = [container publicCloudDatabase];
-                
-                for (id person in [[result objectForKey:@"friends"]objectForKey:@"data"] )
-                {
-                    NSString *userID = [person objectForKey:@"id"];
-                        [friendList addObject:userID];
-  
-                }
-                
-                [SAPersonConnector getPeopleFromFacebookIds:friendList handler:^(NSArray<SAPerson *> * _Nullable results, NSError * _Nullable error) {
-                    if (!error)
-                    {
-                        CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:-30.033285 longitude:-51.213884];
-                        
-                      [SAEventConnector getSugestedEventsWithActivities:nil AndCurrentLocation:currentLocation andDistanceInMeters:1000000 AndFriends:results handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
-                          
-                          
-                          if(!error)
-                          {
-                              for (SAEvent *event in events) {
-                                  NSLog(@"eventos = %@", event.name);
-                              }
-                              [self updateTableWithEventList:events];
-                              
-                          }else{
-                              NSLog(@"tome: %@", error.description);
-                          }
-                          }
-                      ];
-                        
-                    }
-                }];
-               NSLog(@" na moral funfa vai friend list = %@",  friendList);
-                
-            }
-        }];
-    }
+    
+//    NSMutableArray *friendList = [[NSMutableArray alloc] init];
+//    
+//    if ( [FBSDKAccessToken currentAccessToken]) {
+//        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
+//                                      initWithGraphPath:@"/me"
+//                                      parameters:@{ @"fields": @"name, picture, friends",}
+//                                      HTTPMethod:@"GET"];
+//        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+//            
+//            if ([error.userInfo[FBSDKGraphRequestErrorGraphErrorCode] isEqual:@200]) {
+//                NSLog(@"permission error");
+//            }
+//            else
+//            {
+//                CKContainer *container = [CKContainer defaultContainer];
+//                CKDatabase *publicDatabase = [container publicCloudDatabase];
+//                
+//                for (id person in [[result objectForKey:@"friends"]objectForKey:@"data"] )
+//                {
+//                    NSString *userID = [person objectForKey:@"id"];
+//                        [friendList addObject:userID];
+//  
+//                }
+//                
+//                [SAPersonConnector getPeopleFromFacebookIds:friendList handler:^(NSArray<SAPerson *> * _Nullable results, NSError * _Nullable error) {
+//                    if (!error)
+//                    {
+//                        CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:-30.033285 longitude:-51.213884];
+//                        
+//                      [SAEventConnector getSugestedEventsWithActivities:nil AndCurrentLocation:currentLocation andDistanceInMeters:1000000 AndFriends:results handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
+//                          
+//                          
+//                          if(!error)
+//                          {
+//                              for (SAEvent *event in events) {
+//                                  NSLog(@"eventos = %@", event.name);
+//                              }
+//                              [self updateTableWithEventList:events];
+//                              
+//                          }else{
+//                              NSLog(@"tome: %@", error.description);
+//                          }
+//                          }
+//                      ];
+//                        
+//                    }
+//                }];
+//               NSLog(@" na moral funfa vai friend list = %@",  friendList);
+//                
+//            }
+//        }];
+//    }
     
     
     
@@ -146,7 +168,7 @@
     //cell.cellEvent = self.eventArray[indexPath.row];
     //cell.ownerName.text = @"vamooooooooo";
     
-    
+   
     return cell;
 }
 
