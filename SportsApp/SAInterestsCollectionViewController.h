@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SACollectionButtonViewCell.h"
 
 @interface SAInterestsCollectionViewController : UICollectionViewController
 

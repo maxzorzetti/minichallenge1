@@ -46,6 +46,7 @@
 		8DF864341EB22EE400777E98 /* SANewsFeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DF864331EB22EE400777E98 /* SANewsFeedTableViewController.m */; };
 		AE1602891EB3B81F00E8E68F /* SACollectionButtonViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1602871EB3B81F00E8E68F /* SACollectionButtonViewCell.m */; };
 		AE16028A1EB3B81F00E8E68F /* SACollectionButtonViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE1602881EB3B81F00E8E68F /* SACollectionButtonViewCell.xib */; };
+		AE16028C1EB7DF3D00E8E68F /* Intro.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE16028B1EB7DF3D00E8E68F /* Intro.storyboard */; };
 		AE1877D91EB38E8300CAFD1A /* SAInterestsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1877D81EB38E8300CAFD1A /* SAInterestsCollectionViewController.m */; };
 		AE1877DC1EB3909900CAFD1A /* SAInterestsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1877DB1EB3909900CAFD1A /* SAInterestsCollectionViewCell.m */; };
 		AE66FF2E1EB10EA2008EBC5E /* Secondary.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE66FF2C1EB10EA2008EBC5E /* Secondary.storyboard */; };
@@ -131,6 +132,7 @@
 		AE1602861EB3B81F00E8E68F /* SACollectionButtonViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SACollectionButtonViewCell.h; sourceTree = "<group>"; };
 		AE1602871EB3B81F00E8E68F /* SACollectionButtonViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SACollectionButtonViewCell.m; sourceTree = "<group>"; };
 		AE1602881EB3B81F00E8E68F /* SACollectionButtonViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACollectionButtonViewCell.xib; sourceTree = "<group>"; };
+		AE16028B1EB7DF3D00E8E68F /* Intro.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Intro.storyboard; sourceTree = "<group>"; };
 		AE1877D71EB38E8300CAFD1A /* SAInterestsCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAInterestsCollectionViewController.h; sourceTree = "<group>"; };
 		AE1877D81EB38E8300CAFD1A /* SAInterestsCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAInterestsCollectionViewController.m; sourceTree = "<group>"; };
 		AE1877DA1EB3909900CAFD1A /* SAInterestsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAInterestsCollectionViewCell.h; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 				AE1602861EB3B81F00E8E68F /* SACollectionButtonViewCell.h */,
 				AE1602871EB3B81F00E8E68F /* SACollectionButtonViewCell.m */,
 				AE1602881EB3B81F00E8E68F /* SACollectionButtonViewCell.xib */,
+				AE16028B1EB7DF3D00E8E68F /* Intro.storyboard */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -417,6 +420,7 @@
 			files = (
 				8D9A36641EB3BBDE00036272 /* SACustomCell.xib in Resources */,
 				8D9A36761EB4E47900036272 /* SASectionView2.xib in Resources */,
+				AE16028C1EB7DF3D00E8E68F /* Intro.storyboard in Resources */,
 				AE16028A1EB3B81F00E8E68F /* SACollectionButtonViewCell.xib in Resources */,
 				8406A8E71EA6761500C60267 /* LaunchScreen.storyboard in Resources */,
 				8406A8E41EA6761500C60267 /* Assets.xcassets in Resources */,
