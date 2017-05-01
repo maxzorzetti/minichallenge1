@@ -60,15 +60,19 @@
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_placeholder_with_image" translatesAutoresizingMaskIntoConstraints="NO" id="s9t-jw-XZD">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_placeholder_with_image" translatesAutoresizingMaskIntoConstraints="NO" id="s9t-jw-XZD">
                                 <rect key="frame" x="13" y="15" width="32" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="Mfo-jw-Ynd"/>
                                     <constraint firstAttribute="width" constant="32" id="gDn-v2-dKX"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Group 38 Copy" translatesAutoresizingMaskIntoConstraints="NO" id="gDP-e0-uw8">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Group 38 Copy" translatesAutoresizingMaskIntoConstraints="NO" id="gDP-e0-uw8">
                                 <rect key="frame" x="259" y="15" width="29" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="29" id="6wh-tP-vqw"/>
+                                    <constraint firstAttribute="height" constant="16" id="n7N-AJ-13P"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
