@@ -111,6 +111,22 @@
     }];
 }
 
++ (void)getPastEventsByPersonId:(CKRecordID *_Nonnull)userId handler:(void (^_Nonnull)(NSArray<SAEvent *>* _Nullable events, NSError * _Nullable error))handler{
+    CKReference *ref = [[CKReference alloc]initWithRecordID:userId action:CKReferenceActionNone];
+    
+    SAEventDAO *dao = [SAEventDAO new];
+    [dao getPastEventsByUserReference:ref handler:^(NSArray<CKRecord *> * _Nullable eventRecords, NSError * _Nullable error) {
+        NSMutableArray *arrayOfEvents = [NSMutableArray new];
+        if (!error) {
+            for (CKRecord *eventRecord in eventRecords) {
+                SAEvent *event = [self getEventFromRecord:eventRecord];
+                [arrayOfEvents addObject:event];
+            }
+        }
+        handler(arrayOfEvents, error);
+    }];
+}
+
 + (SAEvent *)getEventFromRecord:(CKRecord *)event{
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     

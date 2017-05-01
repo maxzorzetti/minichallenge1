@@ -10,4 +10,6 @@
 
 @interface SAEventListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
+
 @end
