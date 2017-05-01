@@ -340,8 +340,11 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Events" id="z1b-4b-ax8">
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Item" image="plus" style="plain" id="gHq-3B-hGO">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="plus" style="plain" id="gHq-3B-hGO">
                             <color key="tintColor" red="0.46666666670000001" green="0.35294117650000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="wYN-m4-3fs" kind="show" identifier="startNewEvent" id="YKJ-xS-Iem"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -353,6 +356,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CF0-BT-cub" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3004" y="1290"/>
+        </scene>
+        <!--NewEvent-->
+        <scene sceneID="eny-ir-aKp">
+            <objects>
+                <viewControllerPlaceholder storyboardName="NewEvent" id="wYN-m4-3fs" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oVm-OD-g4L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3969" y="1346"/>
         </scene>
         <!--Matchmaking-->
         <scene sceneID="Q0u-yE-Qcy">
@@ -546,11 +557,10 @@
             </objects>
             <point key="canvasLocation" x="-874.39999999999998" y="-916.1919040479761"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="Sgj-Xr-Lgg">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="PGs-U2-5qc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Gx3-0q-0PJ"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ahE-oi-w5O">
@@ -563,6 +573,11 @@
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1ND-Nx-4ZY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="VFf-T2-Gds">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <items/>
+                </toolbar>
             </objects>
             <point key="canvasLocation" x="2086" y="1290"/>
         </scene>

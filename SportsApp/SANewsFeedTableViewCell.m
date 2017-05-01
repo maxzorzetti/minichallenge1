@@ -47,6 +47,12 @@
     
     self.cellEvent = event;
     
+    self.ownerProfilePicture.layer.cornerRadius = self.ownerProfilePicture.frame.size.height /2;
+    self.ownerProfilePicture.layer.masksToBounds = YES;
+    self.ownerProfilePicture.layer.borderWidth = 0;
+    
+    
+    
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"dd/MM/yyyy"];
     self.eventDate.text= [dateFormat stringFromDate:event.date];

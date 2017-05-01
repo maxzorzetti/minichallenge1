@@ -40,14 +40,35 @@
     CKRecordID *personId = [[CKRecordID alloc]initWithRecordName:@"35D1ADBD-53F8-4D4F-80AB-D44419A25DB0"];
     [SAEventConnector getEventsByPersonId:personId handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
         if (!error) {
-            //self.arrayOfComingUpEvents = [NSMutableArray arrayWithArray:events];
+            events = [events sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                SAEvent *event1 = obj1;
+                SAEvent *event2 = obj2;
+                
+                if (event1.date < event2.date) {
+                    return (NSComparisonResult)NSOrderedAscending;
+                }else if(event1.date > event2.date){
+                    return (NSComparisonResult)NSOrderedDescending;
+                }
+                return (NSComparisonResult)NSOrderedSame;
+            }];
+            
             self.dicListOfComingEvents = [self sortEventsIntoMonthlySections:events];
             [self updateTableWithEventList:self.dicListOfComingEvents];
         }
     }];
     [SAEventConnector getPastEventsByPersonId:personId handler:^(NSArray * _Nullable events, NSError * _Nullable error) {
         if(!error){
-            //self.arrayOfPastEvents = [NSMutableArray arrayWithArray:events];
+            events = [events sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                SAEvent *event1 = obj1;
+                SAEvent *event2 = obj2;
+                
+                if (event1.date < event2.date) {
+                    return (NSComparisonResult)NSOrderedAscending;
+                }else if(event1.date > event2.date){
+                    return (NSComparisonResult)NSOrderedDescending;
+                }
+                return (NSComparisonResult)NSOrderedSame;
+            }];
             self.dicListOfPastEvents = [self sortEventsIntoMonthlySections:events];
         }
     }];
