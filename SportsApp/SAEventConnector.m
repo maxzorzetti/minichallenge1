@@ -165,7 +165,7 @@
     //USE placeholder profile picture
     if(ownerToSetToEvent==nil){
         CKReference *ref = event[@"owner"];
-        ownerToSetToEvent = [[SAPerson alloc]initWithName:nil personId:ref.recordID email:nil telephone:nil andPhoto:nil andEvents:nil];
+        ownerToSetToEvent = [[SAPerson alloc]initWithName:nil personId:ref.recordID email:nil telephone:nil facebookId:nil andPhoto:nil andEvents:nil];
     }
     
     [eventFromRecord setOwner:ownerToSetToEvent];

@@ -154,6 +154,7 @@
     CKRecordID *personId = personRecord.recordID;
     NSString *email = [NSString new];
     NSString *telephone = [NSString new];
+    NSString *facebookId = [NSString new];
     
     if (personRecord[@"name"]) {
         name = personRecord[@"name"];
@@ -164,8 +165,11 @@
     if (personRecord[@"telephone"]) {
         telephone = personRecord[@"telephone"];
     }
+    if (personRecord[@"facebookId"]) {
+        facebookId = personRecord[@"facebookId"];
+    }
     
-    SAPerson *person = [[SAPerson alloc]initWithName:name personId:personId email:email telephone:telephone andPhoto:photo andEvents:nil];
+    SAPerson *person = [[SAPerson alloc]initWithName:name personId:personId email:email telephone:telephone facebookId:facebookId andPhoto:photo andEvents:nil];
     return person;
 }
 

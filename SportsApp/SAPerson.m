@@ -28,7 +28,7 @@
 }
 
 
-- (instancetype)initWithName:(NSString *)name personId:(CKRecordID *)personId email:(NSString *)email telephone:(NSString *)telephone andPhoto:(NSData *)photo andEvents:(NSArray<SAEvent *> *)events
+- (instancetype)initWithName:(NSString *)name personId:(CKRecordID *)personId email:(NSString *)email telephone:(NSString *)telephone facebookId:(NSString *)facebookId andPhoto:(NSData *)photo andEvents:(NSArray<SAEvent *> *)events
 {
     self = [super init];
     if (self) {
@@ -38,6 +38,7 @@
         _telephone = telephone;
         _events = [[NSMutableArray alloc]initWithArray:events];
         _photo = photo;
+        _facebookId = facebookId;
     }
     return self;
 }
@@ -51,6 +52,7 @@
         _telephone = [aDecoder decodeObjectForKey:@"telephone"];
         _events = [aDecoder decodeObjectForKey:@"events"];
         _photo = [aDecoder decodeObjectForKey:@"photo"];
+        _facebookId = [aDecoder decodeObjectForKey:@"facebookId"];
     }
     return self;
 }
@@ -62,6 +64,7 @@
     [aCoder encodeObject:self.telephone forKey:@"telephone"];
     [aCoder encodeObject:self.events forKey:@"events"];
     [aCoder encodeObject:self.photo forKey:@"photo"];
+    [aCoder encodeObject:self.facebookId forKey:@"facebookId"];
 }
 
 + (void)saveToUserDefaults:(SAPerson *)person{

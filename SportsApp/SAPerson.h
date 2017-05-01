@@ -28,7 +28,7 @@
 - (void)addEvent:(SAEvent *)event;
 - (void)removeEvent:(SAEvent *)event;
 
-- (instancetype)initWithName:(NSString *)name personId:(CKRecordID *)personId email:(NSString *)email telephone:(NSString *)telephone andPhoto:(NSData *)photo andEvents:(NSArray<SAEvent *> *)events;
+- (instancetype)initWithName:(NSString *)name personId:(CKRecordID *)personId email:(NSString *)email telephone:(NSString *)telephone facebookId:(NSString *)facebookId andPhoto:(NSData *)photo andEvents:(NSArray<SAEvent *> *)events;
 
 -(void)encodeWithCoder:(NSCoder *)aCoder;
 -(id)initWithCoder:(NSCoder *)aDecoder;
