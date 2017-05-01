@@ -22,8 +22,11 @@
 
 @interface SANewsFeedTableViewController ()
 @property NSMutableArray *eventArray;
+@property NSMutableArray *todayEvents;
+@property NSMutableArray *friendsEvents;
 @property (weak, nonatomic) IBOutlet UITableView *tableWithEvents;
 @property CKRecordID *userRecordID;
+@property int section;
 
 @end
 
@@ -33,94 +36,102 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _section = 0;
+    printf("%s", __PRETTY_FUNCTION__);
 //    CKContainer *container = [CKContainer defaultContainer];
-//    
+////    
 //    [container fetchUserRecordIDWithCompletionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) {
 //        if (!error){
 //            _userRecordID = recordID;
 //        }
-//            
-//            }];
+//        else
+//            NSLog(@"SEU ERRO == %@", error.description);
+////            
+//           }];
   
 
-    
+    _friendsEvents = [[NSMutableArray alloc]init];
+    _todayEvents = [[NSMutableArray alloc]init];
     _eventArray = [[NSMutableArray alloc]init];
     
     CKRecordID *personId = [[CKRecordID alloc]initWithRecordName:@"35D1ADBD-53F8-4D4F-80AB-D44419A25DB0"];
     
     [SAEventConnector getEventsByPersonId:personId handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
         if (!error) {
-            [self updateTableWithEventList:events];
+            [self updateTableWithEventList:events AndArray:_eventArray];
         }
     }];
     
     
-    //SAEvent *event = [[SAEvent alloc]init];
-    //SAPerson *person = [[SAPerson alloc]init];
-    //SAActivity *act = [[SAActivity alloc]initWithName:@"Futebol" minimumPeople:0 maximumPeople:0 picture:nil AndActivityId:nil];
+    SAEvent *eventPakas = [[SAEvent alloc]init];
+    SAPerson *person = [[SAPerson alloc]init];
+    SAActivity *act = [[SAActivity alloc]initWithName:@"Futebol" minimumPeople:0 maximumPeople:0 picture:nil AndActivityId:nil];
     //act.name = ;
-    //person.name = @"Pablo Diego José Francisco de Paula Juan Nepomuceno María de los Remedios Cipriano de la Santísima Trinidad Ruiz y Picasso";
-    //person.facebookId = @"957060131063735";
-    //event.name = @"Evento Pakas do Pablo Diego José Francisco de Paula Juan Nepomuceno María de los Remedios Cipriano de la Santísima Trinidad Ruiz y Picasso";
-    //event.date = [NSDate date];
-    //event.owner = person;
-    //event.activity= act;
+    person.name = @"Pablo Diego José Francisco de Paula Juan Nepomuceno María de los Remedios Cipriano de la Santísima Trinidad Ruiz y Picasso";
+    person.facebookId = @"957060131063735";
+    eventPakas.name = @"Evento Pakas do Pablo Diego José Francisco de Paula Juan Nepomuceno María de los Remedios Cipriano de la Santísima Trinidad Ruiz y Picasso";
+    eventPakas.date = [NSDate date];
+    eventPakas.owner = person;
+    eventPakas.activity= act;
     //[_eventArray addObject:event];
     
     
-//    NSMutableArray *friendList = [[NSMutableArray alloc] init];
+    NSMutableArray *friendList = [[NSMutableArray alloc] init];
 //    
-//    if ( [FBSDKAccessToken currentAccessToken]) {
-//        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
-//                                      initWithGraphPath:@"/me"
-//                                      parameters:@{ @"fields": @"name, picture, friends",}
-//                                      HTTPMethod:@"GET"];
-//        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+    if ( [FBSDKAccessToken currentAccessToken]) {
+        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
+                                      initWithGraphPath:@"/me"
+                                      parameters:@{ @"fields": @"friends",}
+                                    HTTPMethod:@"GET"];
+            [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
 //            
-//            if ([error.userInfo[FBSDKGraphRequestErrorGraphErrorCode] isEqual:@200]) {
-//                NSLog(@"permission error");
-//            }
-//            else
-//            {
-//                CKContainer *container = [CKContainer defaultContainer];
-//                CKDatabase *publicDatabase = [container publicCloudDatabase];
-//                
-//                for (id person in [[result objectForKey:@"friends"]objectForKey:@"data"] )
-//                {
-//                    NSString *userID = [person objectForKey:@"id"];
-//                        [friendList addObject:userID];
-//  
-//                }
-//                
-//                [SAPersonConnector getPeopleFromFacebookIds:friendList handler:^(NSArray<SAPerson *> * _Nullable results, NSError * _Nullable error) {
-//                    if (!error)
-//                    {
-//                        CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:-30.033285 longitude:-51.213884];
+            if (error) {
+                NSLog(@"ERRO = %@", error.description);
+            }
+            else
+           {
+                CKContainer *container = [CKContainer defaultContainer];
+                CKDatabase *publicDatabase = [container publicCloudDatabase];
+               
+                for (id person in [[result objectForKey:@"friends"]objectForKey:@"data"] )
+                {
+                    NSString *userID = [person objectForKey:@"id"];
+                        [friendList addObject:userID];
+  
+                }
+                
+                [SAPersonConnector getPeopleFromFacebookIds:friendList handler:^(NSArray<SAPerson *> * _Nullable results, NSError * _Nullable error) {
+                    if (!error)
+                    {
+                        CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:-30.033285 longitude:-51.213884];
 //                        
-//                      [SAEventConnector getSugestedEventsWithActivities:nil AndCurrentLocation:currentLocation andDistanceInMeters:1000000 AndFriends:results handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
+                      [SAEventConnector getSugestedEventsWithActivities:nil AndCurrentLocation:currentLocation andDistanceInMeters:1000000 AndFriends:results handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
 //                          
 //                          
-//                          if(!error)
-//                          {
-//                              for (SAEvent *event in events) {
-//                                  NSLog(@"eventos = %@", event.name);
-//                              }
-//                              [self updateTableWithEventList:events];
+                          if(!error)
+                          {
+                              for (SAEvent *event in events) {
+                                  NSLog(@"eventos = %@", event.name);
+                              }
+                              
+                              
+                              
+                              [_friendsEvents addObject:eventPakas];
+                              [self updateTableWithEventList:events AndArray:_friendsEvents];
 //                              
-//                          }else{
-//                              NSLog(@"tome: %@", error.description);
-//                          }
-//                          }
-//                      ];
-//                        
-//                    }
-//                }];
-//               NSLog(@" na moral funfa vai friend list = %@",  friendList);
-//                
-//            }
-//        }];
-//    }
+                          }else{
+                              NSLog(@"tome: %@", error.description);
+                          }
+                          }
+                      ];
+                        
+                    }
+                }];
+              NSLog(@" na moral funfa vai friend list = %@",  friendList);
+               
+           }
+        }];
+    }
     
     
     
@@ -142,18 +153,29 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    NSInteger numberOfEvents = _eventArray.count;
+    
+    
+    NSInteger numberOfEvents = 0;
+    if (section ==0) {
+        
+        numberOfEvents = _eventArray.count;
+    }
+    if (section==1) {
+        numberOfEvents = _friendsEvents.count;
+    }
     return numberOfEvents;
     
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    printf("%s\n", __PRETTY_FUNCTION__);
     
     SANewsFeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
     
@@ -164,22 +186,37 @@
         [tableView registerNib:[UINib nibWithNibName:@"SACustomCell" bundle:nil] forCellReuseIdentifier:@"myCell"];
         cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
     }
-    [cell initWithEvent:self.eventArray[indexPath.row]];
+    
+    if (indexPath.section == 0)
+        [cell initWithEvent:self.eventArray[indexPath.row]];
+    if (indexPath.section ==1 ){
+        [cell initWithEvent:self.friendsEvents[_section]];
+        _section ++;
+        
+    }
+    
     //cell.cellEvent = self.eventArray[indexPath.row];
     //cell.ownerName.text = @"vamooooooooo";
+    
     
    
     return cell;
 }
 
-- (void)updateTableWithEventList:(NSArray<SAEvent *>*)events{
-    [self.eventArray addObjectsFromArray:events];
+- (void)updateTableWithEventList:(NSArray<SAEvent *>*)events AndArray:(NSMutableArray *)array{
+    printf("%s\n", __PRETTY_FUNCTION__);
+    
+    
+    
+    [array addObjectsFromArray:events];
     
     [self.tableWithEvents reloadData];
+    
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
+    printf("%s", __PRETTY_FUNCTION__);
     static NSString *CellIdentifier = @"myHeader2";
  
     SASectionView2  *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:CellIdentifier];
@@ -194,6 +231,15 @@
     }
     //UILabel *label = (UILabel *)[headerView viewWithTag:123];
     //[label setText:@"Friends"];
+    
+    if (section == 0)
+        headerView.sectionTitle.text = @"TODAY";
+    else
+        if (section == 1)
+            headerView.sectionTitle.text = @"FRIENDS";
+    else
+            headerView.sectionTitle.text = @"SUGGESTIONS";
+    
     return headerView;
 }
 
