@@ -35,7 +35,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     //setting navigation bar style for the app
     [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
-    //[[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:                                                           [UIColor blackColor], NSForegroundColorAttributeName, shadow, NSShadowAttributeName, [UIFont systemFontOfSize:19.28], NSFontAttributeName, nil]];
+    //[[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, shadow, NSShadowAttributeName, [UIFont systemFontOfSize:19.28], NSFontAttributeName, nil]];
     
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];

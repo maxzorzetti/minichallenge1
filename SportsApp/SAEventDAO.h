@@ -29,6 +29,8 @@
 
 - (void)getSugestedEventsWithActivities:(NSArray<CKReference *>*_Nullable)interestedReferencedActivities AndCurrentLocation:(CLLocation *_Nonnull)usersLocation andDistanceInMeters:(int)proximity AndFriends:(NSArray<CKReference *>*_Nonnull)friends handler:(void (^_Nonnull)(NSArray<CKRecord *>* _Nullable events, NSError * _Nullable error))handler;
 
+- (void)updateEvent:(CKRecord *_Nonnull)event handler:(void (^_Nonnull)(CKRecord * _Nullable event, NSError * _Nullable error))handler;
+
 - (void)saveEvent:(SAEvent *_Nonnull)event;
 
 @end

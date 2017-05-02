@@ -127,11 +127,72 @@
     }];
 }
 
++ (void)registerParticipant:(SAPerson *)participant inEvent:(SAEvent *)event handler:(void (^)(SAEvent * _Nullable, NSError * _Nullable))handler{
+    [event addParticipant:participant];
+    CKRecord *eventRecord = [SAEventConnector getEventRecordFromEvent:event];
+    
+    SAEventDAO *dao = [SAEventDAO new];
+    [dao updateEvent:eventRecord handler:^(CKRecord * _Nullable eventAnswer, NSError * _Nullable error2) {
+        if (!error2 && eventAnswer) {
+            SAEvent *eventToReturnToHandler = [SAEventConnector getEventFromRecord:eventAnswer];
+            
+            handler(eventToReturnToHandler, error2);
+        }else{
+            handler(nil, error2);
+        }
+    }];
+}
+
++ (void)removeParticipant:(SAPerson *)participant ofEvent:(SAEvent *)event handler:(void (^)(SAEvent * _Nullable, NSError * _Nullable))handler{
+    [event removeParticipant:participant];
+    CKRecord *eventRecord = [SAEventConnector getEventRecordFromEvent:event];
+    
+    SAEventDAO *dao = [SAEventDAO new];
+    [dao updateEvent:eventRecord handler:^(CKRecord * _Nullable eventAnswer, NSError * _Nullable error2) {
+        if (!error2 && eventAnswer) {
+            SAEvent *eventToReturnToHandler = [SAEventConnector getEventFromRecord:eventAnswer];
+            
+            handler(eventToReturnToHandler, error2);
+        }else{
+            handler(nil, error2);
+        }
+    }];
+}
+
++ (CKRecord *)getEventRecordFromEvent:(SAEvent *)event{
+    CKRecord *eventRecord = [[CKRecord alloc]initWithRecordType:@"Event" recordID:event.eventId];
+    CKReference *activityRef = [[CKReference alloc]initWithRecordID:event.activity.activityId action:CKReferenceActionNone];
+    CKReference *ownerRef = [[CKReference alloc] initWithRecordID:event.owner.personId action:CKReferenceActionNone];
+    NSMutableArray *participantsRef = [NSMutableArray new];
+    
+    for (SAPerson *participant in event.participants) {
+        CKReference *participantRef = [[CKReference alloc]initWithRecordID:participant.personId action:CKReferenceActionNone];
+        [participantsRef addObject:participantRef];
+    }
+    
+    eventRecord[@"activity"] = activityRef;
+    eventRecord[@"category"] = event.category;
+    eventRecord[@"date"] = event.date;
+    eventRecord[@"maxPeople"] = event.maxPeople;
+    eventRecord[@"minPeople"] = event.minPeople;
+    eventRecord[@"name"] = event.name;
+    eventRecord[@"owner"] = ownerRef;
+    eventRecord[@"participants"] = [NSArray arrayWithArray:participantsRef];
+    eventRecord[@"sex"] = event.sex;
+    eventRecord[@"shift"] = event.shift;
+    eventRecord[@"location"] = event.location;
+    eventRecord[@"distance"] = event.distance;
+    
+    return eventRecord;
+}
+
+
+
 + (SAEvent *)getEventFromRecord:(CKRecord *)event{
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
-    SAEvent *eventFromRecord = [[SAEvent alloc]initWithName:event[@"name"] andRequiredParticipants:(int)event[@"minPeople"] andMaxParticipants:(int)event[@"maxPeople"] andActivity:nil andId:event.recordID andCategory:event[@"category"] andSex:event[@"sex"] andDate:event[@"date"]];
-    
+    SAEvent *eventFromRecord = [[SAEvent alloc]initWithName:event[@"name"] andRequiredParticipants:event[@"minPeople"] andMaxParticipants:event[@"maxPeople"] andActivity:nil andId:event.recordID andCategory:event[@"category"] andSex:event[@"sex"] andDate:event[@"date"] andParticipants:nil andLocation:event[@"location"] andDistance:event[@"distance"]];
+
     //CHECK IF ACTIVITY IS IN NSUserdefaustao
     NSArray *arrayOfDictionaries = [userDefaults arrayForKey:@"ArrayOfDictionariesContainingTheActivities"];
     
@@ -168,8 +229,30 @@
         ownerToSetToEvent = [[SAPerson alloc]initWithName:nil personId:ref.recordID email:nil telephone:nil facebookId:nil andPhoto:nil andEvents:nil];
     }
     
+    //CHECK IF PARTICIPANTS IN NSUserdefaustao
+    NSMutableArray *arrayOfParticipants = [NSMutableArray new];
+    NSArray *arrayOfParticipantReferences = event[@"participants"];
+    
+    for (CKReference *participantRef in arrayOfParticipantReferences) {
+        CKRecordID *participantId = participantRef.recordID;
+        SAPerson *participantToAdd;
+        
+        for (NSDictionary *ownerDic in arrayOfUsers) {
+            if ([[ownerDic objectForKey:@"personId"] isEqualToString:participantId.recordName]) {
+                participantToAdd = [NSKeyedUnarchiver unarchiveObjectWithData:ownerDic[@"personData"]];
+            }
+        }
+        
+        //nothing found, add referenced person to fetch in database in event description view
+        if (!participantToAdd) {
+            participantToAdd = [[SAPerson alloc]initWithName:nil personId:participantId email:nil telephone:nil facebookId:nil andPhoto:nil andEvents:nil];
+        }
+        [arrayOfParticipants addObject:participantToAdd];
+    }
+    
     [eventFromRecord setOwner:ownerToSetToEvent];
     [eventFromRecord setActivity:activityToSetToEvent];
+    [eventFromRecord addParticipants:arrayOfParticipants];
     
     return eventFromRecord;
 }
