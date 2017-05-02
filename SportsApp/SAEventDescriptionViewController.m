@@ -78,7 +78,7 @@
         
         UIImage *backgroungImage = [UIImage imageNamed:@"Rectangle Copy 7"];
         [_joinButton setBackgroundImage:backgroungImage forState:UIControlStateNormal];
-        [_currentEvent addParticipant:currentUser withRole:nil];
+        //[_currentEvent addParticipant:currentUser withRole:nil];
         
      }
     
