@@ -15,6 +15,9 @@
 //#import <UNIRest.h>
 //#import "FBSDKLoginButton.h"
 //#import "FBLoginView.h"
+#import "SAPerson.h"
+#import "SAUser.h"
+#import "SAPersonConnector.h"
 
 
 @interface SAViewController ()
@@ -135,13 +138,13 @@
     identityRecord[@"hash"] = [self sha1:_passwordField.text];
     
     
-    [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
+    [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results1, NSError *error) {
         if (error) {
             NSLog(@"error: %@",error.localizedDescription);
         }
         else {
             //if (![results firstObject]) {
-            if ([results count] == 0) //nao tem registro com aquele nome
+            if ([results1 count] == 0) //nao tem registro com aquele nome
             {
                 
                 
@@ -170,7 +173,22 @@
                             }
                             else
                                 NSLog(@"Record Identity created. New person in the app.");
+                                SAPerson *person = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:nil];
+                                
+                                //saves user in userdefaults
+                                NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:person];
+                                [[NSUserDefaults standardUserDefaults] setObject:userData forKey:@"user"];
+                                
+                                //saves user login info in userdefaults
+                                NSDictionary *dicLoginInfo = @{
+                                                               @"username" : person.name,
+                                                               @"password" : _passwordField.text
+                                                               };
+                                [[NSUserDefaults standardUserDefaults] setObject:dicLoginInfo forKey:@"loginInfo"];
                             
+                                //sets current user
+                                SAUser *obj = [SAUser new];
+                                [obj setCurrentPerson:person];
                             
                         }];
                     }
@@ -198,7 +216,7 @@
     
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setValue:@"id,name,email" forKey:@"fields"];
+    [parameters setValue:@"id,name,email,picture" forKey:@"fields"];
     [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:parameters]
      startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
          if (!error) {
@@ -231,13 +249,13 @@
              // CKRecord *user;
              
              
-             [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
+             [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results1, NSError *error) {
                  if (error) {
                      NSLog(@"error: %@",error.localizedDescription);
                  }
                  else {
                      //if (![results firstObject]) {
-                     if ([results count] == 0)
+                     if ([results1 count] == 0)
                      {
                          [publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
                              if (error) {
@@ -254,6 +272,22 @@
                                      }
                                      else
                                          NSLog(@"Record Identity created. New person in the app.");
+                                         SAPerson *person = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:[result valueForKey:@"picture"]];
+                                         
+                                         //saves user in userdefaults
+                                         NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:person];
+                                         [[NSUserDefaults standardUserDefaults] setObject:userData forKey:@"user"];
+                                         
+                                         //saves user login info in userdefaults
+                                         NSDictionary *dicLoginInfo = @{
+                                                                        @"username" : person.name,
+                                                                        @"password" : _passwordField.text,
+                                                                        @"facebookId" : userFacebookID
+                                                                        };
+                                         [[NSUserDefaults standardUserDefaults] setObject:dicLoginInfo forKey:@"loginInfo"];
+                                         //sets current user
+                                         SAUser *obj = [SAUser new];
+                                         [obj setCurrentPerson:person];
                                  }];
                                  
                                  
@@ -270,8 +304,8 @@
                          NSLog(@"pessoa existente");
                          
                          // Equivalent ways to get a value.
-                         id value = [[results firstObject] objectForKey:@"recordID"];
-                         value = [results firstObject][@"recordID"];
+                         id value = [[results1 firstObject] objectForKey:@"recordID"];
+                         value = [results1 firstObject][@"recordID"];
                          //user = [results firstObject];
                          // _ref = [[CKReference alloc]initWithRecordID:user.recordID action:CKReferenceActionNone];
                          //[self ref] = ref2;
@@ -288,7 +322,7 @@
                          
                          
                          
-                         [publicDatabase performQuery:useridQuery inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error){
+                         [publicDatabase performQuery:useridQuery inZoneWithID:nil completionHandler:^(NSArray *results2, NSError *error){
                              if (error) {
                                  NSLog(@"error: %@",error.localizedDescription);
                              }
@@ -298,7 +332,7 @@
                                  
                                  int flag=0;
                                  
-                                 for (CKRecord *record in results) {
+                                 for (CKRecord *record in results2) {
                                      NSString *adapter = record[@"adapter"];
                                      if ( [adapter isEqualToString:@"Facebook"]) {
                                          
@@ -315,12 +349,42 @@
                                          }
                                          else
                                              NSLog(@"Record Identity created. New person using facebook.");
+                                         SAPerson *person = [SAPersonConnector getPersonFromRecord:[results2 firstObject] andPicture:[result valueForKey:@"picture"]];
+                                         
+                                         //saves user in userdefaults
+                                         NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:person];
+                                         [[NSUserDefaults standardUserDefaults] setObject:userData forKey:@"user"];
+                                         
+                                         //saves user login info in userdefaults
+                                         NSDictionary *dicLoginInfo = @{
+                                                                        @"username" : person.name,
+                                                                        @"password" : _passwordField.text,
+                                                                        @"facebookId" : userFacebookID
+                                                                        };
+                                         [[NSUserDefaults standardUserDefaults] setObject:dicLoginInfo forKey:@"loginInfo"];
+                                         //sets current user
+                                         SAUser *obj = [SAUser new];
+                                         [obj setCurrentPerson:person];
+                                         
                                      }];
                                      
                                  }
-                                 
-                                 
-                                 
+                                 else{
+                                     SAPerson *person = [SAPersonConnector getPersonFromRecord:[results2 firstObject] andPicture:[result valueForKey:@"picture"]];
+                                     
+                                     //saves user in userdefaults
+                                     NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:person];
+                                     [[NSUserDefaults standardUserDefaults] setObject:userData forKey:@"user"];
+                                     
+                                     //saves user login info in userdefaults
+                                     NSArray *keys = @[@"username", @"password", @"facebookId"];
+                                     NSArray *values = @[person.name, _passwordField.text, userFacebookID];
+                                     NSDictionary *dicLoginInfo = [[NSDictionary alloc]initWithObjects:values forKeys:keys];
+                                     [[NSUserDefaults standardUserDefaults] setObject:dicLoginInfo forKey:@"loginInfo"];
+                                     //sets current user
+                                     SAUser *obj = [SAUser new];
+                                     [obj setCurrentPerson:person];
+                                 }
                                  
                              }
                              
@@ -396,8 +460,6 @@
     //Checa-se se o usuario ja aceitou os termos de uso
     if (! [FBSDKAccessToken currentAccessToken]) {
         // User is logged in, do work such as go to next view controller.
-        
-        NSLog(@"oioioioioi");
         FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
         // Optional: Place the button in the center of your view.
         loginButton.center = ((UIView *)[self.view viewWithTag:1]).center;
@@ -412,9 +474,6 @@
     //se nao, pede pra ele!
     else
     {
-        
-        
-        NSLog(@"lallallala");
         
         
         // [self performSegueWithIdentifier:@"mySegue" sender:self];

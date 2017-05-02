@@ -31,87 +31,31 @@
 
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    //setting navigation bar style for the app
     [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
     //[[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:                                                           [UIColor blackColor], NSForegroundColorAttributeName, shadow, NSShadowAttributeName, [UIFont systemFontOfSize:19.28], NSFontAttributeName, nil]];
     
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
-    // Add any custom logic here.
-
     
-    
-//UGLIEST CODE TO TEST ABILITY TO FETCH EVENTS BY ACTIVITIES AND BY ID
-//    [ActivityConnector getAllActivities:^(NSArray * _Nullable activities, NSError * _Nullable error) {
-//        if (error) {
-//            NSLog(@"%@", error.description);
-//        } else {
-//            for (SAActivity *activity in activities) {
-//                NSLog(@"%@", activity.name);
-//                
-//                [SAEventConnector getEventsByActivity:activity handler:^(NSArray * _Nullable events, NSError * _Nullable error) {
-//                    if (error) {
-//                        NSLog(@"%@", error.description);
-//                    } else {
-//                        for (SAEvent *event in events) {
-//                            NSLog(@"Events from activities: %@", event.name);
-//                            
-//                            [SAEventConnector getEventById:event.eventId handler:^(SAEvent * _Nullable eventFromid, NSError * _Nullable error) {
-//                                if (error) {
-//                                    NSLog(@"%@", error.description);
-//                                } else {
-//                                    NSLog(@"Event from id: %@", eventFromid.name);
-//                                }
-//                            }];
-//                        }
-//                    }
-//                }];
-//            }
-//        }
-//    }];
-    
-    
-//UGLY CODE TO TEST ABILITY TO FETCH EVENTS FEED STYLE
-//    [SAActivityConnector getAllActivities:^(NSArray * _Nullable activities, NSError * _Nullable error) {
-//        if (!error) {
-//            
-//            CLLocation *fixedLoc = [[CLLocation alloc] initWithLatitude:-30.033285 longitude:-51.213884];
-//            
-//            [SAEventConnector getComingEventsBasedOnFavoriteActivities:activities AndCurrentLocation:fixedLoc AndRadiusOfDistanceDesiredInMeters:100 handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
-//                if(!error){
-//                    for (SAEvent *event in events) {
-//                        NSLog(@"Saca!!!! %@", event.name);
-//                    }
-//                }else{
-//                    NSLog(@"Error pra buscar eventos, sente: %@", error.description);
-//                }
-//            }];
-//        }else{
-//            NSLog(@"Error pra buscar activity, sente: %@", error.description);
-//        }
-//    }];
-//    
-    
-    //NSArray *arrayOfEmails = @[@"email", @"lau@hot.com", @"emailto.com"];
-    
-    /*[SAPersonConnector getPeopleFromEmails:arrayOfEmails handler:^(NSArray<SAPerson *> * _Nullable people, NSError * _Nullable error) {
-        if (!error) {
-            for (SAPerson * person in people) {
-                NSLog(@"Opa, deu certo: %@", person.name);
-            }
-        }
-    }];*/
-    
-    
-    
-    
-    
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    //init window so initial view can be settable
+    self.window = [[UIWindow alloc]initWithFrame:UIScreen.mainScreen.bounds];
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
     //DELETE THIS WHEN FINISHED TESTING
     //[userDefaults setBool:NO forKey:@"HasLaunchedOnce"];
+    //[userDefaults setObject:nil forKey:@"user"];
+    //[userDefaults setObject:nil forKey:@"loginInfo"];
     
-    if (![userDefaults boolForKey:@"HasLaunchedOnce"])
-    {
+    //CHECK IF APP IS BEING LAUNCHED FOR THE FIRST TIME
+    if (![userDefaults boolForKey:@"HasLaunchedOnce"]){
+        //TODO SHOW INTRO VIEWS
+        UIViewController *initialView = [mainStoryboard instantiateViewControllerWithIdentifier:@"joinView"];
+        self.window.rootViewController = initialView;
+        [self.window makeKeyAndVisible];
+        
         //GET ALL ACTIVITIES INFO AVAILABLE
         [SAActivityConnector getAllActivities:^(NSArray * _Nullable activities, NSError * _Nullable error) {
             if (!error) {
@@ -120,16 +64,52 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
                 }
             }
         }];
-        
         [userDefaults setBool:YES forKey:@"HasLaunchedOnce"];
         [userDefaults synchronize];
+    }else{
+        //check if there is already a user logged in
+        if ([userDefaults dataForKey:@"user"]) {
+            //SHOW FEED
+            UIViewController *initialView = [mainStoryboard instantiateViewControllerWithIdentifier:@"view2"];
+            self.window.rootViewController = initialView;
+            [self.window makeKeyAndVisible];
+            
+            NSData *dataUser = [userDefaults dataForKey:@"user"];
+            SAPerson *person = [NSKeyedUnarchiver unarchiveObjectWithData:dataUser];
+            SAUser *objToRegister = [SAUser new];
+            
+            [objToRegister setCurrentPerson:person];
+        }
+        else
+            //check if there is login info to perform the login operation
+            if([userDefaults dictionaryForKey:@"loginInfo"]){
+                //TODO SHOW PERFORMING LOG IN
+                UIViewController *initialView = [mainStoryboard instantiateViewControllerWithIdentifier:@"joinView"];
+                self.window.rootViewController = initialView;
+                [self.window makeKeyAndVisible];
+                
+                SAUser *objToLogin = [SAUser new];
+                [objToLogin loginWithCompletionHandler:^(int wasSuccessful) {
+                    if (wasSuccessful == 0) {
+                        //SHOW FEED
+                        UIViewController *initialView = [mainStoryboard instantiateViewControllerWithIdentifier:@"view2"];
+                        self.window.rootViewController = initialView;
+                        [self.window makeKeyAndVisible];
+                    }else{
+                        //SHOW LOGIN VIEW
+                        UIViewController *initialView = [mainStoryboard instantiateViewControllerWithIdentifier:@"loginView"];
+                        self.window.rootViewController = initialView;
+                        [self.window makeKeyAndVisible];
+                    }
+                }];
+            }
+        else{
+            //NOTHING WORKED, SHOW JOIN VIEW
+            UIViewController *initialView = [mainStoryboard instantiateViewControllerWithIdentifier:@"joinView"];
+            self.window.rootViewController = initialView;
+            [self.window makeKeyAndVisible];
+        }
     }
-    
-    
-//    NSDictionary *user = [userDefaults dictionaryForKey:@"userInfo"];
-//    if(user){
-//        [SAUser login:user];
-//    }
     
     return YES;
 }

@@ -11,8 +11,53 @@
 #import "SAPerson.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <CommonCrypto/CommonDigest.h>
 
 @implementation SAPersonConnector
+
++ (void)loginWithUsername:(NSString *_Nonnull)username andPassword:(NSString *_Nonnull)password handler:(void (^_Nonnull)(SAPerson *_Nullable, NSError *_Nullable))handler{
+    SAPersonDAO *dao = [SAPersonDAO new];
+    
+    [dao loginWithUsername:username andPassword:[self sha1:password] handler:^(CKRecord * _Nullable personRecord, NSError * _Nullable error) {
+        if (!error && !personRecord) {
+            //facebook user? get picture
+            if (personRecord[@"facebookId"]) {
+                NSString *pathGraph = [[NSString alloc]initWithFormat:@"/%@",personRecord[@"facebookId"]];
+                FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
+                                              initWithGraphPath:pathGraph
+                                              parameters:@{ @"fields": @"picture"}
+                                              HTTPMethod:@"GET"];
+                
+                [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                    if(!error){
+                        
+                        NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
+                        
+                        SAPerson *person = [self getPersonFromRecord:personRecord andPicture:photo];
+                        handler(person, error);
+                    }
+                    //YOU DONT HAVE ACCESS TO FACEBOOK PICTURES (PROBABLY BECAUSE YOU'RE NOT LOGGED IN)
+                    else{
+                        //ADD PLACEHOLDER profile picture
+                        NSData *photo = [NSData dataWithContentsOfFile:@"img_placeholder"];
+                        SAPerson *person = [self getPersonFromRecord:personRecord andPicture:photo];
+                        handler(person, error);
+                    }
+                }];
+            }
+            //not a facebok user? use placeholder as picture
+            else{
+                //ADD PLACEHOLDER profile picture
+                NSData *photo = [NSData dataWithContentsOfFile:@"img_placeholder"];
+                SAPerson *person = [self getPersonFromRecord:personRecord andPicture:photo];
+                handler(person, error);
+            }
+        }else{
+            handler(nil, error);
+        }
+    }];
+}
+
 
 
 + (void)getPeopleFromFacebookIds:(NSArray<NSString *> *_Nonnull)facebookIds handler:(void (^_Nonnull)(NSArray<SAPerson *> *_Nullable, NSError *_Nullable))handler{
@@ -173,6 +218,22 @@
     return person;
 }
 
++ (NSString *)sha1:(NSString *)password
+{
+    NSData *data = [password dataUsingEncoding:NSUTF8StringEncoding];
+    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+    
+    CC_SHA1(data.bytes, data.length, digest);
+    
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+    
+    for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
+    {
+        [output appendFormat:@"%02x", digest[i]];
+    }
+    
+    return output;
+}
 
 
 @end

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="PGs-U2-5qc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -24,7 +24,7 @@
         <!--Join Login View Controller-->
         <scene sceneID="paf-MQ-3RI">
             <objects>
-                <viewController id="ZQf-S0-f9f" customClass="SAJoinLoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="joinView" id="ZQf-S0-f9f" customClass="SAJoinLoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Huq-5F-kiu"/>
                         <viewControllerLayoutGuide type="bottom" id="OMA-J5-Uhy"/>
@@ -210,7 +210,7 @@
         <!--Log In View Controller-->
         <scene sceneID="4oW-19-aCh">
             <objects>
-                <viewController id="dI6-is-Ya7" customClass="SALogInViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginView" id="dI6-is-Ya7" customClass="SALogInViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8oo-q9-29E"/>
                         <viewControllerLayoutGuide type="bottom" id="MZ3-eH-K1v"/>
@@ -262,7 +262,7 @@
                         <viewControllerLayoutGuide type="bottom" id="iYQ-So-JZp"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dpx-oo-GAw">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7np-At-igc">
@@ -279,7 +279,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Profile" id="CXx-IN-GaA"/>
+                    <tabBarItem key="tabBarItem" title="Profile" selectedImage="plus" id="CXx-IN-GaA"/>
                     <connections>
                         <outlet property="profilePhoto" destination="7np-At-igc" id="zC1-6l-yZE"/>
                         <outlet property="userInfo" destination="lx1-8c-qYr" id="W7l-Tc-PBL"/>
@@ -301,11 +301,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="oRQ-zt-i5r">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="oRQ-zt-i5r">
                                 <rect key="frame" x="38" y="81" width="300" height="29"/>
                                 <segments>
-                                    <segment title="Coming Up"/>
                                     <segment title="Past"/>
+                                    <segment title="Coming Up"/>
                                 </segments>
                                 <color key="tintColor" red="0.45131057499999999" green="0.32212579250000001" blue="0.83965009450000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
@@ -365,55 +365,20 @@
             </objects>
             <point key="canvasLocation" x="3969" y="1346"/>
         </scene>
-        <!--Matchmaking-->
-        <scene sceneID="Q0u-yE-Qcy">
-            <objects>
-                <viewController id="SYC-Lf-Pvm" customClass="SAMatchMakingViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="aga-hl-v4o"/>
-                        <viewControllerLayoutGuide type="bottom" id="aoM-aC-ZvG"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="bJt-gn-nfc">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Vc-HS-wzo">
-                                <rect key="frame" x="16" y="318" width="343" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Search Activities">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="startMatchMaking:" destination="SYC-Lf-Pvm" eventType="touchUpInside" id="zwo-i5-iNy"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Matchmaking" id="yCc-OJ-QsL"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zMA-7N-Cby" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2190" y="373"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="o6F-gz-sQx">
             <objects>
                 <tabBarController storyboardIdentifier="view2" automaticallyAdjustsScrollViewInsets="NO" id="FCe-wx-uJV" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="eG4-uH-VHV">
+                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="eG4-uH-VHV">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
                         <segue destination="hWj-QZ-IYJ" kind="relationship" relationship="viewControllers" id="eEr-jH-CzL"/>
-                        <segue destination="SYC-Lf-Pvm" kind="relationship" relationship="viewControllers" id="noE-ca-7bx"/>
+                        <segue destination="PGs-U2-5qc" kind="relationship" relationship="viewControllers" id="KE0-8b-eNf"/>
                         <segue destination="cbM-AA-Fkf" kind="relationship" relationship="viewControllers" id="b9w-Ok-t8L"/>
-                        <segue destination="PGs-U2-5qc" kind="show" id="shB-oO-hhp"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uYd-u5-7cn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -423,8 +388,8 @@
         <!--Feed-->
         <scene sceneID="LHb-Fy-tkf">
             <objects>
-                <navigationController title="Feed" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="hWj-QZ-IYJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Feed" id="Pgn-h3-4rd"/>
+                <navigationController storyboardIdentifier="feedNavView" title="Feed" automaticallyAdjustsScrollViewInsets="NO" id="hWj-QZ-IYJ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Feed" selectedImage="ic_favorite" id="Pgn-h3-4rd"/>
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
@@ -439,10 +404,6 @@
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="XLF-XG-3YH">
-                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
                     <connections>
                         <segue destination="781-5X-G13" kind="relationship" relationship="rootViewController" id="0tA-AK-Gl2"/>
                     </connections>
@@ -454,9 +415,9 @@
         <!--Feed-->
         <scene sceneID="afN-HR-j0P">
             <objects>
-                <tableViewController id="781-5X-G13" customClass="SANewsFeedTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="feedView" id="781-5X-G13" customClass="SANewsFeedTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="138" sectionHeaderHeight="28" sectionFooterHeight="28" id="3vO-Aj-D6O">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -557,10 +518,11 @@
             </objects>
             <point key="canvasLocation" x="-874.39999999999998" y="-916.1919040479761"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Events-->
         <scene sceneID="Sgj-Xr-Lgg">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="PGs-U2-5qc" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Events" selectedImage="calendarIcon" id="3IJ-P1-quk"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ahE-oi-w5O">
@@ -573,11 +535,6 @@
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1ND-Nx-4ZY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="VFf-T2-Gds">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <items/>
-                </toolbar>
             </objects>
             <point key="canvasLocation" x="2086" y="1290"/>
         </scene>
@@ -585,6 +542,8 @@
     <resources>
         <image name="Join Us" width="320" height="100"/>
         <image name="Log In" width="320" height="100"/>
+        <image name="calendarIcon" width="12" height="13"/>
+        <image name="ic_favorite" width="20" height="19"/>
         <image name="login_button" width="625" height="100"/>
         <image name="logo" width="136" height="136"/>
         <image name="plus" width="21" height="21"/>

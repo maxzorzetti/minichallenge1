@@ -12,9 +12,13 @@
 
 @interface SAUser : NSObject
 
-@property (atomic) SAPerson *person;
+@property (nonatomic) SAPerson *person;
 
 + (SAUser *)currentUser;
+
+- (void)loginWithCompletionHandler:(void (^_Nonnull)(int))handler;
+
+-(void)setCurrentPerson:(SAPerson *)person;
 
 - (void)setPreferredActivity:(SAActivity *) activity;
 

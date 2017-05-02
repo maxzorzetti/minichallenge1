@@ -19,4 +19,6 @@
 
 - (void)getPersonFromId:(CKRecordID *_Nonnull)personId handler:(void (^_Nonnull)(CKRecord *_Nullable, NSError *_Nullable))handler;
 
+- (void)loginWithUsername:(NSString *_Nonnull)username andPassword:(NSString *_Nonnull)password handler:(void (^_Nonnull)(CKRecord *_Nullable, NSError *_Nullable))handler;
+
 @end

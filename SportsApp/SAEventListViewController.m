@@ -15,6 +15,8 @@
 #import "SANewsFeedTableViewCell.h"
 #import "SAEventsTableViewCell.h"
 #import "SASectionView2.h"
+#import "SAUser.h"
+#import "SAPerson.h"
 
 @interface SAEventListViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableWithEvents;
@@ -30,14 +32,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableWithEvents.tableHeaderView = nil;
-    // Do any additional setup after loading the view.
     _currentArray = [NSArray new];
     
     self.tableWithEvents.delegate = self;
     self.tableWithEvents.dataSource = self;
     
-    //TODO get from User defaults instead
-    CKRecordID *personId = [[CKRecordID alloc]initWithRecordName:@"35D1ADBD-53F8-4D4F-80AB-D44419A25DB0"];
+    NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];
+    SAPerson *user = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
+    
+    CKRecordID *personId = user.personId;
     [SAEventConnector getEventsByPersonId:personId handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
         if (!error) {
             events = [events sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -144,7 +147,7 @@
     
     SASectionView2  *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:CellIdentifier];
     
-        
+    
     [tableView registerNib:[UINib nibWithNibName:@"SASectionView2" bundle:nil] forHeaderFooterViewReuseIdentifier:CellIdentifier];
     headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"myHeader2"];
     NSString *text = [self monthFromNumber:month];
@@ -206,7 +209,7 @@
 }
 
 - (IBAction)changeSegment:(UISegmentedControl *)sender {
-    if(sender.selectedSegmentIndex==0){
+    if(sender.selectedSegmentIndex==1){
         [self updateTableWithEventList:self.dicListOfComingEvents];
     }else{
         [self updateTableWithEventList:self.dicListOfPastEvents];

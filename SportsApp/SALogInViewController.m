@@ -8,8 +8,10 @@
 
 #import "SALogInViewController.h"
 #import <CloudKit/CloudKit.h>
-
+#import "SAPerson.h"
 #import <CommonCrypto/CommonDigest.h>
+#import "SAUser.h"
+#import "SAPersonConnector.h"
 
 
 @interface SALogInViewController ()
@@ -44,22 +46,22 @@
     
     
     
-    [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
+    [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results1, NSError *error) {
         if (error) {
             NSLog(@"error: %@",error.localizedDescription);
         }
         else {
             
-            if (results.count == 0)
+            if (results1.count == 0)
                 NSLog(@"Wrong username");
             
             else
             {
                 
-                id value = [[results firstObject] objectForKey:@"recordID"];
-                value = [results firstObject][@"recordID"];
+                id value = [[results1 firstObject] objectForKey:@"recordID"];
+                value = [results1 firstObject][@"recordID"];
                 
-                NSPredicate *useridPredicate = [NSPredicate predicateWithFormat:@"userId = %@", value]; //ccui
+                NSPredicate *useridPredicate = [NSPredicate predicateWithFormat:@"userId = %@", value];
                 CKQuery *useridQuery = [[CKQuery alloc] initWithRecordType:@"SAIdentity" predicate:useridPredicate];
                 
                 
@@ -76,23 +78,34 @@
                         NSString *passwordHash = [self sha1:_password];
                         
                         
-                        if ([adapter isEqualToString: passwordHash])
+                        if ([adapter isEqualToString: passwordHash]){
                             NSLog(@"You are logged in");
-                        
-                        else
+                            SAPerson *person = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:nil];
+                            
+                            //saves user in userdefaults
+                            NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:person];
+                            [[NSUserDefaults standardUserDefaults] setObject:userData forKey:@"user"];
+                            
+                            //saves user login info in userdefaults
+                            NSDictionary *dicLoginInfo = @{
+                                                           @"username" : person.name,
+                                                           @"password" : _password
+                                                           };
+                            [[NSUserDefaults standardUserDefaults] setObject:dicLoginInfo forKey:@"loginInfo"];
+                            
+                            //sets current user
+                            SAUser *obj = [SAUser new];
+                            [obj setCurrentPerson:person];
+                        }
+                        else{
                             NSLog(@"Wrong password");
-                        
+                        }
                     }
                     
                     
                 }];
                 
             }}}];
-    
-    
-    
-    
-    
 }
 
 
