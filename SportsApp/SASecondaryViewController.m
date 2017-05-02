@@ -52,17 +52,11 @@
 }
 
 - (void) changeUserTextField{
+    UITextField *textField = _txtUser;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:
                               CGRectMake(1, 1, _txtUser.frame.size.width, _txtUser.frame.size.height-1) byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(7.0, 7.0)];
     
-    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-    maskLayer.frame = _txtUser.bounds;
-    maskLayer.path = maskPath.CGPath;
-    maskLayer.lineWidth = 1.0;
-    maskLayer.strokeColor = [UIColor colorWithRed:156.0f/255.0f green:156.0f/255.0f blue:156.0f/255.0f alpha:1.0f].CGColor;
-    maskLayer.fillColor = [UIColor clearColor].CGColor;
-    
-    [_txtUser.layer addSublayer:maskLayer];
+    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath];
 }
 
 - (void) changePwdTextField{
@@ -79,7 +73,7 @@
     maskLayer.frame = textField.bounds;
     maskLayer.path = maskPath.CGPath;
     maskLayer.lineWidth = 1.0;
-    maskLayer.strokeColor = [UIColor colorWithRed:156.0f/255.0f green:156.0f/255.0f blue:156.0f/255.0f alpha:1.0f].CGColor;
+    maskLayer.strokeColor = [UIColor colorWithRed:50.0f/255.0f green:226.0f/255.0f blue:196.0f/255.0f alpha:1.0f].CGColor;
     maskLayer.fillColor = [UIColor clearColor].CGColor;
     
     [textField.layer addSublayer:maskLayer];
