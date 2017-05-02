@@ -607,12 +607,9 @@
     <resources>
         <image name="Join Us" width="320" height="100"/>
         <image name="Log In" width="320" height="100"/>
-<<<<<<< HEAD
+        <image name="Prancheta 1" width="375" height="667"/>
         <image name="calendarIcon" width="12" height="13"/>
         <image name="ic_favorite" width="20" height="19"/>
-=======
-        <image name="Prancheta 1" width="375" height="667"/>
->>>>>>> 8e3ac02da7731873316c16248d08e3ea43e55e02
         <image name="login_button" width="625" height="100"/>
         <image name="logo" width="136" height="136"/>
         <image name="plus" width="21" height="21"/>
