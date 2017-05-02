@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Intro1 View Controller-->
         <scene sceneID="7T8-cz-FUV">
             <objects>
-                <viewController id="ChO-pT-Rh1" sceneMemberID="viewController">
+                <viewController id="ChO-pT-Rh1" customClass="Intro1ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ecX-ij-jnf"/>
                         <viewControllerLayoutGuide type="bottom" id="AMq-zj-mtR"/>
@@ -19,8 +19,20 @@
                     <view key="view" contentMode="scaleToFill" id="E0q-W3-7t8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fnu-C2-zOr">
+                                <rect key="frame" x="164" y="617" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="0.46666666666666667" green="0.3529411764705882" blue="0.85490196078431369" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <connections>
+                        <outlet property="intro1View" destination="E0q-W3-7t8" id="8Dk-jz-dUX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z70-cv-orr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
