@@ -43,23 +43,23 @@
 	SAActivity *golf = [[SAActivity alloc]initWithName:@"Golf" minimumPeople:14 maximumPeople:16 picture:pic AndActivityId:nil];
 	SAActivity *basquete = [[SAActivity alloc]initWithName:@"Basquete" minimumPeople:14 maximumPeople:16 picture:pic AndActivityId:nil];
 	
-//	NSMutableArray *arrayOfActivities = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"ArrayOfDictionariesContainingTheActivities"];
-//	
-//	NSLog(@"arrayofdictionaries %@", arrayOfActivities);
-//	
-//	NSMutableArray<SAActivity *> *activities = [NSMutableArray new];
-//	for (NSDictionary *activityDic in arrayOfActivities) {
-//		SAActivity *activity = [NSKeyedUnarchiver unarchiveObjectWithData:activityDic[@"activityData"]];
-//		NSLog(@"ACTIVITY %@", activity);
-//		[activities addObject: activity];
-//	}
-//	
-//	
-//	self.activities = activities;
-//	
-//	NSLog(@"ACTIVITIES %@", activities);
+	NSMutableArray *arrayOfActivities = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"ArrayOfDictionariesContainingTheActivities"];
 	
-	self.activities = @[futebas, volei, tenis, golf, basquete, futebas, volei, tenis, basquete, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas];
+	NSLog(@"arrayofdictionaries %@", arrayOfActivities);
+	
+	NSMutableArray<SAActivity *> *activities = [NSMutableArray new];
+	for (NSDictionary *activityDic in arrayOfActivities) {
+		SAActivity *activity = [NSKeyedUnarchiver unarchiveObjectWithData:activityDic[@"activityData"]];
+		NSLog(@"ACTIVITY %@", activity);
+		[activities addObject: activity];
+	}
+	
+	
+	self.activities = activities;
+	
+	NSLog(@"ACTIVITIES %@", activities);
+	
+	//self.activities = @[futebas, volei, tenis, golf, basquete, futebas, volei, tenis, basquete, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -73,7 +73,8 @@
 	
 	SAActivity *activity = self.activities[indexPath.item];
 	
-	cell.iconImageView.image = [UIImage imageNamed:@"ic_favorite"];
+	cell.iconImageView.image = [UIImage imageWithData:activity.picture];
+	
 	cell.titleLabel.text = activity.name;
 	
 	return cell;

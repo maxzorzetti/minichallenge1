@@ -9,25 +9,29 @@
 #import "SAInterestsCollectionViewController.h"
 
 @interface SAInterestsCollectionViewController ()
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UILabel *lblActivity;
+
+@property (weak, nonatomic) IBOutlet UICollectionView *interestsCollectionView;
+@property NSArray *activities;
 
 @end
 
 @implementation SAInterestsCollectionViewController
 
-static NSString * const reuseIdentifier = @"Cell";
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.clearsSelectionOnViewWillAppear = NO;
     
     // Register cell classes
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    [self.interestsCollectionView registerNib:[UINib nibWithNibName:@"SACollectionButtonViewCell" bundle:nil] forCellWithReuseIdentifier:@"activityCell"];
     
-    // Do any additional setup after loading the view.
+    // Activities of our app :D
+    _activities = @[@"Basquete", @"Futebol", @"Tênis", @"Vôlei"];
+    
+    self.interestsCollectionView.dataSource = self;
+    self.interestsCollectionView.delegate = self;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,21 +52,18 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of items
-    return 0;
+    return _activities.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    // Configure the cell
-    
+    SACollectionButtonViewCell *cell = [self.interestsCollectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+
     return cell;
 }
 

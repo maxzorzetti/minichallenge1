@@ -39,6 +39,7 @@
 		84DC11841EAD00BD00A9A90C /* SAPersonDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC11831EAD00BD00A9A90C /* SAPersonDAO.m */; };
 		8D4824911EB2353400D2FE5B /* SANewsFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4824901EB2353400D2FE5B /* SANewsFeedTableViewCell.m */; };
 		8D7A63BA1EAA5A9000418D39 /* SAProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7A63B91EAA5A9000418D39 /* SAProfileViewController.m */; };
+		8D80CFA71EB7F12300E89334 /* eventDescriptionStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D80CFA61EB7F12300E89334 /* eventDescriptionStoryboard.storyboard */; };
 		8D9A36641EB3BBDE00036272 /* SACustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D9A36631EB3BBDE00036272 /* SACustomCell.xib */; };
 		8D9A36701EB4E1F600036272 /* SASectionView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9A366F1EB4E1F600036272 /* SASectionView2.m */; };
 		8D9A36761EB4E47900036272 /* SASectionView2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D9A36751EB4E47900036272 /* SASectionView2.xib */; };
@@ -46,6 +47,7 @@
 		8DF864341EB22EE400777E98 /* SANewsFeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DF864331EB22EE400777E98 /* SANewsFeedTableViewController.m */; };
 		AE1602891EB3B81F00E8E68F /* SACollectionButtonViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1602871EB3B81F00E8E68F /* SACollectionButtonViewCell.m */; };
 		AE16028A1EB3B81F00E8E68F /* SACollectionButtonViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE1602881EB3B81F00E8E68F /* SACollectionButtonViewCell.xib */; };
+		AE1602931EB8025B00E8E68F /* SAIntro1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1602921EB8025B00E8E68F /* SAIntro1ViewController.m */; };
 		AE1877D91EB38E8300CAFD1A /* SAInterestsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1877D81EB38E8300CAFD1A /* SAInterestsCollectionViewController.m */; };
 		AE1877DC1EB3909900CAFD1A /* SAInterestsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1877DB1EB3909900CAFD1A /* SAInterestsCollectionViewCell.m */; };
 		AE66FF2E1EB10EA2008EBC5E /* Secondary.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE66FF2C1EB10EA2008EBC5E /* Secondary.storyboard */; };
@@ -120,6 +122,7 @@
 		8D4824901EB2353400D2FE5B /* SANewsFeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANewsFeedTableViewCell.m; sourceTree = "<group>"; };
 		8D7A63B81EAA5A9000418D39 /* SAProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAProfileViewController.h; sourceTree = "<group>"; };
 		8D7A63B91EAA5A9000418D39 /* SAProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAProfileViewController.m; sourceTree = "<group>"; };
+		8D80CFA61EB7F12300E89334 /* eventDescriptionStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = eventDescriptionStoryboard.storyboard; sourceTree = "<group>"; };
 		8D9A36631EB3BBDE00036272 /* SACustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACustomCell.xib; sourceTree = "<group>"; };
 		8D9A366E1EB4E1F600036272 /* SASectionView2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASectionView2.h; sourceTree = "<group>"; };
 		8D9A366F1EB4E1F600036272 /* SASectionView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SASectionView2.m; sourceTree = "<group>"; };
@@ -131,6 +134,8 @@
 		AE1602861EB3B81F00E8E68F /* SACollectionButtonViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SACollectionButtonViewCell.h; sourceTree = "<group>"; };
 		AE1602871EB3B81F00E8E68F /* SACollectionButtonViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SACollectionButtonViewCell.m; sourceTree = "<group>"; };
 		AE1602881EB3B81F00E8E68F /* SACollectionButtonViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACollectionButtonViewCell.xib; sourceTree = "<group>"; };
+		AE1602911EB8025B00E8E68F /* SAIntro1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAIntro1ViewController.h; sourceTree = "<group>"; };
+		AE1602921EB8025B00E8E68F /* SAIntro1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAIntro1ViewController.m; sourceTree = "<group>"; };
 		AE1877D71EB38E8300CAFD1A /* SAInterestsCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAInterestsCollectionViewController.h; sourceTree = "<group>"; };
 		AE1877D81EB38E8300CAFD1A /* SAInterestsCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAInterestsCollectionViewController.m; sourceTree = "<group>"; };
 		AE1877DA1EB3909900CAFD1A /* SAInterestsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAInterestsCollectionViewCell.h; sourceTree = "<group>"; };
@@ -203,6 +208,7 @@
 				8406A8DA1EA6761500C60267 /* AppDelegate.h */,
 				8406A8DB1EA6761500C60267 /* AppDelegate.m */,
 				8406A8E31EA6761500C60267 /* Assets.xcassets */,
+				8D80CFA61EB7F12300E89334 /* eventDescriptionStoryboard.storyboard */,
 				8406A8E51EA6761500C60267 /* LaunchScreen.storyboard */,
 				8406A8E81EA6761500C60267 /* Info.plist */,
 				84DC11811EACF3DD00A9A90C /* WebService */,
@@ -251,6 +257,7 @@
 		847F5E3A1EA715530091BAE9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				AE16028D1EB7FEEF00E8E68F /* Intro */,
 				AE66FF2F1EB10EFA008EBC5E /* SAFirstProfileViewController.h */,
 				AE66FF301EB10EFA008EBC5E /* SAFirstProfileViewController.m */,
 				AE66FF311EB10EFA008EBC5E /* SAForgotPasswordViewController.h */,
@@ -342,6 +349,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		AE16028D1EB7FEEF00E8E68F /* Intro */ = {
+			isa = PBXGroup;
+			children = (
+				AE1602911EB8025B00E8E68F /* SAIntro1ViewController.h */,
+				AE1602921EB8025B00E8E68F /* SAIntro1ViewController.m */,
+			);
+			name = Intro;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -416,6 +432,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D9A36641EB3BBDE00036272 /* SACustomCell.xib in Resources */,
+				8D80CFA71EB7F12300E89334 /* eventDescriptionStoryboard.storyboard in Resources */,
 				8D9A36761EB4E47900036272 /* SASectionView2.xib in Resources */,
 				AE16028A1EB3B81F00E8E68F /* SACollectionButtonViewCell.xib in Resources */,
 				8406A8E71EA6761500C60267 /* LaunchScreen.storyboard in Resources */,
@@ -494,6 +511,7 @@
 				29FF42531EABD8F700304B26 /* SAUser.m in Sources */,
 				8D7A63BA1EAA5A9000418D39 /* SAProfileViewController.m in Sources */,
 				84CBE4691EB152EA00ACD0DF /* SAPersonConnector.m in Sources */,
+				AE1602931EB8025B00E8E68F /* SAIntro1ViewController.m in Sources */,
 				847F5E391EA715170091BAE9 /* SAPerson.m in Sources */,
 				847F5E3E1EA716FA0091BAE9 /* SAMatchMakingViewController.m in Sources */,
 				849AC2171EB012C600A7BD22 /* SAActivityConnector.m in Sources */,

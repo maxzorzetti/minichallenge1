@@ -17,11 +17,11 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *preferencesTextView;
 
+@property (weak, nonatomic) IBOutlet UIButton *nextButton;
+
 @property (nonatomic) NSArray *timetable;
 
 @property (nonatomic) NSString *selectedSchedule;
-
-@property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
 @end
 
@@ -67,7 +67,7 @@
 	
 	SACollectionButtonViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
 	
-	cell.iconImageView.image = [UIImage imageNamed:@"ic_favorite"];
+	cell.iconImageView.image = [UIImage imageNamed:@"ic_calendarButton"];
 	cell.titleLabel.text = self.timetable[indexPath.item];
 	
 	return cell;
