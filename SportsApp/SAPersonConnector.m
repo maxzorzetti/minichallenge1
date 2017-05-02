@@ -147,7 +147,6 @@
     }];
 }
 
-
 + (void)getPersonFromId:(CKRecordID *_Nonnull)personId handler:(void (^_Nonnull)(SAPerson *_Nullable, NSError *_Nullable))handler{
     SAPersonDAO *dao = [SAPersonDAO new];
     

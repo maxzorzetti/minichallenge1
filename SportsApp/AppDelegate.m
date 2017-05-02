@@ -48,6 +48,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //[userDefaults setBool:NO forKey:@"HasLaunchedOnce"];
     //[userDefaults setObject:nil forKey:@"user"];
     //[userDefaults setObject:nil forKey:@"loginInfo"];
+    //[userDefaults setObject:nil forKey:@"ArrayOfDictionariesContainingTheActivities"];
+    //[userDefaults setObject:nil forKey:@"ArrayOfDictionariesContainingPeople"];
     
     //CHECK IF APP IS BEING LAUNCHED FOR THE FIRST TIME
     if (![userDefaults boolForKey:@"HasLaunchedOnce"]){
