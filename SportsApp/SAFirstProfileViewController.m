@@ -63,7 +63,7 @@
     maskLayer.frame = textField.bounds;
     maskLayer.path = maskPath.CGPath;
     maskLayer.lineWidth = 1.0;
-    maskLayer.strokeColor = [UIColor colorWithRed:156.0f/255.0f green:156.0f/255.0f blue:156.0f/255.0f alpha:1.0f].CGColor;
+    maskLayer.strokeColor = [UIColor colorWithRed:50.0f/255.0f green:226.0f/255.0f blue:196.0f/255.0f alpha:1.0f].CGColor;
     maskLayer.fillColor = [UIColor clearColor].CGColor;
     
     [textField.layer addSublayer:maskLayer];
