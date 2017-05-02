@@ -54,7 +54,7 @@
     _todayEvents = [[NSMutableArray alloc]init];
     _eventArray = [[NSMutableArray alloc]init];
     
-    CKRecordID *personId = [[CKRecordID alloc]initWithRecordName:@"35D1ADBD-53F8-4D4F-80AB-D44419A25DB0"];
+    CKRecordID *personId = [[CKRecordID alloc]initWithRecordName:@"BB905180-6C9D-41F0-B2FA-25D7F65F5B81"];
     
     [SAEventConnector getEventsByPersonId:personId handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
         if (!error) {
