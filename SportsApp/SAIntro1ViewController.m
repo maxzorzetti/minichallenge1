@@ -26,11 +26,18 @@
     gradient.endPoint = CGPointMake(0.5, 0.0);
     
     [self.view.layer insertSublayer:gradient atIndex:0];
+    
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
 /*
