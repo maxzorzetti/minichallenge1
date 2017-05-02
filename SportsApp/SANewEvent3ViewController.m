@@ -89,8 +89,8 @@
 	
 	SACollectionButtonViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
 	
-	cell.titleLabel.text = self.peopleType[indexPath.item];
 	cell.iconImageView.image = [UIImage imageNamed:@"ic_favorite"];
+	cell.titleLabel.text = self.peopleType[indexPath.item];
 	
 	return cell;
 }

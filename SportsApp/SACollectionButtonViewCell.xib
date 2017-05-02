@@ -28,7 +28,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ix-H9-zHn">
-                                <rect key="frame" x="32" y="63" width="37.5" height="18"/>
+                                <rect key="frame" x="32" y="63" width="38" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.13725490200000001" green="0.1215686275" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -52,7 +52,7 @@
             </constraints>
             <connections>
                 <outlet property="bgView" destination="KgH-iw-l67" id="wzd-L7-s4X"/>
-                <outlet property="iconImageView" destination="K2A-8p-PWQ" id="hxJ-Ju-aJU"/>
+                <outlet property="iconImageView" destination="K2A-8p-PWQ" id="nny-ju-jNR"/>
                 <outlet property="titleLabel" destination="2ix-H9-zHn" id="wgR-xa-MOy"/>
             </connections>
             <point key="canvasLocation" x="33" y="53"/>
