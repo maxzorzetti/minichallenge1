@@ -18,6 +18,7 @@
 #import "SAEventConnector.h"
 #import "SAActivity.h"
 #import "SASectionView2.h"
+#import "SAEventDescriptionViewController.h"
 
 
 @interface SANewsFeedTableViewController ()
@@ -58,7 +59,7 @@
     
     [SAEventConnector getEventsByPersonId:personId handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
         if (!error) {
-            [self updateTableWithEventList:events AndArray:_eventArray];
+            [self updateTableWithEventList:events];
         }
     }];
     
@@ -116,8 +117,8 @@
                               
                               
                               
-                              [_friendsEvents addObject:eventPakas];
-                              [self updateTableWithEventList:events AndArray:_friendsEvents];
+                              //[_friendsEvents addObject:eventPakas];
+                              [self updateTableWithEventList:events];
 //                              
                           }else{
                               NSLog(@"tome: %@", error.description);
@@ -161,13 +162,13 @@
     
     
     NSInteger numberOfEvents = 0;
-    if (section ==0) {
+    //if (section ==0) {
         
         numberOfEvents = _eventArray.count;
-    }
-    if (section==1) {
-        numberOfEvents = _friendsEvents.count;
-    }
+    //}
+    //if (section==1) {
+        //numberOfEvents = _friendsEvents.count;
+    //}
     return numberOfEvents;
     
 }
@@ -175,7 +176,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    printf("%s\n", __PRETTY_FUNCTION__);
+    printf("%s SECTION = %ld ROW = %ld\n", __PRETTY_FUNCTION__, (long)indexPath.section, (long)indexPath.row);
     
     SANewsFeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
     
@@ -187,13 +188,13 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
     }
     
-    if (indexPath.section == 0)
+    //if (indexPath.section == 0)
         [cell initWithEvent:self.eventArray[indexPath.row]];
-    if (indexPath.section ==1 ){
-        [cell initWithEvent:self.friendsEvents[_section]];
-        _section ++;
+    //if (indexPath.section ==1 ){
+        //[cell initWithEvent:self.friendsEvents[_section]];
+       // _section ++;
         
-    }
+    //}
     
     //cell.cellEvent = self.eventArray[indexPath.row];
     //cell.ownerName.text = @"vamooooooooo";
@@ -203,12 +204,12 @@
     return cell;
 }
 
-- (void)updateTableWithEventList:(NSArray<SAEvent *>*)events AndArray:(NSMutableArray *)array{
+- (void)updateTableWithEventList:(NSArray<SAEvent *>*)events {
     printf("%s\n", __PRETTY_FUNCTION__);
     
     
-    
-    [array addObjectsFromArray:events];
+    _eventArray=[[NSMutableArray alloc]init];
+    [_eventArray addObjectsFromArray:events];
     
     [self.tableWithEvents reloadData];
     
@@ -257,6 +258,25 @@
 
 -(void) viewWillAppear:(BOOL)animated {
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
+}
+
+
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    [self performSegueWithIdentifier:@"mySegue" sender:nil];
+}
+    
+    
+
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(SANewsFeedTableViewCell *)sender{
+    
+    SAEventDescriptionViewController *destView = segue.destinationViewController;
+    destView.currentEvent= sender.cellEvent;
+    
+    
 }
 /*
  // Override to support conditional editing of the table view.

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="oMQ-4A-BWO">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Event Description View Controller-->
         <scene sceneID="IsF-vu-71S">
             <objects>
-                <viewController id="oMQ-4A-BWO" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="eventDescription" id="oMQ-4A-BWO" customClass="SAEventDescriptionViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7ev-24-eQA"/>
                         <viewControllerLayoutGuide type="bottom" id="8Cz-kI-BLp"/>
@@ -39,8 +39,8 @@
                                         <rect key="frame" x="280" y="31" width="21" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="73Y-mf-s7l">
-                                        <rect key="frame" x="66" y="44" width="44" height="11"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Organizer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="73Y-mf-s7l">
+                                        <rect key="frame" x="66" y="44" width="45" height="11"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="9"/>
                                         <color key="textColor" red="0.13725490200000001" green="0.1215686275" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -169,10 +169,25 @@
                                 <rect key="frame" x="25" y="544" width="333" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Rectangle Copy 6"/>
+                                <connections>
+                                    <action selector="jointButtonPressed:" destination="oMQ-4A-BWO" eventType="touchUpInside" id="Mng-5h-cYW"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="eventDate" destination="cUu-KI-eG7" id="a8M-Bc-IIy"/>
+                        <outlet property="eventGender" destination="GpL-Ei-zNx" id="3R5-9u-OHT"/>
+                        <outlet property="eventImage" destination="mGH-WV-BMF" id="XR6-hQ-GRJ"/>
+                        <outlet property="eventLocation" destination="Wiy-BH-46I" id="pnO-ZO-Xv8"/>
+                        <outlet property="eventName" destination="JkA-jR-VE7" id="E2U-ah-8tF"/>
+                        <outlet property="eventNumberParticipants" destination="V84-RA-Ts2" id="bRP-3n-yaP"/>
+                        <outlet property="favoriteButton" destination="6Wh-Ah-ef5" id="Dh2-7X-QU9"/>
+                        <outlet property="joinButton" destination="zp1-Lh-blg" id="Dza-kh-NPa"/>
+                        <outlet property="ownerName" destination="w97-8W-utA" id="YPs-WL-6K1"/>
+                        <outlet property="ownerPhoto" destination="HtT-j9-T5l" id="XwJ-80-v7Z"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xN8-0l-dq4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
