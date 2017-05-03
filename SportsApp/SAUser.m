@@ -38,9 +38,7 @@
             if (!error && people) {
                 _person = people[0];
                 
-                //saves user in userdefaults
-                NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:_person];
-                [[NSUserDefaults standardUserDefaults] setObject:userData forKey:@"user"];
+                [SAUser saveToUserDefaults:_person];
                 
                 handler(0);
             }else{
@@ -54,9 +52,7 @@
             if (!error && person) {
                 _person = person;
                 
-                //saves user in userdefaults
-                NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:_person];
-                [[NSUserDefaults standardUserDefaults] setObject:userData forKey:@"user"];
+                [SAUser saveToUserDefaults:_person];
                 
                 handler(0);
             }else{
@@ -65,6 +61,15 @@
         }];
     }
 }
+
++ (void)saveToUserDefaults:(SAPerson *) person{
+    NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:person];
+    [[NSUserDefaults standardUserDefaults] setObject:userData forKey:@"user"];
+    
+    [SAPerson saveToUserDefaults:person];
+}
+
+
 
 -(void)setCurrentPerson:(SAPerson *)person{
     self.person = person;

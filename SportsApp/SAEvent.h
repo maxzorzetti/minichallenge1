@@ -37,4 +37,6 @@
 
 - (NSString *)getParticipantRole:(SAPerson *)person;
 
+- (void)replaceParticipants:(NSArray<SAPerson *>*)participants;
+
 @end
