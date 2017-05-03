@@ -29,23 +29,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	[self.navigationController setNavigationBarHidden:YES animated:NO];
+	[self.navigationController setToolbarHidden:YES animated:NO];
 	
 	self.activitiesCollectionView.dataSource = self;
 	self.activitiesCollectionView.delegate = self;
+	
 	
 	[self.activitiesCollectionView registerNib:[UINib nibWithNibName:@"SACollectionButtonViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
 	
 	NSData *pic = [NSKeyedArchiver archivedDataWithRootObject:[UIImage imageNamed:@"ic_favorite"]];
 	
-    SAActivity *futebas = [[SAActivity alloc]initWithName:@"Futebas" minimumPeople:14 maximumPeople:16 picture:pic AndActivityId:nil];
-	SAActivity *volei = [[SAActivity alloc]initWithName:@"Volei" minimumPeople:14 maximumPeople:16 picture:pic AndActivityId:nil];
-	SAActivity *tenis = [[SAActivity alloc]initWithName:@"Tenis" minimumPeople:14 maximumPeople:16 picture:pic AndActivityId:nil];
-	SAActivity *golf = [[SAActivity alloc]initWithName:@"Golf" minimumPeople:14 maximumPeople:16 picture:pic AndActivityId:nil];
-	SAActivity *basquete = [[SAActivity alloc]initWithName:@"Basquete" minimumPeople:14 maximumPeople:16 picture:pic AndActivityId:nil];
+//    SAActivity *futebas = [[SAActivity alloc]initWithName:@"Futebas" minimumPeople:14 maximumPeople:16 picture:pic AndActivityId:nil];
+//	SAActivity *volei = [[SAActivity alloc]initWithName:@"Volei" minimumPeople:14 maximumPeople:16 picture:pic AndActivityId:nil];
+//	SAActivity *tenis = [[SAActivity alloc]initWithName:@"Tenis" minimumPeople:14 maximumPeople:16 picture:pic AndActivityId:nil];
+//	SAActivity *golf = [[SAActivity alloc]initWithName:@"Golf" minimumPeople:14 maximumPeople:16 picture:pic AndActivityId:nil];
+//	SAActivity *basquete = [[SAActivity alloc]initWithName:@"Basquete" minimumPeople:14 maximumPeople:16 picture:pic AndActivityId:nil];
 	
 	NSMutableArray *arrayOfActivities = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"ArrayOfDictionariesContainingTheActivities"];
 	
-	NSLog(@"arrayofdictionaries %@", arrayOfActivities);
+	//NSLog(@"arrayofdictionaries %@", arrayOfActivities);
 	
 	NSMutableArray<SAActivity *> *activities = [NSMutableArray new];
 	for (NSDictionary *activityDic in arrayOfActivities) {
@@ -57,7 +60,7 @@
 	
 	self.activities = activities;
 	
-	NSLog(@"ACTIVITIES %@", activities);
+	//NSLog(@"ACTIVITIES %@", activities);
 	
 	//self.activities = @[futebas, volei, tenis, golf, basquete, futebas, volei, tenis, basquete, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas];
 }

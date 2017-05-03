@@ -8,6 +8,7 @@
 
 #import "SANewEvent1ViewController.h"
 #import "SANewEvent4ViewController.h"
+#import "SANewEvent5ViewController.h"
 
 @interface SANewEvent4ViewController ()
 
@@ -68,10 +69,19 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+	NSLog(@"newEvent4");
+	NSLog(@"%@", segue.identifier);
+	if ([segue.identifier isEqualToString: @"newEvent4To5"]) {
+		SANewEvent5ViewController *newEvent5 = segue.destinationViewController;
+		
+		newEvent5.selectedActivity = self.selectedActivity;
+		newEvent5.selectedSchedule = self.selectedSchedule;
+		newEvent5.selectedPeopleType = self.selectedPeopleType;
+		newEvent5.selectedFriends = self.selectedFriends;
+		newEvent5.selectedLocation = self.selectedLocation;
+		NSLog(@"EVENT 4 SELF%@ NEXT%@", self.selectedFriends, newEvent5.selectedFriends);
+	}
 }
-
 
 - (IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
 	
