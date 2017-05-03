@@ -6,6 +6,7 @@
 //  Copyright © 2017 Bruno Scheltzke. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "SAClosedEventDescriptionTableViewCell.h"
 #import "SAPerson.h"
 
@@ -24,6 +25,11 @@
 
 - (void)setParticipant:(SAPerson *)participant{
     _participant = participant;
+    
+    
+    self.participantPicture.layer.cornerRadius = self.participantPicture.frame.size.height/2;
+    self.participantPicture.layer.masksToBounds = YES;
+    self.participantPicture.layer.borderWidth = 0;
     
     self.participantName.text = participant.name;
     if (participant.photo) {
