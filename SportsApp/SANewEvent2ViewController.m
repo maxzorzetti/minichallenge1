@@ -23,10 +23,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
 @property (nonatomic) NSArray *timetable;
-@property (nonatomic) NSArray *shifts;
+@property (nonatomic) NSArray<NSNumber *> *shifts;
 
-@property (nonatomic) NSString *selectedSchedule;
-@property (nonatomic) NSString *selectedShift;
+//@property (nonatomic) NSString *selectedSchedule;
+//@property (nonatomic) NSString *selectedShift;
 
 @end
 
@@ -50,7 +50,9 @@
 	
 	self.timetable = @[@"Tomorrow", @"Next Week", @"Next Month", @"Today", @"This Week", @"Any Day"];
 	
-	self.shifts = @[@"Morning", @"Afternoon", @"Night"];
+	self.shifts = @[[NSNumber numberWithInteger:SAMorningShift],
+					[NSNumber numberWithInteger:SAAfternoonShift],
+					[NSNumber numberWithInteger:SANightShift]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,8 +63,8 @@
 - (void)processPreferencesTextView {
 	// Insert the preference in the text
 	NSMutableString *rawText = [[NSMutableString alloc] initWithString:self.preferencesTextView.text];
-	[rawText replaceOccurrencesOfString:@"<activity>" withString:self.selectedActivity.name options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
-	NSRange selectedActivityRange = [rawText rangeOfString:self.selectedActivity.name];
+	[rawText replaceOccurrencesOfString:@"<activity>" withString:self.party.activity.name options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
+	NSRange selectedActivityRange = [rawText rangeOfString:self.party.activity.name];
 	self.preferencesTextView.text = rawText;
 	
 	// Paint the preference
@@ -90,7 +92,15 @@
 		
 		SAShiftCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"shiftCell" forIndexPath:indexPath];
 		
-		cell.shiftLabel.text = self.shifts[indexPath.item];
+		NSString *cellLabelText;
+		
+		switch (self.shifts[indexPath.item].integerValue) {
+			case 0: cellLabelText = @"Morning"; break;
+			case 1: cellLabelText = @"Afternoon"; break;
+			case 2: cellLabelText = @"Night"; break;
+		}
+		
+		cell.shiftLabel.text = cellLabelText;
 		
 		return cell;
 	}
@@ -113,48 +123,58 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 	if (collectionView.tag == 0) {
 		
-		self.selectedSchedule = self.timetable[indexPath.item];
-		[collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+		//self.selectedSchedule = self.timetable[indexPath.item];
+		self.party.schedule = self.timetable[indexPath.item];
+		//[collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
 		
 	} else {
-		self.selectedShift = self.shifts[indexPath.item];
+		//self.selectedShift = self.shifts[indexPath.item];
+		self.party.shift = self.shifts[indexPath.item].integerValue;
 	}
+	
+	[self updateNextButton];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
 	if (collectionView.tag == 0) {
 		
-		self.selectedSchedule = nil;
+		//self.selectedSchedule = nil;
+		self.party.schedule = nil;
 		[collectionView deselectItemAtIndexPath:indexPath animated:YES];
 		
 	} else {
 		
-		self.selectedShift = nil;
+		self.party.shift = SANoShift;
+		//self.selectedShift = nil;
 		
 	}
-}
-
-- (void)setSelectedSchedule:(NSString *)selectedSchedule {
-	_selectedSchedule = selectedSchedule;
 	[self updateNextButton];
 }
 
-- (void)setSelectedShift:(NSString *)selectedShift {
-	_selectedShift = selectedShift;
-	[self updateNextButton];
-}
+//- (void)setSelectedSchedule:(NSString *)selectedSchedule {
+//	_selectedSchedule = selectedSchedule;
+//	[self updateNextButton];
+//}
+//
+//- (void)setSelectedShift:(NSString *)selectedShift {
+//	_selectedShift = selectedShift;
+//	[self updateNextButton];
+//}
 
 - (void)updateNextButton {
-	self.nextButton.enabled = _selectedSchedule != nil && _selectedShift != nil;
+	self.nextButton.enabled = self.party.schedule != nil && self.party.shift != SANoShift;
 }
 
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	NSLog(@"EVENT2 %@", [self.party.invitedPeople class]);
 	if ([segue.identifier isEqualToString:@"newEvent2To3"]) {
 		SANewEvent3ViewController *newEvent3 = segue.destinationViewController;
-		newEvent3.selectedActivity = self.selectedActivity;
-		newEvent3.selectedSchedule = self.selectedSchedule;
+		//newEvent3.selectedActivity = self.selectedActivity;
+		//newEvent3.selectedSchedule = self.selectedSchedule;
+		
+		newEvent3.party = [self.party copy];
 	}
 }
 

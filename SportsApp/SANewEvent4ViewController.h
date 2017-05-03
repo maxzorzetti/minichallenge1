@@ -9,15 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "SAActivity.h"
 #import "SAPerson.h"
+#import "SAParty.h"
 
 @interface SANewEvent4ViewController : UIViewController
 
-@property (nonatomic) SAActivity *selectedActivity;
-
-@property (nonatomic) NSString *selectedSchedule;
-
-@property (nonatomic) NSString *selectedPeopleType;
-
-@property (nonatomic) NSSet<SAPerson *> *selectedFriends;
-
+@property (nonatomic) SAParty *party;
 @end

@@ -29,8 +29,7 @@
 	self.rectangleView.layer.masksToBounds = YES;
 	self.rectangleView.layer.borderWidth = 0;
 	
-	
-	NSLog(@"%@", self.selectedFriends);
+	NSLog(@"%@", self.party.invitedPeople);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,11 +38,10 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-	NSLog(@"AOKAPORKAEPOKEPORKEWPOKEWPORKEWOP");
 	
 	SAFriendCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"friendCell" forIndexPath:indexPath];
 	
-	NSArray<SAPerson *> *friends = [self.selectedFriends allObjects];
+	NSArray<SAPerson *> *friends = [self.party.invitedPeople allObjects];
 	
 	cell.profilePictureImageView.image = [UIImage imageWithData: friends[indexPath.item].photo];
 
@@ -51,7 +49,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-	return self.selectedFriends.count;
+	return self.party.invitedPeople.count;
 }
 
 /*

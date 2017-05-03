@@ -14,11 +14,13 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *preferencesTextView;
 
+@property (weak, nonatomic) IBOutlet UISlider *locationRadiusSlider;
+
+@property (weak, nonatomic) IBOutlet UILabel *locationRadiusLabel;
+
 @property (weak, nonatomic) IBOutlet UITableView *locationsTableView;
 
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
-
-@property (nonatomic) NSString *selectedLocation;
 
 @end
 
@@ -28,6 +30,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 	
+	//self.locationRadiusSlider.value
+	
 	[self processPreferencesTextView];
 }
 
@@ -36,17 +40,28 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)locationRadiusChanged:(UISlider *)sender {
+	self.locationRadiusLabel.text = [[NSString alloc] initWithFormat:@"%.1f km", sender.value/1000];
+}
+
 - (void)processPreferencesTextView {
 	// Insert preferences in the text
 	NSMutableString *rawText = [[NSMutableString alloc] initWithString:self.preferencesTextView.text];
-	[rawText replaceOccurrencesOfString:@"<activity>" withString:self.selectedActivity.name options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
-	[rawText replaceOccurrencesOfString:@"<schedule>" withString:self.selectedSchedule options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
-	[rawText replaceOccurrencesOfString:@"<people>" withString:self.selectedPeopleType options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
+	[rawText replaceOccurrencesOfString:@"<activity>" withString:self.party.activity.name options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
+	[rawText replaceOccurrencesOfString:@"<schedule>" withString:self.party.schedule options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
+	NSString *peopleType;
+	switch (self.party.peopleType) {
+		case 0: peopleType = @"my friends"; break;
+		case 1: peopleType = @"anyone"; break;
+		default: peopleType = @"ERROR"; break;
+	}
+	
+	[rawText replaceOccurrencesOfString:@"<people>" withString:peopleType options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
 
 	// Get preferences indexes
-	NSRange selectedActivityRange = [rawText rangeOfString:self.selectedActivity.name];
-	NSRange selectedScheduleRange = [rawText rangeOfString:self.selectedSchedule];
-	NSRange selectedPeopleTypeRange = [rawText rangeOfString:self.selectedPeopleType];
+	NSRange selectedActivityRange = [rawText rangeOfString:self.party.activity.name];
+	NSRange selectedScheduleRange = [rawText rangeOfString:self.party.schedule];
+	NSRange selectedPeopleTypeRange = [rawText rangeOfString:peopleType];
 	
 	// Update text (we do this so we don't lose the text's attributes)
 	self.preferencesTextView.text = rawText;
@@ -67,6 +82,7 @@
 
 #pragma mark - Navigation
 
+
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	NSLog(@"newEvent4");
@@ -74,12 +90,12 @@
 	if ([segue.identifier isEqualToString: @"newEvent4To5"]) {
 		SANewEvent5ViewController *newEvent5 = segue.destinationViewController;
 		
-		newEvent5.selectedActivity = self.selectedActivity;
-		newEvent5.selectedSchedule = self.selectedSchedule;
-		newEvent5.selectedPeopleType = self.selectedPeopleType;
-		newEvent5.selectedFriends = self.selectedFriends;
-		newEvent5.selectedLocation = self.selectedLocation;
-		NSLog(@"EVENT 4 SELF%@ NEXT%@", self.selectedFriends, newEvent5.selectedFriends);
+		newEvent5.party = [self.party copy];
+		NSLog(@"event4 %@", self.party);
+		NSLog(@"event4 newevent5 %@", newEvent5.party);
+		
+		newEvent5.party.locationRadius = [NSNumber numberWithFloat:self.locationRadiusSlider.value];
+
 	}
 }
 

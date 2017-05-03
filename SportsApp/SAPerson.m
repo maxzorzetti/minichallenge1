@@ -81,4 +81,12 @@
     [[NSUserDefaults standardUserDefaults] setObject:arrayOfPeople forKey:@"ArrayOfDictionariesContainingPeople"];
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+	SAPerson *newPerson = [[SAPerson alloc] initWithName:[self.name copy] personId:[self.personId copyWithZone:zone] email:[self.email copyWithZone:zone] telephone:[self.telephone copyWithZone:zone] facebookId:[self.facebookId copyWithZone:zone] andPhoto:self.photo andEvents:self.events];
+	
+	newPerson.interests = self.interests;
+	
+	return newPerson;
+}
+
 @end
