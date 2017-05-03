@@ -11,7 +11,7 @@
 @class SAEvent;
 @class SAActivity;
 
-@interface SAPerson : NSObject <NSCoding>
+@interface SAPerson : NSObject <NSCoding, NSCopying>
 
 @property (nonatomic, readonly) CKRecordID *personId;
 @property (nonatomic) NSString *name;

@@ -28,10 +28,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
-@property (nonatomic) NSArray *peopleType;
-
-@property (nonatomic) NSString *selectedPeopleType;
-@property (nonatomic) NSMutableSet<SAPerson *> *selectedFriends;
+@property (nonatomic) NSArray<NSNumber *> *peopleType;
 
 @end
 
@@ -51,9 +48,10 @@
 	
 	[self.peopleCollectionView registerNib:[UINib nibWithNibName:@"SACollectionButtonViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
 	
-	self.peopleType = @[@"My Friends", @"Anyone"];
+	self.peopleType = @[[NSNumber numberWithInteger:SAAnyonePeopleType],
+						[NSNumber numberWithInteger:SAMyFriendsPeopleType]];
 	
-	self.selectedFriends = [NSMutableSet new];
+	//self.selectedFriends = [NSMutableSet new];
 	
 	[self getFriendsList];
 }
@@ -66,12 +64,12 @@
 - (void)processPreferencesTextView {
 	// Insert preferences in the text
 	NSMutableString *rawText = [[NSMutableString alloc] initWithString:self.preferencesTextView.text];
-	[rawText replaceOccurrencesOfString:@"<activity>" withString:self.selectedActivity.name options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
-	[rawText replaceOccurrencesOfString:@"<schedule>" withString:self.selectedSchedule options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
+	[rawText replaceOccurrencesOfString:@"<activity>" withString:self.party.activity.name options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
+	[rawText replaceOccurrencesOfString:@"<schedule>" withString:self.party.schedule options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
 	
 	// Get preferences indexes
-	NSRange selectedActivityRange = [rawText rangeOfString:self.selectedActivity.name];
-	NSRange selectedScheduleRange = [rawText rangeOfString:self.selectedSchedule];
+	NSRange selectedActivityRange = [rawText rangeOfString:self.party.activity.name];
+	NSRange selectedScheduleRange = [rawText rangeOfString:self.party.schedule];
 
 	// Update text (we do this so we don't lose the text's attributes)
 	self.preferencesTextView.text = rawText;
@@ -102,26 +100,27 @@
 	SACollectionButtonViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
 	
 	cell.iconImageView.image = [UIImage imageNamed:@"ic_favorite"];
-	cell.titleLabel.text = self.peopleType[indexPath.item];
+	
+	NSString *cellLabelText;
+	switch (indexPath.item) {
+		case 0:	cellLabelText = @"My Friends"; break;
+		case 1: cellLabelText = @"Anyone"; break;
+	}
+	cell.titleLabel.text = cellLabelText;
 		
 	return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-	
-	self.selectedPeopleType = self.peopleType[indexPath.item];
-	[collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+	//self.selectedPeopleType = self.peopleType[indexPath.item];
+	self.party.peopleType = self.peopleType[indexPath.item].integerValue;
+	[self updateNextButton];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-	
-	self.selectedPeopleType = nil;
-	[collectionView deselectItemAtIndexPath:indexPath animated:YES];
-}
-
-- (void)setSelectedPeopleType:(NSString *)selectedPeopleType {
-	_selectedPeopleType = selectedPeopleType;
-	self.nextButton.enabled = selectedPeopleType != nil;
+	//self.selectedPeopleType = nil;
+	self.party.peopleType = SANoPeopleType;
+	[self updateNextButton];
 }
 
 - (void)getFriendsList {
@@ -177,7 +176,6 @@
 	cell.nameLabel.text = friend.name;
 	cell.profilePictureImageView.image = [UIImage imageWithData:friend.photo];
 
-	
 	return cell;
 }
 
@@ -186,14 +184,20 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	[self.selectedFriends addObject:self.friends[indexPath.row]];
+	NSLog(@"ueh");
+	NSLog(@"MUTAGBLE %@", [[NSMutableSet new] class]);
+	NSLog(@"CLASS %@", [self.party.invitedPeople class]);
+	[self.party.invitedPeople addObject:self.friends[indexPath.row]];
 }
 
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
 		
-	[self.selectedFriends removeObject:self.friends[indexPath.row]];
+	[self.party.invitedPeople removeObject:self.friends[indexPath.row]];
+}
+
+- (void)updateNextButton {
+	self.nextButton.enabled = self.party.peopleType != SANoPeopleType;
 }
 
 #pragma mark - Navigation
@@ -203,10 +207,8 @@
 	NSLog(@"%@", segue.identifier);
 	if ([segue.identifier isEqualToString:@"newEvent3To4"]) {
 		SANewEvent4ViewController *newEvent4 = segue.destinationViewController;
-		newEvent4.selectedActivity = self.selectedActivity;
-		newEvent4.selectedSchedule = self.selectedSchedule;
-		newEvent4.selectedPeopleType = self.selectedPeopleType;
-		newEvent4.selectedFriends = self.selectedFriends;
+		
+		newEvent4.party = [self.party copy];
 	}
 }
 
