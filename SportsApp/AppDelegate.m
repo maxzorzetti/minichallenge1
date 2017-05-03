@@ -35,7 +35,11 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     //setting navigation bar style for the app
     [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
-    //[[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:                                                           [UIColor blackColor], NSForegroundColorAttributeName, shadow, NSShadowAttributeName, [UIFont systemFontOfSize:19.28], NSFontAttributeName, nil]];
+    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init]
+                                      forBarPosition:UIBarPositionAny
+                                          barMetrics:UIBarMetricsDefault];
+    
+    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
     
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
@@ -48,6 +52,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //[userDefaults setBool:NO forKey:@"HasLaunchedOnce"];
     //[userDefaults setObject:nil forKey:@"user"];
     //[userDefaults setObject:nil forKey:@"loginInfo"];
+    //[userDefaults setObject:nil forKey:@"ArrayOfDictionariesContainingTheActivities"];
+    //[userDefaults setObject:nil forKey:@"ArrayOfDictionariesContainingPeople"];
     
     //CHECK IF APP IS BEING LAUNCHED FOR THE FIRST TIME
     if (![userDefaults boolForKey:@"HasLaunchedOnce"]){

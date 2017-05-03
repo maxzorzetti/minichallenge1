@@ -7,11 +7,12 @@
 //
 
 #import "SAInterestsCollectionViewController.h"
+#import "SAActivity.h"
 
 @interface SAInterestsCollectionViewController ()
 
 @property (weak, nonatomic) IBOutlet UICollectionView *interestsCollectionView;
-@property NSArray *activities;
+@property NSArray<SAActivity *> *activities;
 
 @end
 
@@ -62,7 +63,11 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    SACollectionButtonViewCell *cell = [self.interestsCollectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    SACollectionButtonViewCell *cell = [self.interestsCollectionView dequeueReusableCellWithReuseIdentifier:@"activityCell" forIndexPath:indexPath];
+    
+    cell.iconImageView.image = [UIImage imageWithData:self.activities[indexPath.item].picture];
+    cell.titleLabel.text = self.activities[indexPath.item].name;
+    
 
     return cell;
 }

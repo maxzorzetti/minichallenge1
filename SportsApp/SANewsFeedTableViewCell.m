@@ -75,7 +75,9 @@
     if ([event.activity.name length]==0) {
         [SAActivityConnector getActivityById:event.activity.activityId handler:^(SAActivity * _Nullable activity, NSError * _Nullable error) {
             if (!error) {
-                self.eventImage.image = [UIImage imageWithData:activity.picture];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.eventImage.image = [UIImage imageWithData:activity.picture];
+                });
                 
                 [event setActivity:activity];
                 [SAActivity saveToUserDefaults:activity];
@@ -83,14 +85,22 @@
         }];
     }
     
-    //case owner was not already loaded from the userdefaults, download from db and save to userdefaults (actually decide if person will be stored in userdefaults)
+//    //case owner was not already loaded from the userdefaults, download from db and save to userdefaults (actually decide if person will be stored in userdefaults)
     if ([event.owner.name length] == 0) {
         [SAPersonConnector getPersonFromId:event.owner.personId handler:^(SAPerson * _Nullable owner, NSError * _Nullable error) {
-            if (!error) {
+            if (!error && owner) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (owner.photo==nil) {
+                        self.ownerProfilePicture.image = [UIImage imageNamed:@"img_placeholder.png"];
+                    }else{
+                        self.ownerProfilePicture.image = [UIImage imageWithData:owner.photo];
+                    }
+                    self.ownerName.text = owner.name;
+                });
+                
                 [event setOwner:owner];
                 [SAPerson saveToUserDefaults:owner];
                 
-                self.ownerProfilePicture.image = [UIImage imageWithData:owner.photo];
             }
             else{
                 NSLog(@"%@", error.description);

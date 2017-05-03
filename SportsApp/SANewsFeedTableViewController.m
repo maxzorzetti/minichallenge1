@@ -18,12 +18,13 @@
 #import "SAEventConnector.h"
 #import "SAActivity.h"
 #import "SASectionView2.h"
+#import "SAEventDescriptionViewController.h"
 
 
 @interface SANewsFeedTableViewController ()
 @property NSMutableArray *eventArray;
 @property NSMutableArray *todayEvents;
-@property NSMutableArray *friendsEvents;
+@property NSMutableArray *lastArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableWithEvents;
 @property CKRecordID *userRecordID;
 @property int section;
@@ -35,8 +36,11 @@
 
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    _section = 0;
+    
+    [self.navigationController.navigationBar setTranslucent:NO];
+
     printf("%s", __PRETTY_FUNCTION__);
 //    CKContainer *container = [CKContainer defaultContainer];
 ////    
@@ -50,15 +54,15 @@
 //           }];
   
 
-    _friendsEvents = [[NSMutableArray alloc]init];
+    _lastArray = [[NSMutableArray alloc]init];
     _todayEvents = [[NSMutableArray alloc]init];
     _eventArray = [[NSMutableArray alloc]init];
     
-    CKRecordID *personId = [[CKRecordID alloc]initWithRecordName:@"35D1ADBD-53F8-4D4F-80AB-D44419A25DB0"];
+    CKRecordID *personId = [[CKRecordID alloc]initWithRecordName:@"BB905180-6C9D-41F0-B2FA-25D7F65F5B81"];
     
     [SAEventConnector getEventsByPersonId:personId handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
         if (!error) {
-            [self updateTableWithEventList:events AndArray:_eventArray];
+            [self updateTableWithEventList:events];
         }
     }];
     
@@ -116,8 +120,8 @@
                               
                               
                               
-                              [_friendsEvents addObject:eventPakas];
-                              [self updateTableWithEventList:events AndArray:_friendsEvents];
+                              //[_friendsEvents addObject:eventPakas];
+                              [self updateTableWithEventList:events];
 //                              
                           }else{
                               NSLog(@"tome: %@", error.description);
@@ -161,13 +165,13 @@
     
     
     NSInteger numberOfEvents = 0;
-    if (section ==0) {
+    //if (section ==0) {
         
         numberOfEvents = _eventArray.count;
-    }
-    if (section==1) {
-        numberOfEvents = _friendsEvents.count;
-    }
+    //}
+    //if (section==1) {
+        //numberOfEvents = _friendsEvents.count;
+    //}
     return numberOfEvents;
     
 }
@@ -175,7 +179,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    printf("%s\n", __PRETTY_FUNCTION__);
+    printf("%s SECTION = %ld ROW = %ld\n", __PRETTY_FUNCTION__, (long)indexPath.section, (long)indexPath.row);
     
     SANewsFeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
     
@@ -187,13 +191,13 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
     }
     
-    if (indexPath.section == 0)
+    //if (indexPath.section == 0)
         [cell initWithEvent:self.eventArray[indexPath.row]];
-    if (indexPath.section ==1 ){
-        [cell initWithEvent:self.friendsEvents[_section]];
-        _section ++;
+    //if (indexPath.section ==1 ){
+        //[cell initWithEvent:self.friendsEvents[_section]];
+       // _section ++;
         
-    }
+    //}
     
     //cell.cellEvent = self.eventArray[indexPath.row];
     //cell.ownerName.text = @"vamooooooooo";
@@ -203,12 +207,25 @@
     return cell;
 }
 
-- (void)updateTableWithEventList:(NSArray<SAEvent *>*)events AndArray:(NSMutableArray *)array{
+- (void)updateTableWithEventList:(NSArray<SAEvent *>*)events {
     printf("%s\n", __PRETTY_FUNCTION__);
     
     
-    
-    [array addObjectsFromArray:events];
+//    NSMutableSet *set1 = [NSMutableSet setWithArray: events];
+//    NSSet *set2 = [NSSet setWithArray: _lastArray];
+//    
+//    [set1 intersectSet: set2];
+//    NSArray *resultArray = [set1 allObjects];
+//    
+//    
+//    for (SAEvent *event in resultArray)
+////        if ([events containsObject:event]) // passar pra
+//            [events removeObj
+//        _eventArray=[[NSMutableArray alloc]initWithArray:resultArray];
+//
+    _eventArray= [[NSMutableArray alloc] init];
+    [_eventArray addObjectsFromArray:events];
+    //[_lastArray addObjectsFromArray:events];
     
     [self.tableWithEvents reloadData];
     
@@ -257,6 +274,27 @@
 
 -(void) viewWillAppear:(BOOL)animated {
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
+}
+
+
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    SANewsFeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"mySegue" sender:cell];
+}
+    
+    
+
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(SANewsFeedTableViewCell *)sender{
+    
+    SAEventDescriptionViewController *destView = segue.destinationViewController;
+    destView.currentEvent= sender.cellEvent;
+    
+    
 }
 /*
  // Override to support conditional editing of the table view.

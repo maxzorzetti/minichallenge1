@@ -89,6 +89,25 @@ CKDatabase *publicDatabase;
     [publicDatabase performQuery:query inZoneWithID:nil completionHandler:handler];
 }
 
+- (void)updateEvent:(CKRecord *)event handler:(void (^_Nonnull)(CKRecord * _Nullable event, NSError * _Nullable error))handler{
+    [self connectToPublicDatabase];
+    
+    NSArray<CKRecord*> *groupRecordArray = [[NSArray alloc] initWithObjects:event, nil];
+    CKModifyRecordsOperation *updatedGroup = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:groupRecordArray recordIDsToDelete:nil];
+    updatedGroup.savePolicy = CKRecordSaveAllKeys;
+    updatedGroup.qualityOfService = NSQualityOfServiceUserInitiated;
+    updatedGroup.modifyRecordsCompletionBlock=
+    ^(NSArray * savedRecords, NSArray * deletedRecordIDs, NSError * operationError){
+        handler([savedRecords firstObject], operationError);
+    };
+    
+    [publicDatabase addOperation:updatedGroup];
+    
+//    [publicDatabase saveRecord:event completionHandler:^(CKRecord * _Nullable eventRecord, NSError * _Nullable errorAnswer) {
+//        handler(eventRecord, errorAnswer);
+//    }];
+}
+
 
 
 - (void)saveEvent:(SAEvent *)event{
@@ -105,8 +124,8 @@ CKDatabase *publicDatabase;
 	eventRecord[@"name"] = event.name;
 	eventRecord[@"participants"] = personList;
 	eventRecord[@"activity"] = activityRef;
-	eventRecord[@"minPeople"] = [NSNumber numberWithInt:event.minPeople];
-	eventRecord[@"maxPeople"] = [NSNumber numberWithInt:event.maxPeople];
+	eventRecord[@"minPeople"] = event.minPeople;
+	eventRecord[@"maxPeople"] = event.maxPeople;
 	eventRecord[@"category"] = event.category;
 	eventRecord[@"date"] = event.date;
 	eventRecord[@"shift"] = event.shift;

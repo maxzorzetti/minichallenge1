@@ -147,7 +147,6 @@
     }];
 }
 
-
 + (void)getPersonFromId:(CKRecordID *_Nonnull)personId handler:(void (^_Nonnull)(SAPerson *_Nullable, NSError *_Nullable))handler{
     SAPersonDAO *dao = [SAPersonDAO new];
     
@@ -161,22 +160,25 @@
                                               parameters:@{ @"fields": @"picture"}
                                               HTTPMethod:@"GET"];
                 
-                [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-                    if(!error){
-                        
-                        NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
-                        
-                        SAPerson *person = [self getPersonFromRecord:personRecord andPicture:photo];
-                        handler(person, error);
-                    }
-                    //YOU DONT HAVE ACCESS TO FACEBOOK PICTURES (PROBABLY BECAUSE YOU'RE NOT LOGGED IN)
-                    else{
-                        //ADD PLACEHOLDER profile picture
-                        NSData *photo = [NSData dataWithContentsOfFile:@"img_placeholder"];
-                        SAPerson *person = [self getPersonFromRecord:personRecord andPicture:photo];
-                        handler(person, error);
-                    }
-                }];
+                    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+                            if(!error){
+                                
+                                NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
+                                
+                                SAPerson *person = [self getPersonFromRecord:personRecord andPicture:photo];
+                                handler(person, error);
+                            }
+                            //YOU DONT HAVE ACCESS TO FACEBOOK PICTURES (PROBABLY BECAUSE YOU'RE NOT LOGGED IN)
+                            else{
+                                //ADD PLACEHOLDER profile picture
+                                NSData *photo = [NSData dataWithContentsOfFile:@"img_placeholder"];
+                                SAPerson *person = [self getPersonFromRecord:personRecord andPicture:photo];
+                                handler(person, error);
+                            }
+                        });
+                    }];
+               
             }
             //not a facebok user? use placeholder as picture
             else{

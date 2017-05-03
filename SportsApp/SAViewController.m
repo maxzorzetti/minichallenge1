@@ -370,7 +370,7 @@
                                      
                                  }
                                  else{
-                                     SAPerson *person = [SAPersonConnector getPersonFromRecord:[results2 firstObject] andPicture:[result valueForKey:@"picture"]];
+                                     SAPerson *person = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:[result valueForKey:@"picture"]];
                                      
                                      //saves user in userdefaults
                                      NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:person];
