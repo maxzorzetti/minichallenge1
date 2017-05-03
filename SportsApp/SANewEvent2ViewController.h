@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "SAActivity.h"
+#import "SAParty.h"
 
 @interface SANewEvent2ViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (nonatomic) SAActivity *selectedActivity;
+@property (nonatomic) SAParty *party;
 
 @end

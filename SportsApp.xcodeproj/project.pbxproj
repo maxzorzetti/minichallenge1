@@ -41,6 +41,7 @@
 		84CBE46F1EB230E300ACD0DF /* SAEventListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CBE46E1EB230E300ACD0DF /* SAEventListViewController.m */; };
 		84CBE4721EB238DB00ACD0DF /* SAEventsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CBE4711EB238DB00ACD0DF /* SAEventsTableViewCell.m */; };
 		84CBE4751EBA38C100ACD0DF /* ClosedEventDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CBE4741EBA38C100ACD0DF /* ClosedEventDescriptionViewController.m */; };
+		84CBE4781EBA57BF00ACD0DF /* SAClosedEventDescriptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CBE4771EBA57BF00ACD0DF /* SAClosedEventDescriptionTableViewCell.m */; };
 		84DC117D1EACF32100A9A90C /* SAActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC117C1EACF32100A9A90C /* SAActivity.m */; };
 		84DC11801EACF3D200A9A90C /* SAMatchMakerCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC117F1EACF3D200A9A90C /* SAMatchMakerCore.m */; };
 		84DC11841EAD00BD00A9A90C /* SAPersonDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC11831EAD00BD00A9A90C /* SAPersonDAO.m */; };
@@ -135,6 +136,8 @@
 		84CBE4711EB238DB00ACD0DF /* SAEventsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEventsTableViewCell.m; sourceTree = "<group>"; };
 		84CBE4731EBA38C100ACD0DF /* ClosedEventDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClosedEventDescriptionViewController.h; sourceTree = "<group>"; };
 		84CBE4741EBA38C100ACD0DF /* ClosedEventDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClosedEventDescriptionViewController.m; sourceTree = "<group>"; };
+		84CBE4761EBA57BF00ACD0DF /* SAClosedEventDescriptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAClosedEventDescriptionTableViewCell.h; sourceTree = "<group>"; };
+		84CBE4771EBA57BF00ACD0DF /* SAClosedEventDescriptionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAClosedEventDescriptionTableViewCell.m; sourceTree = "<group>"; };
 		84DC117B1EACF32100A9A90C /* SAActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAActivity.h; sourceTree = "<group>"; };
 		84DC117C1EACF32100A9A90C /* SAActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAActivity.m; sourceTree = "<group>"; };
 		84DC117E1EACF3D200A9A90C /* SAMatchMakerCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMatchMakerCore.h; sourceTree = "<group>"; };
@@ -349,6 +352,8 @@
 				8D9A366F1EB4E1F600036272 /* SASectionView2.m */,
 				84CBE4731EBA38C100ACD0DF /* ClosedEventDescriptionViewController.h */,
 				84CBE4741EBA38C100ACD0DF /* ClosedEventDescriptionViewController.m */,
+				84CBE4761EBA57BF00ACD0DF /* SAClosedEventDescriptionTableViewCell.h */,
+				84CBE4771EBA57BF00ACD0DF /* SAClosedEventDescriptionTableViewCell.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -584,6 +589,7 @@
 				8D9A36701EB4E1F600036272 /* SASectionView2.m in Sources */,
 				8DF8642E1EB2267D00777E98 /* SALogInViewController.m in Sources */,
 				AE1602961EB95FC800E8E68F /* SANewViewController.m in Sources */,
+				84CBE4781EBA57BF00ACD0DF /* SAClosedEventDescriptionTableViewCell.m in Sources */,
 				AE66FF381EB10EFA008EBC5E /* SAForgotPasswordViewController.m in Sources */,
 				84DC117D1EACF32100A9A90C /* SAActivity.m in Sources */,
 				8406A8D91EA6761500C60267 /* main.m in Sources */,

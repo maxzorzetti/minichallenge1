@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "SAActivity.h"
+#import "SAParty.h"
 
 @interface SANewEvent3ViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic) SAActivity *selectedActivity;
-
-@property (nonatomic) NSString *selectedSchedule;
+@property (nonatomic) SAParty *party;
 
 @end

@@ -17,6 +17,8 @@
 #import "SASectionView2.h"
 #import "SAUser.h"
 #import "SAPerson.h"
+#import "SAEventDescriptionViewController.h"
+#import "ClosedEventDescriptionViewController.h"
 
 @interface SAEventListViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableWithEvents;
@@ -77,46 +79,13 @@
     }];
 }
 
-- (NSArray *)sortEventsIntoMonthlySections:(NSArray<SAEvent *>*)events{
-    NSMutableArray *arrayOfDic = [NSMutableArray new];
-    
-    for (SAEvent *event in events) {
-        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:event.date];
-        NSNumber *month = [NSNumber numberWithInteger:[components month]];
-        int wasSmthAdded = 0;
-        
-        for (int i=0; i<arrayOfDic.count; i++) {
-            NSDictionary *section = arrayOfDic[i];
-            if ([section[@"month"] isEqualToNumber:month]){
-                wasSmthAdded = 1;
-                NSMutableArray *eventsOfSection = section[@"events"];
-                [eventsOfSection addObject:event];
-                NSDictionary *replacingDictionary = @{
-                                             @"month" : section[@"month"],
-                                             @"events" : eventsOfSection
-                                             };
-                [arrayOfDic removeObjectAtIndex:i];
-                [arrayOfDic insertObject:replacingDictionary atIndex:i];
-            }
-        }
-        if (wasSmthAdded==0) {
-            NSMutableArray *eventsOfNewSection = [NSMutableArray arrayWithObject:event];
-            NSDictionary *newSection = @{
-                                         @"month" : month,
-                                         @"events" : eventsOfNewSection
-                                         };
-            [arrayOfDic addObject:newSection];
-        }
-    }
-    return arrayOfDic;
-}
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+
+#pragma Table population methods
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SANewsFeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
     NSDictionary *dict = self.currentArray[indexPath.section];
@@ -161,6 +130,63 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.currentArray.count;
+}
+
+
+
+
+#pragma segue perfoming methods
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    SANewsFeedTableViewCell *cell = [self.tableWithEvents cellForRowAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"descriptionEventSegue" sender:cell];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(SANewsFeedTableViewCell *)sender{
+    
+    //if ([sender.cellEvent.participants count] >= [sender.cellEvent.minPeople unsignedIntegerValue])
+    if(1==1){
+        ClosedEventDescriptionViewController *destView = segue.destinationViewController;
+        destView.event = sender.cellEvent;
+    }else{
+        SAEventDescriptionViewController *destView = segue.destinationViewController;
+        destView.currentEvent = sender.cellEvent;
+    }
+}
+
+
+#pragma section methods
+- (NSArray *)sortEventsIntoMonthlySections:(NSArray<SAEvent *>*)events{
+    NSMutableArray *arrayOfDic = [NSMutableArray new];
+    
+    for (SAEvent *event in events) {
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:event.date];
+        NSNumber *month = [NSNumber numberWithInteger:[components month]];
+        int wasSmthAdded = 0;
+        
+        for (int i=0; i<arrayOfDic.count; i++) {
+            NSDictionary *section = arrayOfDic[i];
+            if ([section[@"month"] isEqualToNumber:month]){
+                wasSmthAdded = 1;
+                NSMutableArray *eventsOfSection = section[@"events"];
+                [eventsOfSection addObject:event];
+                NSDictionary *replacingDictionary = @{
+                                                      @"month" : section[@"month"],
+                                                      @"events" : eventsOfSection
+                                                      };
+                [arrayOfDic removeObjectAtIndex:i];
+                [arrayOfDic insertObject:replacingDictionary atIndex:i];
+            }
+        }
+        if (wasSmthAdded==0) {
+            NSMutableArray *eventsOfNewSection = [NSMutableArray arrayWithObject:event];
+            NSDictionary *newSection = @{
+                                         @"month" : month,
+                                         @"events" : eventsOfNewSection
+                                         };
+            [arrayOfDic addObject:newSection];
+        }
+    }
+    return arrayOfDic;
 }
 
 -(NSString *)monthFromNumber:(NSNumber *)month{
@@ -208,6 +234,7 @@
     }
 }
 
+#pragma segment selection methods
 - (IBAction)changeSegment:(UISegmentedControl *)sender {
     if(sender.selectedSegmentIndex==1){
         [self updateTableWithEventList:self.dicListOfComingEvents];

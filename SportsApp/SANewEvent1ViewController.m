@@ -34,22 +34,9 @@
 	
 	self.activitiesCollectionView.dataSource = self;
 	self.activitiesCollectionView.delegate = self;
-	
-	
 	[self.activitiesCollectionView registerNib:[UINib nibWithNibName:@"SACollectionButtonViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
 	
-	NSData *pic = [NSKeyedArchiver archivedDataWithRootObject:[UIImage imageNamed:@"ic_favorite"]];
-	
-//    SAActivity *futebas = [[SAActivity alloc]initWithName:@"Futebas" minimumPeople:14 maximumPeople:16 picture:pic AndActivityId:nil];
-//	SAActivity *volei = [[SAActivity alloc]initWithName:@"Volei" minimumPeople:14 maximumPeople:16 picture:pic AndActivityId:nil];
-//	SAActivity *tenis = [[SAActivity alloc]initWithName:@"Tenis" minimumPeople:14 maximumPeople:16 picture:pic AndActivityId:nil];
-//	SAActivity *golf = [[SAActivity alloc]initWithName:@"Golf" minimumPeople:14 maximumPeople:16 picture:pic AndActivityId:nil];
-//	SAActivity *basquete = [[SAActivity alloc]initWithName:@"Basquete" minimumPeople:14 maximumPeople:16 picture:pic AndActivityId:nil];
-	
 	NSMutableArray *arrayOfActivities = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"ArrayOfDictionariesContainingTheActivities"];
-	
-	//NSLog(@"arrayofdictionaries %@", arrayOfActivities);
-	
 	NSMutableArray<SAActivity *> *activities = [NSMutableArray new];
 	for (NSDictionary *activityDic in arrayOfActivities) {
 		SAActivity *activity = [NSKeyedUnarchiver unarchiveObjectWithData:activityDic[@"activityData"]];
@@ -57,12 +44,9 @@
 		[activities addObject: activity];
 	}
 	
-	
 	self.activities = activities;
 	
-	//NSLog(@"ACTIVITIES %@", activities);
-	
-	//self.activities = @[futebas, volei, tenis, golf, basquete, futebas, volei, tenis, basquete, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas, futebas];
+	self.party = [SAParty new];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -75,9 +59,7 @@
 	SACollectionButtonViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
 	
 	SAActivity *activity = self.activities[indexPath.item];
-	
 	cell.iconImageView.image = [UIImage imageWithData:activity.picture];
-	
 	cell.titleLabel.text = activity.name;
 	
 	return cell;
@@ -94,26 +76,21 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-	NSLog(@"%s", __PRETTY_FUNCTION__);
 	
 	self.selectedActivityIndexPath = indexPath;
-	[collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+	self.party.activity = self.activities[indexPath.item];
 	
 	[self performSegueWithIdentifier:@"newEvent1To2" sender:self];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
 	
-	[collectionView deselectItemAtIndexPath:indexPath animated:YES];
+	self.party.activity = nil;
 	self.selectedActivityIndexPath = nil;
 }
 
-- (void)setSelectedActivityIndexPath:(NSIndexPath *)selectedActivityIndexPath {
-	_selectedActivityIndexPath = selectedActivityIndexPath;
-	if (selectedActivityIndexPath == nil) _selectedActivity = nil;
-	else _selectedActivity = self.activities[selectedActivityIndexPath.item];
-	
-	self.nextButton.enabled = selectedActivityIndexPath != nil;
+- (void)updateNextButton {
+	self.nextButton.enabled = self.party.activity != nil;
 }
 
 + (UIColor *)preferenceColor {
@@ -125,12 +102,13 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue.identifier isEqualToString:@"newEvent1To2"]) {
 		SANewEvent2ViewController *newEvent2 = segue.destinationViewController;
-		newEvent2.selectedActivity = self.selectedActivity;
+		//newEvent2.selectedActivity = self.selectedActivity;
+		newEvent2.party = [self.party copy];
 	}
 }
 
 - (IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
-	[self.activitiesCollectionView deselectItemAtIndexPath:self.selectedActivityIndexPath animated:YES];
+	[self.activitiesCollectionView deselectItemAtIndexPath:self.selectedActivityIndexPath animated:NO];
 }
 
 //

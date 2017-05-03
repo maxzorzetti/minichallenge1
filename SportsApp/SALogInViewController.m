@@ -82,9 +82,7 @@
                             NSLog(@"You are logged in");
                             SAPerson *person = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:nil];
                             
-                            //saves user in userdefaults
-                            NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:person];
-                            [[NSUserDefaults standardUserDefaults] setObject:userData forKey:@"user"];
+                            [SAUser saveToUserDefaults:person];
                             
                             //saves user login info in userdefaults
                             NSDictionary *dicLoginInfo = @{

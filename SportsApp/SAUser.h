@@ -22,4 +22,7 @@
 
 - (void)setPreferredActivity:(SAActivity *) activity;
 
++ (void)saveToUserDefaults:(SAPerson *) person;
+
+
 @end
