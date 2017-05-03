@@ -30,9 +30,7 @@
 //    
 //    [self.view.layer insertSublayer:gradient atIndex:0];
     
-    self.backgroundImageView.image = self.imageFile;
-    self.txtTitle.text = self.titleText;
-    self.txtSubtitle.text = self.subtitleText;
+    
     
     [self setNeedsStatusBarAppearanceUpdate];
 }
