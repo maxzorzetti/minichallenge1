@@ -588,6 +588,7 @@
                     <connections>
                         <outlet property="segmentControl" destination="oRQ-zt-i5r" id="dKL-3F-tOE"/>
                         <outlet property="tableWithEvents" destination="16p-Cd-vkY" id="Ho4-vE-p0R"/>
+                        <segue destination="i5n-R9-S2M" kind="show" id="XaM-eZ-DVw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CF0-BT-cub" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -601,6 +602,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oVm-OD-g4L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3969" y="1346"/>
+        </scene>
+        <!--Closed Event Description View Controller-->
+        <scene sceneID="zpB-wn-MYg">
+            <objects>
+                <viewController id="i5n-R9-S2M" customClass="ClosedEventDescriptionViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Q8b-zJ-njD"/>
+                        <viewControllerLayoutGuide type="bottom" id="oWI-W7-rCe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IFq-6W-Wpt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ydw-Tp-bHG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4018" y="385"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="o6F-gz-sQx">
@@ -684,7 +703,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pcc-my-XvZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2671" y="-442"/>
+            <point key="canvasLocation" x="2649" y="-443"/>
         </scene>
         <!--eventDescriptionStoryboard-->
         <scene sceneID="QD3-u0-ShD">
