@@ -10,6 +10,7 @@
 #import "SAEvent.h"
 #import "SAPerson.h"
 #import "SAActivity.h"
+#import "SAEventConnector.h"
 
 
 @interface SAEventDescriptionViewController : UIViewController
@@ -31,7 +32,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *eventGender;
 @property (weak, nonatomic) IBOutlet UILabel *eventNumberParticipants;
 
-@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
+
 
 @property (weak, nonatomic) IBOutlet UIButton *joinButton;
 
