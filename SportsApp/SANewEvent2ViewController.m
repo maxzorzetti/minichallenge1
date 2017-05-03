@@ -10,18 +10,23 @@
 #import "SANewEvent2ViewController.h"
 #import "SANewEvent3ViewController.h"
 #import "SACollectionButtonViewCell.h"
+#import "SAShiftCollectionViewCell.h"
 
 @interface SANewEvent2ViewController ()
 
 @property (weak, nonatomic) IBOutlet UICollectionView *timetableCollectionView;
+
+@property (weak, nonatomic) IBOutlet UICollectionView *shiftsCollectionView;
 
 @property (weak, nonatomic) IBOutlet UITextView *preferencesTextView;
 
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
 @property (nonatomic) NSArray *timetable;
+@property (nonatomic) NSArray *shifts;
 
 @property (nonatomic) NSString *selectedSchedule;
+@property (nonatomic) NSString *selectedShift;
 
 @end
 
@@ -32,6 +37,11 @@
 	
 	self.timetableCollectionView.dataSource = self;
 	self.timetableCollectionView.delegate = self;
+	self.timetableCollectionView.tag = 0;
+	
+	self.shiftsCollectionView.dataSource = self;
+	self.shiftsCollectionView.delegate = self;
+	self.shiftsCollectionView.tag = 1;
 	
 	[self processPreferencesTextView];
 	
@@ -39,6 +49,8 @@
 
 	
 	self.timetable = @[@"Tomorrow", @"Next Week", @"Next Month", @"Today", @"This Week", @"Any Day"];
+	
+	self.shifts = @[@"Morning", @"Afternoon", @"Night"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,39 +77,75 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 	
-	SACollectionButtonViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-	
-	cell.iconImageView.image = [UIImage imageNamed:@"ic_calendarButton"];
-	cell.titleLabel.text = self.timetable[indexPath.item];
-	
-	return cell;
+	if (collectionView.tag == 0) {
+		
+		SACollectionButtonViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+		
+		cell.iconImageView.image = [UIImage imageNamed:@"ic_calendarButton"];
+		cell.titleLabel.text = self.timetable[indexPath.item];
+		
+		return cell;
+		
+	} else {
+		
+		SAShiftCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"shiftCell" forIndexPath:indexPath];
+		
+		cell.shiftLabel.text = self.shifts[indexPath.item];
+		
+		return cell;
+	}
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 	
-	NSInteger numberOfItems;
-	switch (section) {
-		case 0: numberOfItems = self.timetable.count; break;
-		default: numberOfItems = 0;
+	if (collectionView.tag == 0) {
+		NSInteger numberOfItems;
+		switch (section) {
+			case 0: numberOfItems = self.timetable.count; break;
+			default: numberOfItems = 0;
+		}
+		return numberOfItems;
+	} else {
+		return self.shifts.count;
 	}
-	return numberOfItems;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-	
-	self.selectedSchedule = self.timetable[indexPath.item];
-	[collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+	if (collectionView.tag == 0) {
+		
+		self.selectedSchedule = self.timetable[indexPath.item];
+		[collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+		
+	} else {
+		self.selectedShift = self.shifts[indexPath.item];
+	}
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-	
-	self.selectedSchedule = nil;
-	[collectionView deselectItemAtIndexPath:indexPath animated:YES];
+	if (collectionView.tag == 0) {
+		
+		self.selectedSchedule = nil;
+		[collectionView deselectItemAtIndexPath:indexPath animated:YES];
+		
+	} else {
+		
+		self.selectedShift = nil;
+		
+	}
 }
 
 - (void)setSelectedSchedule:(NSString *)selectedSchedule {
 	_selectedSchedule = selectedSchedule;
-	self.nextButton.enabled = selectedSchedule != nil;
+	[self updateNextButton];
+}
+
+- (void)setSelectedShift:(NSString *)selectedShift {
+	_selectedShift = selectedShift;
+	[self updateNextButton];
+}
+
+- (void)updateNextButton {
+	self.nextButton.enabled = _selectedSchedule != nil && _selectedShift != nil;
 }
 
 #pragma mark - Navigation

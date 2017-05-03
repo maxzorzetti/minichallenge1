@@ -9,12 +9,18 @@
 /* Begin PBXBuildFile section */
 		29028B7D1EA7EE5F00367FE4 /* SAMatchmaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 29028B7C1EA7EE5F00367FE4 /* SAMatchmaker.m */; };
 		29028B801EA7EEB600367FE4 /* SAParty.m in Sources */ = {isa = PBXBuildFile; fileRef = 29028B7F1EA7EEB600367FE4 /* SAParty.m */; };
+		29763C091EB9709500DFEE7A /* SANewEvent6ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29763C081EB9709500DFEE7A /* SANewEvent6ViewController.m */; };
+		29763C0C1EB9723200DFEE7A /* SAFriendCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29763C0B1EB9723200DFEE7A /* SAFriendCollectionViewCell.m */; };
+		29763C101EB993D200DFEE7A /* SAShiftCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29763C0F1EB993D200DFEE7A /* SAShiftCollectionViewCell.m */; };
 		29A4CA491EB20D2500DCA3FA /* NewEvent.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29A4CA481EB20D2500DCA3FA /* NewEvent.storyboard */; };
 		29A4CA4C1EB22F7A00DCA3FA /* SANewEvent1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A4CA4B1EB22F7A00DCA3FA /* SANewEvent1ViewController.m */; };
 		29A4CA4F1EB22F8D00DCA3FA /* SANewEvent2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A4CA4E1EB22F8D00DCA3FA /* SANewEvent2ViewController.m */; };
 		29A4CA521EB22F9C00DCA3FA /* SANewEvent3ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A4CA511EB22F9C00DCA3FA /* SANewEvent3ViewController.m */; };
 		29A4CA551EB22FA800DCA3FA /* SANewEvent4ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A4CA541EB22FA800DCA3FA /* SANewEvent4ViewController.m */; };
 		29A4CA591EB2320700DCA3FA /* SAActivityCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A4CA581EB2320700DCA3FA /* SAActivityCollectionViewCell.m */; };
+		29E2480C1EB8C07000088B98 /* SAFriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E2480B1EB8C07000088B98 /* SAFriendTableViewCell.m */; };
+		29E248101EB8C67F00088B98 /* SALocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E2480F1EB8C67F00088B98 /* SALocationTableViewCell.m */; };
+		29E248131EB8CECD00088B98 /* SANewEvent5ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E248121EB8CECD00088B98 /* SANewEvent5ViewController.m */; };
 		29FF42531EABD8F700304B26 /* SAUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 29FF42521EABD8F700304B26 /* SAUser.m */; };
 		8406A8D91EA6761500C60267 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8406A8D81EA6761500C60267 /* main.m */; };
 		8406A8DC1EA6761500C60267 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8406A8DB1EA6761500C60267 /* AppDelegate.m */; };
@@ -66,6 +72,12 @@
 		29028B7C1EA7EE5F00367FE4 /* SAMatchmaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMatchmaker.m; sourceTree = "<group>"; };
 		29028B7E1EA7EEB600367FE4 /* SAParty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAParty.h; sourceTree = "<group>"; };
 		29028B7F1EA7EEB600367FE4 /* SAParty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAParty.m; sourceTree = "<group>"; };
+		29763C071EB9709500DFEE7A /* SANewEvent6ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANewEvent6ViewController.h; sourceTree = "<group>"; };
+		29763C081EB9709500DFEE7A /* SANewEvent6ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANewEvent6ViewController.m; sourceTree = "<group>"; };
+		29763C0A1EB9723200DFEE7A /* SAFriendCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAFriendCollectionViewCell.h; sourceTree = "<group>"; };
+		29763C0B1EB9723200DFEE7A /* SAFriendCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAFriendCollectionViewCell.m; sourceTree = "<group>"; };
+		29763C0E1EB993D200DFEE7A /* SAShiftCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAShiftCollectionViewCell.h; sourceTree = "<group>"; };
+		29763C0F1EB993D200DFEE7A /* SAShiftCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAShiftCollectionViewCell.m; sourceTree = "<group>"; };
 		29A4CA481EB20D2500DCA3FA /* NewEvent.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewEvent.storyboard; sourceTree = "<group>"; };
 		29A4CA4A1EB22F7A00DCA3FA /* SANewEvent1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANewEvent1ViewController.h; sourceTree = "<group>"; };
 		29A4CA4B1EB22F7A00DCA3FA /* SANewEvent1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANewEvent1ViewController.m; sourceTree = "<group>"; };
@@ -77,6 +89,12 @@
 		29A4CA541EB22FA800DCA3FA /* SANewEvent4ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANewEvent4ViewController.m; sourceTree = "<group>"; };
 		29A4CA571EB2320700DCA3FA /* SAActivityCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAActivityCollectionViewCell.h; sourceTree = "<group>"; };
 		29A4CA581EB2320700DCA3FA /* SAActivityCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAActivityCollectionViewCell.m; sourceTree = "<group>"; };
+		29E2480A1EB8C07000088B98 /* SAFriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAFriendTableViewCell.h; sourceTree = "<group>"; };
+		29E2480B1EB8C07000088B98 /* SAFriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAFriendTableViewCell.m; sourceTree = "<group>"; };
+		29E2480E1EB8C67F00088B98 /* SALocationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SALocationTableViewCell.h; sourceTree = "<group>"; };
+		29E2480F1EB8C67F00088B98 /* SALocationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SALocationTableViewCell.m; sourceTree = "<group>"; };
+		29E248111EB8CECD00088B98 /* SANewEvent5ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANewEvent5ViewController.h; sourceTree = "<group>"; };
+		29E248121EB8CECD00088B98 /* SANewEvent5ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANewEvent5ViewController.m; sourceTree = "<group>"; };
 		29FF42511EABD8F700304B26 /* SAUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAUser.h; sourceTree = "<group>"; };
 		29FF42521EABD8F700304B26 /* SAUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAUser.m; sourceTree = "<group>"; };
 		7D828BD3FF47E822127BA720 /* libPods-SportsApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SportsApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -171,6 +189,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		29763C0D1EB9932F00DFEE7A /* NewEvent */ = {
+			isa = PBXGroup;
+			children = (
+				29E2480A1EB8C07000088B98 /* SAFriendTableViewCell.h */,
+				29E2480B1EB8C07000088B98 /* SAFriendTableViewCell.m */,
+				29763C0A1EB9723200DFEE7A /* SAFriendCollectionViewCell.h */,
+				29763C0B1EB9723200DFEE7A /* SAFriendCollectionViewCell.m */,
+				29E2480E1EB8C67F00088B98 /* SALocationTableViewCell.h */,
+				29E2480F1EB8C67F00088B98 /* SALocationTableViewCell.m */,
+				29763C0E1EB993D200DFEE7A /* SAShiftCollectionViewCell.h */,
+				29763C0F1EB993D200DFEE7A /* SAShiftCollectionViewCell.m */,
+			);
+			name = NewEvent;
+			sourceTree = "<group>";
+		};
 		29A4CA561EB2303100DCA3FA /* NewEvent */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,8 +215,22 @@
 				29A4CA511EB22F9C00DCA3FA /* SANewEvent3ViewController.m */,
 				29A4CA531EB22FA800DCA3FA /* SANewEvent4ViewController.h */,
 				29A4CA541EB22FA800DCA3FA /* SANewEvent4ViewController.m */,
+				29E248111EB8CECD00088B98 /* SANewEvent5ViewController.h */,
+				29E248121EB8CECD00088B98 /* SANewEvent5ViewController.m */,
+				29763C071EB9709500DFEE7A /* SANewEvent6ViewController.h */,
+				29763C081EB9709500DFEE7A /* SANewEvent6ViewController.m */,
 			);
 			name = NewEvent;
+			sourceTree = "<group>";
+		};
+		29E2480D1EB8C08100088B98 /* CollectionButton */ = {
+			isa = PBXGroup;
+			children = (
+				AE1602861EB3B81F00E8E68F /* SACollectionButtonViewCell.h */,
+				AE1602871EB3B81F00E8E68F /* SACollectionButtonViewCell.m */,
+				AE1602881EB3B81F00E8E68F /* SACollectionButtonViewCell.xib */,
+			);
+			name = CollectionButton;
 			sourceTree = "<group>";
 		};
 		8406A8CB1EA6761500C60267 = {
@@ -214,6 +261,7 @@
 				8406A8DA1EA6761500C60267 /* AppDelegate.h */,
 				8406A8DB1EA6761500C60267 /* AppDelegate.m */,
 				8406A8E31EA6761500C60267 /* Assets.xcassets */,
+				8D80CFA61EB7F12300E89334 /* eventDescriptionStoryboard.storyboard */,
 				8406A8E51EA6761500C60267 /* LaunchScreen.storyboard */,
 				8406A8E81EA6761500C60267 /* Info.plist */,
 				84DC11811EACF3DD00A9A90C /* WebService */,
@@ -310,9 +358,8 @@
 				29A4CA581EB2320700DCA3FA /* SAActivityCollectionViewCell.m */,
 				AE1877DA1EB3909900CAFD1A /* SAInterestsCollectionViewCell.h */,
 				AE1877DB1EB3909900CAFD1A /* SAInterestsCollectionViewCell.m */,
-				AE1602861EB3B81F00E8E68F /* SACollectionButtonViewCell.h */,
-				AE1602871EB3B81F00E8E68F /* SACollectionButtonViewCell.m */,
-				AE1602881EB3B81F00E8E68F /* SACollectionButtonViewCell.xib */,
+				29E2480D1EB8C08100088B98 /* CollectionButton */,
+				29763C0D1EB9932F00DFEE7A /* NewEvent */,
 				8D1891931EB8FE1A008B050C /* SAEventDescriptionViewController.h */,
 				8D1891941EB8FE1A008B050C /* SAEventDescriptionViewController.m */,
 				8D80CFA61EB7F12300E89334 /* eventDescriptionStoryboard.storyboard */,
@@ -511,6 +558,7 @@
 				29028B801EA7EEB600367FE4 /* SAParty.m in Sources */,
 				29028B7D1EA7EE5F00367FE4 /* SAMatchmaker.m in Sources */,
 				AE1877D91EB38E8300CAFD1A /* SAInterestsCollectionViewController.m in Sources */,
+				29763C091EB9709500DFEE7A /* SANewEvent6ViewController.m in Sources */,
 				847F5E351EA714180091BAE9 /* SAEvent.m in Sources */,
 				84CBE46F1EB230E300ACD0DF /* SAEventListViewController.m in Sources */,
 				AE66FF391EB10EFA008EBC5E /* SAJoinLoginViewController.m in Sources */,
@@ -520,12 +568,14 @@
 				8406A8DF1EA6761500C60267 /* SAViewController.m in Sources */,
 				29FF42531EABD8F700304B26 /* SAUser.m in Sources */,
 				8D7A63BA1EAA5A9000418D39 /* SAProfileViewController.m in Sources */,
+				29E248101EB8C67F00088B98 /* SALocationTableViewCell.m in Sources */,
 				84CBE4691EB152EA00ACD0DF /* SAPersonConnector.m in Sources */,
 				AE1602931EB8025B00E8E68F /* SAIntro1ViewController.m in Sources */,
 				847F5E391EA715170091BAE9 /* SAPerson.m in Sources */,
 				8D1891951EB8FE1A008B050C /* SAEventDescriptionViewController.m in Sources */,
 				847F5E3E1EA716FA0091BAE9 /* SAMatchMakingViewController.m in Sources */,
 				849AC2171EB012C600A7BD22 /* SAActivityConnector.m in Sources */,
+				29E2480C1EB8C07000088B98 /* SAFriendTableViewCell.m in Sources */,
 				8406A8DC1EA6761500C60267 /* AppDelegate.m in Sources */,
 				8D9A36701EB4E1F600036272 /* SASectionView2.m in Sources */,
 				8DF8642E1EB2267D00777E98 /* SALogInViewController.m in Sources */,
@@ -544,7 +594,10 @@
 				842B42591EAF67EA0096BD37 /* SAEventDAO.m in Sources */,
 				8D4824911EB2353400D2FE5B /* SANewsFeedTableViewCell.m in Sources */,
 				AE66FF3A1EB10EFA008EBC5E /* SASecondaryViewController.m in Sources */,
+				29763C0C1EB9723200DFEE7A /* SAFriendCollectionViewCell.m in Sources */,
 				84CBE4721EB238DB00ACD0DF /* SAEventsTableViewCell.m in Sources */,
+				29763C101EB993D200DFEE7A /* SAShiftCollectionViewCell.m in Sources */,
+				29E248131EB8CECD00088B98 /* SANewEvent5ViewController.m in Sources */,
 				29A4CA591EB2320700DCA3FA /* SAActivityCollectionViewCell.m in Sources */,
 				AE1602891EB3B81F00E8E68F /* SACollectionButtonViewCell.m in Sources */,
 				29A4CA551EB22FA800DCA3FA /* SANewEvent4ViewController.m in Sources */,

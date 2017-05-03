@@ -13,6 +13,10 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+	
+	self.bgView.layer.cornerRadius = 3.6;
+	self.bgView.layer.masksToBounds = YES;
+	self.bgView.layer.borderWidth = 0;
 }
 
 - (void)setSelected:(BOOL)selected {

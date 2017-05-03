@@ -6,10 +6,15 @@
 //  Copyright © 2017 Bruno Scheltzke. All rights reserved.
 //
 
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "SANewEvent1ViewController.h"
 #import "SANewEvent3ViewController.h"
 #import "SANewEvent4ViewController.h"
+#import "SAFriendTableViewCell.h"
+#import "SAPersonConnector.h"
 #import "SACollectionButtonViewCell.h"
+
 @class SAPerson;
 
 @interface SANewEvent3ViewController ()
@@ -19,13 +24,14 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *peopleCollectionView;
 
 @property (weak, nonatomic) IBOutlet UITableView *friendsTableView;
+@property (nonatomic) NSArray<SAPerson *> *friends;
 
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
 @property (nonatomic) NSArray *peopleType;
 
 @property (nonatomic) NSString *selectedPeopleType;
-@property (nonatomic) NSSet<SAPerson *> *selectedFriends;
+@property (nonatomic) NSMutableSet<SAPerson *> *selectedFriends;
 
 @end
 
@@ -39,11 +45,17 @@
 	self.peopleCollectionView.dataSource = self;
 	self.peopleCollectionView.delegate = self;
 	
+	self.friendsTableView.dataSource = self;
+	self.friendsTableView.delegate = self;
+	self.friendsTableView.allowsMultipleSelection = YES;
+	
 	[self.peopleCollectionView registerNib:[UINib nibWithNibName:@"SACollectionButtonViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
-
 	
 	self.peopleType = @[@"My Friends", @"Anyone"];
 	
+	self.selectedFriends = [NSMutableSet new];
+	
+	[self getFriendsList];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -91,7 +103,7 @@
 	
 	cell.iconImageView.image = [UIImage imageNamed:@"ic_favorite"];
 	cell.titleLabel.text = self.peopleType[indexPath.item];
-	
+		
 	return cell;
 }
 
@@ -112,12 +124,83 @@
 	self.nextButton.enabled = selectedPeopleType != nil;
 }
 
+- (void)getFriendsList {
+	
+	NSMutableArray *friendList = [[NSMutableArray alloc] init];
+	//
+	if ( [FBSDKAccessToken currentAccessToken]) {
+		FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
+									  initWithGraphPath:@"/me"
+									  parameters:@{ @"fields": @"friends",}
+									  HTTPMethod:@"GET"];
+		[request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+			//
+			if (error) {
+				NSLog(@"ERRO = %@", error.description);
+			}
+			else {
+			
+				for (id person in [[result objectForKey:@"friends"]objectForKey:@"data"] )
+				{
+					NSString *userID = [person objectForKey:@"id"];
+					[friendList addObject:userID];
+					
+				}
+				
+				[SAPersonConnector getPeopleFromFacebookIds:friendList handler:^(NSArray<SAPerson *> * _Nullable results, NSError * _Nullable error) {
+					if (!error)
+					{
+						NSLog(@"EH TCHOLA");
+						[self updateTableViewWithFriends:results];
+						
+					}
+				}];
+				NSLog(@" na moral funfa vai friend list = %@",  friendList);
+				
+			}
+		}];
+	}
+}
+
+- (void)updateTableViewWithFriends:(NSArray<SAPerson *> *)friends {
+	self.friends = friends;
+	NSLog(@"%@", friends);
+	[self.friendsTableView reloadData];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	SAFriendTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friendCell"];
+	
+	SAPerson *friend = self.friends[indexPath.row];
+	
+	cell.nameLabel.text = friend.name;
+	cell.profilePictureImageView.image = [UIImage imageWithData:friend.photo];
+
+	
+	return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	return self.friends.count;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	[self.selectedFriends addObject:self.friends[indexPath.row]];
+}
+
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+		
+	[self.selectedFriends removeObject:self.friends[indexPath.row]];
+}
 
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-
+	NSLog(@"%@", segue.identifier);
 	if ([segue.identifier isEqualToString:@"newEvent3To4"]) {
 		SANewEvent4ViewController *newEvent4 = segue.destinationViewController;
 		newEvent4.selectedActivity = self.selectedActivity;

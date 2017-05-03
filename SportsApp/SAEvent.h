@@ -10,26 +10,28 @@
 @class SAPerson;
 @class SAActivity;
 @class CKRecordID;
+@class CLLocation;
 
 @interface SAEvent : NSObject
 
 @property (nonatomic, readonly) CKRecordID *eventId;
 @property (nonatomic) NSString *name;
-@property (nonatomic) int minPeople, maxPeople;
+@property (nonatomic) NSNumber *minPeople, *maxPeople;
 @property (atomic) SAActivity *activity;
 @property (nonatomic, readonly) NSSet<SAPerson *> *participants;
 @property (nonatomic) NSString *category;
 @property (nonatomic) NSString *shift;
 @property (nonatomic) NSString *sex;
 @property (nonatomic) NSDate *date;
-@property (nonatomic, readonly) NSDictionary<SAPerson *, NSString *> *participantsRoles;
 @property (atomic) SAPerson *owner;
+@property (nonatomic) CLLocation *location;
+@property (nonatomic) NSNumber *distance;
 
-- (instancetype)initWithName:(NSString *)name andRequiredParticipants:(int)requiredParticipants andMaxParticipants:(int)maxParticipants andActivity:(SAActivity *)activity andId:(CKRecordID *)eventId andCategory:(NSString *)category andSex:(NSString *)sex andDate:(NSDate *)date;
+- (instancetype)initWithName:(NSString *)name andRequiredParticipants:(NSNumber *)requiredParticipants andMaxParticipants:(NSNumber *)maxParticipants andActivity:(SAActivity *)activity andId:(CKRecordID *)eventId andCategory:(NSString *)category andSex:(NSString *)sex andDate:(NSDate *)date andParticipants:(NSArray<SAPerson *> *)participants andLocation:(CLLocation *)location andDistance:(NSNumber *)distance;
 
-- (void)addParticipant:(SAPerson *)person withRole:(NSString *)role;
+- (void)addParticipant:(SAPerson *)person;
 
-- (void)addParticipants:(NSSet *)participants;
+- (void)addParticipants:(NSArray *)participants;
 
 - (void)removeParticipant:(SAPerson *)person;
 

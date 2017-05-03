@@ -25,8 +25,8 @@
   
     self.eventDate.text= [dateFormat stringFromDate:_currentEvent.date];
     
-    
-    
+    _progressView.frame = CGRectMake(29, 235, 269, 7);
+    _progressView.progressTintColor = [UIColor colorWithRed:50.0/255.0 green:226.0/255.0 blue:196.0/255.0 alpha:1.0];
     
     _ownerName.text = _currentEvent.owner.name;
     _ownerPhoto.image = [UIImage imageWithData:_currentEvent.owner.photo];
@@ -78,7 +78,7 @@
         
         UIImage *backgroungImage = [UIImage imageNamed:@"Rectangle Copy 7"];
         [_joinButton setBackgroundImage:backgroungImage forState:UIControlStateNormal];
-        [_currentEvent addParticipant:currentUser withRole:nil];
+        //[_currentEvent addParticipant:currentUser withRole:nil];
         
      }
     

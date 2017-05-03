@@ -24,7 +24,7 @@
 @interface SANewsFeedTableViewController ()
 @property NSMutableArray *eventArray;
 @property NSMutableArray *todayEvents;
-@property NSMutableArray *friendsEvents;
+@property NSMutableArray *lastArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableWithEvents;
 @property CKRecordID *userRecordID;
 @property int section;
@@ -36,8 +36,11 @@
 
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    _section = 0;
+    
+    [self.navigationController.navigationBar setTranslucent:NO];
+
     printf("%s", __PRETTY_FUNCTION__);
 //    CKContainer *container = [CKContainer defaultContainer];
 ////    
@@ -51,7 +54,7 @@
 //           }];
   
 
-    _friendsEvents = [[NSMutableArray alloc]init];
+    _lastArray = [[NSMutableArray alloc]init];
     _todayEvents = [[NSMutableArray alloc]init];
     _eventArray = [[NSMutableArray alloc]init];
     
@@ -208,8 +211,21 @@
     printf("%s\n", __PRETTY_FUNCTION__);
     
     
-    _eventArray=[[NSMutableArray alloc]init];
+//    NSMutableSet *set1 = [NSMutableSet setWithArray: events];
+//    NSSet *set2 = [NSSet setWithArray: _lastArray];
+//    
+//    [set1 intersectSet: set2];
+//    NSArray *resultArray = [set1 allObjects];
+//    
+//    
+//    for (SAEvent *event in resultArray)
+////        if ([events containsObject:event]) // passar pra
+//            [events removeObj
+//        _eventArray=[[NSMutableArray alloc]initWithArray:resultArray];
+//
+    _eventArray= [[NSMutableArray alloc] init];
     [_eventArray addObjectsFromArray:events];
+    //[_lastArray addObjectsFromArray:events];
     
     [self.tableWithEvents reloadData];
     
@@ -265,7 +281,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    [self performSegueWithIdentifier:@"mySegue" sender:nil];
+    
+    SANewsFeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"mySegue" sender:cell];
 }
     
     
