@@ -53,9 +53,11 @@
     
     _ownerName.text = _currentEvent.owner.name;
     
+    
+    _eventName.text = _currentEvent.name;
     _eventImage.image = [UIImage imageWithData:_currentEvent.activity.picture];
     _eventGender.text = _currentEvent.sex;
-    _eventNumberParticipants.text = [NSString stringWithFormat:@"%@/%d", [_currentEvent participants], _currentEvent.maxPeople];
+    _eventNumberParticipants.text = [NSString stringWithFormat:@"%@/%@", [_currentEvent participants], _currentEvent.maxPeople];
     
     //_joinButton.image = [UIImage imageNamed:@];
     
@@ -65,8 +67,11 @@
     
     if ([[_currentEvent participants] containsObject:currentUser])
     {
-        UIImage *backgroungImage = [UIImage imageNamed:@"Rectangle Copy 7"];
-        [_joinButton setBackgroundImage:backgroungImage forState:UIControlStateNormal];
+    
+                UIImage *backgroungImage = [UIImage imageNamed:@"Rectangle Copy 7"];
+                [_joinButton setBackgroundImage:backgroungImage forState:UIControlStateNormal];
+                
+
     }
     else
     {
@@ -91,17 +96,32 @@
     
     if ([[_currentEvent participants] containsObject:currentUser])
     {
-        [_currentEvent removeParticipant:currentUser];
         
-        UIImage *backgroungImage = [UIImage imageNamed:@"Rectangle Copy 6"];
-        [_joinButton setBackgroundImage:backgroungImage forState:UIControlStateNormal];
+        [SAEventConnector removeParticipant:currentUser ofEvent:_currentEvent handler:^(SAEvent * _Nullable event, NSError * _Nullable error) {
+            if (!error)
+            {
+        
+                [_currentEvent removeParticipant:currentUser];
+        
+                UIImage *backgroungImage = [UIImage imageNamed:@"Rectangle Copy 6"];
+                [_joinButton setBackgroundImage:backgroungImage forState:UIControlStateNormal];
+                
+            }}];
+
     }
     else
     {
         
-        UIImage *backgroungImage = [UIImage imageNamed:@"Rectangle Copy 7"];
-        [_joinButton setBackgroundImage:backgroungImage forState:UIControlStateNormal];
-        //[_currentEvent addParticipant:currentUser withRole:nil];
+        
+        [SAEventConnector registerParticipant:currentUser inEvent:_currentEvent handler:^(SAEvent * _Nullable event, NSError * _Nullable error) {
+            if (!error)
+            {
+
+                UIImage *backgroungImage = [UIImage imageNamed:@"Rectangle Copy 7"];
+                [_joinButton setBackgroundImage:backgroungImage forState:UIControlStateNormal];
+                 [_currentEvent addParticipant:currentUser];
+            }}];
+       
         
      }
     

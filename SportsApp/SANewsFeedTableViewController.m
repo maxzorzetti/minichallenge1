@@ -19,6 +19,7 @@
 #import "SAActivity.h"
 #import "SASectionView2.h"
 #import "SAEventDescriptionViewController.h"
+#import "SAEvent.h"
 
 
 @interface SANewsFeedTableViewController ()
@@ -58,30 +59,42 @@
     _todayEvents = [[NSMutableArray alloc]init];
     _eventArray = [[NSMutableArray alloc]init];
     
-    CKRecordID *personId = [[CKRecordID alloc]initWithRecordName:@"BB905180-6C9D-41F0-B2FA-25D7F65F5B81"];
+    
+    
+    NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];
+    SAPerson *currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
+    
+    
+   
+    CKRecordID *personId = currentUser.personId;
     
     [SAEventConnector getEventsByPersonId:personId handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
         if (!error) {
+            
             [self updateTableWithEventList:events];
         }
     }];
     
     
-    SAEvent *eventPakas = [[SAEvent alloc]init];
-    SAPerson *person = [[SAPerson alloc]init];
-    SAActivity *act = [[SAActivity alloc]initWithName:@"Futebol" minimumPeople:0 maximumPeople:0 picture:nil AndActivityId:nil];
-    //act.name = ;
-    person.name = @"Pablo Diego José Francisco de Paula Juan Nepomuceno María de los Remedios Cipriano de la Santísima Trinidad Ruiz y Picasso";
-    person.facebookId = @"957060131063735";
-    eventPakas.name = @"Evento Pakas do Pablo Diego José Francisco de Paula Juan Nepomuceno María de los Remedios Cipriano de la Santísima Trinidad Ruiz y Picasso";
-    eventPakas.date = [NSDate date];
-    eventPakas.owner = person;
-    eventPakas.activity= act;
+//    SAEvent *eventPakas = [[SAEvent alloc]init];
+//    SAPerson *person = [[SAPerson alloc]init];
+//    SAActivity *act = [[SAActivity alloc]initWithName:@"Futebol" minimumPeople:0 maximumPeople:0 picture:nil AndActivityId:nil];
+//    //act.name = ;
+//    person.name = @"Pablo Diego José Francisco de Paula Juan Nepomuceno María de los Remedios Cipriano de la Santísima Trinidad Ruiz y Picasso";
+//    person.facebookId = @"957060131063735";
+//    eventPakas.name = @"Evento Pakas do Pablo Diego José Francisco de Paula Juan Nepomuceno María de los Remedios Cipriano de la Santísima Trinidad Ruiz y Picasso";
+//    eventPakas.date = [NSDate date];
+//    eventPakas.owner = person;
+//    eventPakas.activity= act;
     //[_eventArray addObject:event];
     
     
     NSMutableArray *friendList = [[NSMutableArray alloc] init];
-//    
+//
+    
+    
+    
+    
     if ( [FBSDKAccessToken currentAccessToken]) {
         FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
                                       initWithGraphPath:@"/me"
