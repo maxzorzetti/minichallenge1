@@ -28,7 +28,10 @@
     [self.interestsCollectionView registerNib:[UINib nibWithNibName:@"SACollectionButtonViewCell" bundle:nil] forCellWithReuseIdentifier:@"activityCell"];
     
     // Activities of our app :D
-    _activities = @[@"Basquete", @"Futebol", @"Tênis", @"Vôlei"];
+    
+    SAActivity *futebas = [[SAActivity alloc]initWithName:@"Futebas" minimumPeople:14 maximumPeople:16 picture:[UIImage imageWithData:futebas.picture] AndActivityId:nil];
+    
+    [self.activities arrayByAddingObject:futebas];
     
     self.interestsCollectionView.dataSource = self;
     self.interestsCollectionView.delegate = self;
