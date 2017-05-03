@@ -36,8 +36,11 @@
 
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    _section = 0;
+    
+    [self.navigationController.navigationBar setTranslucent:NO];
+
     printf("%s", __PRETTY_FUNCTION__);
 //    CKContainer *container = [CKContainer defaultContainer];
 ////    
@@ -219,7 +222,8 @@
 ////        if ([events containsObject:event]) // passar pra
 //            [events removeObj
 //        _eventArray=[[NSMutableArray alloc]initWithArray:resultArray];
-//    
+//
+    _eventArray= [[NSMutableArray alloc] init];
     [_eventArray addObjectsFromArray:events];
     //[_lastArray addObjectsFromArray:events];
     
