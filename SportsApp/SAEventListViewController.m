@@ -219,7 +219,9 @@
 - (void)updateTableWithEventList:(NSArray<SAEvent *>*)events{
     self.currentArray = events;
     
-    [self.tableWithEvents reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+       [self.tableWithEvents reloadData];
+    });
 }
 
 

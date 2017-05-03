@@ -9,5 +9,19 @@
 #import <UIKit/UIKit.h>
 
 @interface SAIntro1ViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
+@property (weak, nonatomic) IBOutlet UILabel *txtTitle;
+@property (weak, nonatomic) IBOutlet UILabel *txtSubtitle;
+@property (weak, nonatomic) IBOutlet UIButton *btnSignUp;
+@property (weak, nonatomic) IBOutlet UIButton *btnLogin;
+
+@property NSUInteger pageNumber;
+@property NSString *imageFile;
+@property NSString *titleText;
+@property NSString *subtitleText;
+
+- (IBAction)actionSignUp:(id)sender;
+
+- (IBAction)actionLogin:(id)sender;
 
 @end

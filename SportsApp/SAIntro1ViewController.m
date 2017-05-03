@@ -9,7 +9,7 @@
 #import "SAIntro1ViewController.h"
 
 @interface SAIntro1ViewController ()
-@property (strong, nonatomic) IBOutlet UIView *intro1view;
+//@property (strong, nonatomic) IBOutlet UIView *intro1view;
 
 @end
 
@@ -19,13 +19,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = [_intro1view bounds];
-    gradient.colors = @[(id)self.view.tintColor, (id)self.view.backgroundColor];
-    gradient.startPoint = CGPointMake(0.5, 1.0);
-    gradient.endPoint = CGPointMake(0.5, 0.0);
+//    UIColor *lightcolor = [UIColor colorWithRed:119.0f/255.0f green:90.0f/255.0f blue:218.0f/255.0f alpha:0.56f];
+//    UIColor *darkcolor = [UIColor colorWithRed:119.0f/255.0f green:90.0f/255.0f blue:218.0f/255.0f alpha:1.0f];
+//    
+//    CAGradientLayer *gradient = [CAGradientLayer layer];
+//    gradient.frame = [_intro1view bounds];
+//    gradient.colors = @[(id)lightcolor, (id)darkcolor];
+//    gradient.startPoint = CGPointMake(0.5, 1.0);
+//    gradient.endPoint = CGPointMake(0.5, 0.0);
+//    
+//    [self.view.layer insertSublayer:gradient atIndex:0];
     
-    [self.view.layer insertSublayer:gradient atIndex:0];
+    self.backgroundImageView.image = self.imageFile;
+    self.txtTitle.text = self.titleText;
+    self.txtSubtitle.text = self.subtitleText;
     
     [self setNeedsStatusBarAppearanceUpdate];
 }
@@ -50,4 +57,9 @@
 }
 */
 
+- (IBAction)actionSignUp:(id)sender {
+}
+
+- (IBAction)actionLogin:(id)sender {
+}
 @end
