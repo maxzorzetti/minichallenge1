@@ -270,6 +270,7 @@
                                      }
                                      else
                                          NSLog(@"Record Identity created. New person in the app.");
+                                         NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
                                          SAPerson *person = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:[result valueForKey:@"picture"]];
                                          
                                          [SAUser saveToUserDefaults:person];
@@ -345,7 +346,8 @@
                                          }
                                          else
                                              NSLog(@"Record Identity created. New person using facebook.");
-                                         SAPerson *person = [SAPersonConnector getPersonFromRecord:[results2 firstObject] andPicture:[result valueForKey:@"picture"]];
+                                         NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
+                                         SAPerson *person = [SAPersonConnector getPersonFromRecord:[results2 firstObject] andPicture:photo];
                                          
                                          [SAUser saveToUserDefaults:person];
                                          
@@ -364,7 +366,9 @@
                                      
                                  }
                                  else{
-                                     SAPerson *person = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:[result valueForKey:@"picture"]];
+                                     NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
+                                     
+                                     SAPerson *person = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:photo];
                                      
                                      [SAUser saveToUserDefaults:person];
                                      
