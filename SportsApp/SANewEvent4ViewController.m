@@ -91,9 +91,6 @@
 		SANewEvent5ViewController *newEvent5 = segue.destinationViewController;
 		
 		newEvent5.party = [self.party copy];
-		NSLog(@"event4 %@", self.party);
-		NSLog(@"event4 newevent5 %@", newEvent5.party);
-		
 		newEvent5.party.locationRadius = [NSNumber numberWithFloat:self.locationRadiusSlider.value];
 
 	}

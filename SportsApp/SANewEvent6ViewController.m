@@ -15,6 +15,22 @@
 
 @property (weak, nonatomic) IBOutlet UIView *rectangleView;
 
+@property (weak, nonatomic) IBOutlet UILabel *eventNameLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *scheduleLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *shiftLabel;
+
+@property (weak, nonatomic) IBOutlet UIImageView *genderImageView;
+
+@property (weak, nonatomic) IBOutlet UILabel *genderLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *capacityLabel;
+
+@property (weak, nonatomic) IBOutlet UIProgressView *capacityProgressBar;
+
 @end
 
 @implementation SANewEvent6ViewController
@@ -29,7 +45,43 @@
 	self.rectangleView.layer.masksToBounds = YES;
 	self.rectangleView.layer.borderWidth = 0;
 	
-	NSLog(@"%@", self.party.invitedPeople);
+	self.eventNameLabel.text;
+	self.scheduleLabel.text = self.party.schedule;
+	NSString *shiftText;
+	switch (self.party.shift) {
+		case SAMorningShift:	shiftText = @"Morning";		break;
+		case SAAfternoonShift:	shiftText = @"Afternoon";	break;
+		case SANightShift:		shiftText = @"Night";		break;
+		case SANoShift:			shiftText = @"Error";		break;
+	}
+	self.shiftLabel.text = shiftText;
+	
+	UIImage *genderImage;
+	NSString *genderText;
+	switch (self.party.gender) {
+		case SAFemaleGender:
+			genderText = @"Female";
+			genderImage = [UIImage imageNamed:@"ic_female"]; break;
+		case SAMaleGender:
+			genderText = @"Male";
+			genderImage = [UIImage imageNamed:@"ic_male"]; break;
+		case SAMixedGender:
+			genderText = @"Mixed";
+			genderImage = [UIImage imageNamed:@"ic_mixed"];
+			break;
+		case SANoGender:
+			genderText = @"Error";
+			genderImage = [UIImage imageNamed:@"ic_mixed"];
+			break;
+	}
+	self.genderLabel.text = genderText;
+	self.genderImageView.image = genderImage;
+	self.locationLabel.text = self.party.locationRadius.stringValue;
+	self.capacityLabel.text = [[NSString alloc] initWithFormat:@"%d/%d", self.party.minParticipants, self.party.maxParticipants];
+	
+	self.capacityProgressBar.progress = 1.0 * self.party.minParticipants / self.party.maxParticipants;
+	
+	NSLog(@"%@", self.genderLabel.text);
 }
 
 - (void)didReceiveMemoryWarning {

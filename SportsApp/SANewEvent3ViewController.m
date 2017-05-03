@@ -184,9 +184,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSLog(@"ueh");
-	NSLog(@"MUTAGBLE %@", [[NSMutableSet new] class]);
-	NSLog(@"CLASS %@", [self.party.invitedPeople class]);
 	[self.party.invitedPeople addObject:self.friends[indexPath.row]];
 }
 

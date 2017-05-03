@@ -35,6 +35,7 @@ typedef NS_ENUM(NSInteger, SAGender) {
 @property (nonatomic) NSMutableSet<SAPerson *> *invitedPeople;
 @property (nonatomic) NSNumber *locationRadius;
 @property (nonatomic) SAGender gender;
+@property (nonatomic) NSString *eventName;
 
 - (void)addPerson:(SAPerson *)person;
 - (void)removePerson:(SAPerson *)person;

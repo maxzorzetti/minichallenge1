@@ -10,12 +10,15 @@
 #import "SANewEvent1ViewController.h"
 #import "SANewEvent5ViewController.h"
 #import "SANewEvent6ViewController.h"
+#import <NMRangeSlider.h>
 
 @interface SANewEvent5ViewController ()
 
 @property (weak, nonatomic) IBOutlet UICollectionView *genderCollectionView;
 
 @property (weak, nonatomic) IBOutlet UITextView *preferencesTextView;
+
+@property (weak, nonatomic) IBOutlet UITextField *eventNameTextField;
 
 @end
 
@@ -61,7 +64,7 @@
 	switch (indexPath.item) {
 		case 0:	self.party.gender = SAFemaleGender; break;
 		case 1: self.party.gender = SAMaleGender; break;
-		case 2: self.party.gender = SAMixedGender;
+		case 2: self.party.gender = SAMixedGender; break;
 	}
 }
 
@@ -123,6 +126,8 @@
  // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	 if ([segue.identifier isEqualToString:@"newEvent5To6"]) {
+		 
+		 self.party.eventName = self.eventNameTextField.text;
 		 
 		 SANewEvent6ViewController *newEvent6 = segue.destinationViewController;
 		 newEvent6.party = [self.party copy];

@@ -290,10 +290,12 @@
 
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(SANewsFeedTableViewCell *)sender{
-    
-    SAEventDescriptionViewController *destView = segue.destinationViewController;
-    destView.currentEvent= sender.cellEvent;
-    
+	if ([segue.identifier isEqualToString: @"mySegue"]) {
+		
+		SAEventDescriptionViewController *destView = segue.destinationViewController;
+		destView.currentEvent= sender.cellEvent;
+	}
+	
     
 }
 /*

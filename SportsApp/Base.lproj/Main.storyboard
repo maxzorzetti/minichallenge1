@@ -601,7 +601,7 @@
                 <viewControllerPlaceholder storyboardName="NewEvent" id="wYN-m4-3fs" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oVm-OD-g4L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3969" y="1346"/>
+            <point key="canvasLocation" x="3229" y="-291"/>
         </scene>
         <!--Closed Event Description View Controller-->
         <scene sceneID="zpB-wn-MYg">
@@ -692,8 +692,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Feed" id="lon-kj-KC8">
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Item" image="plus" style="plain" id="8jP-PA-OTl">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="plus" style="plain" id="8jP-PA-OTl">
                             <color key="tintColor" red="0.46666666670000001" green="0.35294117650000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="wYN-m4-3fs" kind="show" id="Atp-4F-RIh"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -817,6 +820,7 @@
         <image name="plus" width="21" height="21"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Atp-4F-RIh"/>
         <segue reference="m4L-yB-W7M"/>
     </inferredMetricsTieBreakers>
 </document>
