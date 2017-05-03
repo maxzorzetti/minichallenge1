@@ -11,12 +11,14 @@ PODS:
     - FBSDKCoreKit
   - FBSDKShareKit (4.22.0):
     - FBSDKCoreKit
+  - NMRangeSlider (1.2.1)
   - Unirest (1.1.4)
 
 DEPENDENCIES:
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
+  - NMRangeSlider
   - Unirest (~> 1.1.4)
 
 SPEC CHECKSUMS:
@@ -24,8 +26,9 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: c693bad19feb225469eeff14452ba364522ee48b
   FBSDKLoginKit: 1fa529fc622d7b32ebeaffbecd377180833c6d30
   FBSDKShareKit: 21ab3c8d173f4fa20c47c1061f3a9fac5950b5fa
+  NMRangeSlider: 317ded652431eb90501c8421d9cddc3930d891e6
   Unirest: 5e4d93eaf32463bf619a4ecd3bbc8c32acf21eac
 
-PODFILE CHECKSUM: cb86596d7ca472c42ff520a26bdcee1fb0dfac80
+PODFILE CHECKSUM: 5e40d6d26f76c48820fcb007c8458f6f91687fad
 
 COCOAPODS: 1.2.1
