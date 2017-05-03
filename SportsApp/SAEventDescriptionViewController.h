@@ -36,6 +36,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *joinButton;
 
 @property SAEvent *currentEvent;
+
+@property (weak, nonatomic) IBOutlet UIView *mainView;
+
+
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 
 @end
