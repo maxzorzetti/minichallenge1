@@ -52,6 +52,10 @@
 	}
 }
 
+- (void)replaceParticipants:(NSArray<SAPerson *>*)participants{
+    [self.privateParticipants setArray:participants];
+}
+
 - (void)removeParticipant:(SAPerson *)person{
     for (SAPerson *participant in self.privateParticipants) {
         if ([participant.personId.recordName isEqualToString:person.personId.recordName]) {

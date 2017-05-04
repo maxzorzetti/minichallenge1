@@ -7,8 +7,16 @@
 //
 
 #import "ClosedEventDescriptionViewController.h"
+#import "SAClosedEventDescriptionTableViewCell.h"
+#import "SAPersonConnector.h"
+#import <UIKit/UIKit.h>
+#import "SAEvent.h"
+#import "SAActivity.h"
+#import "SAPerson.h"
 
 @interface ClosedEventDescriptionViewController ()
+@property (weak, nonatomic) IBOutlet UITableView *tableViewWithParticipants;
+@property NSMutableArray *arrayOfParticipants;
 
 @end
 
@@ -16,7 +24,44 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    _arrayOfParticipants = [NSMutableArray arrayWithArray:self.event.participants.allObjects];
+    
+    for (SAPerson *participant in self.event.participants) {
+        int hasToUpdateTable = 0;
+        __block NSMutableArray *participantsWithPicture = [NSMutableArray new];
+        if ([participant.name length] == 0) {
+            hasToUpdateTable = 1;
+            [SAPersonConnector getPersonFromId:participant.personId handler:^(SAPerson * _Nullable participantFetched, NSError * _Nullable error) {
+                if(!error){
+                    [participantsWithPicture addObject:participantFetched];
+                }
+            }];
+        }else{
+            [participantsWithPicture addObject:participant];
+        }
+        
+        if (hasToUpdateTable) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.event replaceParticipants:participantsWithPicture];
+                [self.tableViewWithParticipants reloadData];
+            });
+        }
+    }
+    
+    
+    
+    
+    
+    
+    self.tableViewWithParticipants.delegate = self;
+    self.tableViewWithParticipants.dataSource = self;
+    
+    self.toBorderView.layer.borderColor = [UIColor colorWithRed:119/255.0 green:90/255.0 blue:218/255.0 alpha:1.0].CGColor;
+    self.toBorderView.layer.borderWidth = 1.0;
+    self.toBorderView.layer.cornerRadius = 8.0;
+    self.eventName.text = self.event.name;
+    self.activityIcon.image = [UIImage imageWithData:self.event.activity.picture];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,5 +78,23 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+-(void) viewWillAppear:(BOOL)animated{
+    [self.navigationController.navigationBar setFrame:CGRectMake(0, 0, self.view.frame.size.width, 80)];
+}
+
+
+#pragma tableViewPopulation methods
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    SAClosedEventDescriptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"descriptionClosedEventCell"];
+    
+    cell.participant = self.arrayOfParticipants[indexPath.row];
+    
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return [self.arrayOfParticipants count];
+}
 
 @end

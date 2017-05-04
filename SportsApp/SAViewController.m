@@ -175,10 +175,8 @@
                                 NSLog(@"Record Identity created. New person in the app.");
                                 SAPerson *person = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:nil];
                                 
-                                //saves user in userdefaults
-                                NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:person];
-                                [[NSUserDefaults standardUserDefaults] setObject:userData forKey:@"user"];
-                                
+                                [SAUser saveToUserDefaults:person];
+                            
                                 //saves user login info in userdefaults
                                 NSDictionary *dicLoginInfo = @{
                                                                @"username" : person.name,
@@ -272,11 +270,10 @@
                                      }
                                      else
                                          NSLog(@"Record Identity created. New person in the app.");
+                                         NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
                                          SAPerson *person = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:[result valueForKey:@"picture"]];
                                          
-                                         //saves user in userdefaults
-                                         NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:person];
-                                         [[NSUserDefaults standardUserDefaults] setObject:userData forKey:@"user"];
+                                         [SAUser saveToUserDefaults:person];
                                          
                                          //saves user login info in userdefaults
                                          NSDictionary *dicLoginInfo = @{
@@ -349,11 +346,10 @@
                                          }
                                          else
                                              NSLog(@"Record Identity created. New person using facebook.");
-                                         SAPerson *person = [SAPersonConnector getPersonFromRecord:[results2 firstObject] andPicture:[result valueForKey:@"picture"]];
+                                         NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
+                                         SAPerson *person = [SAPersonConnector getPersonFromRecord:[results2 firstObject] andPicture:photo];
                                          
-                                         //saves user in userdefaults
-                                         NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:person];
-                                         [[NSUserDefaults standardUserDefaults] setObject:userData forKey:@"user"];
+                                         [SAUser saveToUserDefaults:person];
                                          
                                          //saves user login info in userdefaults
                                          NSDictionary *dicLoginInfo = @{
@@ -370,11 +366,11 @@
                                      
                                  }
                                  else{
-                                     SAPerson *person = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:[result valueForKey:@"picture"]];
+                                     NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
                                      
-                                     //saves user in userdefaults
-                                     NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:person];
-                                     [[NSUserDefaults standardUserDefaults] setObject:userData forKey:@"user"];
+                                     SAPerson *person = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:photo];
+                                     
+                                     [SAUser saveToUserDefaults:person];
                                      
                                      //saves user login info in userdefaults
                                      NSArray *keys = @[@"username", @"password", @"facebookId"];

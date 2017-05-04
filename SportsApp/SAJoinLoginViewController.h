@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SAJoinLoginViewController : UIViewController
+@interface SAJoinLoginViewController : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
 @end

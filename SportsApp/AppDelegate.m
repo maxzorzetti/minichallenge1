@@ -47,6 +47,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //init window so initial view can be settable
     self.window = [[UIWindow alloc]initWithFrame:UIScreen.mainScreen.bounds];
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIStoryboard *barbaraStoryboard = [UIStoryboard storyboardWithName:@"StoryboardDaBarbara" bundle:nil];
     
     //DELETE THIS WHEN FINISHED TESTING
     //[userDefaults setBool:NO forKey:@"HasLaunchedOnce"];
@@ -58,7 +59,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //CHECK IF APP IS BEING LAUNCHED FOR THE FIRST TIME
     if (![userDefaults boolForKey:@"HasLaunchedOnce"]){
         //TODO SHOW INTRO VIEWS
-        UIViewController *initialView = [mainStoryboard instantiateViewControllerWithIdentifier:@"joinView"];
+        UIViewController *initialView = [barbaraStoryboard instantiateViewControllerWithIdentifier:@"joinView"];
         self.window.rootViewController = initialView;
         [self.window makeKeyAndVisible];
         
@@ -90,7 +91,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
             //check if there is login info to perform the login operation
             if([userDefaults dictionaryForKey:@"loginInfo"]){
                 //TODO SHOW PERFORMING LOG IN
-                UIViewController *initialView = [mainStoryboard instantiateViewControllerWithIdentifier:@"joinView"];
+                UIViewController *initialView = [barbaraStoryboard instantiateViewControllerWithIdentifier:@"joinView"];
                 self.window.rootViewController = initialView;
                 [self.window makeKeyAndVisible];
                 
@@ -111,7 +112,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
             }
         else{
             //NOTHING WORKED, SHOW JOIN VIEW
-            UIViewController *initialView = [mainStoryboard instantiateViewControllerWithIdentifier:@"joinView"];
+            UIViewController *initialView = [barbaraStoryboard instantiateViewControllerWithIdentifier:@"joinView"];
             self.window.rootViewController = initialView;
             [self.window makeKeyAndVisible];
         }

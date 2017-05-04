@@ -19,10 +19,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.pageTitles = @[@"Exercise your own way",@"Exercise in groups",@"Exercise wherever you are"];
-    self.pageSubtitles = @[@"Find activities according to your interests and availability.",@"Connect with your friends and with anyone who motivates you.",@"Discover new events and activities available anywhere."];
-    self.pageImages = @[@"imageIntro1.png", @"imageIntro2.png", @"imageIntro3.png"];
-    
     // Create page view controller
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"introView"];
     self.pageViewController.dataSource = self;
