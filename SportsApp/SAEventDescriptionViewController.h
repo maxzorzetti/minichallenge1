@@ -20,7 +20,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *ownerName;
 
-
 @property (weak, nonatomic) IBOutlet UIImageView *ownerPhoto;
 
 @property (weak, nonatomic) IBOutlet UILabel *eventName;

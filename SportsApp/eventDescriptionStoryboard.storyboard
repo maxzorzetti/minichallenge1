@@ -403,7 +403,6 @@
                         <outlet property="eventLocation" destination="d52-mH-GM3" id="pjm-1l-IHe"/>
                         <outlet property="eventName" destination="GOs-p3-mTz" id="zkf-IX-wW7"/>
                         <outlet property="eventNumberParticipants" destination="R64-8L-R3l" id="HwT-eh-Yj5"/>
-                        <outlet property="eventTurnOfDay" destination="YB8-ga-nQm" id="gAf-XL-hzE"/>
                         <outlet property="genderIcon" destination="bBc-go-4PA" id="GBk-Ya-IKB"/>
                         <outlet property="joinButton" destination="0p3-S1-Ex6" id="pcp-Td-zBT"/>
                         <outlet property="mainView" destination="Cs1-if-hm1" id="C8b-ej-lKM"/>
