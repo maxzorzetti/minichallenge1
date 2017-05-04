@@ -11,8 +11,10 @@
 
 @interface SAInterestsCollectionViewController ()
 
-@property (weak, nonatomic) IBOutlet UICollectionView *interestsCollectionView;
+@property (weak, nonatomic) IBOutlet UICollectionView *viewOfCollectionView;
+
 @property NSArray<SAActivity *> *activities;
+@property NSString *reuseIdentifier;
 
 @end
 
@@ -21,21 +23,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.reuseIdentifier = @"cell";
+    
     // Uncomment the following line to preserve selection between presentations
-    self.clearsSelectionOnViewWillAppear = NO;
+    // self.clearsSelectionOnViewWillAppear = NO;
     
     // Register cell classes
-    [self.interestsCollectionView registerNib:[UINib nibWithNibName:@"SACollectionButtonViewCell" bundle:nil] forCellWithReuseIdentifier:@"activityCell"];
+    [self.viewOfCollectionView registerNib:[UINib nibWithNibName:@"SACollectionButtonViewCell" bundle:nil] forCellWithReuseIdentifier:self.reuseIdentifier];
     
-    // Activities of our app :D
+    // App activities?
     
-    SAActivity *futebas = [[SAActivity alloc]initWithName:@"Futebas" minimumPeople:14 maximumPeople:16 picture:[UIImage imageWithData:futebas.picture] AndActivityId:nil];
+    NSMutableArray *arrayOfActivities = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"ArrayOfDictionariesContainingTheActivities"];
+    NSMutableArray<SAActivity *> *activities = [NSMutableArray new];
+    for (NSDictionary *activityDic in arrayOfActivities) {
+        SAActivity *activity = [NSKeyedUnarchiver unarchiveObjectWithData:activityDic[@"activityData"]];
+        NSLog(@"ACTIVITY %@", activity);
+        [activities addObject: activity];
+    }
     
-    [self.activities arrayByAddingObject:futebas];
-    
-    self.interestsCollectionView.dataSource = self;
-    self.interestsCollectionView.delegate = self;
-    
+    self.activities = activities;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -66,11 +72,16 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    SACollectionButtonViewCell *cell = [self.interestsCollectionView dequeueReusableCellWithReuseIdentifier:@"activityCell" forIndexPath:indexPath];
+    SACollectionButtonViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.reuseIdentifier forIndexPath:indexPath];
     
+    SAActivity *activity = self.activities[indexPath.item];
+    cell.iconImageView.image = [UIImage imageWithData:activity.picture];
+    cell.titleLabel.text = activity.name;
+    
+    return cell;
+
     cell.iconImageView.image = [UIImage imageWithData:self.activities[indexPath.item].picture];
     cell.titleLabel.text = self.activities[indexPath.item].name;
-    
 
     return cell;
 }
