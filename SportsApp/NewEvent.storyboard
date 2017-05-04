@@ -84,10 +84,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FNt-cl-tAB">
-                                <rect key="frame" x="23" y="64" width="263" height="59"/>
+                                <rect key="frame" x="23" y="64" width="263" height="80"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="59" id="242-5A-BZZ"/>
+                                    <constraint firstAttribute="height" constant="80" id="242-5A-BZZ"/>
                                     <constraint firstAttribute="width" constant="263" id="vTC-2v-90e"/>
                                 </constraints>
                                 <attributedString key="attributedText">
@@ -102,7 +102,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ZAi-O0-o97">
-                                <rect key="frame" x="24" y="160" width="327" height="222"/>
+                                <rect key="frame" x="24" y="161" width="327" height="222"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="222" id="3eB-Lo-Yfe"/>
@@ -149,7 +149,7 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pI5-M5-Cig">
-                                <rect key="frame" x="26" y="424" width="323" height="64"/>
+                                <rect key="frame" x="26" y="425" width="323" height="64"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Line Copy 14" translatesAutoresizingMaskIntoConstraints="NO" id="1Ad-nf-BB3">
                                         <rect key="frame" x="19.5" y="0.0" width="284" height="2"/>
@@ -215,7 +215,7 @@
                             <constraint firstItem="pI5-M5-Cig" firstAttribute="top" secondItem="ZAi-O0-o97" secondAttribute="bottom" constant="42" id="64x-hc-mam"/>
                             <constraint firstAttribute="trailing" secondItem="ZAi-O0-o97" secondAttribute="trailing" constant="24" id="NJu-sU-DlV"/>
                             <constraint firstItem="ZAi-O0-o97" firstAttribute="centerX" secondItem="p2S-YE-yaj" secondAttribute="centerX" id="T9s-4a-BSS"/>
-                            <constraint firstItem="ZAi-O0-o97" firstAttribute="top" secondItem="FNt-cl-tAB" secondAttribute="bottom" constant="37" id="i2r-pw-jZr"/>
+                            <constraint firstItem="ZAi-O0-o97" firstAttribute="top" secondItem="FNt-cl-tAB" secondAttribute="bottom" constant="17" id="i2r-pw-jZr"/>
                             <constraint firstItem="FNt-cl-tAB" firstAttribute="leading" secondItem="p2S-YE-yaj" secondAttribute="leading" constant="23" id="i8v-75-tNK"/>
                             <constraint firstItem="pI5-M5-Cig" firstAttribute="centerX" secondItem="p2S-YE-yaj" secondAttribute="centerX" id="uNB-g9-fFY"/>
                             <constraint firstItem="FNt-cl-tAB" firstAttribute="top" secondItem="QAN-3P-CbC" secondAttribute="bottom" constant="44" id="wY3-4f-PQj"/>
@@ -247,11 +247,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QbI-Yk-74Z">
-                                <rect key="frame" x="23" y="64" width="263" height="79"/>
+                                <rect key="frame" x="23" y="64" width="263" height="96"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="263" id="aIh-eg-M1N"/>
-                                    <constraint firstAttribute="height" constant="79" id="l89-SO-is4"/>
+                                    <constraint firstAttribute="height" constant="96" id="l89-SO-is4"/>
                                 </constraints>
                                 <attributedString key="attributedText">
                                     <fragment content="I want to &lt;activity&gt; &lt;schedule&gt; with...">
@@ -265,7 +265,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="O8C-VT-nF6">
-                                <rect key="frame" x="76.5" y="160" width="213" height="103"/>
+                                <rect key="frame" x="76.5" y="170" width="213" height="103"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="103" id="FTD-b5-YAD"/>
@@ -391,7 +391,7 @@
                             <constraint firstItem="Svj-qw-Mvy" firstAttribute="top" secondItem="d3e-na-Ysl" secondAttribute="bottom" id="FCL-ko-r3K"/>
                             <constraint firstItem="43f-Hs-fM9" firstAttribute="leading" secondItem="Kzc-ob-Qmb" secondAttribute="leading" id="GxD-ln-9oO"/>
                             <constraint firstAttribute="trailing" secondItem="d3e-na-Ysl" secondAttribute="trailing" id="Lg1-h7-3WR"/>
-                            <constraint firstItem="O8C-VT-nF6" firstAttribute="top" secondItem="QbI-Yk-74Z" secondAttribute="bottom" constant="17" id="LyS-Gu-JFn"/>
+                            <constraint firstItem="O8C-VT-nF6" firstAttribute="top" secondItem="QbI-Yk-74Z" secondAttribute="bottom" constant="10" id="LyS-Gu-JFn"/>
                             <constraint firstItem="B6h-EP-t0W" firstAttribute="top" secondItem="jcl-wo-sRq" secondAttribute="bottom" constant="12" id="O8M-p3-b8v"/>
                             <constraint firstItem="Svj-qw-Mvy" firstAttribute="top" secondItem="43f-Hs-fM9" secondAttribute="bottom" id="PEg-z2-bhe"/>
                             <constraint firstItem="O8C-VT-nF6" firstAttribute="centerX" secondItem="Kzc-ob-Qmb" secondAttribute="centerX" constant="-4.5" id="eU1-pQ-krW"/>
@@ -548,11 +548,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qji-FT-SVq">
-                                <rect key="frame" x="23" y="64" width="263" height="120"/>
+                                <rect key="frame" x="23" y="64" width="263" height="140"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="263" id="K44-Do-OoI"/>
-                                    <constraint firstAttribute="height" constant="120" id="bBh-sV-gru"/>
+                                    <constraint firstAttribute="height" constant="140" id="bBh-sV-gru"/>
                                 </constraints>
                                 <attributedString key="attributedText">
                                     <fragment content="I want to &lt;activity&gt; &lt;schedule&gt; with &lt;people&gt; in up to &lt;location&gt; from here!">
@@ -727,7 +727,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="GPR-r0-uUE" firstAttribute="top" secondItem="Qji-FT-SVq" secondAttribute="bottom" constant="26" id="7NJ-Z6-0s1"/>
+                            <constraint firstItem="GPR-r0-uUE" firstAttribute="top" secondItem="Qji-FT-SVq" secondAttribute="bottom" constant="6" id="7NJ-Z6-0s1"/>
                             <constraint firstItem="f6i-ZS-dkN" firstAttribute="top" secondItem="GPR-r0-uUE" secondAttribute="bottom" constant="24" id="JzS-gh-lcS"/>
                             <constraint firstItem="80U-8o-Nux" firstAttribute="top" secondItem="VzD-FJ-Ifq" secondAttribute="bottom" id="Tvj-AL-WGI"/>
                             <constraint firstAttribute="trailing" secondItem="S17-yg-KEn" secondAttribute="trailing" id="XdH-Cb-NOV"/>
