@@ -28,5 +28,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *eventDate;
 
 @property (weak, nonatomic) IBOutlet UITextField *eventName;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 
 @end
