@@ -108,7 +108,7 @@
                     NSString *pathGraph = [[NSString alloc]initWithFormat:@"/%@",personRecord[@"facebookId"]];
                     FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
                                                   initWithGraphPath:pathGraph
-                                                  parameters:@{ @"fields": @"picture",}
+                                                   parameters:@{ @"fields": @"picture",}
                                                   HTTPMethod:@"GET"];
                     
                     [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {

@@ -153,6 +153,10 @@
     }
 }
 
+- (IBAction)backFromDescription:(UIStoryboardSegue *)segue{
+    
+}
+
 
 #pragma section methods
 - (NSArray *)sortEventsIntoMonthlySections:(NSArray<SAEvent *>*)events{
