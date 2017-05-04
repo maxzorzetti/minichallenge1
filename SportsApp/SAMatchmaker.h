@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 @class SAParty;
+@class SAEvent;
 
 @interface SAMatchmaker : NSObject
 
-+ (void)enterMatchmakingWithParty:(SAParty *)party;
++ (void)enterMatchmakingWithParty:(SAParty *)party handler:(void (^)(SAEvent * _Nullable event, NSError * _Nullable error))handler;
 
 + (void)leaveMatchmakingWithParty:(SAParty *)party;
 

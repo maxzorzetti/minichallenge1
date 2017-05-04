@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
-@interface SALogInViewController : UIViewController
+@interface SALogInViewController : UIViewController  <FBSDKLoginButtonDelegate>
 
 @end

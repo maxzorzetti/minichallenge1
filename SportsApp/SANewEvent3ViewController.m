@@ -54,6 +54,9 @@
 	//self.selectedFriends = [NSMutableSet new];
 	
 	[self getFriendsList];
+	
+	[self updateNextButton];
+
 }
 
 - (void)didReceiveMemoryWarning {

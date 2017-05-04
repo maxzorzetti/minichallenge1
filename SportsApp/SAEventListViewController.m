@@ -160,15 +160,23 @@
     }
 }
 
+- (IBAction)backFromNewEvent:(UIStoryboardSegue *)sender {
+	[self.navigationController setNavigationBarHidden:NO animated:YES];
+	
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(SANewsFeedTableViewCell *)sender{
-    
-    if ([sender.cellEvent.participants count] >= [sender.cellEvent.minPeople integerValue] || [sender.cellEvent.date earlierDate: [NSDate date]]){
-        ClosedEventDescriptionViewController *destView = segue.destinationViewController;
-        destView.event = sender.cellEvent;
-    }else{
-        SAEventDescriptionViewController *destView = segue.destinationViewController;
-        destView.currentEvent = sender.cellEvent;
-    }
+	if ([segue.identifier isEqualToString:@"descriptionEventSegue"]) {
+		if ([sender.cellEvent.participants count] >= [sender.cellEvent.minPeople integerValue] || [sender.cellEvent.date earlierDate: [NSDate date]]){
+			ClosedEventDescriptionViewController *destView = segue.destinationViewController;
+			destView.event = sender.cellEvent;
+		}else{
+			SAEventDescriptionViewController *destView = segue.destinationViewController;
+			destView.currentEvent = sender.cellEvent;
+		}
+	} else if ([segue.identifier isEqualToString:@"startNewEvent"]) {
+		// :)
+	}
 }
 
 - (IBAction)backFromDescription:(UIStoryboardSegue *)segue{

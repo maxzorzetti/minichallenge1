@@ -51,14 +51,27 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uBl-fH-FeA">
+                                <rect key="frame" x="18.5" y="45" width="18" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="2Qu-LP-Z4X"/>
+                                    <constraint firstAttribute="width" constant="18" id="k3N-26-MM6"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="Icon_Delete"/>
+                                <connections>
+                                    <segue destination="mF0-lA-sUd" kind="unwind" unwindAction="backFromNewEvent:" id="pfi-CO-oPi"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Mn5-C9-T0I" firstAttribute="top" secondItem="G3a-Qx-Z5V" secondAttribute="bottom" id="8PM-KS-V3k"/>
                             <constraint firstItem="G3a-Qx-Z5V" firstAttribute="leading" secondItem="CuA-hv-Hzb" secondAttribute="leading" constant="24" id="Hk0-lM-M20"/>
                             <constraint firstAttribute="trailing" secondItem="G3a-Qx-Z5V" secondAttribute="trailing" constant="24" id="JWi-e2-ofI"/>
+                            <constraint firstItem="uBl-fH-FeA" firstAttribute="top" secondItem="f0n-7r-beN" secondAttribute="bottom" constant="25" id="WOJ-qe-Ja4"/>
                             <constraint firstItem="yMg-oz-Ibj" firstAttribute="top" secondItem="f0n-7r-beN" secondAttribute="bottom" constant="44" id="Wle-wA-uhA"/>
                             <constraint firstItem="yMg-oz-Ibj" firstAttribute="leading" secondItem="CuA-hv-Hzb" secondAttribute="leading" constant="19" id="ZqB-38-1hP"/>
+                            <constraint firstItem="uBl-fH-FeA" firstAttribute="leading" secondItem="CuA-hv-Hzb" secondAttribute="leading" constant="18.399999999999999" id="cZD-n8-NSS"/>
                             <constraint firstItem="G3a-Qx-Z5V" firstAttribute="top" secondItem="yMg-oz-Ibj" secondAttribute="bottom" constant="37" id="o85-6T-dYE"/>
                         </constraints>
                     </view>
@@ -68,6 +81,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IMn-ew-zCB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="mF0-lA-sUd" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-312.80000000000001" y="-48.125937031484263"/>
         </scene>
@@ -124,7 +138,7 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tNo-m9-4K6">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tNo-m9-4K6" customClass="SANewEventButton">
                                 <rect key="frame" x="188" y="618" width="187" height="49"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.46666666666666667" green="0.3529411764705882" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
@@ -288,7 +302,7 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d3e-na-Ysl">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d3e-na-Ysl" customClass="SANewEventButton">
                                 <rect key="frame" x="188" y="618" width="187" height="49"/>
                                 <color key="backgroundColor" red="0.46666666670000001" green="0.35294117650000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -441,7 +455,7 @@
                                 </attributedString>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sM4-Ps-Zj7">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sM4-Ps-Zj7" customClass="SANewEventButton">
                                 <rect key="frame" x="188" y="618" width="187" height="49"/>
                                 <color key="backgroundColor" red="0.46666666670000001" green="0.35294117650000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -565,7 +579,7 @@
                                 </attributedString>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S17-yg-KEn">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S17-yg-KEn" customClass="SANewEventButton">
                                 <rect key="frame" x="188" y="618" width="187" height="49"/>
                                 <color key="backgroundColor" red="0.46666666670000001" green="0.35294117650000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -747,6 +761,7 @@
                         <outlet property="genderCollectionView" destination="RHI-kx-NVq" id="lxj-Dd-f7B"/>
                         <outlet property="maximumCapacityLabel" destination="j7Z-pr-MQF" id="dtE-lC-tzr"/>
                         <outlet property="minimumCapacityLabel" destination="vxr-fC-d9P" id="WaC-eK-SGD"/>
+                        <outlet property="nextButton" destination="S17-yg-KEn" id="8hD-SW-Z7p"/>
                         <outlet property="preferencesTextView" destination="Qji-FT-SVq" id="Ygb-yr-r8E"/>
                     </connections>
                 </viewController>
@@ -767,7 +782,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q5b-82-0DP">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q5b-82-0DP">
                                 <rect key="frame" x="0.0" y="618" width="375" height="49"/>
                                 <color key="backgroundColor" red="0.46666666670000001" green="0.35294117650000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -775,9 +790,12 @@
                                     <constraint firstAttribute="height" constant="49" id="b9u-Hp-yk3"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" title="PUBLISH">
+                                <state key="normal" title="SEARCH">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="publishPressed:" destination="1U4-Xg-Xmi" eventType="touchUpInside" id="7R4-BV-9UJ"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8U7-Ym-oxD">
                                 <rect key="frame" x="27.5" y="157" width="320" height="347"/>
@@ -916,7 +934,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="32" id="NDO-qT-tOk"/>
                                                 </constraints>
-                                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2fz-JF-Wl3">
+                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2fz-JF-Wl3">
                                                     <size key="itemSize" width="32" height="32"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -1040,6 +1058,7 @@
                         <outlet property="genderImageView" destination="wVO-SP-mnK" id="HJJ-An-7gy"/>
                         <outlet property="genderLabel" destination="t6x-Ga-bOb" id="OsS-Y3-vR5"/>
                         <outlet property="locationLabel" destination="NCF-YC-E8f" id="Ry6-Gr-ypx"/>
+                        <outlet property="publishButton" destination="q5b-82-0DP" id="daq-L2-Jek"/>
                         <outlet property="rectangleView" destination="8U7-Ym-oxD" id="hHA-rx-XUe"/>
                         <outlet property="scheduleLabel" destination="wls-GV-Xnh" id="oBW-df-0qm"/>
                         <outlet property="shiftLabel" destination="CCO-62-jiM" id="3f0-xf-OyS"/>
@@ -1052,6 +1071,7 @@
     </scenes>
     <resources>
         <image name="Icon_Calendar" width="12" height="13"/>
+        <image name="Icon_Delete" width="18" height="17"/>
         <image name="Icon_PinPurple" width="37" height="48"/>
         <image name="Icon_shift" width="14" height="14"/>
         <image name="Line Copy 14" width="284" height="1"/>

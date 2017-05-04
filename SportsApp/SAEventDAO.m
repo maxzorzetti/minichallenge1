@@ -113,8 +113,11 @@ CKDatabase *publicDatabase;
 - (void)saveEvent:(SAEvent *)event{
 	[self connectToPublicDatabase];
 	
-	CKRecord *eventRecord = [[CKRecord alloc]initWithRecordType:@"SAEvent"];
+	CKRecord *eventRecord = [[CKRecord alloc]initWithRecordType:@"Event"];
 
+
+	NSLog(@"%@", event.activity.activityId);
+	
 	CKReference *activityRef = [[CKReference alloc]initWithRecordID:event.activity.activityId action:CKReferenceActionNone];
 	NSMutableArray *personList = [NSMutableArray new];
 	for (SAPerson *person in event.participants) {

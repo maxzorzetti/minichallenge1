@@ -14,8 +14,10 @@
 
 @implementation SAMatchmaker
 
-+ (void)enterMatchmakingWithParty:(SAParty *)party{
-    [SAMatchMakerCore registerParty:party];
++ (void)enterMatchmakingWithParty:(SAParty *)party handler:(void (^)(SAEvent * _Nullable event, NSError * _Nullable error))handler {
+	SAMatchMakerCore *core = [SAMatchMakerCore new];
+	
+	[core startMatchmakingForParty:party handler:handler];
 }
 
 + (void)leaveMatchmakingWithParty:(SAParty *)party{
