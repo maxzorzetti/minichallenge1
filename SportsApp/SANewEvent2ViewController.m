@@ -63,8 +63,8 @@
 - (void)processPreferencesTextView {
 	// Insert the preference in the text
 	NSMutableString *rawText = [[NSMutableString alloc] initWithString:self.preferencesTextView.text];
-	[rawText replaceOccurrencesOfString:@"<activity>" withString:self.party.activity.name options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
-	NSRange selectedActivityRange = [rawText rangeOfString:self.party.activity.name];
+	[rawText replaceOccurrencesOfString:@"<activity>" withString: [[NSString alloc] initWithFormat:@"play %@", self.party.activity.name.lowercaseString] options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
+	NSRange selectedActivityRange = [rawText rangeOfString:[[NSString alloc] initWithFormat:@"play %@", self.party.activity.name.lowercaseString]];
 	self.preferencesTextView.text = rawText;
 	
 	// Paint the preference
@@ -84,6 +84,8 @@
 		SACollectionButtonViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
 		
 		cell.iconImageView.image = [UIImage imageNamed:@"ic_calendarButton"];
+		cell.unselectedImage = [UIImage imageNamed:@"Icon_Calendar"];
+		cell.selectedImage = [UIImage imageNamed:@"Icon_Calendar_S"];
 		cell.titleLabel.text = self.timetable[indexPath.item];
 		
 		return cell;
@@ -122,10 +124,10 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 	if (collectionView.tag == 0) {
-		
-		//self.selectedSchedule = self.timetable[indexPath.item];
+
 		self.party.schedule = self.timetable[indexPath.item];
-		//[collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+		SACollectionButtonViewCell *cell = (SACollectionButtonViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+		[cell setCustomSelection:YES];
 		
 	} else {
 		//self.selectedShift = self.shifts[indexPath.item];
@@ -140,7 +142,9 @@
 		
 		//self.selectedSchedule = nil;
 		self.party.schedule = nil;
-		[collectionView deselectItemAtIndexPath:indexPath animated:YES];
+		SACollectionButtonViewCell *cell = (SACollectionButtonViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+		[cell setCustomSelection:NO];
+		//[collectionView deselectItemAtIndexPath:indexPath animated:YES];
 		
 	} else {
 		

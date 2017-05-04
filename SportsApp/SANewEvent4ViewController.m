@@ -31,6 +31,7 @@
     // Do any additional setup after loading the view.
 	
 	//self.locationRadiusSlider.value
+	self.locationRadiusLabel.text = [[NSString alloc] initWithFormat:@"%.0f km", self.locationRadiusSlider.value];
 	
 	[self processPreferencesTextView];
 }
@@ -41,14 +42,14 @@
 }
 
 - (IBAction)locationRadiusChanged:(UISlider *)sender {
-	self.locationRadiusLabel.text = [[NSString alloc] initWithFormat:@"%.1f km", sender.value/1000];
+	self.locationRadiusLabel.text = [[NSString alloc] initWithFormat:@"%.0f km", sender.value];
 }
 
 - (void)processPreferencesTextView {
 	// Insert preferences in the text
 	NSMutableString *rawText = [[NSMutableString alloc] initWithString:self.preferencesTextView.text];
-	[rawText replaceOccurrencesOfString:@"<activity>" withString:self.party.activity.name options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
-	[rawText replaceOccurrencesOfString:@"<schedule>" withString:self.party.schedule options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
+	[rawText replaceOccurrencesOfString:@"<activity>" withString: [[NSString alloc] initWithFormat:@"play %@", self.party.activity.name.lowercaseString] options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
+	[rawText replaceOccurrencesOfString:@"<schedule>" withString:self.party.schedule.lowercaseString options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
 	NSString *peopleType;
 	switch (self.party.peopleType) {
 		case 0: peopleType = @"my friends"; break;
@@ -59,8 +60,8 @@
 	[rawText replaceOccurrencesOfString:@"<people>" withString:peopleType options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
 
 	// Get preferences indexes
-	NSRange selectedActivityRange = [rawText rangeOfString:self.party.activity.name];
-	NSRange selectedScheduleRange = [rawText rangeOfString:self.party.schedule];
+	NSRange selectedActivityRange = [rawText rangeOfString:[[NSString alloc] initWithFormat:@"play %@", self.party.activity.name.lowercaseString]];
+	NSRange selectedScheduleRange = [rawText rangeOfString:self.party.schedule.lowercaseString];
 	NSRange selectedPeopleTypeRange = [rawText rangeOfString:peopleType];
 	
 	// Update text (we do this so we don't lose the text's attributes)
@@ -89,10 +90,10 @@
 	NSLog(@"%@", segue.identifier);
 	if ([segue.identifier isEqualToString: @"newEvent4To5"]) {
 		SANewEvent5ViewController *newEvent5 = segue.destinationViewController;
+		self.party.locationRadius = [NSNumber numberWithLong: lroundf(self.locationRadiusSlider.value)];
+		
 		
 		newEvent5.party = [self.party copy];
-		newEvent5.party.locationRadius = [NSNumber numberWithFloat:self.locationRadiusSlider.value];
-
 	}
 }
 
