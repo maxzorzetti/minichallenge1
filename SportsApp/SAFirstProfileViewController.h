@@ -10,4 +10,13 @@
 
 @interface SAFirstProfileViewController : UIViewController
 
+
+@property NSString *email;
+@property NSString *password;
+
+
+
+
+
+//- (NSString *)sha1:(NSString *)password;
 @end
