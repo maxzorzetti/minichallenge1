@@ -63,8 +63,8 @@
 - (void)processPreferencesTextView {
 	// Insert the preference in the text
 	NSMutableString *rawText = [[NSMutableString alloc] initWithString:self.preferencesTextView.text];
-	[rawText replaceOccurrencesOfString:@"<activity>" withString: [[NSString alloc] initWithFormat:@"play %@", self.party.activity.name.lowercaseString] options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
-	NSRange selectedActivityRange = [rawText rangeOfString:[[NSString alloc] initWithFormat:@"play %@", self.party.activity.name.lowercaseString]];
+	[rawText replaceOccurrencesOfString:@"<activity>" withString: [[NSString alloc] initWithFormat:@"%@ %@", self.party.activity.auxiliarVerb, self.party.activity.name.lowercaseString] options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
+	NSRange selectedActivityRange = [rawText rangeOfString:[[NSString alloc] initWithFormat:@"%@", self.party.activity.name.lowercaseString]];
 	self.preferencesTextView.text = rawText;
 	
 	// Paint the preference

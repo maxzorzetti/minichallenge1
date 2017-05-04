@@ -822,7 +822,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="hPD-pS-GMR">
                                         <rect key="frame" x="18" y="124.5" width="284" height="12.5"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_calendarButton" translatesAutoresizingMaskIntoConstraints="NO" id="SOp-Sy-BG3">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_Calendar" translatesAutoresizingMaskIntoConstraints="NO" id="SOp-Sy-BG3">
                                                 <rect key="frame" x="0.0" y="0.0" width="11.5" height="12.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="11.699999999999999" id="35P-7s-GmF"/>
@@ -1023,7 +1023,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.78823529411764703" green="0.74117647058823533" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.78823529410000004" green="0.74117647060000003" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="sc3-Na-yvC" firstAttribute="top" secondItem="q5b-82-0DP" secondAttribute="bottom" id="16L-BN-SHA"/>
                             <constraint firstAttribute="trailing" secondItem="q5b-82-0DP" secondAttribute="trailing" id="17D-6c-lml"/>
@@ -1051,11 +1051,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Icon_Calendar" width="12" height="13"/>
         <image name="Icon_PinPurple" width="37" height="48"/>
         <image name="Icon_shift" width="14" height="14"/>
         <image name="Line Copy 14" width="284" height="1"/>
         <image name="Pin Copy 2" width="12" height="15"/>
-        <image name="ic_calendarButton" width="32" height="34"/>
         <image name="ic_mixed" width="27" height="38"/>
     </resources>
 </document>
