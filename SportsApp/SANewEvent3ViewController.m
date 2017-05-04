@@ -64,11 +64,11 @@
 - (void)processPreferencesTextView {
 	// Insert preferences in the text
 	NSMutableString *rawText = [[NSMutableString alloc] initWithString:self.preferencesTextView.text];
-	[rawText replaceOccurrencesOfString:@"<activity>" withString: [[NSString alloc] initWithFormat:@"play %@", self.party.activity.name.lowercaseString] options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
+	[rawText replaceOccurrencesOfString:@"<activity>" withString: [[NSString alloc] initWithFormat:@"%@ %@", self.party.activity.auxiliarVerb, self.party.activity.name.lowercaseString] options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
 	[rawText replaceOccurrencesOfString:@"<schedule>" withString:self.party.schedule.lowercaseString options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
 	
 	// Get preferences indexes
-	NSRange selectedActivityRange = [rawText rangeOfString:[[NSString alloc] initWithFormat:@"play %@", self.party.activity.name.lowercaseString]];
+	NSRange selectedActivityRange = [rawText rangeOfString:[[NSString alloc] initWithFormat:@"%@", self.party.activity.name.lowercaseString]];
 	NSRange selectedScheduleRange = [rawText rangeOfString:self.party.schedule.lowercaseString];
 
 	// Update text (we do this so we don't lose the text's attributes)
@@ -103,13 +103,13 @@
 	
 	NSString *cellLabelText;
 	switch (indexPath.item) {
-		case 0:
+		case 1: // oh god sorry for this
 			cellLabelText = @"My Friends";
 			cell.iconImageView.image =	[UIImage imageNamed:@"Icon_MyFriends_NS"];
 			cell.unselectedImage =		[UIImage imageNamed:@"Icon_MyFriends_NS"];
 			cell.selectedImage =		[UIImage imageNamed:@"Icon_MyFriends_S"];
 			break;
-		case 1:
+		case 0: // let me atone for my sins
 			cellLabelText = @"Anyone";
 			cell.iconImageView.image =	[UIImage imageNamed:@"Icon_Anyone_NS"];
 			cell.unselectedImage =		[UIImage imageNamed:@"Icon_Anyone_NS"];
