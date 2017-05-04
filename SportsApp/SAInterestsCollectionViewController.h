@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "SACollectionButtonViewCell.h"
 
-@interface SAInterestsCollectionViewController : UICollectionViewController
+@interface SAInterestsCollectionViewController : UICollectionViewController <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @end

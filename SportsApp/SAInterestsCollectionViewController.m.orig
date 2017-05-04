@@ -29,7 +29,15 @@
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Register cell classes
+<<<<<<< HEAD
     [self.viewOfCollectionView registerNib:[UINib nibWithNibName:@"SACollectionButtonViewCell" bundle:nil] forCellWithReuseIdentifier:self.reuseIdentifier];
+=======
+    [self.interestsCollectionView registerNib:[UINib nibWithNibName:@"SACollectionButtonViewCell" bundle:nil] forCellWithReuseIdentifier:@"activityCell"];
+    
+    // Activities of our app :D
+    
+    SAActivity *futebas = [[SAActivity alloc]initWithName:@"Futebas" minimumPeople:14 maximumPeople:16 picture:[UIImage imageWithData:futebas.picture] AndActivityId:nil  andAuxiliarVerb:@"play" andPictureWhite:nil];
+>>>>>>> e8cd3c41189fba72ce8584e6100a194cc1732cb0
     
     // App activities?
     
