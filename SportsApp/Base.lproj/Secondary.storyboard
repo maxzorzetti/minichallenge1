@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="MrI-Tv-z4D">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="MrI-Tv-z4D">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Secondary View Controller-->
+        <!--View Controller-->
         <scene sceneID="tDX-he-4QL">
             <objects>
-                <viewController id="eTU-Da-2ON" customClass="SASecondaryViewController" sceneMemberID="viewController">
+                <viewController id="eTU-Da-2ON" customClass="SAViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YhB-6O-MhS"/>
                         <viewControllerLayoutGuide type="bottom" id="pYK-hJ-Qpu"/>
@@ -53,7 +53,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Ca5-HR-2Da" kind="presentation" id="Bro-f3-6na"/>
+                                    <action selector="joinUsButtonPressed:" destination="eTU-Da-2ON" eventType="touchUpInside" id="QLG-it-O9m"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or Log in using" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KWj-FB-wWD">
@@ -111,10 +111,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="IEh-Wu-Cj0"/>
                     <connections>
-                        <outlet property="btnJoinUs" destination="J8N-k4-r0Q" id="FL1-qA-am6"/>
-                        <outlet property="imgLogoSecondary" destination="Au8-Dq-nOb" id="5cR-nj-7Je"/>
-                        <outlet property="txtPassword" destination="SUy-pP-9B4" id="Wve-ru-oxQ"/>
-                        <outlet property="txtUser" destination="4D3-Xg-d40" id="aiB-LJ-4fD"/>
+                        <outlet property="btnJoinUs" destination="J8N-k4-r0Q" id="9T5-hN-YJu"/>
+                        <outlet property="emailField" destination="4D3-Xg-d40" id="oah-tO-o3K"/>
+                        <outlet property="myView" destination="jO6-dr-2cJ" id="Sod-rL-aZS"/>
+                        <outlet property="passwordField" destination="SUy-pP-9B4" id="bBn-4o-hRc"/>
+                        <segue destination="Ca5-HR-2Da" kind="show" identifier="logInSegue2" id="skD-6j-B2n"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fSw-Sf-7CU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -194,6 +195,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="joinUsButtonPressed2:" destination="Ca5-HR-2Da" eventType="touchUpInside" id="Fj4-Oa-7Vi"/>
                                     <segue destination="1r5-Vd-T4C" kind="show" id="nyF-C4-cYo"/>
                                 </connections>
                             </button>
