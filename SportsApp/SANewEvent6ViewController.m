@@ -45,8 +45,8 @@
 	self.rectangleView.layer.masksToBounds = YES;
 	self.rectangleView.layer.borderWidth = 0;
 	
-	self.eventNameLabel.text;
-	self.scheduleLabel.text = self.party.schedule;
+	self.eventNameLabel.text = self.party.eventName;
+	self.scheduleLabel.text = self.party.schedule.uppercaseString;
 	NSString *shiftText;
 	switch (self.party.shift) {
 		case SAMorningShift:	shiftText = @"Morning";		break;
@@ -76,10 +76,11 @@
 	}
 	self.genderLabel.text = genderText;
 	self.genderImageView.image = genderImage;
-	self.locationLabel.text = self.party.locationRadius.stringValue;
-	self.capacityLabel.text = [[NSString alloc] initWithFormat:@"%d/%d", self.party.minParticipants, self.party.maxParticipants];
+	self.locationLabel.text = [[NSString alloc] initWithFormat: @"In up to %@ km", self.party.locationRadius.stringValue];
+	NSLog(@"EVENTO6 %d", self.party.minParticipants);
+	self.capacityLabel.text = [[NSString alloc] initWithFormat:@"1/%d", self.party.maxParticipants];
 	
-	self.capacityProgressBar.progress = 1.0 * self.party.minParticipants / self.party.maxParticipants;
+	self.capacityProgressBar.progress = 1.0 / self.party.maxParticipants;
 	
 	NSLog(@"%@", self.genderLabel.text);
 }

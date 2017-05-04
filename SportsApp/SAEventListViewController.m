@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableWithEvents;
 @property NSArray *currentArray;
 
+@property (nonatomic, strong) id previewingContext;
 
 @property NSArray *dicListOfComingEvents, *dicListOfPastEvents;
 
@@ -33,6 +34,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    //check if 3d touch is available, if it is, assign current view as delegate
+    if ([self isForceTouchAvailable]) {
+        self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
+    
+    
+    
     self.tableWithEvents.tableHeaderView = nil;
     _currentArray = [NSArray new];
     
@@ -98,6 +108,8 @@
     }
     [cell initWithEvent:arrayOfEvents[indexPath.row]];
     
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     return cell;
 }
 
@@ -138,19 +150,29 @@
 #pragma segue perfoming methods
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     SANewsFeedTableViewCell *cell = [self.tableWithEvents cellForRowAtIndexPath:indexPath];
-    [self performSegueWithIdentifier:@"descriptionEventSegue" sender:cell];
+    
+    NSDate *today = [NSDate date];
+    
+    if([cell.cellEvent.participants count] >= [cell.cellEvent.minPeople integerValue] || [cell.cellEvent.date earlierDate:today]){
+        [self performSegueWithIdentifier:@"descriptionEventSegue" sender:cell];
+    }else{
+        [self performSegueWithIdentifier:@"descriptionNotClosedEventSegue" sender:cell];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(SANewsFeedTableViewCell *)sender{
     
-    //if ([sender.cellEvent.participants count] >= [sender.cellEvent.minPeople unsignedIntegerValue])
-    if(1==1){
+    if ([sender.cellEvent.participants count] >= [sender.cellEvent.minPeople integerValue] || [sender.cellEvent.date earlierDate: [NSDate date]]){
         ClosedEventDescriptionViewController *destView = segue.destinationViewController;
         destView.event = sender.cellEvent;
     }else{
         SAEventDescriptionViewController *destView = segue.destinationViewController;
         destView.currentEvent = sender.cellEvent;
     }
+}
+
+- (IBAction)backFromDescription:(UIStoryboardSegue *)segue{
+    
 }
 
 
@@ -251,7 +273,64 @@
     });
 }
 
+#pragma force touch methods
+- (BOOL)isForceTouchAvailable {
+    BOOL isForceTouchAvailable = NO;
+    if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)]) {
+        isForceTouchAvailable = self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable;
+    }
+    return isForceTouchAvailable;
+}
 
+//- (UIViewController *)previewingContext:(id )previewingContext viewControllerForLocation:(CGPoint)location{
+//    // check if we're not already displaying a preview controller (WebViewController is my preview controller)
+//    if ([self.presentedViewController isKindOfClass:[WebViewController class]]) {
+//        return nil;
+//    }
+//    
+//    CGPoint cellPostion = [self.tableView convertPoint:location fromView:self.view];
+//    NSIndexPath *path = [self.tableView indexPathForRowAtPoint:cellPostion];
+//    
+//    if (path) {
+//        UITableViewCell *tableCell = [self.tableView cellForRowAtIndexPath:path];
+//        
+//        // get your UIStoryboard
+//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MyStoryboard" bundle:nil];
+//        
+//        // set the view controller by initializing it form the storyboard
+//        WebViewController *previewController = [storyboard instantiateViewControllerWithIdentifier:@"MyWebView"];
+//        
+//        // if you want to transport date use your custom "detailItem" function like this:
+//        previewController.detailItem = [self.data objectAtIndex:path.row];
+//        
+//        previewingContext.sourceRect = [self.view convertRect:tableCell.frame fromView:self.tableView];
+//        return previewController;
+//    }
+//    return nil;
+//}
+//
+//- (void)previewingContext:(id )previewingContext commitViewController: (UIViewController *)viewControllerToCommit {
+//    
+//    // if you want to present the selected view controller as it self us this:
+//    // [self presentViewController:viewControllerToCommit animated:YES completion:nil];
+//    
+//    // to render it with a navigation controller (more common) you should use this:
+//    [self.navigationController showViewController:viewControllerToCommit sender:nil];
+//}
+//
+//- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+//    [super traitCollectionDidChange:previousTraitCollection];
+//    if ([self isForceTouchAvailable]) {
+//        if (!self.previewingContext) {
+//            self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.view];
+//        }
+//    } else {
+//        if (self.previewingContext) {
+//            [self unregisterForPreviewingWithContext:self.previewingContext];
+//            self.previewingContext = nil;
+//        }
+//    }
+//}
 
 
 @end

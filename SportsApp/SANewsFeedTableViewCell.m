@@ -13,6 +13,8 @@
 #import "SAActivity.h"
 #import "SAActivityConnector.h"
 #import "SAPersonConnector.h"
+#import <CoreLocation/CLGeocoder.h>
+#import <CoreLocation/CLPlacemark.h>
 
 @implementation SANewsFeedTableViewCell
 
@@ -51,16 +53,18 @@
     self.ownerProfilePicture.layer.masksToBounds = YES;
     self.ownerProfilePicture.layer.borderWidth = 0;
     
-    
+    if ([self.cellEvent.participants count] >= [self.cellEvent.minPeople integerValue] || [self.cellEvent.date earlierDate:[NSDate date]]) {
+        self.viewToBorder.layer.borderColor = [UIColor colorWithRed:50/255.0 green:226/255.0 blue:196/255.0 alpha:1.0].CGColor;
+        self.viewToBorder.layer.borderWidth = 1.0;
+        self.viewToBorder.layer.cornerRadius = 8.0;
+    }
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"dd/MM/yyyy"];
     self.eventDate.text= [dateFormat stringFromDate:event.date];
     
-    self.eventName.text = event.name;
+    self.eventName.text = event.activity.name;
     self.ownerName.text = event.owner.name;
-    //self.eventDate.text = [NSString stringWithFormat:@"%@",event.date];
-    
     
     self.eventImage.image = [UIImage imageWithData:event.activity.picture];
     
@@ -69,6 +73,18 @@
     }else{
         self.ownerProfilePicture.image = [UIImage imageWithData:event.owner.photo];
     }
+    
+    
+    //make locationReadable
+    CLGeocoder *geocoder = [[CLGeocoder alloc]init];
+    [geocoder reverseGeocodeLocation:self.cellEvent.location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        if (!error) {
+            CLPlacemark *placemark = [placemarks objectAtIndex:0];
+            self.locationLabel.text = [NSString stringWithFormat:@"%@, %@",placemark.subLocality ,placemark.locality];
+        }
+    }];
+    
+    
     
     //case activity was not already loaded from the userdefaults, download from db and save to userdefaults
     

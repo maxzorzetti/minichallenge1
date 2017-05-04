@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -27,8 +27,8 @@
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q1S-u0-W0X">
                         <rect key="frame" x="54" y="7" width="298" height="109"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="279" verticalHuggingPriority="251" horizontalCompressionResistancePriority="279" misplaced="YES" text="Pablo Diego José Francisco de Paula Juan Nepomuceno María de los Remedios Cipriano de la Santísima Trinidad Ruiz y Picasso" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" preferredMaxLayoutWidth="150" translatesAutoresizingMaskIntoConstraints="NO" id="IDL-PW-wy2">
-                                <rect key="frame" x="57" y="19" width="150" height="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="279" verticalHuggingPriority="251" horizontalCompressionResistancePriority="279" text="Pablo Diego José Francisco de Paula Juan Nepomuceno María de los Remedios Cipriano de la Santísima Trinidad Ruiz y Picasso" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" preferredMaxLayoutWidth="150" translatesAutoresizingMaskIntoConstraints="NO" id="IDL-PW-wy2">
+                                <rect key="frame" x="57" y="19" width="172" height="14"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="11"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -49,7 +49,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NEXT WEEK" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fzo-ib-dQs">
-                                <rect key="frame" x="34" y="91" width="264" height="11"/>
+                                <rect key="frame" x="34" y="91" width="70" height="11"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="eVZ-m8-xdd"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name=".SFNSText" family=".SF NS Text" pointSize="9"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -74,12 +77,28 @@
                                     <constraint firstAttribute="height" constant="16" id="n7N-AJ-13P"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location not set" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dmq-as-GQm">
+                                <rect key="frame" x="188" y="91" width="100" height="11"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="Hw0-ks-jpm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_Pin" translatesAutoresizingMaskIntoConstraints="NO" id="3lp-Sv-yFd">
+                                <rect key="frame" x="170" y="90" width="12" height="13"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="13" id="DaZ-5d-9YQ"/>
+                                    <constraint firstAttribute="width" constant="12" id="IRb-ug-deA"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="FZP-hy-ygV" secondAttribute="bottom" constant="6" id="46L-vS-Tf4"/>
+                            <constraint firstItem="dmq-as-GQm" firstAttribute="top" secondItem="wtD-GJ-wUl" secondAttribute="bottom" constant="4" id="5fX-Ge-PHl"/>
                             <constraint firstItem="IDL-PW-wy2" firstAttribute="top" secondItem="q1S-u0-W0X" secondAttribute="top" constant="19" id="7Ed-BR-1yK"/>
-                            <constraint firstAttribute="trailing" secondItem="Fzo-ib-dQs" secondAttribute="trailing" id="ChW-6m-0WX"/>
                             <constraint firstAttribute="bottom" secondItem="Fzo-ib-dQs" secondAttribute="bottom" constant="7" id="DfG-1D-UfJ"/>
                             <constraint firstItem="s9t-jw-XZD" firstAttribute="leading" secondItem="q1S-u0-W0X" secondAttribute="leading" constant="13" id="Dnh-YT-DQg"/>
                             <constraint firstItem="gDP-e0-uw8" firstAttribute="top" secondItem="q1S-u0-W0X" secondAttribute="top" constant="15" id="Gq0-lv-sgZ"/>
@@ -88,14 +107,17 @@
                             <constraint firstItem="Fzo-ib-dQs" firstAttribute="leading" secondItem="FZP-hy-ygV" secondAttribute="trailing" constant="7" id="NHx-kc-gKr"/>
                             <constraint firstItem="hbP-rC-a9G" firstAttribute="leading" secondItem="s9t-jw-XZD" secondAttribute="trailing" constant="12" id="NMH-Pt-24r"/>
                             <constraint firstItem="FZP-hy-ygV" firstAttribute="leading" secondItem="q1S-u0-W0X" secondAttribute="leading" constant="15" id="NWX-bX-sGo"/>
-                            <constraint firstItem="Fzo-ib-dQs" firstAttribute="leading" secondItem="FZP-hy-ygV" secondAttribute="trailing" constant="7" id="Nuf-IP-G9Z"/>
                             <constraint firstItem="wtD-GJ-wUl" firstAttribute="top" secondItem="s9t-jw-XZD" secondAttribute="bottom" constant="18" id="PUH-cb-SvZ"/>
                             <constraint firstItem="gDP-e0-uw8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="IDL-PW-wy2" secondAttribute="trailing" constant="30" id="PfA-1p-RcR"/>
                             <constraint firstAttribute="trailing" secondItem="wtD-GJ-wUl" secondAttribute="trailing" constant="39" id="QHA-y0-ZUJ"/>
+                            <constraint firstItem="dmq-as-GQm" firstAttribute="leading" secondItem="3lp-Sv-yFd" secondAttribute="trailing" constant="6" id="Qef-lx-fBZ"/>
+                            <constraint firstAttribute="bottom" secondItem="dmq-as-GQm" secondAttribute="bottom" constant="7" id="RGt-t2-kdU"/>
                             <constraint firstItem="IDL-PW-wy2" firstAttribute="leading" secondItem="s9t-jw-XZD" secondAttribute="trailing" constant="12" id="Rxn-Td-eSz"/>
                             <constraint firstItem="wtD-GJ-wUl" firstAttribute="leading" secondItem="q1S-u0-W0X" secondAttribute="leading" constant="14" id="TMr-r6-AhP"/>
                             <constraint firstItem="hbP-rC-a9G" firstAttribute="top" secondItem="IDL-PW-wy2" secondAttribute="bottom" constant="2" id="YQC-Za-Fp0"/>
                             <constraint firstItem="s9t-jw-XZD" firstAttribute="top" secondItem="q1S-u0-W0X" secondAttribute="top" constant="15" id="ehP-xx-7q4"/>
+                            <constraint firstAttribute="trailing" secondItem="dmq-as-GQm" secondAttribute="trailing" constant="10" id="fKV-e7-bVy"/>
+                            <constraint firstItem="3lp-Sv-yFd" firstAttribute="top" secondItem="wtD-GJ-wUl" secondAttribute="bottom" constant="3" id="gih-4f-Y98"/>
                             <constraint firstItem="Fzo-ib-dQs" firstAttribute="top" secondItem="wtD-GJ-wUl" secondAttribute="bottom" priority="250" constant="5" id="gsL-57-aZU"/>
                             <constraint firstItem="hbP-rC-a9G" firstAttribute="leading" secondItem="s9t-jw-XZD" secondAttribute="trailing" constant="12" id="mpS-AF-5rU"/>
                             <constraint firstAttribute="trailing" secondItem="wtD-GJ-wUl" secondAttribute="trailing" constant="39" id="nXk-mo-YjT"/>
@@ -118,15 +140,18 @@
                 <outlet property="eventImage" destination="gDP-e0-uw8" id="rVE-oN-HKu"/>
                 <outlet property="eventName" destination="wtD-GJ-wUl" id="yau-iH-L17"/>
                 <outlet property="eventStatus" destination="hbP-rC-a9G" id="jcW-FI-wiQ"/>
+                <outlet property="locationLabel" destination="dmq-as-GQm" id="Fzc-NC-kR4"/>
                 <outlet property="myView" destination="q1S-u0-W0X" id="mT2-pw-9ic"/>
                 <outlet property="ownerName" destination="IDL-PW-wy2" id="8VS-xY-7J8"/>
                 <outlet property="ownerProfilePicture" destination="s9t-jw-XZD" id="X60-8s-vlx"/>
+                <outlet property="viewToBorder" destination="q1S-u0-W0X" id="jD8-ob-uYR"/>
             </connections>
             <point key="canvasLocation" x="-2463.5" y="-3235"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="Group 38 Copy" width="29" height="16"/>
+        <image name="Icon_Pin" width="10" height="12"/>
         <image name="Line Copy 9" width="2" height="501"/>
         <image name="calendarIcon" width="12" height="13"/>
         <image name="img_placeholder_with_image" width="204" height="204"/>

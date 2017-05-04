@@ -11,7 +11,7 @@
 
 @implementation SAActivity
 
-- (instancetype)initWithName:(NSString *)name minimumPeople:(int)minimumPeople maximumPeople:(int)maximumPeople picture:(NSData *)picture AndActivityId:(CKRecordID *)activityId
+- (instancetype)initWithName:(NSString *)name minimumPeople:(int)minimumPeople maximumPeople:(int)maximumPeople picture:(NSData *)picture AndActivityId:(CKRecordID *)activityId andAuxiliarVerb:(NSString *)verb andPictureWhite:(NSData *)whitePicture
 {
     self = [super init];
     if (self) {
@@ -20,6 +20,8 @@
         _maximumPeople = maximumPeople;
         _activityId = activityId;
         _picture = picture;
+        _auxiliarVerb = verb;
+        _pictureWhite = whitePicture;
     }
     return self;
 }
@@ -30,6 +32,8 @@
     [aCoder encodeObject:[NSNumber numberWithInt:self.maximumPeople] forKey:@"maximumPeople"];
     [aCoder encodeObject:self.activityId forKey:@"activityId"];
     [aCoder encodeObject:self.picture forKey:@"picture"];
+    [aCoder encodeObject:self.auxiliarVerb forKey:@"auxiliarVerb"];
+    [aCoder encodeObject:self.pictureWhite forKey:@"pictureWhite"];
 }
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];
@@ -39,6 +43,8 @@
         _maximumPeople = (int)[aDecoder decodeObjectForKey:@"maximumPeople"];
         _activityId = [aDecoder decodeObjectForKey:@"activityId"];
         _picture = [aDecoder decodeObjectForKey:@"picture"];
+        _auxiliarVerb = [aDecoder decodeObjectForKey:@"auxiliarVerb"];
+        _pictureWhite = [aDecoder decodeObjectForKey:@"pictureWhite"];
     }
     return self;
 }

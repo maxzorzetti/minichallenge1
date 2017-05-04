@@ -28,7 +28,7 @@
 }
 
 
-- (instancetype)initWithName:(NSString *)name personId:(CKRecordID *)personId email:(NSString *)email telephone:(NSString *)telephone facebookId:(NSString *)facebookId andPhoto:(NSData *)photo andEvents:(NSArray<SAEvent *> *)events
+- (instancetype)initWithName:(NSString *)name personId:(CKRecordID *)personId email:(NSString *)email telephone:(NSString *)telephone facebookId:(NSString *)facebookId andPhoto:(NSData *)photo andEvents:(NSArray<SAEvent *> *)events andGender:(NSString *)gender
 {
     self = [super init];
     if (self) {
@@ -39,6 +39,7 @@
         _events = [[NSMutableArray alloc]initWithArray:events];
         _photo = photo;
         _facebookId = facebookId;
+        _gender = gender;
     }
     return self;
 }
@@ -53,6 +54,7 @@
         _events = [aDecoder decodeObjectForKey:@"events"];
         _photo = [aDecoder decodeObjectForKey:@"photo"];
         _facebookId = [aDecoder decodeObjectForKey:@"facebookId"];
+        _gender = [aDecoder decodeObjectForKey:@"gender"];
     }
     return self;
 }
@@ -65,6 +67,7 @@
     [aCoder encodeObject:self.events forKey:@"events"];
     [aCoder encodeObject:self.photo forKey:@"photo"];
     [aCoder encodeObject:self.facebookId forKey:@"facebookId"];
+    [aCoder encodeObject:self.gender forKey:@"gender"];
 }
 
 + (void)saveToUserDefaults:(SAPerson *)person{
@@ -82,7 +85,7 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-	SAPerson *newPerson = [[SAPerson alloc] initWithName:[self.name copy] personId:[self.personId copyWithZone:zone] email:[self.email copyWithZone:zone] telephone:[self.telephone copyWithZone:zone] facebookId:[self.facebookId copyWithZone:zone] andPhoto:self.photo andEvents:self.events];
+    SAPerson *newPerson = [[SAPerson alloc] initWithName:[self.name copy] personId:[self.personId copyWithZone:zone] email:[self.email copyWithZone:zone] telephone:[self.telephone copyWithZone:zone] facebookId:[self.facebookId copyWithZone:zone] andPhoto:self.photo andEvents:self.events andGender:self.gender];
 	
 	newPerson.interests = self.interests;
 	

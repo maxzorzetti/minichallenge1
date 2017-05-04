@@ -10,17 +10,20 @@
 #import "SAProfileViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
-//#import <UNIRest.h>
-//#import "FBSDKLoginButton.h"
+#import <UIKit/UIKit.h>
+#import "SAPerson.h"
+#import "SAActivity.h"
+#import "SACollectionButtonViewCell.h"
 
 @interface SAProfileViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *profilePhoto;
-@property (weak, nonatomic) IBOutlet UILabel *userInfo;
-
-
-
-
-
+@property (weak, nonatomic) IBOutlet UILabel *userName;
+@property (weak, nonatomic) IBOutlet UILabel *genderLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *genderIcon;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIView *viewToBorder;
+@property (nonatomic) SAPerson *user;
 
 @end
 
@@ -28,46 +31,56 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if ( [FBSDKAccessToken currentAccessToken]) {
-        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
-                                      initWithGraphPath:@"/me"
-                                      parameters:@{ @"fields": @"name, picture, friends",}
-                                      HTTPMethod:@"GET"];
-        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-            
-            if ([error.userInfo[FBSDKGraphRequestErrorGraphErrorCode] isEqual:@200]) {
-                NSLog(@"permission error");
-            }
-            else
-            {
-                //NSLog(@"fetched user:%@", result );
-                //NSLog(@"Nome: %@", [result objectForKey:@"name"]);
-                _userInfo.text =[result objectForKey:@"name"];
-               // NSLog(@"Facebook id: %@", [result objectForKey:@"id"]);
-                _userInfo.text = [_userInfo.text stringByAppendingString:[result objectForKey:@"id"]];
-                
-                for (id person in [[result objectForKey:@"friends"]objectForKey:@"data"] )
-                {
-                    //NSLog(@"%@", [person objectForKey:@"name"]);
-                    //_userInfo.text = [_userInfo.text stringByAppendingString:@"\r"];
-                    _userInfo.text = [_userInfo.text stringByAppendingString:[person objectForKey:@"name"]];
-                    
-                    
-                }
-                
-                NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
-                _profilePhoto.image = [UIImage imageWithData: imageData];
-                
-                
-            }
-            
-            // FBSDKLoginResult.declinedPermissions
-            
-        }];
-        
-        
-        
+    
+    NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];
+    self.user = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
+
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
+    [self.collectionView registerNib:[UINib nibWithNibName:@"SACollectionButtonViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
+    
+    self.viewToBorder.layer.borderColor = [UIColor colorWithRed:119/255.0 green:90/255.0 blue:218/255.0 alpha:1.0].CGColor;
+    self.viewToBorder.layer.borderWidth = 1.0;
+    self.viewToBorder.layer.cornerRadius = 8.0;
+    
+    if (self.user.photo) {
+        self.profilePhoto.image = [UIImage imageWithData:self.user.photo];
+        self.profilePhoto.layer.cornerRadius = self.profilePhoto.frame.size.height/2;
+        self.profilePhoto.layer.masksToBounds = YES;
+        self.profilePhoto.layer.borderWidth = 0;
     }
+    self.userName.text = self.user.name;
+    
+    if (self.user.gender) {
+        self.genderLabel.text = self.user.gender;
+        
+        if ([self.user.gender isEqualToString:@"Female"]) {
+            self.genderIcon.image = [UIImage imageNamed:@"Icon_Female"];
+        }else{
+            self.genderIcon.image = [UIImage imageNamed:@"Icon_Male"];
+        }
+    }
+    
+//    //make locationReadable
+//    CLGeocoder *geocoder = [[CLGeocoder alloc]init];
+//    [geocoder reverseGeocodeLocation:self.cellEvent.location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+//        if (!error) {
+//            CLPlacemark *placemark = [placemarks objectAtIndex:0];
+//            self.locationLabel.text = [NSString stringWithFormat:@"%@, %@",placemark.subLocality ,placemark.locality];
+//        }
+//    }];
+    
+    
+    
+    //TODO COMMENT THIS LINES ONCE INTERESTS ARE BEING SET
+    NSMutableArray *arrayOfActivities = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"ArrayOfDictionariesContainingTheActivities"];
+    NSMutableArray<SAActivity *> *activities = [NSMutableArray new];
+    for (NSDictionary *activityDic in arrayOfActivities) {
+        SAActivity *activity = [NSKeyedUnarchiver unarchiveObjectWithData:activityDic[@"activityData"]];
+        [activities addObject: activity];
+    }
+    
+    self.user.interests = activities;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -75,14 +88,26 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    SACollectionButtonViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    
+    SAActivity *activity = self.user.interests[indexPath.item];
+    cell.iconImageView.image = [UIImage imageWithData:activity.picture];
+    cell.titleLabel.text = activity.name;
+    
+    return cell;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
+    NSInteger numberOfItems;
+    switch (section) {
+        case 0: numberOfItems = self.user.interests.count; break;
+        default: numberOfItems = 0;
+    }
+    return numberOfItems;
+}
+
 
 @end

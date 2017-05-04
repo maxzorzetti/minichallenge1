@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SAEventListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface SAEventListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIViewControllerPreviewingDelegate>
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 

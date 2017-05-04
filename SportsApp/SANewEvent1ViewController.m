@@ -44,6 +44,10 @@
 		[activities addObject: activity];
 	}
 	
+	[activities sortUsingComparator:^NSComparisonResult(SAActivity*  _Nonnull obj1, SAActivity*  _Nonnull obj2) {
+		return [obj1.name compare:obj2.name];
+	}];
+	
 	self.activities = activities;
 	
 	self.party = [SAParty new];
@@ -59,7 +63,11 @@
 	SACollectionButtonViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
 	
 	SAActivity *activity = self.activities[indexPath.item];
-	cell.iconImageView.image = [UIImage imageWithData:activity.picture];
+	UIImage *image = [UIImage imageWithData:activity.picture];
+	cell.iconImageView.image = image;//[UIImage imageWithData:activity.picture];
+	cell.unselectedImage = image;//[UIImage imageWithData:activity.picture];
+	cell.selectedImage = [UIImage imageWithData:activity.pictureWhite];
+	
 	cell.titleLabel.text = activity.name;
 	
 	return cell;
@@ -76,6 +84,8 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+	SACollectionButtonViewCell *cell = (SACollectionButtonViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+	[cell setCustomSelection:YES];
 	
 	self.selectedActivityIndexPath = indexPath;
 	self.party.activity = self.activities[indexPath.item];
@@ -84,6 +94,9 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+	
+	SACollectionButtonViewCell *cell = (SACollectionButtonViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+	[cell setCustomSelection:NO];
 	
 	self.party.activity = nil;
 	self.selectedActivityIndexPath = nil;
@@ -109,6 +122,8 @@
 
 - (IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
 	[self.activitiesCollectionView deselectItemAtIndexPath:self.selectedActivityIndexPath animated:NO];
+	SACollectionButtonViewCell *cell = (SACollectionButtonViewCell *)[self.activitiesCollectionView cellForItemAtIndexPath:self.selectedActivityIndexPath];
+	[cell setCustomSelection:NO];
 }
 
 //

@@ -20,6 +20,12 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *eventNameTextField;
 
+@property (weak, nonatomic) IBOutlet NMRangeSlider *capacitySlider;
+//@property NMRangeSlider *slider;
+@property (weak, nonatomic) IBOutlet UILabel *minimumCapacityLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *maximumCapacityLabel;
+
 @end
 
 @implementation SANewEvent5ViewController
@@ -29,6 +35,20 @@
 
 	self.genderCollectionView.dataSource = self;
 	self.genderCollectionView.delegate = self;
+	
+	NSLog(@"MAXIMUMPEOPLE %d", self.party.activity.maximumPeople);
+	
+	self.capacitySlider.stepValueContinuously = YES;
+	self.capacitySlider.stepValue = 1;
+	self.capacitySlider.minimumValue = 1;
+	self.capacitySlider.lowerValue = 1;
+	self.capacitySlider.maximumValue = 10;
+	self.capacitySlider.upperValue = 10;
+	
+	self.capacitySlider.tintColor = [UIColor colorWithRed:50/255.0 green:226/255.0 blue:196/255.0 alpha:1];
+	
+	self.capacitySlider.minimumRange = 1;
+	
 
 	[self.genderCollectionView registerNib:[UINib nibWithNibName:@"SACollectionButtonViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
 	
@@ -41,21 +61,34 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)sliderChanged:(NMRangeSlider *)sender {
+	self.minimumCapacityLabel.text = [NSNumber numberWithFloat: sender.lowerValue].stringValue;
+	self.maximumCapacityLabel.text = [NSNumber numberWithFloat: sender.upperValue].stringValue;
+}
+
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-	NSString *genderName;
-	UIImage *genderImage;
-	switch (indexPath.item) {
-		case 0: genderName = @"Female"; genderImage = [UIImage imageNamed:@"ic_female"];
-			break;
-		case 1: genderName = @"Male"; genderImage = [UIImage imageNamed:@"ic_male"];
-			break;
-		case 2: genderName = @"Mixed"; genderImage = [UIImage imageNamed:@"ic_mixed"];
-	}
-	
 	SACollectionButtonViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
 	
-	cell.titleLabel.text = genderName;
-	cell.iconImageView.image = genderImage;
+	switch (indexPath.item) {
+		case 0:
+			cell.titleLabel.text = @"Female";
+			cell.unselectedImage = [UIImage imageNamed:@"Icon_Female"];
+			cell.selectedImage = [UIImage imageNamed:@"Icon_Female_W"];
+			cell.iconImageView.image = cell.unselectedImage;
+			break;
+		case 1:
+			cell.titleLabel.text = @"Male";
+			cell.unselectedImage = [UIImage imageNamed:@"Icon_Male"];
+			cell.selectedImage = [UIImage imageNamed:@"Icon_Male_W"];
+			cell.iconImageView.image = cell.unselectedImage;
+			break;
+		case 2:
+			cell.titleLabel.text = @"Mixed";
+			cell.unselectedImage = [UIImage imageNamed:@"Icon_Mixed"];
+			cell.selectedImage = [UIImage imageNamed:@"Icon_Mixed_W"];
+			cell.iconImageView.image = cell.unselectedImage;
+	}
+
 
 	return cell;
 }
@@ -66,11 +99,15 @@
 		case 1: self.party.gender = SAMaleGender; break;
 		case 2: self.party.gender = SAMixedGender; break;
 	}
+	
+	SACollectionButtonViewCell *cell = (SACollectionButtonViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+	[cell setCustomSelection:YES];
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-	//self.selectedGender = nil;
 	self.party.gender = SANoGender;
+	SACollectionButtonViewCell *cell = (SACollectionButtonViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+	[cell setCustomSelection:NO];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -86,8 +123,8 @@
 - (void)processPreferencesTextView {
 	// Insert preferences in the text
 	NSMutableString *rawText = [[NSMutableString alloc] initWithString:self.preferencesTextView.text];
-	[rawText replaceOccurrencesOfString:@"<activity>" withString:self.party.activity.name options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
-	[rawText replaceOccurrencesOfString:@"<schedule>" withString:self.party.schedule options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
+	[rawText replaceOccurrencesOfString:@"<activity>" withString: [[NSString alloc] initWithFormat:@"%@ %@", self.party.activity.auxiliarVerb, self.party.activity.name.lowercaseString] options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
+	[rawText replaceOccurrencesOfString:@"<schedule>" withString:self.party.schedule.lowercaseString options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
 	NSString *peopleType;
 	switch (self.party.peopleType) {
 		case 0: peopleType = @"my friends"; break;
@@ -95,14 +132,14 @@
 		default: peopleType = @"ERROR"; break;
 	}
 	[rawText replaceOccurrencesOfString:@"<people>" withString:peopleType options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
-	[rawText replaceOccurrencesOfString:@"<location>" withString:self.party.locationRadius.stringValue options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
+	[rawText replaceOccurrencesOfString:@"<location>" withString: [[NSString alloc] initWithFormat:@"%@ km", self.party.locationRadius.stringValue] options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
 
 	
 	// Get preferences indexes
-	NSRange selectedActivityRange = [rawText rangeOfString:self.party.activity.name];
-	NSRange selectedScheduleRange = [rawText rangeOfString:self.party.schedule];
+	NSRange selectedActivityRange = [rawText rangeOfString:[[NSString alloc] initWithFormat:@"%@", self.party.activity.name.lowercaseString]];
+	NSRange selectedScheduleRange = [rawText rangeOfString:self.party.schedule.lowercaseString];
 	NSRange selectedPeopleTypeRange = [rawText rangeOfString:peopleType];
-	NSRange selectedLocationRadiusRange = [rawText rangeOfString:self.party.locationRadius.stringValue];
+	NSRange selectedLocationRadiusRange = [rawText rangeOfString:[[NSString alloc] initWithFormat:@"%@ km", self.party.locationRadius.stringValue]];
 	
 	// Update text (we do this so we don't lose the text's attributes)
 	self.preferencesTextView.text = rawText;
@@ -128,6 +165,11 @@
 	 if ([segue.identifier isEqualToString:@"newEvent5To6"]) {
 		 
 		 self.party.eventName = self.eventNameTextField.text;
+		 
+		 self.party.minParticipants = self.capacitySlider.lowerValue;
+		 self.party.maxParticipants = self.capacitySlider.upperValue;
+		 
+		 NSLog(@"%d", self.party.minParticipants);
 		 
 		 SANewEvent6ViewController *newEvent6 = segue.destinationViewController;
 		 newEvent6.party = [self.party copy];

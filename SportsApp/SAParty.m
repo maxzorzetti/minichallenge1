@@ -78,6 +78,9 @@
 	newParty.invitedPeople = self.invitedPeople;
 	newParty.locationRadius = [self.locationRadius copyWithZone:zone];
 	newParty.gender = self.gender;
+	newParty.eventName = [self.eventName copy];
+	newParty.minParticipants = self.minParticipants;
+	newParty.maxParticipants = self.maxParticipants;
 	
 	return newParty;
 }
