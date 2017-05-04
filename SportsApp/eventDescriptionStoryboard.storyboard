@@ -334,20 +334,36 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="74" id="VAM-D6-ibW"/>
                                         </constraints>
-                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Mqx-oy-kht">
-                                            <size key="itemSize" width="72" height="72"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Mqx-oy-kht">
+                                            <size key="itemSize" width="64" height="72"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="friendCell" id="HRR-B7-Jz9" customClass="SAFriendCollectionViewCell">
-                                                <rect key="frame" x="0.0" y="0.0" width="72" height="72"/>
+                                                <rect key="frame" x="0.0" y="1" width="64" height="72"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="0.0" y="0.0" width="72" height="72"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="64" height="72"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sp8-Wb-Guo">
+                                                            <rect key="frame" x="8" y="8" width="56" height="56"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="56" id="kAm-tI-t1y"/>
+                                                                <constraint firstAttribute="width" constant="56" id="ord-lz-utE"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
                                                 </view>
+                                                <constraints>
+                                                    <constraint firstItem="Sp8-Wb-Guo" firstAttribute="top" secondItem="HRR-B7-Jz9" secondAttribute="topMargin" id="V1N-Nf-20l"/>
+                                                    <constraint firstItem="Sp8-Wb-Guo" firstAttribute="leading" secondItem="HRR-B7-Jz9" secondAttribute="leadingMargin" id="woL-R4-Rhj"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="profileImageBruno" destination="Sp8-Wb-Guo" id="Qgu-zo-cdG"/>
+                                                </connections>
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
@@ -409,6 +425,7 @@
                         <outlet property="mainView" destination="Cs1-if-hm1" id="C8b-ej-lKM"/>
                         <outlet property="ownerName" destination="guI-5D-XkU" id="gYZ-SU-bS7"/>
                         <outlet property="ownerPhoto" destination="WO3-Gk-yoM" id="oWv-03-Qb4"/>
+                        <outlet property="progressBar" destination="UTO-aI-Ym2" id="SSw-DV-V0J"/>
                         <outlet property="progressView" destination="6As-GN-hlS" id="jsO-T3-nNb"/>
                         <outlet property="shiftLabel" destination="YB8-ga-nQm" id="efG-j7-vUS"/>
                     </connections>

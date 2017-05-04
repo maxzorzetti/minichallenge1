@@ -24,7 +24,8 @@
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     
-    
+    self.progressView.progress = (float)[self.currentEvent.participants count];
+    self.eventNumberParticipants.text = [NSString stringWithFormat:@"%ld,%@", (long)[self.currentEvent.participants count], self.currentEvent.minPeople];
     
     _arrayOfParticipants = [NSMutableArray arrayWithArray:self.currentEvent.participants.allObjects];
     
@@ -139,7 +140,6 @@
     {
         UIImage *backgroungImage = [UIImage imageNamed:@"Rectangle Copy 6"];
         [_joinButton setBackgroundImage:backgroungImage forState:UIControlStateNormal];
-        
     }
     
 }
@@ -195,7 +195,13 @@
     SAFriendCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"friendCell" forIndexPath:indexPath];
     
     SAPerson *friend = self.arrayOfParticipants[indexPath.item];
-    cell.profilePictureImageView.image = [UIImage imageWithData:friend.photo];
+    
+    if (friend.photo) {
+        cell.profileImageBruno.image = [UIImage imageWithData:friend.photo];
+    }else{
+        cell.profileImageBruno.image = [UIImage imageNamed:@"img_placeholder.png"];
+    }
+    
     
     return cell;
 }
@@ -213,7 +219,8 @@
 
 - (void)updateCollectionViewWithParticipants:(NSArray *)participants{
     [self.currentEvent replaceParticipants:participants];
-    
+    self.arrayOfParticipants = [NSMutableArray arrayWithArray:participants];
+
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.collectionView reloadData];
     });
