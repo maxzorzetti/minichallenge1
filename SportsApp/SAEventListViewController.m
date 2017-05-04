@@ -153,7 +153,7 @@
     
     NSDate *today = [NSDate date];
     
-    if([cell.cellEvent.participants count] >= [cell.cellEvent.minPeople unsignedIntegerValue] || cell.cellEvent.date > today){
+    if([cell.cellEvent.participants count] >= [cell.cellEvent.minPeople integerValue] || [cell.cellEvent.date earlierDate:today]){
         [self performSegueWithIdentifier:@"descriptionEventSegue" sender:cell];
     }else{
         [self performSegueWithIdentifier:@"descriptionNotClosedEventSegue" sender:cell];
@@ -162,7 +162,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(SANewsFeedTableViewCell *)sender{
     
-    if ([sender.cellEvent.participants count] >= [sender.cellEvent.minPeople unsignedIntegerValue] || sender.cellEvent.date > [NSDate date]){
+    if ([sender.cellEvent.participants count] >= [sender.cellEvent.minPeople integerValue] || [sender.cellEvent.date earlierDate: [NSDate date]]){
         ClosedEventDescriptionViewController *destView = segue.destinationViewController;
         destView.event = sender.cellEvent;
     }else{

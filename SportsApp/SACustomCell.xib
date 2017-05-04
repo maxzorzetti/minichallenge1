@@ -144,6 +144,7 @@
                 <outlet property="myView" destination="q1S-u0-W0X" id="mT2-pw-9ic"/>
                 <outlet property="ownerName" destination="IDL-PW-wy2" id="8VS-xY-7J8"/>
                 <outlet property="ownerProfilePicture" destination="s9t-jw-XZD" id="X60-8s-vlx"/>
+                <outlet property="viewToBorder" destination="q1S-u0-W0X" id="jD8-ob-uYR"/>
             </connections>
             <point key="canvasLocation" x="-2463.5" y="-3235"/>
         </tableViewCell>
