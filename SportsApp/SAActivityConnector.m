@@ -48,7 +48,7 @@
     
     NSData *icon = [NSData dataWithContentsOfURL:[assetPhoto fileURL]];
     
-    SAActivity *activity = [[SAActivity alloc]initWithName:activityRecord[@"name"] minimumPeople:(int)activityRecord[@"minimumPeople"] maximumPeople:(int)activityRecord[@"maximumPeople"] picture:icon AndActivityId:activityRecord.recordID];
+    SAActivity *activity = [[SAActivity alloc]initWithName:activityRecord[@"name"] minimumPeople:(int)activityRecord[@"minimumPeople"] maximumPeople:(int)activityRecord[@"maximumPeople"] picture:icon AndActivityId:activityRecord.recordID  andAuxiliarVerb:activityRecord[@"auxiliarVerb"]];
     return activity;
 }
 

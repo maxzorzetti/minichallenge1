@@ -207,7 +207,7 @@
     }
     //USE placeholder activity picture
     if (activityToSetToEvent == nil) {
-        activityToSetToEvent = [[SAActivity alloc]initWithName:nil minimumPeople:nil maximumPeople:nil picture:[NSData dataWithContentsOfFile:@"img_placeholder.png"] AndActivityId:activityId];
+        activityToSetToEvent = [[SAActivity alloc]initWithName:nil minimumPeople:nil maximumPeople:nil picture:[NSData dataWithContentsOfFile:@"img_placeholder.png"] AndActivityId:activityId  andAuxiliarVerb:nil];
     }
     
     //CHECK IF OWNER IS IN NSUserdefaults
