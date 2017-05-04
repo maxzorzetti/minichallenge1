@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -263,7 +263,7 @@
         <!--View Controller-->
         <scene sceneID="HXf-Zu-Pw8">
             <objects>
-                <viewController storyboardIdentifier="view1" id="8RY-Lz-m2c" customClass="SAViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="view1" id="8RY-Lz-m2c" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EDd-QS-Ryd"/>
                         <viewControllerLayoutGuide type="bottom" id="CDX-gK-lPZ"/>
@@ -309,9 +309,6 @@
                                 <rect key="frame" x="29" y="366" width="317" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button" image="login_button"/>
-                                <connections>
-                                    <action selector="signInButtonPressed:" destination="8RY-Lz-m2c" eventType="touchUpInside" id="Ca0-H3-zqS"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Or Log in using" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v0i-3z-WpS">
                                 <rect key="frame" x="129" y="533" width="116" height="21"/>
@@ -383,11 +380,7 @@
                     <connections>
                         <outlet property="answer1" destination="DEA-Zr-Ibl" id="rBB-PG-JUs"/>
                         <outlet property="answer2" destination="D6q-5J-7Hd" id="Og7-Fa-wJT"/>
-                        <outlet property="emailField" destination="0NE-gU-Hbv" id="YsG-Ej-IwP"/>
-                        <outlet property="firstNameField" destination="ekp-ab-me2" id="zsP-JO-J4U"/>
-                        <outlet property="lastNameField" destination="lcB-WI-aFr" id="drZ-Xv-lyF"/>
                         <outlet property="myLabel" destination="xeZ-QE-wP7" id="SC2-id-F0W"/>
-                        <outlet property="passwordField" destination="fbY-N4-H3d" id="iU1-us-qyu"/>
                         <segue destination="FCe-wx-uJV" kind="show" identifier="mySegue" id="ddk-gm-Tf2"/>
                     </connections>
                 </viewController>
@@ -767,6 +760,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JT5-DV-8dK"/>
-        <segue reference="abD-hw-j3m"/>
+        <segue reference="zEX-P7-qiO"/>
     </inferredMetricsTieBreakers>
 </document>
