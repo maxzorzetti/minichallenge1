@@ -50,12 +50,16 @@
         self.profilePhoto.layer.borderWidth = 0;
     }
     self.userName.text = self.user.name;
-    self.genderIcon.image = [UIImage imageNamed:@"icon_pin"];
-    self.genderLabel.text = @"LocationGender";
     
-    
-    
-    
+    if (self.user.gender) {
+        self.genderLabel.text = self.user.gender;
+        
+        if ([self.user.gender isEqualToString:@"Female"]) {
+            self.genderIcon.image = [UIImage imageNamed:@"Icon_Female"];
+        }else{
+            self.genderIcon.image = [UIImage imageNamed:@"Icon_Male"];
+        }
+    }
     
     //TODO COMMENT THIS LINES ONCE INTERESTS ARE BEING SET
     NSMutableArray *arrayOfActivities = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"ArrayOfDictionariesContainingTheActivities"];

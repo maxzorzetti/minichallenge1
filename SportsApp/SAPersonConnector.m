@@ -202,6 +202,7 @@
     NSString *email = [NSString new];
     NSString *telephone = [NSString new];
     NSString *facebookId = [NSString new];
+    NSString *gender = [NSString new];
     
     if (personRecord[@"name"]) {
         name = personRecord[@"name"];
@@ -215,8 +216,11 @@
     if (personRecord[@"facebookId"]) {
         facebookId = personRecord[@"facebookId"];
     }
+    if (personRecord[@"gender"]) {
+        gender = personRecord[@"gender"];
+    }
     
-    SAPerson *person = [[SAPerson alloc]initWithName:name personId:personId email:email telephone:telephone facebookId:facebookId andPhoto:photo andEvents:nil];
+    SAPerson *person = [[SAPerson alloc]initWithName:name personId:personId email:email telephone:telephone facebookId:facebookId andPhoto:photo andEvents:nil andGender:gender];
     return person;
 }
 
