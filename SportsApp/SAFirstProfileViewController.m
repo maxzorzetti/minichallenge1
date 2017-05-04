@@ -63,9 +63,13 @@
     
     personRecord[@"email"] = _email;
     personRecord[@"telephone"] = _txtPhoneNumber.text;
+    personRecord[@"name"] = fullName;
     
     identityRecord[@"adapter"] = @"appLogin";
     identityRecord[@"hash"] = [self sha1:_password];
+    
+    
+    
     
     [personRecord setObject:_email forKey:@"email"];
     
