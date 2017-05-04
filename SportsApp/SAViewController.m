@@ -18,6 +18,7 @@
 #import "SAPerson.h"
 #import "SAUser.h"
 #import "SAPersonConnector.h"
+#import "SAFirstProfileViewController.h"
 
 
 @interface SAViewController ()
@@ -29,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *firstNameField;
 
 
+@property (weak, nonatomic) IBOutlet UIButton *btnJoinUs;
 
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 
@@ -47,7 +49,7 @@
 @property NSString *firstName;
 @property NSString *lastName;
 @property NSString *fullName;
-@property NSString *answer;
+@property NSString *password;
 
 
 @property NSString *email;
@@ -67,11 +69,11 @@
 
 
 
-- (IBAction)finishedSignIn:(UIButton *)sender {
-    
-    _answer = [[NSString alloc] initWithString:  _answer1.text];
-    _email = [[NSString alloc] initWithString:  _emailField.text];
-}
+//- (IBAction)finishedSignIn:(UIButton *)sender {
+//    
+//    _answer = [[NSString alloc] initWithString:  _answer1.text];
+//    _email = [[NSString alloc] initWithString:  _emailField.text];
+//}
 
 
 
@@ -94,48 +96,30 @@
 //    
 //}
 
-- (IBAction)signInButtonPressed:(UIButton *)sender {
-    
-    NSString *question1 = @"What is the name of your first pet?";
-    NSString *question2 = @"Which country would you like to visit most?";
-    NSString *question3 = @"What is the name of your grandmother?";
-    
-    NSArray <NSString *> *arrayQuestions = [[NSArray alloc] initWithObjects:question1, nil];
-    NSArray <NSString *> *arrayAnswers = [[NSArray alloc] init];
+
+
+- (IBAction)joinUsButtonPressed:(UIButton *)sender {
     
     
-    _questionNumber = 0;
-    _answer = nil;
-    _email = nil;
+    _email = [NSString stringWithFormat:@"%@", _emailField.text];
+    _password = [NSString stringWithFormat:@"%@", _passwordField.text];
     
-    _firstName = [NSString stringWithFormat:@"%@", _firstNameField.text];
-    _lastName = [NSString stringWithFormat:@"%@", _lastNameField.text];
     
-    _fullName = [NSString stringWithFormat:@"%@ %@", _firstName, _lastName];
     
     
     CKContainer *container = [CKContainer defaultContainer];
     CKDatabase *publicDatabase = [container publicCloudDatabase];
     
     CKRecord *personRecord = [[CKRecord alloc]initWithRecordType:@"SAPerson"];
-    CKRecord *identityRecord = [[CKRecord alloc]initWithRecordType:@"SAIdentity"];
     
     
-    _email = _emailField.text;
-    personRecord[@"name"] = _fullName;
-    personRecord[@"email"] = _emailField.text;
+    personRecord[@"email"] = _email;
+    
     
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"email = %@", _email];
     CKQuery *query = [[CKQuery alloc] initWithRecordType:@"SAPerson" predicate:predicate];
     
-    
-    identityRecord[@"adapter"] = @"appLogin";
-    
-    
-    
-    
-    identityRecord[@"hash"] = [self sha1:_passwordField.text];
     
     
     [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results1, NSError *error) {
@@ -143,64 +127,140 @@
             NSLog(@"error: %@",error.localizedDescription);
         }
         else {
-            //if (![results firstObject]) {
+            
             if ([results1 count] == 0) //nao tem registro com aquele nome
             {
                 
-                
-                if (_questionNumber == 1 )
-                    [personRecord setObject:arrayQuestions forKey:@"answers"];
-                
-                
-                //ajeitar isso pra answers
-                
-                [personRecord setObject:arrayQuestions forKey:@"questions"];
-                [personRecord setObject:_emailField.text forKey:@"email"];
-                
-                
-                [publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
-                    if (error) {
-                        NSLog(@"Record Party not created. Error: %@", error.description);
-                    }
-                    else{
-                        CKReference *ref = [[CKReference alloc]initWithRecordID:personRecord.recordID action:CKReferenceActionNone];
-                        identityRecord[@"userId"] = ref;
-                        
-                        NSLog(@"Record Person created");
-                        [publicDatabase saveRecord:identityRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
-                            if (error) {
-                                NSLog(@"Record Identity not created. Error: %@", error.description);
-                            }
-                            else
-                                NSLog(@"Record Identity created. New person in the app.");
-                                SAPerson *person = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:nil];
-                                
-                                [SAUser saveToUserDefaults:person];
-                            
-                                //saves user login info in userdefaults
-                                NSDictionary *dicLoginInfo = @{
-                                                               @"username" : person.name,
-                                                               @"password" : _passwordField.text
-                                                               };
-                                [[NSUserDefaults standardUserDefaults] setObject:dicLoginInfo forKey:@"loginInfo"];
-                            
-                                //sets current user
-                                SAUser *obj = [SAUser new];
-                                [obj setCurrentPerson:person];
-                            
-                        }];
-                    }
-                    
-                }];
-            }
-            else{
-                NSLog(@"This username already exists");
+                [self performSegueWithIdentifier:@"logInSegue" sender:self];
                 
             }
-        }
-    }];
+            
+            else
+                NSLog(@"Pessoa já existe. Lembrar de colocar isso na tela");
     
 }
+    }];
+}
+
+
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(SAViewController *)sender{
+    
+    
+    if ([segue.identifier isEqualToString: @"logInSegue"]) {
+        
+        SAFirstProfileViewController *destView = segue.destinationViewController;
+        destView.password= sender.password;
+        destView.email= sender.password;
+    }}
+
+
+
+
+//- (IBAction)signInButtonPressed:(UIButton *)sender {
+//    
+//    //NSString *question1 = @"What is the name of your first pet?";
+//   // NSString *question2 = @"Which country would you like to visit most?";
+//    //NSString *question3 = @"What is the name of your grandmother?";
+//    
+//    //NSArray <NSString *> *arrayQuestions = [[NSArray alloc] initWithObjects:question1, nil];
+//    //NSArray <NSString *> *arrayAnswers = [[NSArray alloc] init];
+//    
+//    
+//    //_questionNumber = 0;
+//    //_answer = nil;
+//    _email = [NSString stringWithFormat:@"%@", _emailField.text];
+//    _password = [NSString stringWithFormat:@"%@", _passwordField.text];
+//    
+//    //_firstName = [NSString stringWithFormat:@"%@", _firstNameField.text];
+//    //_lastName = [NSString stringWithFormat:@"%@", _lastNameField.text];
+//    
+//    //_fullName = [NSString stringWithFormat:@"%@ %@", _firstName, _lastName];
+//    
+//    
+//    CKContainer *container = [CKContainer defaultContainer];
+//    CKDatabase *publicDatabase = [container publicCloudDatabase];
+//    
+//    CKRecord *personRecord = [[CKRecord alloc]initWithRecordType:@"SAPerson"];
+//    CKRecord *identityRecord = [[CKRecord alloc]initWithRecordType:@"SAIdentity"];
+//    
+//    
+//    //_email = _emailField.text;
+//    //personRecord[@"name"] = _fullName;
+//    personRecord[@"email"] = _emailField.text;
+//    
+//    
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"email = %@", _email];
+//    CKQuery *query = [[CKQuery alloc] initWithRecordType:@"SAPerson" predicate:predicate];
+//    
+//    
+//    identityRecord[@"adapter"] = @"appLogin";
+//    identityRecord[@"hash"] = [self sha1:_passwordField.text];
+//    
+//    
+//    [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results1, NSError *error) {
+//        if (error) {
+//            NSLog(@"error: %@",error.localizedDescription);
+//        }
+//        else {
+//            //if (![results firstObject]) {
+//            if ([results1 count] == 0) //nao tem registro com aquele nome
+//            {
+//                
+//                
+////                if (_questionNumber == 1 )
+////                    [personRecord setObject:arrayQuestions forKey:@"answers"];
+////                
+////                
+//                //ajeitar isso pra answers
+//                
+//               // [personRecord setObject:arrayQuestions forKey:@"questions"];
+//                [personRecord setObject:_emailField.text forKey:@"email"];
+//                
+//                
+//                [publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
+//                    if (error) {
+//                        NSLog(@"Record Party not created. Error: %@", error.description);
+//                    }
+//                    else{
+//                        CKReference *ref = [[CKReference alloc]initWithRecordID:personRecord.recordID action:CKReferenceActionNone];
+//                        identityRecord[@"userId"] = ref;
+//                        
+//                        NSLog(@"Record Person created");
+//                        [publicDatabase saveRecord:identityRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
+//                            if (error) {
+//                                NSLog(@"Record Identity not created. Error: %@", error.description);
+//                            }
+//                            else
+//                                NSLog(@"Record Identity created. New person in the app.");
+//                                SAPerson *person = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:nil];
+//                                
+//                                [SAUser saveToUserDefaults:person];
+//                            
+//                                //saves user login info in userdefaults
+//                                NSDictionary *dicLoginInfo = @{
+//                                                               @"username" : person.name,
+//                                                               @"password" : _passwordField.text
+//                                                               };
+//                                [[NSUserDefaults standardUserDefaults] setObject:dicLoginInfo forKey:@"loginInfo"];
+//                            
+//                                //sets current user
+//                                SAUser *obj = [SAUser new];
+//                                [obj setCurrentPerson:person];
+//                            
+//                        }];
+//                    }
+//                    
+//                }];
+//            }
+//            else{
+//                NSLog(@"This username already exists");
+//                
+//            }
+//        }
+//    }];
+//    
+//}
 
 
 
@@ -448,9 +508,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    	
+    [self changeJoinUsButton];
+    [self changeUserTextField];
+    [self changePwdTextField];
     
-    
-    [[FBSDKLoginManager new] logOut];
+    //[[FBSDKLoginManager new] logOut];
     // Do any additional setup after loading the view, typically from a nib.
     
     //Checa-se se o usuario ja aceitou os termos de uso
@@ -481,6 +543,37 @@
     
 }
 
+- (void) changeJoinUsButton{
+    _btnJoinUs.layer.cornerRadius = 7;
+}
+
+- (void) changeUserTextField{
+    UITextField *textField = _emailField;
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:
+                              CGRectMake(1, 1, _emailField.frame.size.width, _emailField.frame.size.height-1) byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(7.0, 7.0)];
+    
+    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath];
+}
+
+- (void) changePwdTextField{
+    UITextField *textField = _passwordField;
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:
+                              CGRectMake(1, 0, textField.frame.size.width, textField.frame.size.height-1) byRoundingCorners: UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(7.0, 7.0)];
+    
+    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath];
+}
+
+- (void) changeTextFieldBorderWithField: (UITextField *)textField andMaskPath:(UIBezierPath *)maskPath{
+    
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = textField.bounds;
+    maskLayer.path = maskPath.CGPath;
+    maskLayer.lineWidth = 1.0;
+    maskLayer.strokeColor = [UIColor colorWithRed:50.0f/255.0f green:226.0f/255.0f blue:196.0f/255.0f alpha:1.0f].CGColor;
+    maskLayer.fillColor = [UIColor clearColor].CGColor;
+    
+    [textField.layer addSublayer:maskLayer];
+}
 
 
 
