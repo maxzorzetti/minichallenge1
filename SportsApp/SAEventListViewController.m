@@ -138,13 +138,19 @@
 #pragma segue perfoming methods
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     SANewsFeedTableViewCell *cell = [self.tableWithEvents cellForRowAtIndexPath:indexPath];
-    [self performSegueWithIdentifier:@"descriptionEventSegue" sender:cell];
+    
+    NSDate *today = [NSDate date];
+    
+    if([cell.cellEvent.participants count] >= [cell.cellEvent.minPeople unsignedIntegerValue] || cell.cellEvent.date > today){
+        [self performSegueWithIdentifier:@"descriptionEventSegue" sender:cell];
+    }else{
+        [self performSegueWithIdentifier:@"descriptionNotClosedEventSegue" sender:cell];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(SANewsFeedTableViewCell *)sender{
     
-    //if ([sender.cellEvent.participants count] >= [sender.cellEvent.minPeople unsignedIntegerValue])
-    if(1==1){
+    if ([sender.cellEvent.participants count] >= [sender.cellEvent.minPeople unsignedIntegerValue] || sender.cellEvent.date > [NSDate date]){
         ClosedEventDescriptionViewController *destView = segue.destinationViewController;
         destView.event = sender.cellEvent;
     }else{

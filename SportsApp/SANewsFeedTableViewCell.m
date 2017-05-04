@@ -57,7 +57,7 @@
     [dateFormat setDateFormat:@"dd/MM/yyyy"];
     self.eventDate.text= [dateFormat stringFromDate:event.date];
     
-    self.eventName.text = event.name;
+    self.eventName.text = event.activity.name;
     self.ownerName.text = event.owner.name;
     //self.eventDate.text = [NSString stringWithFormat:@"%@",event.date];
     

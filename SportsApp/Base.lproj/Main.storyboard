@@ -589,11 +589,12 @@
                         <outlet property="segmentControl" destination="oRQ-zt-i5r" id="dKL-3F-tOE"/>
                         <outlet property="tableWithEvents" destination="16p-Cd-vkY" id="Ho4-vE-p0R"/>
                         <segue destination="i5n-R9-S2M" kind="show" identifier="descriptionEventSegue" id="XaM-eZ-DVw"/>
+                        <segue destination="2SQ-Zs-WZn" kind="show" identifier="descriptionNotClosedEventSegue" id="iod-NF-Sjl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CF0-BT-cub" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3004" y="1290"/>
+            <point key="canvasLocation" x="2489" y="823"/>
         </scene>
         <!--NewEvent-->
         <scene sceneID="eny-ir-aKp">
@@ -601,7 +602,7 @@
                 <viewControllerPlaceholder storyboardName="NewEvent" id="wYN-m4-3fs" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oVm-OD-g4L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3969" y="1445"/>
+            <point key="canvasLocation" x="3090" y="136"/>
         </scene>
         <!--Match-->
         <scene sceneID="zpB-wn-MYg">
@@ -762,7 +763,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ydw-Tp-bHG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="KSO-oW-NVM" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4084" y="938"/>
+            <point key="canvasLocation" x="4436" y="338"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="o6F-gz-sQx">
@@ -849,7 +850,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pcc-my-XvZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2649" y="-443"/>
+            <point key="canvasLocation" x="2489" y="-442"/>
         </scene>
         <!--eventDescriptionStoryboard-->
         <scene sceneID="QD3-u0-ShD">
@@ -857,7 +858,7 @@
                 <viewControllerPlaceholder storyboardName="eventDescriptionStoryboard" id="2SQ-Zs-WZn" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tRe-lw-8FT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3905" y="-443"/>
+            <point key="canvasLocation" x="3577" y="136"/>
         </scene>
         <!--Forgot Password View Controller-->
         <scene sceneID="nX7-EN-31e">
@@ -947,7 +948,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1ND-Nx-4ZY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2086" y="1290"/>
+            <point key="canvasLocation" x="1700" y="823"/>
         </scene>
     </scenes>
     <resources>
@@ -967,6 +968,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="m4L-yB-W7M"/>
+        <segue reference="iod-NF-Sjl"/>
         <segue reference="YKJ-xS-Iem"/>
     </inferredMetricsTieBreakers>
 </document>
