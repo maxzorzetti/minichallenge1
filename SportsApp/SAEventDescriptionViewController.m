@@ -7,8 +7,13 @@
 //
 
 #import "SAEventDescriptionViewController.h"
+#import "SAPersonConnector.h"
+#import "SAPerson.h"
+#import "SAFriendCollectionViewCell.h"
 
 @interface SAEventDescriptionViewController ()
+@property NSMutableArray *arrayOfParticipants;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end
 
@@ -16,10 +21,67 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
     
     
-    //_mainView.layer.bounds = CGRectMake(25, 90, 325, 383);
+    
+    _arrayOfParticipants = [NSMutableArray arrayWithArray:self.currentEvent.participants.allObjects];
+    
+    __block NSMutableArray *arrayToUpdate = [NSMutableArray new];
+    for (SAPerson *person in self.arrayOfParticipants) {
+        //if participant info is incomplete
+        if ([person.name length] == 0) {
+            
+            
+            //check if participant info is in userdefaults
+            int isPersonInDefaults = 0;
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSArray *arrayOfDic = [userDefaults arrayForKey:@"ArrayOfDictionariesContainingPeople"];
+            for (NSDictionary *dicPerson in arrayOfDic) {
+                NSString *personInUDRecordName = dicPerson[@"personId"];
+                if ([person.personId.recordName isEqualToString:personInUDRecordName]) {
+                    NSData *personData = dicPerson[@"personData"];
+                    SAPerson *personToAdd = [NSKeyedUnarchiver unarchiveObjectWithData:personData];
+                    
+                    [arrayToUpdate addObject:personToAdd];
+                    isPersonInDefaults = 1;
+                }
+            }
+            
+            //participant not in userdefaults
+            if (isPersonInDefaults == 0) {
+                [SAPersonConnector getPersonFromId:person.personId handler:^(SAPerson * _Nullable personFetched, NSError * _Nullable error) {
+                    if (!error && personFetched) {
+                        [arrayToUpdate addObject:personFetched];
+                        //once all participantss info are complete update table view
+                        if ([arrayToUpdate count] == [self.arrayOfParticipants count]) {
+                            [self updateCollectionViewWithParticipants:arrayToUpdate];
+                        }
+                    }else{
+                        [arrayToUpdate addObject:person];
+                        //once all participantss info are complete update table view
+                        if ([arrayToUpdate count] == [self.arrayOfParticipants count]) {
+                            [self updateCollectionViewWithParticipants:arrayToUpdate];
+                        }
+                    }
+                }];
+            }
+        }
+        //participant info was already complete, just add to array
+        else{
+            [arrayToUpdate addObject:person];
+        }
+        
+        //once all participantss info are complete update table view
+        if ([arrayToUpdate count] == [self.arrayOfParticipants count]) {
+            [self updateCollectionViewWithParticipants:arrayToUpdate];
+        }
+        
+    }
+    
+    
+    
     _mainView.layer.borderColor = [UIColor colorWithRed:119/255.0 green:90/255.0 blue:218/255.0 alpha:1.0].CGColor;
     
     _mainView.layer.borderWidth = 1.0;
@@ -124,6 +186,38 @@
        
         
      }
+    
+    
+}
+
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    SAFriendCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"friendCell" forIndexPath:indexPath];
+    
+    SAPerson *friend = self.arrayOfParticipants[indexPath.item];
+    cell.profilePictureImageView.image = [UIImage imageWithData:friend.photo];
+    
+    return cell;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
+    NSInteger numberOfItems;
+    switch (section) {
+        case 0: numberOfItems = [self.arrayOfParticipants count]; break;
+        default: numberOfItems = 0;
+    }
+    return numberOfItems;
+}
+
+
+- (void)updateCollectionViewWithParticipants:(NSArray *)participants{
+    [self.currentEvent replaceParticipants:participants];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectionView reloadData];
+    });
+    
     
     
 }
