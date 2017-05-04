@@ -51,6 +51,12 @@
 	self.activities = activities;
 	
 	self.party = [SAParty new];
+	
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	NSData *dataUser = [userDefaults dataForKey:@"user"];
+	SAPerson *person = [NSKeyedUnarchiver unarchiveObjectWithData:dataUser];
+	
+	self.party.creator = person;	
 }
 
 - (void)didReceiveMemoryWarning {

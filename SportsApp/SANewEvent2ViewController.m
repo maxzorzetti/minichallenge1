@@ -53,6 +53,9 @@
 	self.shifts = @[[NSNumber numberWithInteger:SAMorningShift],
 					[NSNumber numberWithInteger:SAAfternoonShift],
 					[NSNumber numberWithInteger:SANightShift]];
+
+	[self updateNextButton];
+
 }
 
 - (void)didReceiveMemoryWarning {
