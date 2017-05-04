@@ -530,7 +530,7 @@
                                                                             <constraint firstAttribute="width" constant="18" id="gRS-de-VlK"/>
                                                                         </constraints>
                                                                     </imageView>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMF-kV-dLw">
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not Set" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMF-kV-dLw">
                                                                         <rect key="frame" x="-0.5" y="8" width="70" height="19"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="70" id="nPi-au-jPg"/>
@@ -573,7 +573,7 @@
                                                                             <constraint firstAttribute="height" constant="18" id="hfM-d0-itC"/>
                                                                         </constraints>
                                                                     </imageView>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrF-x8-yTg">
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not Set" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrF-x8-yTg">
                                                                         <rect key="frame" x="-0.5" y="8" width="70" height="19"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="70" id="abs-S7-1Za"/>
@@ -638,7 +638,7 @@
                                     <constraint firstAttribute="height" constant="201" id="eRV-It-HZx"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Zzh-Sv-YZ2">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Zzh-Sv-YZ2">
                                 <rect key="frame" x="35" y="309" width="294" height="294"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="13" minimumInteritemSpacing="13" id="zoP-FM-J8j">
@@ -948,7 +948,7 @@
         <scene sceneID="LHb-Fy-tkf">
             <objects>
                 <navigationController storyboardIdentifier="feedNavView" title="Feed" automaticallyAdjustsScrollViewInsets="NO" id="hWj-QZ-IYJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Feed" selectedImage="ic_favorite" id="Pgn-h3-4rd"/>
+                    <tabBarItem key="tabBarItem" title="Feed" image="Icon_Feed_NS" selectedImage="Icon_Feed_S" id="Pgn-h3-4rd"/>
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
@@ -1093,7 +1093,7 @@
         <scene sceneID="Sgj-Xr-Lgg">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="PGs-U2-5qc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Events" selectedImage="calendarIcon" id="3IJ-P1-quk"/>
+                    <tabBarItem key="tabBarItem" title="Events" image="Icon_Events_NS" selectedImage="Icon_Events_NS" id="3IJ-P1-quk"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ahE-oi-w5O">
@@ -1113,7 +1113,7 @@
         <scene sceneID="vns-ft-nUz">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pdh-pC-9bc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" selectedImage="plus" id="CXx-IN-GaA"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="Icon_Profile_NS" selectedImage="Icon_Profile_S" id="CXx-IN-GaA"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="mpG-pn-SIK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -1131,7 +1131,12 @@
     </scenes>
     <resources>
         <image name="Icon_Delete" width="18" height="17"/>
+        <image name="Icon_Events_NS" width="17" height="19"/>
+        <image name="Icon_Feed_NS" width="11" height="20"/>
+        <image name="Icon_Feed_S" width="11" height="20"/>
         <image name="Icon_Pin" width="10" height="12"/>
+        <image name="Icon_Profile_NS" width="9" height="21"/>
+        <image name="Icon_Profile_S" width="9" height="21"/>
         <image name="Icon_phone" width="12" height="12"/>
         <image name="Join Us" width="320" height="100"/>
         <image name="Line" width="282" height="1"/>
@@ -1139,8 +1144,6 @@
         <image name="Prancheta 1" width="375" height="667"/>
         <image name="Prancheta 3" width="375" height="667"/>
         <image name="Prancheta 5" width="375" height="667"/>
-        <image name="calendarIcon" width="12" height="13"/>
-        <image name="ic_favorite" width="20" height="19"/>
         <image name="img_placeholder" width="101" height="101"/>
         <image name="login_button" width="625" height="100"/>
         <image name="logo" width="136" height="136"/>
@@ -1148,7 +1151,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="m4L-yB-W7M"/>
-        <segue reference="iod-NF-Sjl"/>
-        <segue reference="YKJ-xS-Iem"/>
+        <segue reference="Atp-4F-RIh"/>
+        <segue reference="O9f-Lv-Mfp"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -98,6 +98,8 @@
     }
     [cell initWithEvent:arrayOfEvents[indexPath.row]];
     
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     return cell;
 }
 
