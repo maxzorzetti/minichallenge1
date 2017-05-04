@@ -83,8 +83,8 @@
 		
 		SACollectionButtonViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
 		
-		cell.iconImageView.image = [UIImage imageNamed:@"ic_calendarButton"];
-		cell.unselectedImage = [UIImage imageNamed:@"Icon_Calendar"];
+		cell.iconImageView.image = [UIImage imageNamed:@"Icon_CalendarBig"];
+		cell.unselectedImage = [UIImage imageNamed:@"Icon_CalendarBig"];
 		cell.selectedImage = [UIImage imageNamed:@"Icon_Calendar_S"];
 		cell.titleLabel.text = self.timetable[indexPath.item];
 		
