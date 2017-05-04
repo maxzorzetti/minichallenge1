@@ -36,10 +36,14 @@
 			}
 		}
 		
-		if (compatibleEvent == nil) compatibleEvent = [self createEventForParty:party];
-		else [compatibleEvent addParticipant:party.creator];
+		if (compatibleEvent == nil) {
+			
+			compatibleEvent = [self createEventForParty:party];
+
+			[self updateEvent:compatibleEvent];
+			
+		}//else [compatibleEvent addParticipant:party.creator];
 		
-		[self updateEvent:compatibleEvent];
 		
 		handler(compatibleEvent, nil);
 	}];
@@ -50,7 +54,7 @@
 	
 	if (party.maxParticipants < (int)event.maxPeople) return NO;
 
-	if (1 + party.invitedPeople.count/2 + event.participants.count > event.activity.maximumPeople) return NO; // Sees if the event can "hold" the creator plus half of his friends
+	if (1 + party.invitedPeople.count + event.participants.count > event.activity.maximumPeople) return NO;
 	
 	if ([event.participants containsObject:party.creator]) return NO;
 	
@@ -90,7 +94,10 @@
 	event.date = [NSDate new];
 	event.maxPeople = [NSNumber numberWithInt:party.maxParticipants];
 	event.minPeople = [NSNumber numberWithInt:party.minParticipants];
+	
 	[event addParticipant:party.creator];
+	[event addParticipants: party.invitedPeople.allObjects];
+	
 	return event;
 }
 
