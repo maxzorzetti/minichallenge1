@@ -32,7 +32,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *eventGender;
 @property (weak, nonatomic) IBOutlet UILabel *eventNumberParticipants;
 
+@property (weak, nonatomic) IBOutlet UILabel *shiftLabel;
 
+@property (weak, nonatomic) IBOutlet UIImageView *genderIcon;
 
 @property (weak, nonatomic) IBOutlet UIButton *joinButton;
 
