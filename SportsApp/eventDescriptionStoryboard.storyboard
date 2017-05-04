@@ -335,17 +335,17 @@
                                             <constraint firstAttribute="height" constant="74" id="VAM-D6-ibW"/>
                                         </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Mqx-oy-kht">
-                                            <size key="itemSize" width="50" height="50"/>
+                                            <size key="itemSize" width="72" height="72"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="HRR-B7-Jz9">
-                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="friendCell" id="HRR-B7-Jz9" customClass="SAFriendCollectionViewCell">
+                                                <rect key="frame" x="0.0" y="0.0" width="72" height="72"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="72" height="72"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </view>
                                             </collectionViewCell>
@@ -397,6 +397,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="collectionView" destination="bqu-xK-op0" id="6Du-Ks-wUN"/>
                         <outlet property="eventDate" destination="dlo-qK-l5V" id="DOr-md-nbW"/>
                         <outlet property="eventGender" destination="nGE-5Z-f4F" id="P9Q-f4-ZPt"/>
                         <outlet property="eventImage" destination="99a-Bb-0xT" id="5SX-bq-Ics"/>

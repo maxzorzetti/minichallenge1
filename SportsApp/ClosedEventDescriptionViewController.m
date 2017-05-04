@@ -26,28 +26,6 @@
     [super viewDidLoad];
     _arrayOfParticipants = [NSMutableArray arrayWithArray:self.event.participants.allObjects];
     
-//    for (SAPerson *participant in self.event.participants) {
-//        int hasToUpdateTable = 0;
-//        __block NSMutableArray *participantsWithPicture = [NSMutableArray new];
-//        if ([participant.name length] == 0) {
-//            hasToUpdateTable = 1;
-//            [SAPersonConnector getPersonFromId:participant.personId handler:^(SAPerson * _Nullable participantFetched, NSError * _Nullable error) {
-//                if(!error){
-//                    [participantsWithPicture addObject:participantFetched];
-//                }
-//            }];
-//        }else{
-//            [participantsWithPicture addObject:participant];
-//        }
-//        
-//        if (hasToUpdateTable) {
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [self.event replaceParticipants:participantsWithPicture];
-//                [self.tableViewWithParticipants reloadData];
-//            });
-//        }
-//    }
-    
     __block NSMutableArray *arrayToUpdate = [NSMutableArray new];
     for (SAPerson *person in self.arrayOfParticipants) {
         //if participant info is incomplete

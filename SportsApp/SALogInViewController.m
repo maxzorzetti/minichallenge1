@@ -11,6 +11,8 @@
 #import "SAPerson.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "SAUser.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+
 #import "SAPersonConnector.h"
 
 
@@ -18,7 +20,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
+@property (weak, nonatomic) IBOutlet UIView *myView;
 
+@property (weak, nonatomic) IBOutlet UIButton *btnLogIn;
 
 @property NSString *email;
 @property NSString *password;
@@ -27,7 +31,11 @@
 
 @implementation SALogInViewController
 
-
+-(void) loginButtonDidLogOut:(FBSDKLoginButton *)loginButton{
+    
+}
+- (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error{
+}
 
 
 - (IBAction)logingButtonPressed:(UIButton *)sender {
@@ -127,7 +135,59 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    
+    
+    
+    [self changeJoinUsButton];
+    [self changeUserTextField];
+    [self changePwdTextField];
+
+    
+    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
+    // Optional: Place the button in the center of your view.
+    loginButton.center = _myView.center;
+    [self.view addSubview:loginButton];
+    loginButton.readPermissions =
+    @[@"public_profile", @"email", @"user_friends"];
+    
+    loginButton.delegate = self;
+    
 }
+
+
+- (void) changeJoinUsButton{
+    _btnLogIn.layer.cornerRadius = 7;
+}
+
+- (void) changeUserTextField{
+    UITextField *textField = _emailField;
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:
+                              CGRectMake(1, 1, _emailField.frame.size.width-2, _emailField.frame.size.height-1) byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(7.0, 7.0)];
+    
+    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath];
+}
+
+- (void) changePwdTextField{
+    UITextField *textField = _passwordField;
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:
+                              CGRectMake(1, 0, textField.frame.size.width-2, textField.frame.size.height-1) byRoundingCorners: UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(7.0, 7.0)];
+    
+    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath];
+}
+
+- (void) changeTextFieldBorderWithField: (UITextField *)textField andMaskPath:(UIBezierPath *)maskPath{
+    
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = textField.bounds;
+    maskLayer.path = maskPath.CGPath;
+    maskLayer.lineWidth = 1.0;
+    maskLayer.strokeColor = [UIColor colorWithRed:50.0f/255.0f green:226.0f/255.0f blue:196.0f/255.0f alpha:1.0f].CGColor;
+    maskLayer.fillColor = [UIColor clearColor].CGColor;
+    
+    [textField.layer addSublayer:maskLayer];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

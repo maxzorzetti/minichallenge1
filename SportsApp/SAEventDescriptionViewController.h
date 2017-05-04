@@ -13,7 +13,7 @@
 #import "SAEventConnector.h"
 
 
-@interface SAEventDescriptionViewController : UIViewController
+@interface SAEventDescriptionViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource>
 
 
 @property (weak, nonatomic) IBOutlet UIImageView *eventImage;

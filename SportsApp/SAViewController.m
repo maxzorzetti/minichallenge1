@@ -29,11 +29,13 @@
 //@property CKReference *ref;
 @property (weak, nonatomic) IBOutlet UITextField *firstNameField;
 
+@property (weak, nonatomic) IBOutlet UIView *myView;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnJoinUs;
 
-@property (weak, nonatomic) IBOutlet UITextField *emailField;
+//@property (weak, nonatomic) IBOutlet UITextField *emailField;
 
+@property (weak, nonatomic) IBOutlet UITextField *emailField;
 
 
 @property (weak, nonatomic) IBOutlet UITextField *lastNameField;
@@ -41,9 +43,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
 
-@property (weak, nonatomic) IBOutlet UITextField *answer1;
+//@property (weak, nonatomic) IBOutlet UITextField *answer1;
 
-@property (weak, nonatomic) IBOutlet UITextField *answer2;
+//@property (weak, nonatomic) IBOutlet UITextField *answer2;
 
 
 @property NSString *firstName;
@@ -53,11 +55,11 @@
 
 
 @property NSString *email;
-@property NSArray <NSString *>*choosenQuestions; //POR QUE ID
+//@property NSArray <NSString *>*choosenQuestions; //POR QUE ID
 
-@property  int questionNumber;
+//@property  int questionNumber;
 
-@property NSArray <NSString *> *securityQuestions;
+//@property NSArray <NSString *> *securityQuestions;
 
 
 @end
@@ -78,11 +80,11 @@
 
 
 
-- (IBAction)question1Chosen:(UIButton *)sender {
-    
-    _questionNumber =1;
-    
-}
+//- (IBAction)question1Chosen:(UIButton *)sender {
+//    
+//    _questionNumber =1;
+//    
+//}
 
 //- (IBAction)question2Chosen:(UIButton *)sender {
 //    
@@ -131,7 +133,10 @@
             if ([results1 count] == 0) //nao tem registro com aquele nome
             {
                 
-                [self performSegueWithIdentifier:@"logInSegue" sender:self];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self performSegueWithIdentifier:@"logInSegue2" sender:self];
+                });
+                
                 
             }
             
@@ -147,7 +152,7 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(SAViewController *)sender{
     
     
-    if ([segue.identifier isEqualToString: @"logInSegue"]) {
+    if ([segue.identifier isEqualToString: @"logInSegue2"]) {
         
         SAFirstProfileViewController *destView = segue.destinationViewController;
         destView.password= sender.password;
@@ -516,11 +521,11 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     //Checa-se se o usuario ja aceitou os termos de uso
-    if (! [FBSDKAccessToken currentAccessToken]) {
+    //if (! [FBSDKAccessToken currentAccessToken]) {
         // User is logged in, do work such as go to next view controller.
         FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
         // Optional: Place the button in the center of your view.
-        loginButton.center = ((UIView *)[self.view viewWithTag:1]).center;
+        loginButton.center = _myView.center;
         [self.view addSubview:loginButton];
         loginButton.readPermissions =
         @[@"public_profile", @"email", @"user_friends"];
@@ -528,15 +533,15 @@
         loginButton.delegate = self;
         
         
-    }
+    //}
     //se nao, pede pra ele!
-    else
-    {
+    //else
+    //{
         
         
         // [self performSegueWithIdentifier:@"mySegue" sender:self];
         // NSLog(@"user logged");
-    }
+    //}
     
     // FBSDKLoginResult.declinedPermissions
     //[imageData release];

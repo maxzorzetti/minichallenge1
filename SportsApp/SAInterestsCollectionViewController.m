@@ -7,6 +7,7 @@
 //
 
 #import "SAInterestsCollectionViewController.h"
+#import "SAInterestsCollectionReusableView.h"
 #import "SAActivity.h"
 
 @interface SAInterestsCollectionViewController ()
@@ -15,6 +16,7 @@
 
 @property NSArray<SAActivity *> *activities;
 @property NSString *reuseIdentifier;
+@property NSMutableSet *interestedActivities;
 
 @end
 
@@ -28,6 +30,8 @@
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
     
+    self.viewOfCollectionView.allowsMultipleSelection = YES;
+    
     // Register cell classes
     [self.viewOfCollectionView registerNib:[UINib nibWithNibName:@"SACollectionButtonViewCell" bundle:nil] forCellWithReuseIdentifier:self.reuseIdentifier];
     
@@ -40,6 +44,10 @@
         NSLog(@"ACTIVITY %@", activity);
         [activities addObject: activity];
     }
+    
+    [activities sortUsingComparator:^NSComparisonResult(SAActivity*  _Nonnull obj1, SAActivity*  _Nonnull obj2) {
+        return [obj1.name compare:obj2.name];
+    }];
     
     self.activities = activities;
 }
@@ -79,11 +87,17 @@
     cell.titleLabel.text = activity.name;
     
     return cell;
+}
 
-    cell.iconImageView.image = [UIImage imageWithData:self.activities[indexPath.item].picture];
-    cell.titleLabel.text = self.activities[indexPath.item].name;
-
-    return cell;
+-(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+    
+    if(kind == UICollectionElementKindSectionHeader){
+        SAInterestsCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"interestsHeaderView" forIndexPath:indexPath];
+        
+        return headerView;
+    }
+    
+    return nil;
 }
 
 #pragma mark <UICollectionViewDelegate>
@@ -101,6 +115,18 @@
     return YES;
 }
 */
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    SAActivity *activity = self.activities[indexPath.item];
+    [self.interestedActivities addObject:activity];
+    NSLog(@"%@", activity.name);
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+    SAActivity *activity = self.activities[indexPath.item];
+    [self.interestedActivities removeObject:activity];
+    NSLog(@"%@", activity.name);
+}
 
 /*
 // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
