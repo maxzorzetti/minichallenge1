@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SAProfileViewController : UIViewController
+@interface SAProfileViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @end
