@@ -45,10 +45,12 @@
 
 + (SAActivity *)activityFromRecord:(CKRecord *)activityRecord{
     CKAsset *assetPhoto = activityRecord[@"icon"];
+    CKAsset *assetPhotoWhite = activityRecord[@"iconWhite"];
     
     NSData *icon = [NSData dataWithContentsOfURL:[assetPhoto fileURL]];
+    NSData *iconWhite = [NSData dataWithContentsOfURL:[assetPhotoWhite fileURL]];
     
-    SAActivity *activity = [[SAActivity alloc]initWithName:activityRecord[@"name"] minimumPeople:(int)activityRecord[@"minimumPeople"] maximumPeople:(int)activityRecord[@"maximumPeople"] picture:icon AndActivityId:activityRecord.recordID  andAuxiliarVerb:activityRecord[@"auxiliarVerb"]];
+    SAActivity *activity = [[SAActivity alloc]initWithName:activityRecord[@"name"] minimumPeople:(int)activityRecord[@"minimumPeople"] maximumPeople:(int)activityRecord[@"maximumPeople"] picture:icon AndActivityId:activityRecord.recordID  andAuxiliarVerb:activityRecord[@"auxiliarVerb"] andPictureWhite:iconWhite];
     return activity;
 }
 

@@ -29,7 +29,7 @@
     
     // Activities of our app :D
     
-    SAActivity *futebas = [[SAActivity alloc]initWithName:@"Futebas" minimumPeople:14 maximumPeople:16 picture:[UIImage imageWithData:futebas.picture] AndActivityId:nil  andAuxiliarVerb:@"play"];
+    SAActivity *futebas = [[SAActivity alloc]initWithName:@"Futebas" minimumPeople:14 maximumPeople:16 picture:[UIImage imageWithData:futebas.picture] AndActivityId:nil  andAuxiliarVerb:@"play" andPictureWhite:nil];
     
     [self.activities arrayByAddingObject:futebas];
     
