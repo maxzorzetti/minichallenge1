@@ -249,16 +249,20 @@
 //    [set1 intersectSet: set2];
 //    NSArray *resultArray = [set1 allObjects];
 //    
-//    
-//    for (SAEvent *event in resultArray)
-////        if ([events containsObject:event]) // passar pra
+    _eventArray= [[NSMutableArray alloc] init];
+   
+    for (SAEvent *event in events)
+       if (! [_lastArray containsObject:event])
+          [ _eventArray addObject:event];
+           
+           // passar pra
 //            [events removeObj
 //        _eventArray=[[NSMutableArray alloc]initWithArray:resultArray];
 //
     
     
-    _eventArray= [[NSMutableArray alloc] init];
-    [_eventArray addObjectsFromArray:events];
+   
+    //[_eventArray addObjectsFromArray:events];
     [_lastArray addObjectsFromArray:events];
     //[_lastArray addObjectsFromArray:events];
     
