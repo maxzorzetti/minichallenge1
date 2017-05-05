@@ -71,7 +71,26 @@
     [SAEventConnector getEventsByPersonId:personId handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
         if (!error) {
             
-            [self updateTableWithEventList:events];
+            NSMutableArray *aux = [[NSMutableArray alloc] init];
+            for (SAEvent *event in events) {
+                
+                NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+                
+                NSCalendar *calendar = [NSCalendar currentCalendar];
+                [dateFormat setDateFormat:@"dd/MM/yyyy"];
+                NSInteger day = [calendar component:NSCalendarUnitDay fromDate:event.date];
+                
+                NSInteger dayToday = [calendar component:NSCalendarUnitDay fromDate:[NSDate date]];
+                
+                
+                
+                if (day == dayToday)
+                    [aux addObject:event];
+                    
+            }
+            
+            
+            [self updateTableWithEventList:aux];
         }
     }];
     
@@ -236,8 +255,11 @@
 //            [events removeObj
 //        _eventArray=[[NSMutableArray alloc]initWithArray:resultArray];
 //
+    
+    
     _eventArray= [[NSMutableArray alloc] init];
     [_eventArray addObjectsFromArray:events];
+    [_lastArray addObjectsFromArray:events];
     //[_lastArray addObjectsFromArray:events];
     
     [self.tableWithEvents reloadData];
@@ -303,7 +325,10 @@
 
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(SANewsFeedTableViewCell *)sender{
-	if ([segue.identifier isEqualToString: @"mySegue"]) {
+	
+    
+    
+    if ([segue.identifier isEqualToString: @"mySegue"]) {
 		
 		SAEventDescriptionViewController *destView = segue.destinationViewController;
 		destView.currentEvent= sender.cellEvent;

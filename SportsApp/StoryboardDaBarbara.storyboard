@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="FCe-wx-uJV">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -355,9 +355,10 @@
                     <connections>
                         <outlet property="btnLogIn" destination="F5C-Fq-ppa" id="eSh-qH-scj"/>
                         <outlet property="emailField" destination="ekp-ab-me2" id="D2M-qH-rWr"/>
+                        <outlet property="infoLabel" destination="xeZ-QE-wP7" id="JW8-gf-9is"/>
                         <outlet property="myView" destination="Xjq-qq-3yh" id="J9t-lL-a01"/>
                         <outlet property="passwordField" destination="fbY-N4-H3d" id="w6x-Io-tVU"/>
-                        <segue destination="FCe-wx-uJV" kind="show" identifier="mySegue" id="ddk-gm-Tf2"/>
+                        <segue destination="FCe-wx-uJV" kind="show" identifier="finishLoginSegue" id="ddk-gm-Tf2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VRr-vA-h3x" sceneMemberID="firstResponder"/>

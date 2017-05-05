@@ -116,6 +116,8 @@
                         <outlet property="myView" destination="jO6-dr-2cJ" id="Sod-rL-aZS"/>
                         <outlet property="passwordField" destination="SUy-pP-9B4" id="bBn-4o-hRc"/>
                         <segue destination="Ca5-HR-2Da" kind="show" identifier="logInSegue2" id="skD-6j-B2n"/>
+                        <segue destination="526-og-d5l" kind="show" identifier="askPhoneSegue" id="YdC-QQ-bLh"/>
+                        <segue destination="FPz-WS-qJT" kind="show" identifier="skipPhoneSegue" id="MCk-Zz-WNz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fSw-Sf-7CU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -256,6 +258,72 @@
             </objects>
             <point key="canvasLocation" x="1972" y="163.26836581709148"/>
         </scene>
+        <!--Ask Phone View Controller-->
+        <scene sceneID="iSf-q5-pC7">
+            <objects>
+                <viewController id="526-og-d5l" customClass="SAAskPhoneViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TIj-iw-awn"/>
+                        <viewControllerLayoutGuide type="bottom" id="PhZ-Dg-pq0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uYc-XF-Gk1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hey, may you tell us your phone number?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b43-iE-8M5">
+                                <rect key="frame" x="37" y="102" width="302" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kHP-ap-ofF">
+                                <rect key="frame" x="141" y="323" width="94" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="completed:" destination="526-og-d5l" eventType="touchUpInside" id="s64-HO-YlV"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="   Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yme-jQ-aFx">
+                                <rect key="frame" x="30" y="195" width="317" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="z9u-IJ-sbZ"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="Yme-jQ-aFx" secondAttribute="trailing" constant="12" id="12z-IQ-Jyy"/>
+                            <constraint firstItem="b43-iE-8M5" firstAttribute="leading" secondItem="uYc-XF-Gk1" secondAttribute="leadingMargin" constant="21" id="GVT-P5-P75"/>
+                            <constraint firstItem="Yme-jQ-aFx" firstAttribute="leading" secondItem="uYc-XF-Gk1" secondAttribute="leadingMargin" constant="14" id="HSi-zf-5ih"/>
+                            <constraint firstItem="kHP-ap-ofF" firstAttribute="leading" secondItem="uYc-XF-Gk1" secondAttribute="leadingMargin" constant="125" id="NSa-Kk-q5U"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="kHP-ap-ofF" secondAttribute="trailing" constant="124" id="bhg-gE-T2O"/>
+                            <constraint firstItem="PhZ-Dg-pq0" firstAttribute="top" secondItem="kHP-ap-ofF" secondAttribute="bottom" constant="314" id="ewL-8v-kTY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="b43-iE-8M5" secondAttribute="trailing" constant="20" id="qDu-Lo-DIB"/>
+                            <constraint firstItem="b43-iE-8M5" firstAttribute="top" secondItem="TIj-iw-awn" secondAttribute="bottom" constant="82" id="qRW-ja-dCr"/>
+                            <constraint firstItem="Yme-jQ-aFx" firstAttribute="top" secondItem="b43-iE-8M5" secondAttribute="bottom" constant="52" id="yLn-IT-dQJ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="infoLabel" destination="b43-iE-8M5" id="hvd-Eo-Psb"/>
+                        <outlet property="phoneNumber" destination="Yme-jQ-aFx" id="BXr-FL-y75"/>
+                        <segue destination="FPz-WS-qJT" kind="show" identifier="toBarbaraSegue" id="ijz-IC-F5n"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="skm-Ue-3Se" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2600.8000000000002" y="944.97751124437787"/>
+        </scene>
+        <!--StoryboardDaBarbara-->
+        <scene sceneID="ycE-yN-miN">
+            <objects>
+                <viewControllerPlaceholder storyboardName="StoryboardDaBarbara" id="FPz-WS-qJT" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qBD-ZI-ila" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2110" y="1484"/>
+        </scene>
         <!--Interests Collection View Controller-->
         <scene sceneID="FYs-lJ-AZK">
             <objects>
@@ -366,4 +434,7 @@
         <image name="img_placeholder" width="101" height="101"/>
         <image name="logo" width="136" height="136"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="ijz-IC-F5n"/>
+    </inferredMetricsTieBreakers>
 </document>

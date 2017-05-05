@@ -19,12 +19,13 @@
 #import "SAUser.h"
 #import "SAPersonConnector.h"
 #import "SAFirstProfileViewController.h"
+#import "SAAskPhoneViewController.h"
 
 
 @interface SAViewController ()
 
 
-
+@property CKRecord *personRecord;
 @property (weak, nonatomic) IBOutlet UILabel *myLabel;
 //@property CKReference *ref;
 @property (weak, nonatomic) IBOutlet UITextField *firstNameField;
@@ -157,7 +158,26 @@
         SAFirstProfileViewController *destView = segue.destinationViewController;
         destView.password= sender.password;
         destView.email= sender.password;
-    }}
+    }
+
+    if ([segue.identifier isEqualToString: @"askPhoneSegue"]) {
+        
+        SAAskPhoneViewController *destView = segue.destinationViewController;
+        destView.personRecord= sender.personRecord;
+        
+    }
+    else
+    {
+        
+       // UITabBarController *destView = segue.destinationViewController;
+        
+        
+    }
+
+
+
+
+}
 
 
 
@@ -350,6 +370,15 @@
                                          //sets current user
                                          SAUser *obj = [SAUser new];
                                          [obj setCurrentPerson:person];
+                                     
+                                     
+                                     _personRecord = personRecord;
+                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                     [self performSegueWithIdentifier:@"askPhoneSegue" sender:self];
+                                     });
+                                     
+                                     
+                                     
                                  }];
                                  
                                  
@@ -364,6 +393,8 @@
                      }
                      else{
                          NSLog(@"pessoa existente");
+                         
+                         
                          
                          // Equivalent ways to get a value.
                          id value = [[results1 firstObject] objectForKey:@"recordID"];
@@ -389,7 +420,13 @@
                                  NSLog(@"error: %@",error.localizedDescription);
                              }
                              else {
+                                 
+                                 
+                                 
                                  NSLog(@"userId already exists");
+                                 
+                                 
+
                                  
                                  
                                  int flag=0;
@@ -429,14 +466,22 @@
                                          
                                      }];
                                      
+                                     
+                                     
                                  }
                                  else{
                                      NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
                                      
                                      SAPerson *person = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:photo];
                                      
-                                     [SAUser saveToUserDefaults:person];
                                      
+                                     _personRecord = personRecord;
+                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                         [self performSegueWithIdentifier:@"askPhoneSegue" sender:self];
+                                     });
+                                     
+                                     [SAUser saveToUserDefaults:person];
+                                     NSLog(@"oi max");
                                      //saves user login info in userdefaults
                                      NSArray *keys = @[@"username", @"password", @"facebookId"];
                                      NSArray *values = @[person.name, _passwordField.text, userFacebookID];
@@ -445,9 +490,17 @@
                                      //sets current user
                                      SAUser *obj = [SAUser new];
                                      [obj setCurrentPerson:person];
+                                     
+                                     
+
                                  }
                                  
+                                 
+                             
                              }
+                             
+                             
+                             
                              
                          }];
                          
@@ -467,7 +520,7 @@
              
          }
          else{
-             NSLog(@"%@",error.localizedDescription);
+             NSLog(@" deu erro = %@",error.description);
          }
      }];
     
@@ -555,7 +608,7 @@
 - (void) changeUserTextField{
     UITextField *textField = _emailField;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:
-                              CGRectMake(1, 1, _emailField.frame.size.width, _emailField.frame.size.height-1) byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(7.0, 7.0)];
+                              CGRectMake(1, 1, _emailField.frame.size.width-2, _emailField.frame.size.height-1) byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(7.0, 7.0)];
     
     [self changeTextFieldBorderWithField:textField andMaskPath:maskPath];
 }
@@ -563,7 +616,7 @@
 - (void) changePwdTextField{
     UITextField *textField = _passwordField;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:
-                              CGRectMake(1, 0, textField.frame.size.width, textField.frame.size.height-1) byRoundingCorners: UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(7.0, 7.0)];
+                              CGRectMake(1, 0, textField.frame.size.width-2, textField.frame.size.height-1) byRoundingCorners: UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(7.0, 7.0)];
     
     [self changeTextFieldBorderWithField:textField andMaskPath:maskPath];
 }
