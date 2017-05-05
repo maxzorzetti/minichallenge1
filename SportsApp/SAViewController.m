@@ -459,17 +459,15 @@
                  }
              }];
              
-//             dispatch_async(dispatch_get_main_queue(), ^{
-//                 UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//                 
-//                 ClosedEventDescriptionViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"eventFull"];
-//                 
-//                 vc.event = event;
-//                 
-//                 [self presentViewController:vc animated:YES completion:^{
-//                     //unwind man
-//                 }];
-//             });
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                 
+                 UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"view2"];
+                 
+                 [self presentViewController:vc animated:YES completion:^{
+                     //unwind man
+                 }];
+             });
          }
          else{
              NSLog(@"%@",error.localizedDescription);
