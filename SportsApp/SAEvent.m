@@ -9,6 +9,7 @@
 #import "SAEvent.h"
 #import <CloudKit/CloudKit.h>
 #import "SAPerson.h"
+#import "SAActivity.h"
 @class SAPerson;
 
 @interface SAEvent ()
@@ -68,5 +69,8 @@
     return nil;
 }
 
+- (NSString *)description {
+	return [[NSString alloc] initWithFormat:@"%@ %@ %@", self.name, self.activity.name, self.owner];
+}
 
 @end

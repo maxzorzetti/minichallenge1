@@ -10,6 +10,7 @@
 #import "SANewEvent1ViewController.h"
 #import "SANewEvent5ViewController.h"
 #import "SANewEvent6ViewController.h"
+#import "SANewEventButton.h"
 #import <NMRangeSlider.h>
 
 @interface SANewEvent5ViewController ()
@@ -25,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *minimumCapacityLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *maximumCapacityLabel;
+
+@property (weak, nonatomic) IBOutlet SANewEventButton *nextButton;
 
 @end
 
@@ -49,10 +52,11 @@
 	
 	self.capacitySlider.minimumRange = 1;
 	
-
+	self.eventNameTextField.text = [[NSString alloc] initWithFormat: @"%@ event", self.party.activity.name];
+	
 	[self.genderCollectionView registerNib:[UINib nibWithNibName:@"SACollectionButtonViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
 	
-	
+	[self updateNextButton];
 	[self processPreferencesTextView];
 }
 
@@ -102,12 +106,18 @@
 	
 	SACollectionButtonViewCell *cell = (SACollectionButtonViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
 	[cell setCustomSelection:YES];
+	[self updateNextButton];
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
 	self.party.gender = SANoGender;
 	SACollectionButtonViewCell *cell = (SACollectionButtonViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
 	[cell setCustomSelection:NO];
+	[self updateNextButton];
+}
+
+- (void)updateNextButton {
+	self.nextButton.enabled = self.party.gender != SANoGender;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {

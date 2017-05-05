@@ -809,7 +809,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="325" height="51"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CHE-KH-h27" id="11m-nX-Nww">
-                                                    <rect key="frame" x="0.0" y="0.0" width="325" height="51"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="325" height="50.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qLi-5y-wsk">
@@ -977,14 +977,7 @@
                             <outlet property="delegate" destination="781-5X-G13" id="gih-Lj-GYF"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Feed" id="lon-kj-KC8">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="plus" style="plain" id="8jP-PA-OTl">
-                            <color key="tintColor" red="0.46666666670000001" green="0.35294117650000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <segue destination="wYN-m4-3fs" kind="show" id="Atp-4F-RIh"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Feed" id="lon-kj-KC8"/>
                     <connections>
                         <outlet property="tableWithEvents" destination="3vO-Aj-D6O" id="pUy-6N-g4r"/>
                         <segue destination="2SQ-Zs-WZn" kind="show" identifier="mySegue" id="O9f-Lv-Mfp"/>
@@ -1383,7 +1376,6 @@
         <image name="plus" width="21" height="21"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Atp-4F-RIh"/>
-        <segue reference="O9f-Lv-Mfp"/>
+        <segue reference="iod-NF-Sjl"/>
     </inferredMetricsTieBreakers>
 </document>

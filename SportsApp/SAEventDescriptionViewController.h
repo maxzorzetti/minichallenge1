@@ -41,6 +41,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *mainView;
 
+@property (weak, nonatomic) IBOutlet UIView *progressBar;
 
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 

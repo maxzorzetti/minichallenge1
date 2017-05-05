@@ -13,10 +13,22 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	
-	// Making it circular!
-	self.profilePictureImageView.layer.cornerRadius = self.profilePictureImageView.frame.size.height/2;
-	self.profilePictureImageView.layer.masksToBounds = YES;
-	self.profilePictureImageView.layer.borderWidth = 0;
+    
+    
+    if (self.profilePictureImageView) {
+        // Making it circular!
+        self.profilePictureImageView.layer.cornerRadius = self.profilePictureImageView.frame.size.height/2;
+        self.profilePictureImageView.layer.masksToBounds = YES;
+        self.profilePictureImageView.layer.borderWidth = 0;
+    }
+    if (self.profileImageBruno) {
+        // Making it circular!
+        self.profileImageBruno.layer.cornerRadius = self.profileImageBruno.frame.size.height/2;
+        self.profileImageBruno.layer.masksToBounds = YES;
+        self.profileImageBruno.layer.borderWidth = 0;
+
+    }
+	
 }
 
 @end

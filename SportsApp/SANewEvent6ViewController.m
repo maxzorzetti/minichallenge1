@@ -8,7 +8,10 @@
 
 #import "SAFriendCollectionViewCell.h"
 #import "SANewEvent6ViewController.h"
-
+#import "SAMatchmaker.h"
+#import "SAEvent.h"
+#import "ClosedEventDescriptionViewController.h"
+#import "SAEventDescriptionViewController.h"
 
 @interface SANewEvent6ViewController ()
 @property (weak, nonatomic) IBOutlet UICollectionView *friendsCollectionView;
@@ -31,12 +34,15 @@
 
 @property (weak, nonatomic) IBOutlet UIProgressView *capacityProgressBar;
 
+@property (weak, nonatomic) IBOutlet UIButton *publishButton;
+
 @end
 
 @implementation SANewEvent6ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	
     // Do any additional setup after loading the view.
 	
 	self.friendsCollectionView.dataSource = self;
@@ -105,14 +111,55 @@
 	return self.party.invitedPeople.count;
 }
 
-/*
+- (IBAction)publishPressed:(UIButton *)sender {
+	NSLog(@"ALO");
+	
+	[SAMatchmaker enterMatchmakingWithParty:self.party handler:^(SAEvent * _Nullable event, NSError * _Nullable error) {
+		dispatch_async(dispatch_get_main_queue(), ^{
+			//
+			
+			if ( event.participants.count >= event.minPeople.integerValue ) {
+				NSLog(@"FULL EVENT");
+				UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+				
+				ClosedEventDescriptionViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"eventFull"];
+				
+				vc.event = event;
+				
+				[self presentViewController:vc animated:YES completion:^{
+					//unwind man
+				}];
+			} else {
+				NSLog(@"No event found");
+				
+				UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"eventDescriptionStoryboard" bundle:nil];
+				
+				
+				SAEventDescriptionViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"eventDescription"];
+				
+				vc.currentEvent = event;
+				
+				NSLog(@"%@", event);
+				
+				[self presentViewController:vc animated:YES completion:^{
+					NSLog(@"%@", vc.currentEvent);
+				}];
+			}
+		});
+		
+		
+	}];
+	
+}
+
+
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+	NSLog(@"SEGUEUEUEUEEUU");
+	
 }
-*/
+
 
 @end

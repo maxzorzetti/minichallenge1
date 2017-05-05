@@ -11,5 +11,6 @@
 @interface SAFriendCollectionViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *profileImageBruno;
 
 @end

@@ -33,6 +33,7 @@
 	//self.locationRadiusSlider.value
 	self.locationRadiusLabel.text = [[NSString alloc] initWithFormat:@"%.0f km", self.locationRadiusSlider.value];
 	
+	self.locationRadiusSlider.value = (self.locationRadiusSlider.minimumValue + self.locationRadiusSlider.maximumValue)/2;
 	[self processPreferencesTextView];
 }
 
