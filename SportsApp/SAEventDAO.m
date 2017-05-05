@@ -66,8 +66,8 @@ CKDatabase *publicDatabase;
     NSDate *now = [NSDate date];
     NSDate *oneDayFromNow = [NSDate dateWithTimeIntervalSinceNow:86400];
     
-    CGFloat distanceAllowed = proximity;
-    
+    //CGFloat distanceAllowed = proximity;
+    CGFloat distanceAllowed = 100000000000000000;
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K IN %@ AND distanceToLocation:fromLocation:(location, %@) < %f AND %K > %@ AND %K <%@", @"activity", interestedReferencedActivities, usersLocation, distanceAllowed, @"date", now, @"date", oneDayFromNow];
     CKQuery *query = [[CKQuery alloc]initWithRecordType:@"Event" predicate:predicate];

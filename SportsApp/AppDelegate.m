@@ -48,18 +48,25 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc]initWithFrame:UIScreen.mainScreen.bounds];
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIStoryboard *barbaraStoryboard = [UIStoryboard storyboardWithName:@"StoryboardDaBarbara" bundle:nil];
+    UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"Secondary" bundle:nil];
     
     //DELETE THIS WHEN FINISHED TESTING
     //[userDefaults setBool:NO forKey:@"HasLaunchedOnce"];
-    //[userDefaults setObject:nil forKey:@"user"];
-    //[userDefaults setObject:nil forKey:@"loginInfo"];
-    //[userDefaults setObject:nil forKey:@"ArrayOfDictionariesContainingTheActivities"];
-    //[userDefaults setObject:nil forKey:@"ArrayOfDictionariesContainingPeople"];
+    //[userDefaults setObject:[NSData new] forKey:@"user"];
+    //[userDefaults setObject:[NSDictionary new] forKey:@"loginInfo"];
+    //[userDefaults setObject:[NSArray new] forKey:@"ArrayOfDictionariesContainingTheActivities"];
+    //[userDefaults setObject:[NSArray new] forKey:@"ArrayOfDictionariesContainingPeople"];
+    
+    NSData *user = [userDefaults dataForKey:@"user"];
     
     //CHECK IF APP IS BEING LAUNCHED FOR THE FIRST TIME
     if (![userDefaults boolForKey:@"HasLaunchedOnce"]){
+        [userDefaults setObject:[NSData new] forKey:@"user"];
+        [userDefaults setObject:[NSArray new] forKey:@"ArrayOfDictionariesContainingPeople"];
+        
+        
         //TODO SHOW INTRO VIEWS
-        UIViewController *initialView = [barbaraStoryboard instantiateViewControllerWithIdentifier:@"joinView"];
+        UIViewController *initialView = [loginStoryboard instantiateViewControllerWithIdentifier:@"navDoLogo"];
         self.window.rootViewController = initialView;
         [self.window makeKeyAndVisible];
         
@@ -75,7 +82,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         [userDefaults synchronize];
     }else{
         //check if there is already a user logged in
-        if ([userDefaults dataForKey:@"user"]) {
+        if ([user isEqual:nil]) {
             //SHOW FEED
             UIViewController *initialView = [mainStoryboard instantiateViewControllerWithIdentifier:@"view2"];
             self.window.rootViewController = initialView;
@@ -89,9 +96,9 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         }
         else
             //check if there is login info to perform the login operation
-            if([userDefaults dictionaryForKey:@"loginInfo"]){
+            if(!([userDefaults dictionaryForKey:@"loginInfo"]==nil)){
                 //TODO SHOW PERFORMING LOG IN
-                UIViewController *initialView = [barbaraStoryboard instantiateViewControllerWithIdentifier:@"joinView"];
+                UIViewController *initialView = [loginStoryboard instantiateViewControllerWithIdentifier:@"navDoLogo"];
                 self.window.rootViewController = initialView;
                 [self.window makeKeyAndVisible];
                 
@@ -104,7 +111,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
                         [self.window makeKeyAndVisible];
                     }else{
                         //SHOW LOGIN VIEW
-                        UIViewController *initialView = [mainStoryboard instantiateViewControllerWithIdentifier:@"loginView"];
+                        UIViewController *initialView = [loginStoryboard instantiateViewControllerWithIdentifier:@"navDoLogo"];
                         self.window.rootViewController = initialView;
                         [self.window makeKeyAndVisible];
                     }
@@ -112,7 +119,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
             }
         else{
             //NOTHING WORKED, SHOW JOIN VIEW
-            UIViewController *initialView = [barbaraStoryboard instantiateViewControllerWithIdentifier:@"joinView"];
+            UIViewController *initialView = [loginStoryboard instantiateViewControllerWithIdentifier:@"navDoLogo"];
             self.window.rootViewController = initialView;
             [self.window makeKeyAndVisible];
         }

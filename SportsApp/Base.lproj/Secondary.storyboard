@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="MrI-Tv-z4D">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="MrI-Tv-z4D">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -12,7 +12,7 @@
         <!--View Controller-->
         <scene sceneID="tDX-he-4QL">
             <objects>
-                <viewController id="eTU-Da-2ON" customClass="SAViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginScreen" id="eTU-Da-2ON" customClass="SAViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YhB-6O-MhS"/>
                         <viewControllerLayoutGuide type="bottom" id="pYK-hJ-Qpu"/>
@@ -325,7 +325,7 @@
         <!--Navigation Controller-->
         <scene sceneID="hYW-1I-cmL">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="MrI-Tv-z4D" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navDoLogo" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="MrI-Tv-z4D" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YHb-Ak-Moh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>

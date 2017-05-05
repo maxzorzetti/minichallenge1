@@ -336,7 +336,7 @@
                                      else
                                          NSLog(@"Record Identity created. New person in the app.");
                                          NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
-                                         SAPerson *person = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:[result valueForKey:@"picture"]];
+                                         SAPerson *person = [SAPersonConnector getPersonFromRecord:artworkRecord andPicture:photo];
                                          
                                          [SAUser saveToUserDefaults:person];
                                          
@@ -350,6 +350,8 @@
                                          //sets current user
                                          SAUser *obj = [SAUser new];
                                          [obj setCurrentPerson:person];
+                                     
+                                         [self goToFeed];
                                  }];
                                  
                                  
@@ -427,6 +429,8 @@
                                          SAUser *obj = [SAUser new];
                                          [obj setCurrentPerson:person];
                                          
+                                         [self goToFeed];
+                                         
                                      }];
                                      
                                  }
@@ -445,6 +449,8 @@
                                      //sets current user
                                      SAUser *obj = [SAUser new];
                                      [obj setCurrentPerson:person];
+                                     
+                                     [self goToFeed];
                                  }
                                  
                              }
@@ -473,6 +479,35 @@
     
     
 }
+
+
+
+
+
+
+
+- (void)goToFeed{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        
+        UIViewController *feed = [mainStoryboard instantiateViewControllerWithIdentifier:@"view2"];
+        [self presentViewController:feed animated:YES completion:^{
+            
+        }];
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*-(void)loginViewShowingLoggedInUser:(FBLoginView *)loginView{
  //self.lblLoginStatus.text = @"You are logged in.";
@@ -523,7 +558,12 @@
     //Checa-se se o usuario ja aceitou os termos de uso
     //if (! [FBSDKAccessToken currentAccessToken]) {
         // User is logged in, do work such as go to next view controller.
+    
+    
+    
+    
         FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
+        //loginButton.loginBehavior = FBSDKLoginBehaviorWeb;
         // Optional: Place the button in the center of your view.
         loginButton.center = _myView.center;
         [self.view addSubview:loginButton];
