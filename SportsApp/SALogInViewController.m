@@ -248,7 +248,7 @@
                                      [obj setCurrentPerson:person];
                                      
                                      
-                                     
+                                     [self goToFeed];
                                  }
                                  
                                  
@@ -361,7 +361,9 @@
                             SAUser *obj = [SAUser new];
                             [obj setCurrentPerson:person];
                             
-                            [self performSegueWithIdentifier:@"finishLoginSegue" sender:self];
+                            
+                            [self goToFeed];
+                            //[self performSegueWithIdentifier:@"finishLoginSegue" sender:self];
                         }
                         else{
                             
@@ -465,8 +467,19 @@
      if ([segue.identifier isEqualToString: @"finishLoginSegue"]) {
          UITabBarController *destView = segue.destinationViewController;
      
+     }
  }
- }
+
+- (void)goToFeed{
+    UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *destination = [main instantiateViewControllerWithIdentifier:@"view2"];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+       [self presentViewController:destination animated:YES completion:^{
+           
+       }];
+    });
+}
 
 
 @end

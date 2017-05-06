@@ -51,13 +51,19 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     //DELETE THIS WHEN FINISHED TESTING
     //[userDefaults setBool:NO forKey:@"HasLaunchedOnce"];
-    //[userDefaults setObject:nil forKey:@"user"];
-    //[userDefaults setObject:nil forKey:@"loginInfo"];
-    //[userDefaults setObject:nil forKey:@"ArrayOfDictionariesContainingTheActivities"];
-    //[userDefaults setObject:nil forKey:@"ArrayOfDictionariesContainingPeople"];
+    //[userDefaults setObject:[NSData new] forKey:@"user"];
+    //[userDefaults setObject:[NSDictionary new] forKey:@"loginInfo"];
+    //[userDefaults setObject:[NSArray new] forKey:@"ArrayOfDictionariesContainingTheActivities"];
+    //[userDefaults setObject:[NSArray new] forKey:@"ArrayOfDictionariesContainingPeople"];
     
     //CHECK IF APP IS BEING LAUNCHED FOR THE FIRST TIME
     if (![userDefaults boolForKey:@"HasLaunchedOnce"]){
+        [userDefaults setObject:[NSData new] forKey:@"user"];
+        [userDefaults setObject:[NSDictionary new] forKey:@"loginInfo"];
+        [userDefaults setObject:[NSArray new] forKey:@"ArrayOfDictionariesContainingTheActivities"];
+        [userDefaults setObject:[NSArray new] forKey:@"ArrayOfDictionariesContainingPeople"];
+        
+        
         //TODO SHOW INTRO VIEWS
         UIViewController *initialView = [barbaraStoryboard instantiateViewControllerWithIdentifier:@"joinView"];
         self.window.rootViewController = initialView;

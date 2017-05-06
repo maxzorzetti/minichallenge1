@@ -70,37 +70,6 @@
 
 
 
-
-
-//- (IBAction)finishedSignIn:(UIButton *)sender {
-//    
-//    _answer = [[NSString alloc] initWithString:  _answer1.text];
-//    _email = [[NSString alloc] initWithString:  _emailField.text];
-//}
-
-
-
-
-//- (IBAction)question1Chosen:(UIButton *)sender {
-//    
-//    _questionNumber =1;
-//    
-//}
-
-//- (IBAction)question2Chosen:(UIButton *)sender {
-//    
-//    
-//    
-//    
-//    
-//    
-//    
-//    
-//    
-//}
-
-
-
 - (IBAction)joinUsButtonPressed:(UIButton *)sender {
     
     
@@ -329,9 +298,9 @@
              identityRecord[@"hash"] = userFacebookID;
              //mexer
              
-             // CKRecord *user;
              
              
+            
              [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results1, NSError *error) {
                  if (error) {
                      NSLog(@"error: %@",error.localizedDescription);
@@ -370,6 +339,8 @@
                                          //sets current user
                                          SAUser *obj = [SAUser new];
                                          [obj setCurrentPerson:person];
+                                     
+                                     [self goToFeed];
                                      
                                      
                                      _personRecord = personRecord;
@@ -464,6 +435,8 @@
                                          SAUser *obj = [SAUser new];
                                          [obj setCurrentPerson:person];
                                          
+                                         
+                                         [self goToFeed];
                                      }];
                                      
                                      
@@ -481,7 +454,6 @@
                                      });
                                      
                                      [SAUser saveToUserDefaults:person];
-                                     NSLog(@"oi max");
                                      //saves user login info in userdefaults
                                      NSArray *keys = @[@"username", @"password", @"facebookId"];
                                      NSArray *values = @[person.name, _passwordField.text, userFacebookID];
@@ -491,6 +463,8 @@
                                      SAUser *obj = [SAUser new];
                                      [obj setCurrentPerson:person];
                                      
+                                     
+                                     [self goToFeed];
                                      
 
                                  }
@@ -584,20 +558,6 @@
         @[@"public_profile", @"email", @"user_friends"];
         
         loginButton.delegate = self;
-        
-        
-    //}
-    //se nao, pede pra ele!
-    //else
-    //{
-        
-        
-        // [self performSegueWithIdentifier:@"mySegue" sender:self];
-        // NSLog(@"user logged");
-    //}
-    
-    // FBSDKLoginResult.declinedPermissions
-    //[imageData release];
     
 }
 
@@ -631,6 +591,18 @@
     maskLayer.fillColor = [UIColor clearColor].CGColor;
     
     [textField.layer addSublayer:maskLayer];
+}
+
+
+- (void)goToFeed{
+    UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *destination = [main instantiateViewControllerWithIdentifier:@"view2"];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:destination animated:YES completion:^{
+            
+        }];
+    });
 }
 
 

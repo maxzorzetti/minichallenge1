@@ -71,7 +71,10 @@
 }
 
 + (void)saveToUserDefaults:(SAPerson *)person{
-    NSMutableArray *arrayOfPeople = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"ArrayOfDictionariesContainingPeople"];
+    NSArray *arrayFromUD = [[NSUserDefaults standardUserDefaults] arrayForKey:@"ArrayOfDictionariesContainingPeople"];
+    
+    
+    NSMutableArray *arrayOfPeople = [NSMutableArray arrayWithArray:arrayFromUD];
     
     NSData *personData = [NSKeyedArchiver archivedDataWithRootObject:person];
     NSDictionary *personDic = @{
