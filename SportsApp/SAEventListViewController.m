@@ -167,18 +167,15 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(SANewsFeedTableViewCell *)sender{
 	if ([segue.identifier isEqualToString:@"descriptionEventSegue"]) {
-        NSComparisonResult result = [sender.cellEvent.date compare:[NSDate date]];
-        
-		if ([sender.cellEvent.participants count] >= [sender.cellEvent.minPeople integerValue] || result == NSOrderedAscending){
-			ClosedEventDescriptionViewController *destView = segue.destinationViewController;
-			destView.event = sender.cellEvent;
-		}else{
-			SAEventDescriptionViewController *destView = segue.destinationViewController;
-			destView.currentEvent = sender.cellEvent;
-		}
+        ClosedEventDescriptionViewController *destView = segue.destinationViewController;
+        destView.event = sender.cellEvent;
+		
 	} else if ([segue.identifier isEqualToString:@"startNewEvent"]) {
 		// :)
-	}
+    }else if ([segue.identifier isEqualToString:@"descriptionNotClosedEventSegue"]){
+        SAEventDescriptionViewController *destView = segue.destinationViewController;
+        destView.currentEvent = sender.cellEvent;
+    }
 }
 
 - (IBAction)backFromDescription:(UIStoryboardSegue *)segue{

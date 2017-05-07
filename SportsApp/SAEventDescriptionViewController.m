@@ -12,6 +12,7 @@
 #import "SAFriendCollectionViewCell.h"
 #import <CoreLocation/CLGeocoder.h>
 #import <CoreLocation/CLPlacemark.h>
+#import "SAParty.h"
 
 @interface SAEventDescriptionViewController ()
 @property NSMutableArray *arrayOfParticipants;
@@ -26,9 +27,20 @@
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     
-    //self.progressView.progress = (float)[self.currentEvent.participants count];
-    //self.eventNumberParticipants.text = @"";
-    //[NSString stringWithFormat:@"%lu/%@", (unsigned long)[self.currentEvent.participants count], self.currentEvent.minPeople];
+    self.progressView.progress = [self.currentEvent.participants count] / [self.currentEvent.minPeople floatValue];
+    self.eventCapacity.text = [NSString stringWithFormat:@"%lu/%@", (unsigned long)[self.currentEvent.participants count], self.currentEvent.minPeople];
+    
+    self.ownerName.text = self.currentEvent.owner.name;
+    self.eventName.text = self.currentEvent.name;
+    self.eventGender.text = self.currentEvent.sex;
+    
+    if ([self.currentEvent.sex isEqualToString:@"Female"]) {
+        self.genderIcon.image = [UIImage imageNamed:@"Icon_Female"];
+    } else if([self.currentEvent.sex isEqualToString:@"Male"]){
+        self.genderIcon.image = [UIImage imageNamed:@"Icon_Male"];
+    }else{
+        self.genderIcon.image = [UIImage imageNamed:@"Icon_Mixed"];
+    }
     
     //make locationReadable
     CLGeocoder *geocoder = [[CLGeocoder alloc]init];
@@ -93,13 +105,11 @@
         
     }
     
+    self.mainView.layer.borderColor = [UIColor colorWithRed:119/255.0 green:90/255.0 blue:218/255.0 alpha:1.0].CGColor;
     
+    self.mainView.layer.borderWidth = 1.0;
     
-    _mainView.layer.borderColor = [UIColor colorWithRed:119/255.0 green:90/255.0 blue:218/255.0 alpha:1.0].CGColor;
-    
-    _mainView.layer.borderWidth = 1.0;
-    
-    _mainView.layer.cornerRadius = 8.0;
+    self.mainView.layer.cornerRadius = 8.0;
     
     
     self.ownerPhoto.layer.cornerRadius = self.ownerPhoto.frame.size.height /2;
@@ -108,50 +118,35 @@
     
     
     
-    if (_currentEvent.owner.photo==nil) {
+    if (self.currentEvent.owner.photo==nil) {
         self.ownerPhoto.image = [UIImage imageNamed:@"img_placeholder.png"];
     }else{
-        self.ownerPhoto.image = [UIImage imageWithData:_currentEvent.owner.photo];
+        self.ownerPhoto.image = [UIImage imageWithData:self.currentEvent.owner.photo];
     }
 
     
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"dd/MM/yyyy"];
-    
-    NSDate *todayDate = [NSDate date];
   
-    self.eventDate.text= [dateFormat stringFromDate:_currentEvent.date];
-    
-    _progressView.frame = CGRectMake(29, 235, 269, 7);
-    _progressView.progressTintColor = [UIColor colorWithRed:50.0/255.0 green:226.0/255.0 blue:196.0/255.0 alpha:1.0];
-    
-    _ownerName.text = _currentEvent.owner.name;
-    
-    
-    _eventName.text = _currentEvent.name;
-    _eventImage.image = [UIImage imageWithData:_currentEvent.activity.picture];
-    _eventGender.text = _currentEvent.sex;
-    _eventNumberParticipants.text = [NSString stringWithFormat:@"%@/%@", [_currentEvent participants], _currentEvent.maxPeople];
-    
-    //_joinButton.image = [UIImage imageNamed:@];
+    self.eventDate.text= [dateFormat stringFromDate:self.currentEvent.date];
     
     
     NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];
     SAPerson *currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
     
-    if ([[_currentEvent participants] containsObject:currentUser])
+    if ([[self.currentEvent participants] containsObject:currentUser])
     {
     
                 UIImage *backgroungImage = [UIImage imageNamed:@"Rectangle Copy 7"];
-                [_joinButton setBackgroundImage:backgroungImage forState:UIControlStateNormal];
+                [self.joinButton setBackgroundImage:backgroungImage forState:UIControlStateNormal];
                 
 
     }
     else
     {
         UIImage *backgroungImage = [UIImage imageNamed:@"Rectangle Copy 6"];
-        [_joinButton setBackgroundImage:backgroungImage forState:UIControlStateNormal];
+        [self.joinButton setBackgroundImage:backgroungImage forState:UIControlStateNormal];
     }
     
 }
@@ -180,6 +175,7 @@
                 UIImage *backgroungImage = [UIImage imageNamed:@"Rectangle Copy 6"];
                 [_joinButton setBackgroundImage:backgroungImage forState:UIControlStateNormal];
                 
+                [self updateCollectionViewWithParticipants: [event.participants allObjects]];
             }}];
 
     }
@@ -194,6 +190,8 @@
                 UIImage *backgroungImage = [UIImage imageNamed:@"Rectangle Copy 7"];
                 [_joinButton setBackgroundImage:backgroungImage forState:UIControlStateNormal];
                  [_currentEvent addParticipant:currentUser];
+                
+                [self updateCollectionViewWithParticipants: [event.participants allObjects]];
             }}];
        
         

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Omh-W0-HNo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bJP-XU-RQK">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Event Description View Controller-->
+        <!--Title-->
         <scene sceneID="aKs-j3-miT">
             <objects>
                 <viewController storyboardIdentifier="eventDescription" id="Omh-W0-HNo" customClass="SAEventDescriptionViewController" sceneMemberID="viewController">
@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cs1-if-hm1">
-                                <rect key="frame" x="25" y="40" width="325" height="383"/>
+                                <rect key="frame" x="25" y="84" width="325" height="383"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TuJ-XE-AgQ">
                                         <rect key="frame" x="22" y="0.0" width="283" height="72"/>
@@ -285,10 +285,11 @@
                                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="6As-GN-hlS">
                                                 <rect key="frame" x="0.0" y="33" width="283" height="2"/>
                                             </progressView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R64-8L-R3l">
-                                                <rect key="frame" x="253" y="14" width="30" height="0.0"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R64-8L-R3l">
+                                                <rect key="frame" x="223" y="14" width="60" height="17"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="30" id="OXP-Dv-JSR"/>
+                                                    <constraint firstAttribute="width" constant="60" id="OXP-Dv-JSR"/>
+                                                    <constraint firstAttribute="height" constant="17" id="ijA-1y-CdE"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                 <nil key="textColor"/>
@@ -335,17 +336,17 @@
                                             <constraint firstAttribute="height" constant="46" id="VAM-D6-ibW"/>
                                         </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Mqx-oy-kht">
-                                            <size key="itemSize" width="40" height="45"/>
+                                            <size key="itemSize" width="33" height="45"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="friendCell" id="HRR-B7-Jz9" customClass="SAFriendCollectionViewCell">
-                                                <rect key="frame" x="0.0" y="0.5" width="40" height="45"/>
+                                                <rect key="frame" x="0.0" y="0.5" width="33" height="45"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="45"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="33" height="45"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sp8-Wb-Guo">
@@ -361,6 +362,7 @@
                                                     <constraint firstItem="Sp8-Wb-Guo" firstAttribute="top" secondItem="HRR-B7-Jz9" secondAttribute="top" id="4U1-Si-Qyv"/>
                                                     <constraint firstItem="Sp8-Wb-Guo" firstAttribute="leading" secondItem="HRR-B7-Jz9" secondAttribute="leading" id="tGt-Dl-27L"/>
                                                 </constraints>
+                                                <edgeInsets key="layoutMargins" top="10" left="8" bottom="8" right="7"/>
                                                 <connections>
                                                     <outlet property="profileImageBruno" destination="Sp8-Wb-Guo" id="Qgu-zo-cdG"/>
                                                 </connections>
@@ -392,7 +394,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0p3-S1-Ex6">
-                                <rect key="frame" x="25" y="608" width="325" height="50"/>
+                                <rect key="frame" x="25" y="564" width="325" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="GCG-8n-k0G"/>
                                     <constraint firstAttribute="width" constant="325" id="rLm-yx-Uz1"/>
@@ -412,14 +414,24 @@
                             <constraint firstItem="Cs1-if-hm1" firstAttribute="top" secondItem="XXn-TP-vXL" secondAttribute="bottom" constant="20" id="vZl-oo-d0M"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="EFi-0B-DcY">
+                        <barButtonItem key="leftBarButtonItem" image="Icon_Delete" style="plain" id="LZ7-xV-5QS">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="NXt-mQ-EMK" kind="unwind" unwindAction="backFromDescription:" id="p8N-s3-Q5u"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="bqu-xK-op0" id="6Du-Ks-wUN"/>
+                        <outlet property="eventCapacity" destination="R64-8L-R3l" id="WBo-6c-x0k"/>
                         <outlet property="eventDate" destination="dlo-qK-l5V" id="DOr-md-nbW"/>
                         <outlet property="eventGender" destination="nGE-5Z-f4F" id="P9Q-f4-ZPt"/>
                         <outlet property="eventImage" destination="99a-Bb-0xT" id="5SX-bq-Ics"/>
                         <outlet property="eventLocation" destination="d52-mH-GM3" id="pjm-1l-IHe"/>
                         <outlet property="eventName" destination="GOs-p3-mTz" id="zkf-IX-wW7"/>
-                        <outlet property="eventNumberParticipants" destination="R64-8L-R3l" id="HwT-eh-Yj5"/>
                         <outlet property="genderIcon" destination="bBc-go-4PA" id="GBk-Ya-IKB"/>
                         <outlet property="joinButton" destination="0p3-S1-Ex6" id="pcp-Td-zBT"/>
                         <outlet property="mainView" destination="Cs1-if-hm1" id="C8b-ej-lKM"/>
@@ -431,12 +443,32 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CrS-YV-tdQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="NXt-mQ-EMK" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1144.8" y="-400.74962518740631"/>
+            <point key="canvasLocation" x="2124" y="-452.02398800599701"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="z5J-HT-Ilk">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bJP-XU-RQK" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="oDU-CV-EOs">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Omh-W0-HNo" kind="relationship" relationship="rootViewController" id="me1-jg-Kod"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TUD-d0-hbi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1184.8" y="-452.02398800599701"/>
         </scene>
     </scenes>
     <resources>
         <image name="Group 38 Copy" width="29" height="16"/>
+        <image name="Icon_Delete" width="18" height="17"/>
         <image name="Icon_shift" width="14" height="14"/>
         <image name="Line Copy 13" width="2" height="52"/>
         <image name="Line Copy 14" width="284" height="1"/>

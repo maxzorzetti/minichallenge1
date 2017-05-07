@@ -29,7 +29,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *eventLocation;
 
 @property (weak, nonatomic) IBOutlet UILabel *eventGender;
-@property (weak, nonatomic) IBOutlet UILabel *eventNumberParticipants;
+@property (weak, nonatomic) IBOutlet UILabel *eventCapacity;
 
 @property (weak, nonatomic) IBOutlet UILabel *shiftLabel;
 
