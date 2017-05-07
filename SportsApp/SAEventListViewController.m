@@ -27,6 +27,7 @@
 @property (nonatomic, strong) id previewingContext;
 
 @property NSArray *dicListOfComingEvents, *dicListOfPastEvents;
+@property CLLocationManager *locationManager;
 
 @end
 
@@ -35,6 +36,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    if (![CLLocationManager locationServicesEnabled]){
+        if (nil == self.locationManager){
+            self.locationManager = [[CLLocationManager alloc] init];
+            self.locationManager.delegate = self;
+        }
+        
+        [self.locationManager requestLocation];
+    }
+    [self.locationManager requestLocation];
     
     //check if 3d touch is available, if it is, assign current view as delegate
     if ([self isForceTouchAvailable]) {

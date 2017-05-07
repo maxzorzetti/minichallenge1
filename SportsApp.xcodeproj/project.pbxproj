@@ -44,6 +44,7 @@
 		84CBE4751EBA38C100ACD0DF /* ClosedEventDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CBE4741EBA38C100ACD0DF /* ClosedEventDescriptionViewController.m */; };
 		84CBE4781EBA57BF00ACD0DF /* SAClosedEventDescriptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CBE4771EBA57BF00ACD0DF /* SAClosedEventDescriptionTableViewCell.m */; };
 		84CBE47A1EBA83CB00ACD0DF /* StoryboardDaBarbara.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84CBE4791EBA83CB00ACD0DF /* StoryboardDaBarbara.storyboard */; };
+		84D4C2C91EBFACBC00291DDE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D4C2C81EBFACBC00291DDE /* CoreLocation.framework */; };
 		84DC117D1EACF32100A9A90C /* SAActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC117C1EACF32100A9A90C /* SAActivity.m */; };
 		84DC11801EACF3D200A9A90C /* SAMatchMakerCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC117F1EACF3D200A9A90C /* SAMatchMakerCore.m */; };
 		84DC11841EAD00BD00A9A90C /* SAPersonDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC11831EAD00BD00A9A90C /* SAPersonDAO.m */; };
@@ -144,6 +145,7 @@
 		84CBE4761EBA57BF00ACD0DF /* SAClosedEventDescriptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAClosedEventDescriptionTableViewCell.h; sourceTree = "<group>"; };
 		84CBE4771EBA57BF00ACD0DF /* SAClosedEventDescriptionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAClosedEventDescriptionTableViewCell.m; sourceTree = "<group>"; };
 		84CBE4791EBA83CB00ACD0DF /* StoryboardDaBarbara.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StoryboardDaBarbara.storyboard; sourceTree = "<group>"; };
+		84D4C2C81EBFACBC00291DDE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		84DC117B1EACF32100A9A90C /* SAActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAActivity.h; sourceTree = "<group>"; };
 		84DC117C1EACF32100A9A90C /* SAActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAActivity.m; sourceTree = "<group>"; };
 		84DC117E1EACF3D200A9A90C /* SAMatchMakerCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMatchMakerCore.h; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84D4C2C91EBFACBC00291DDE /* CoreLocation.framework in Frameworks */,
 				8406A8F11EA6763900C60267 /* CloudKit.framework in Frameworks */,
 				D02D36DC3B0EA2B7089928CB /* libPods-SportsApp.a in Frameworks */,
 			);
@@ -298,6 +301,7 @@
 		8406A8EF1EA6763900C60267 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84D4C2C81EBFACBC00291DDE /* CoreLocation.framework */,
 				8406A8F01EA6763900C60267 /* CloudKit.framework */,
 				7D828BD3FF47E822127BA720 /* libPods-SportsApp.a */,
 			);
