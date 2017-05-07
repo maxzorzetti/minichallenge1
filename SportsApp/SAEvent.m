@@ -58,11 +58,14 @@
 }
 
 - (void)removeParticipant:(SAPerson *)person{
+    SAPerson *personToRemove;
     for (SAPerson *participant in self.privateParticipants) {
         if ([participant.personId.recordName isEqualToString:person.personId.recordName]) {
-            [self.privateParticipants removeObject:participant];
+            personToRemove = participant;
         }
     }
+    
+    [self.privateParticipants removeObject:personToRemove];
 }
 
 - (NSString *)getParticipantRole:(SAPerson *)person{

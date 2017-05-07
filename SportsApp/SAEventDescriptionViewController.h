@@ -35,8 +35,6 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *genderIcon;
 
-@property (weak, nonatomic) IBOutlet UIButton *joinButton;
-
 @property SAEvent *currentEvent;
 
 @property (weak, nonatomic) IBOutlet UIView *mainView;
@@ -44,5 +42,8 @@
 @property (weak, nonatomic) IBOutlet UIView *progressBar;
 
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
+@property (weak, nonatomic) IBOutlet UIButton *modifyParticipantButton;
+
+@property (weak, nonatomic) IBOutlet UIView *buttonView;
 
 @end

@@ -17,6 +17,7 @@
 @interface SAEventDescriptionViewController ()
 @property NSMutableArray *arrayOfParticipants;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (nonatomic) SAPerson *currentUser;
 
 @end
 
@@ -24,11 +25,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];
+    _currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
+    
+    
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-    
-    self.progressView.progress = [self.currentEvent.participants count] / [self.currentEvent.minPeople floatValue];
-    self.eventCapacity.text = [NSString stringWithFormat:@"%lu/%@", (unsigned long)[self.currentEvent.participants count], self.currentEvent.minPeople];
     
     self.ownerName.text = self.currentEvent.owner.name;
     self.eventName.text = self.currentEvent.name;
@@ -98,19 +100,19 @@
             [arrayToUpdate addObject:person];
         }
         
-        //once all participantss info are complete update table view
+        //if all participantss info are complete update table view
         if ([arrayToUpdate count] == [self.arrayOfParticipants count]) {
             [self updateCollectionViewWithParticipants:arrayToUpdate];
         }
         
     }
     
+    //add border and margin to main view
     self.mainView.layer.borderColor = [UIColor colorWithRed:119/255.0 green:90/255.0 blue:218/255.0 alpha:1.0].CGColor;
-    
     self.mainView.layer.borderWidth = 1.0;
-    
     self.mainView.layer.cornerRadius = 8.0;
     
+    [self updateParticipantStatus];
     
     self.ownerPhoto.layer.cornerRadius = self.ownerPhoto.frame.size.height /2;
     self.ownerPhoto.layer.masksToBounds = YES;
@@ -130,76 +132,12 @@
     [dateFormat setDateFormat:@"dd/MM/yyyy"];
   
     self.eventDate.text= [dateFormat stringFromDate:self.currentEvent.date];
-    
-    
-    NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];
-    SAPerson *currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
-    
-    if ([[self.currentEvent participants] containsObject:currentUser])
-    {
-    
-                UIImage *backgroungImage = [UIImage imageNamed:@"Rectangle Copy 7"];
-                [self.joinButton setBackgroundImage:backgroungImage forState:UIControlStateNormal];
-                
-
-    }
-    else
-    {
-        UIImage *backgroungImage = [UIImage imageNamed:@"Rectangle Copy 6"];
-        [self.joinButton setBackgroundImage:backgroungImage forState:UIControlStateNormal];
-    }
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-
-- (IBAction)jointButtonPressed:(UIButton *)sender {
-    
-    NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];
-    SAPerson *currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
-    
-    if ([[_currentEvent participants] containsObject:currentUser])
-    {
-        
-        [SAEventConnector removeParticipant:currentUser ofEvent:_currentEvent handler:^(SAEvent * _Nullable event, NSError * _Nullable error) {
-            if (!error)
-            {
-        
-                [_currentEvent removeParticipant:currentUser];
-        
-                UIImage *backgroungImage = [UIImage imageNamed:@"Rectangle Copy 6"];
-                [_joinButton setBackgroundImage:backgroungImage forState:UIControlStateNormal];
-                
-                [self updateCollectionViewWithParticipants: [event.participants allObjects]];
-            }}];
-
-    }
-    else
-    {
-        
-        
-        [SAEventConnector registerParticipant:currentUser inEvent:_currentEvent handler:^(SAEvent * _Nullable event, NSError * _Nullable error) {
-            if (!error)
-            {
-
-                UIImage *backgroungImage = [UIImage imageNamed:@"Rectangle Copy 7"];
-                [_joinButton setBackgroundImage:backgroungImage forState:UIControlStateNormal];
-                 [_currentEvent addParticipant:currentUser];
-                
-                [self updateCollectionViewWithParticipants: [event.participants allObjects]];
-            }}];
-       
-        
-     }
-    
-    
-}
-
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SAFriendCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"friendCell" forIndexPath:indexPath];
@@ -234,13 +172,74 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.collectionView reloadData];
     });
+}
+
+- (void)updateParticipantStatus{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //define value for progress bar
+        self.progressView.progress = [self.currentEvent.participants count] / [self.currentEvent.minPeople floatValue];
+        self.eventCapacity.text = [NSString stringWithFormat:@"%lu/%@", (unsigned long)[self.currentEvent.participants count], self.currentEvent.minPeople];
+        
+        //define border and margin of Join/Leave button
+        self.buttonView.layer.borderColor = [UIColor colorWithRed:119/255.0 green:90/255.0 blue:218/255.0 alpha:1.0].CGColor;
+        self.buttonView.layer.borderWidth = 1.0;
+        self.buttonView.layer.cornerRadius = 8.0;
+        self.modifyParticipantButton.userInteractionEnabled = YES;
+        
+        for (SAPerson *participant in self.currentEvent.participants) {
+            if ([participant.personId.recordName isEqualToString:self.currentUser.personId.recordName]) {
+                //current user is a participant of the event, show LEAVE button
+                self.buttonView.backgroundColor = [UIColor whiteColor];
+                [self.modifyParticipantButton setTitle:@"LEAVE" forState:UIControlStateNormal];
+                [self.modifyParticipantButton setTitleColor:[UIColor colorWithRed:119/255.0 green:90/255.0 blue:218/255.0 alpha:1.0] forState:UIControlStateNormal];
+                return;
+            }
+        }
+        
+        //current user is not a participant of the event, show JOIN button
+        self.buttonView.backgroundColor = [UIColor colorWithRed:119/255.0 green:90/255.0 blue:218/255.0 alpha:1.0];
+        [self.modifyParticipantButton setTitle:@"JOIN" forState:UIControlStateNormal];
+        [self.modifyParticipantButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    });
+}
+
+- (IBAction)modifyParticipantsOfEvent:(UIButton *)sender {
+    int toRegister = 1;
+    for (SAPerson *person in self.currentEvent.participants) {
+        if ([person.personId.recordName isEqualToString:self.currentUser.personId.recordName]) {
+            toRegister = 0;
+            self.modifyParticipantButton.userInteractionEnabled = NO;
+            
+            //leave event
+            [SAEventConnector removeParticipant:self.currentUser ofEvent:self.currentEvent handler:^(SAEvent * _Nullable event, NSError * _Nullable error) {
+                if (!error) {
+                    //update participants list
+                    [self updateCollectionViewWithParticipants:[event.participants allObjects]];
+                    
+                    //update button content
+                    [self updateParticipantStatus];
+                }
+            }];
+        }
+    }
     
+    if (toRegister) {
+        self.modifyParticipantButton.userInteractionEnabled = NO;
+        
+        //register in event
+        [SAEventConnector registerParticipant:self.currentUser inEvent:self.currentEvent handler:^(SAEvent * _Nullable event, NSError * _Nullable error) {
+            if (!error) {
+                //update participants list
+                [self updateCollectionViewWithParticipants:[event.participants allObjects]];
+                
+                //update button content
+                [self updateParticipantStatus];
+            }
+        }];
+    }
     
     
 }
-
-
-
 
 /*
 #pragma mark - Navigation

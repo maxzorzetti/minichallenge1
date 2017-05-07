@@ -1731,24 +1731,37 @@
                                     <constraint firstAttribute="trailing" secondItem="kjZ-Td-HeS" secondAttribute="trailing" constant="22" id="zHf-vD-jhj"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAu-J1-peJ">
-                                <rect key="frame" x="25" y="564" width="325" height="50"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TNM-7M-3P5">
+                                <rect key="frame" x="25" y="538" width="325" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fb3-nT-DT3">
+                                        <rect key="frame" x="0.0" y="0.0" width="325" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                        <state key="normal" title="JOIN">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="modifyParticipantsOfEvent:" destination="1Jd-uP-lQI" eventType="touchUpInside" id="SLh-yR-DPg"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.47098225355148315" green="0.34249314665794373" blue="0.85537540912628174" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="325" id="uRf-gC-gVz"/>
-                                    <constraint firstAttribute="height" constant="50" id="xA2-Vi-9Ue"/>
+                                    <constraint firstAttribute="bottom" secondItem="fb3-nT-DT3" secondAttribute="bottom" id="Jxn-EX-t3E"/>
+                                    <constraint firstItem="fb3-nT-DT3" firstAttribute="leading" secondItem="TNM-7M-3P5" secondAttribute="leading" id="afD-OJ-v0g"/>
+                                    <constraint firstAttribute="trailing" secondItem="fb3-nT-DT3" secondAttribute="trailing" id="dul-VW-kPy"/>
+                                    <constraint firstItem="fb3-nT-DT3" firstAttribute="top" secondItem="TNM-7M-3P5" secondAttribute="top" id="k4E-6O-TEu"/>
+                                    <constraint firstAttribute="height" constant="50" id="rMi-1B-ELJ"/>
                                 </constraints>
-                                <connections>
-                                    <action selector="jointButtonPressed:" destination="1Jd-uP-lQI" eventType="touchUpInside" id="cEN-rz-fyK"/>
-                                </connections>
-                            </button>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="v8w-kd-TvE" firstAttribute="top" secondItem="fG5-gq-X2V" secondAttribute="bottom" constant="20" id="2Kb-C6-LFU"/>
-                            <constraint firstItem="qAu-J1-peJ" firstAttribute="leading" secondItem="XMd-2o-5MR" secondAttribute="leadingMargin" constant="9" id="9Gv-dC-3hk"/>
-                            <constraint firstItem="ku6-UP-NtV" firstAttribute="top" secondItem="qAu-J1-peJ" secondAttribute="bottom" constant="9" id="FbD-EG-ynf"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="qAu-J1-peJ" secondAttribute="trailing" constant="9" id="kdf-iV-bsj"/>
+                            <constraint firstAttribute="trailing" secondItem="TNM-7M-3P5" secondAttribute="trailing" constant="25" id="CcB-vC-QgK"/>
+                            <constraint firstItem="TNM-7M-3P5" firstAttribute="top" secondItem="v8w-kd-TvE" secondAttribute="bottom" constant="71" id="fT1-kW-y1R"/>
                             <constraint firstAttribute="trailing" secondItem="v8w-kd-TvE" secondAttribute="trailing" constant="25" id="r3y-Kp-a0k"/>
+                            <constraint firstItem="TNM-7M-3P5" firstAttribute="leading" secondItem="XMd-2o-5MR" secondAttribute="leading" constant="25" id="wh4-M1-pUH"/>
                             <constraint firstItem="v8w-kd-TvE" firstAttribute="leading" secondItem="XMd-2o-5MR" secondAttribute="leading" constant="25" id="yiW-go-OoC"/>
                         </constraints>
                     </view>
@@ -1763,6 +1776,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="buttonView" destination="TNM-7M-3P5" id="VLP-E2-iKP"/>
                         <outlet property="collectionView" destination="I2s-VI-2Ng" id="1i1-ap-Mbd"/>
                         <outlet property="eventCapacity" destination="ObQ-Uw-kjR" id="4hp-XI-yAF"/>
                         <outlet property="eventDate" destination="c5i-gD-dUU" id="0E3-Hh-GzC"/>
@@ -1771,8 +1785,8 @@
                         <outlet property="eventLocation" destination="qbO-N4-tkQ" id="N2B-48-8T3"/>
                         <outlet property="eventName" destination="tQf-hE-hJL" id="1bq-aj-edI"/>
                         <outlet property="genderIcon" destination="576-g3-l56" id="IGe-pL-zP7"/>
-                        <outlet property="joinButton" destination="qAu-J1-peJ" id="qFD-qa-Qzf"/>
                         <outlet property="mainView" destination="v8w-kd-TvE" id="ZfH-yJ-yqx"/>
+                        <outlet property="modifyParticipantButton" destination="fb3-nT-DT3" id="llq-km-7bB"/>
                         <outlet property="ownerName" destination="HbD-nd-Ddf" id="ZEO-Qa-SpM"/>
                         <outlet property="ownerPhoto" destination="1u3-LW-zxN" id="NWk-k1-jt9"/>
                         <outlet property="progressBar" destination="MQE-bQ-gOF" id="5ys-Hh-ZZB"/>

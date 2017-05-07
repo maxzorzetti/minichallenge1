@@ -112,7 +112,6 @@
 }
 
 - (IBAction)publishPressed:(UIButton *)sender {
-	NSLog(@"ALO");
 	
 	[SAMatchmaker enterMatchmakingWithParty:self.party handler:^(SAEvent * _Nullable event, NSError * _Nullable error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
@@ -132,7 +131,7 @@
 			} else {
 				NSLog(@"No event found");
 				
-				UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"eventDescriptionStoryboard" bundle:nil];
+				UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
 				
 				
 				SAEventDescriptionViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"eventDescription"];
