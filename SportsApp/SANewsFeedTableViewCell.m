@@ -53,7 +53,11 @@
     self.ownerProfilePicture.layer.masksToBounds = YES;
     self.ownerProfilePicture.layer.borderWidth = 0;
     
-    if ([self.cellEvent.participants count] >= [self.cellEvent.minPeople integerValue] || [self.cellEvent.date earlierDate:[NSDate date]]) {
+    
+    NSComparisonResult result = [self.cellEvent.date compare:[NSDate date]];
+    
+    
+    if ([self.cellEvent.participants count] >= [self.cellEvent.minPeople integerValue] || result == NSOrderedAscending) {
         self.viewToBorder.layer.borderColor = [UIColor colorWithRed:50/255.0 green:226/255.0 blue:196/255.0 alpha:1.0].CGColor;
         self.viewToBorder.layer.borderWidth = 1.0;
         self.viewToBorder.layer.cornerRadius = 8.0;

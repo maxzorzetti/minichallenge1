@@ -12,7 +12,7 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "SANewsFeedTableViewCell.h"
 #import <CloudKit/CloudKit.h>
-
+#import "ClosedEventDescriptionViewController.h"
 #import "SAPersonConnector.h"
 #import "SAPerson.h"
 #import "SAEventConnector.h"
@@ -236,6 +236,8 @@
     
     
    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     return cell;
 }
 
@@ -319,10 +321,15 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
     SANewsFeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    [self performSegueWithIdentifier:@"mySegue" sender:cell];
+    
+    NSComparisonResult result = [cell.cellEvent.date compare:[NSDate date]];
+    
+    if([cell.cellEvent.participants count] >= [cell.cellEvent.minPeople integerValue] || result == NSOrderedAscending){
+        [self performSegueWithIdentifier:@"closedEventSegue" sender:cell];
+    }else{
+        [self performSegueWithIdentifier:@"mySegue" sender:cell];
+    }
 }
     
     
@@ -336,10 +343,18 @@
 		
 		SAEventDescriptionViewController *destView = segue.destinationViewController;
 		destView.currentEvent= sender.cellEvent;
-	}
+    }else{
+        ClosedEventDescriptionViewController *destView = segue.destinationViewController;
+        destView.event = sender.cellEvent;
+    }
 	
     
 }
+
+- (IBAction)backFromDescription:(UIStoryboardSegue *)segue{
+    
+}
+
 /*
  // Override to support conditional editing of the table view.
  - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

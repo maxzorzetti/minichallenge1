@@ -20,7 +20,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo_SA_Color" translatesAutoresizingMaskIntoConstraints="NO" id="V9z-2A-or2">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_SA_White" translatesAutoresizingMaskIntoConstraints="NO" id="V9z-2A-or2">
                                 <rect key="frame" x="20" y="273" width="334" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="PSq-MD-Dc5"/>
@@ -28,7 +28,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.46682476997375488" green="0.35104340314865112" blue="0.85531872510910034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="V9z-2A-or2" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="G10-dN-Ou3"/>
                             <constraint firstItem="V9z-2A-or2" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="vu9-Yy-MmD"/>
@@ -41,6 +41,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Logo_SA_Color" width="167" height="61"/>
+        <image name="Icon_SA_White" width="245" height="90"/>
     </resources>
 </document>

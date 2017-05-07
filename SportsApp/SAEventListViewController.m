@@ -151,9 +151,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     SANewsFeedTableViewCell *cell = [self.tableWithEvents cellForRowAtIndexPath:indexPath];
     
-    NSDate *today = [NSDate date];
+    NSComparisonResult result = [cell.cellEvent.date compare:[NSDate date]];
     
-    if([cell.cellEvent.participants count] >= [cell.cellEvent.minPeople integerValue] || [cell.cellEvent.date earlierDate:today]){
+    if([cell.cellEvent.participants count] >= [cell.cellEvent.minPeople integerValue] || result == NSOrderedAscending){
         [self performSegueWithIdentifier:@"descriptionEventSegue" sender:cell];
     }else{
         [self performSegueWithIdentifier:@"descriptionNotClosedEventSegue" sender:cell];
@@ -167,7 +167,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(SANewsFeedTableViewCell *)sender{
 	if ([segue.identifier isEqualToString:@"descriptionEventSegue"]) {
-		if ([sender.cellEvent.participants count] >= [sender.cellEvent.minPeople integerValue] || [sender.cellEvent.date earlierDate: [NSDate date]]){
+        NSComparisonResult result = [sender.cellEvent.date compare:[NSDate date]];
+        
+		if ([sender.cellEvent.participants count] >= [sender.cellEvent.minPeople integerValue] || result == NSOrderedAscending){
 			ClosedEventDescriptionViewController *destView = segue.destinationViewController;
 			destView.event = sender.cellEvent;
 		}else{
