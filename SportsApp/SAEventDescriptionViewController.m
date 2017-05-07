@@ -10,6 +10,8 @@
 #import "SAPersonConnector.h"
 #import "SAPerson.h"
 #import "SAFriendCollectionViewCell.h"
+#import <CoreLocation/CLGeocoder.h>
+#import <CoreLocation/CLPlacemark.h>
 
 @interface SAEventDescriptionViewController ()
 @property NSMutableArray *arrayOfParticipants;
@@ -24,8 +26,18 @@
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     
-    self.progressView.progress = (float)[self.currentEvent.participants count];
-    self.eventNumberParticipants.text = [NSString stringWithFormat:@"%ld,%@", (long)[self.currentEvent.participants count], self.currentEvent.minPeople];
+    //self.progressView.progress = (float)[self.currentEvent.participants count];
+    //self.eventNumberParticipants.text = @"";
+    //[NSString stringWithFormat:@"%lu/%@", (unsigned long)[self.currentEvent.participants count], self.currentEvent.minPeople];
+    
+    //make locationReadable
+    CLGeocoder *geocoder = [[CLGeocoder alloc]init];
+    [geocoder reverseGeocodeLocation:self.currentEvent.location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        if (!error) {
+            CLPlacemark *placemark = [placemarks objectAtIndex:0];
+            self.eventLocation.text = [NSString stringWithFormat:@"%@, %@",placemark.subLocality ,placemark.locality];
+        }
+    }];
     
     _arrayOfParticipants = [NSMutableArray arrayWithArray:self.currentEvent.participants.allObjects];
     

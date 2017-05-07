@@ -329,6 +329,8 @@
 		847F5E3A1EA715530091BAE9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8D1891931EB8FE1A008B050C /* SAEventDescriptionViewController.h */,
+				8D1891941EB8FE1A008B050C /* SAEventDescriptionViewController.m */,
 				AE16029B1EBBC27100E8E68F /* SAInterestsCollectionReusableView.h */,
 				AE16029C1EBBC27100E8E68F /* SAInterestsCollectionReusableView.m */,
 				AE16028D1EB7FEEF00E8E68F /* Intro */,
@@ -387,8 +389,6 @@
 				AE1877DB1EB3909900CAFD1A /* SAInterestsCollectionViewCell.m */,
 				29E2480D1EB8C08100088B98 /* CollectionButton */,
 				29763C0D1EB9932F00DFEE7A /* NewEvent */,
-				8D1891931EB8FE1A008B050C /* SAEventDescriptionViewController.h */,
-				8D1891941EB8FE1A008B050C /* SAEventDescriptionViewController.m */,
 				84CBE4791EBA83CB00ACD0DF /* StoryboardDaBarbara.storyboard */,
 			);
 			name = View;
