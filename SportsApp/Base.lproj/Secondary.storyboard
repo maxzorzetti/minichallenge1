@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="Au8-Dq-nOb">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_Logo_Novo" translatesAutoresizingMaskIntoConstraints="NO" id="Au8-Dq-nOb">
                                 <rect key="frame" x="137.5" y="48" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="R2V-DF-BEI"/>
@@ -56,8 +56,8 @@
                                     <action selector="joinUsButtonPressed:" destination="eTU-Da-2ON" eventType="touchUpInside" id="QLG-it-O9m"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or Log in using" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KWj-FB-wWD">
-                                <rect key="frame" x="132" y="533" width="116" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or Sign In using" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KWj-FB-wWD">
+                                <rect key="frame" x="132" y="533" width="121" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -71,7 +71,7 @@
                                     <constraint firstAttribute="height" constant="50" id="ebi-rZ-CGW"/>
                                 </constraints>
                                 <attributedString key="attributedText"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3hP-Uf-wCE">
                                 <rect key="frame" x="146.5" y="177" width="83" height="16"/>
@@ -111,8 +111,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="IEh-Wu-Cj0"/>
                     <connections>
+                        <outlet property="appLogo" destination="Au8-Dq-nOb" id="FcT-t1-Gu4"/>
                         <outlet property="btnJoinUs" destination="J8N-k4-r0Q" id="9T5-hN-YJu"/>
                         <outlet property="emailField" destination="4D3-Xg-d40" id="oah-tO-o3K"/>
+                        <outlet property="firstLabel" destination="3hP-Uf-wCE" id="5st-E9-qhj"/>
+                        <outlet property="myLabel" destination="JS3-sL-9qt" id="V51-hb-h5j"/>
                         <outlet property="myView" destination="jO6-dr-2cJ" id="Sod-rL-aZS"/>
                         <outlet property="passwordField" destination="SUy-pP-9B4" id="bBn-4o-hRc"/>
                         <segue destination="Ca5-HR-2Da" kind="show" identifier="logInSegue2" id="skD-6j-B2n"/>
@@ -261,7 +264,7 @@
         <!--Ask Phone View Controller-->
         <scene sceneID="iSf-q5-pC7">
             <objects>
-                <viewController id="526-og-d5l" customClass="SAAskPhoneViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="phoneView" id="526-og-d5l" customClass="SAAskPhoneViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TIj-iw-awn"/>
                         <viewControllerLayoutGuide type="bottom" id="PhZ-Dg-pq0"/>
@@ -430,9 +433,9 @@
     </scenes>
     <resources>
         <image name="Icon_Delete" width="18" height="17"/>
+        <image name="Icon_Logo_Novo" width="120" height="120"/>
         <image name="camera" width="54" height="54"/>
         <image name="img_placeholder" width="101" height="101"/>
-        <image name="logo" width="136" height="136"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ijz-IC-F5n"/>

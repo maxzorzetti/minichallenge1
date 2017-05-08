@@ -28,6 +28,7 @@
 @property CKRecord *personRecord;
 @property (weak, nonatomic) IBOutlet UILabel *myLabel;
 //@property CKReference *ref;
+@property (weak, nonatomic) IBOutlet UILabel *firstLabel;
 @property (weak, nonatomic) IBOutlet UITextField *firstNameField;
 
 @property (weak, nonatomic) IBOutlet UIView *myView;
@@ -37,6 +38,7 @@
 //@property (weak, nonatomic) IBOutlet UITextField *emailField;
 
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
+@property (weak, nonatomic) IBOutlet UIImageView *appLogo;
 
 
 @property (weak, nonatomic) IBOutlet UITextField *lastNameField;
@@ -110,8 +112,17 @@
                 
             }
             
-            else
-                NSLog(@"Pessoa já existe. Lembrar de colocar isso na tela");
+            else{
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    //Run UI Updates
+                    _firstLabel.text= @"This email already signed up.";
+                    _myLabel.text = @"Please, choose another";
+                    _passwordField.text = @"";
+                    _emailField.text = @"";
+                });
+              
+            }
+            
     
 }
     }];
@@ -126,7 +137,7 @@
         
         SAFirstProfileViewController *destView = segue.destinationViewController;
         destView.password= sender.password;
-        destView.email= sender.password;
+        destView.email= sender.email;
     }
 
     if ([segue.identifier isEqualToString: @"askPhoneSegue"]) {
@@ -340,15 +351,15 @@
                                          SAUser *obj = [SAUser new];
                                          [obj setCurrentPerson:person];
                                      
-                                     [self goToFeed];
+                                     //[self goToFeed];
                                      
                                      
                                      _personRecord = personRecord;
-                                     dispatch_async(dispatch_get_main_queue(), ^{
-                                     [self performSegueWithIdentifier:@"askPhoneSegue" sender:self];
-                                     });
+//                                     dispatch_async(dispatch_get_main_queue(), ^{
+//                                     [self performSegueWithIdentifier:@"askPhoneSegue" sender:self];
+//                                     });
                                      
-                                     
+                                     [self goToPhoneView];
                                      
                                  }];
                                  
@@ -391,15 +402,9 @@
                                  NSLog(@"error: %@",error.localizedDescription);
                              }
                              else {
-                                 
-                                 
-                                 
+                             
                                  NSLog(@"userId already exists");
-                                 
-                                 
-
-                                 
-                                 
+                              
                                  int flag=0;
                                  
                                  for (CKRecord *record in results2) {
@@ -407,7 +412,6 @@
                                      if ( [adapter isEqualToString:@"Facebook"]) {
                                          
                                          flag=1;
-                                         
                                          
                                      }
                                  }
@@ -448,10 +452,10 @@
                                      SAPerson *person = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:photo];
                                      
                                      
-                                     _personRecord = personRecord;
-                                     dispatch_async(dispatch_get_main_queue(), ^{
-                                         [self performSegueWithIdentifier:@"askPhoneSegue" sender:self];
-                                     });
+                                    _personRecord = personRecord;
+//                                     dispatch_async(dispatch_get_main_queue(), ^{
+//                                         [self performSegueWithIdentifier:@"askPhoneSegue" sender:self];
+//                                     });
                                      
                                      [SAUser saveToUserDefaults:person];
                                      //saves user login info in userdefaults
@@ -463,8 +467,9 @@
                                      SAUser *obj = [SAUser new];
                                      [obj setCurrentPerson:person];
                                      
+                                     [self goToPhoneView];
                                      
-                                     [self goToFeed];
+                                    // [self goToFeed];
                                      
 
                                  }
@@ -559,6 +564,18 @@
         
         loginButton.delegate = self;
     
+    
+    self.appLogo.layer.cornerRadius = self.appLogo.frame.size.height /2;
+    self.appLogo.layer.masksToBounds = YES;
+    self.appLogo.layer.borderWidth = 0;
+    
+//     [_emailField setSelectedTextRange:NSMakeRange(0, 0)];
+
+   
+
+    //[_emailField setSelectedTextRange:_emailField.beginningOfDocument];
+ 
+    
 }
 
 - (void) changeJoinUsButton{
@@ -604,13 +621,25 @@
         }];
     });
 }
-
+- (void)goToPhoneView{
+    UIStoryboard *main = [UIStoryboard storyboardWithName:@"Secondary" bundle:nil];
+    SAAskPhoneViewController *destination = [main instantiateViewControllerWithIdentifier:@"phoneView"];
+    
+    destination.personRecord= _personRecord;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:destination animated:YES completion:^{
+            
+        }];
+    });
+}
 
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 
 @end

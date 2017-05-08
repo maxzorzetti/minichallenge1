@@ -41,35 +41,50 @@
         CKContainer *container = [CKContainer defaultContainer];
         CKDatabase *publicDatabase = [container publicCloudDatabase];
         
+        //_personRecord[@"phone"] = _telephoneNumber;
         
         
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"email = %@", _personRecord[@"email"]];
+        CKQuery *query = [[CKQuery alloc] initWithRecordType:@"SAPerson" predicate:predicate];
         
-        _personRecord[@"phone"] = _telephoneNumber;
-    [publicDatabase saveRecord:_personRecord  completionHandler:^(CKRecord *artworkRecord, NSError *error){
-        if (error) {
-            NSLog(@"Telephone not registered. Error: %@", error.description);
-        }
-        else
-        {
-            NSLog(@"telephone registered");
-            
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                
-                
-                 [self performSegueWithIdentifier:@"toBarbaraSegue" sender:self];
-            });
-            
-           
         
-        }
-    }];
+        [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
+            if (error) {
+                NSLog(@"error: %@",error.localizedDescription);
+            }
+            else {
     
-    }
-    
+                    [results firstObject][@"phone"] = _telephoneNumber;
+                    
+                    [publicDatabase saveRecord:[results firstObject]  completionHandler:^(CKRecord *artworkRecord, NSError *error){
+                        if (error) {
+                            NSLog(@"Telefone nao salvo. Error: %@", error.description);
+                        }
+                        else{
+                            NSLog(@"Telephone salvo");
+                            [self goToFeed];
+                            }
+                    }];
+                
+                
+    }}];
+                    
+                    
+        
+        
 
-}
+                
+        
+
+//            
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                 [self performSegueWithIdentifier:@"toBarbaraSegue" sender:self];
+//
+//    
+//
+//            });
+    }}
+        
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -84,6 +99,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)goToFeed{
+    UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *destination = [main instantiateViewControllerWithIdentifier:@"view2"];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:destination animated:YES completion:^{
+            
+        }];
+    });
+}
 
 #pragma mark - Navigation
 

@@ -18,6 +18,7 @@
 
 @interface SALogInViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *infoLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *appLogo;
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
@@ -315,7 +316,11 @@
         else {
             
             if (results1.count == 0)
-                NSLog(@"Wrong username");
+            {
+                 dispatch_async(dispatch_get_main_queue(), ^(void){
+                _infoLabel.text = @"Wrong Username!";
+                 });
+            }
             
             else
             {
@@ -366,8 +371,12 @@
                             //[self performSegueWithIdentifier:@"finishLoginSegue" sender:self];
                         }
                         else{
+                             dispatch_async(dispatch_get_main_queue(), ^(void){
                             
-                            _infoLabel.text = @"Wrong Password. Try Again!";
+                            _infoLabel.text = @"Wrong Password!";
+                                 _emailField.text = @"";
+                                 _passwordField.text = @"";
+                             });
                         }
                     }
                     
@@ -398,9 +407,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _btnLogIn.backgroundColor = [UIColor colorWithRed:50 green:226 blue:196 alpha:1];
     
-    
-    
+    self.appLogo.layer.cornerRadius = self.appLogo.frame.size.height /2;
+    self.appLogo.layer.masksToBounds = YES;
+    self.appLogo.layer.borderWidth = 0;
     
     [self changeJoinUsButton];
     [self changeUserTextField];
