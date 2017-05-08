@@ -11,4 +11,6 @@
 
 @interface SAInterestsCollectionViewController : UICollectionViewController <UICollectionViewDelegate, UICollectionViewDataSource>
 
+@property NSString *email;
+
 @end

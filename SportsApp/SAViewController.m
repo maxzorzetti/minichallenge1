@@ -322,7 +322,7 @@
                      {
                          [publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
                              if (error) {
-                                 NSLog(@"Record Party not created. Error: %@", error.description);
+                                 NSLog(@"User not created. Error: %@", error.description);
                              }
                              else{
                                  CKReference *ref = [[CKReference alloc]initWithRecordID:personRecord.recordID action:CKReferenceActionNone];
@@ -334,7 +334,8 @@
                                          NSLog(@"Record Identity not created. Error: %@", error.description);
                                      }
                                      else
-                                         NSLog(@"Record Identity created. New person in the app.");
+                                     {
+                                         NSLog(@"Record Person created. New person in the app.");
                                          NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
                                          SAPerson *person = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:[result valueForKey:@"picture"]];
                                          
@@ -360,6 +361,7 @@
 //                                     });
                                      
                                      [self goToPhoneView];
+                                     }
                                      
                                  }];
                                  
@@ -421,7 +423,7 @@
                                          if (error) {
                                              NSLog(@"Record Identity not created. Error: %@", error.description);
                                          }
-                                         else
+                                         else{
                                              NSLog(@"Record Identity created. New person using facebook.");
                                          NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
                                          SAPerson *person = [SAPersonConnector getPersonFromRecord:[results2 firstObject] andPicture:photo];
@@ -441,7 +443,7 @@
                                          
                                          
                                          [self goToFeed];
-                                     }];
+                                         }}];
                                      
                                      
                                      
@@ -467,9 +469,9 @@
                                      SAUser *obj = [SAUser new];
                                      [obj setCurrentPerson:person];
                                      
-                                     [self goToPhoneView];
+                                     //[self goToPhoneView];
                                      
-                                    // [self goToFeed];
+                                   [self goToFeed];
                                      
 
                                  }

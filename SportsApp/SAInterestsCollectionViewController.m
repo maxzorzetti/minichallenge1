@@ -22,7 +22,23 @@
 
 @implementation SAInterestsCollectionViewController
 
+
+- (IBAction)buttonPressed:(UIBarButtonItem *)sender {
+    
+    //printf("%s", __PRETTY_FUNCTION__);
+    
+    
+    
+    
+    
+}
+
+
+
+
+
 - (void)viewDidLoad {
+    printf("%s", __PRETTY_FUNCTION__);
     [super viewDidLoad];
     
     self.reuseIdentifier = @"cell";
@@ -79,7 +95,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    printf("%s", __PRETTY_FUNCTION__);
     SACollectionButtonViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.reuseIdentifier forIndexPath:indexPath];
     
     SAActivity *activity = self.activities[indexPath.item];
@@ -120,6 +136,7 @@
     SAActivity *activity = self.activities[indexPath.item];
     [self.interestedActivities addObject:activity];
     NSLog(@"%@", activity.name);
+    
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{

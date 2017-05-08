@@ -51,6 +51,7 @@
 		8D1891951EB8FE1A008B050C /* SAEventDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D1891941EB8FE1A008B050C /* SAEventDescriptionViewController.m */; };
 		8D4824911EB2353400D2FE5B /* SANewsFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4824901EB2353400D2FE5B /* SANewsFeedTableViewCell.m */; };
 		8D7A63BA1EAA5A9000418D39 /* SAProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7A63B91EAA5A9000418D39 /* SAProfileViewController.m */; };
+		8D8693481EC09D4E0007D716 /* SAInterestsNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8693471EC09D4E0007D716 /* SAInterestsNavigationController.m */; };
 		8D9A36641EB3BBDE00036272 /* SACustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D9A36631EB3BBDE00036272 /* SACustomCell.xib */; };
 		8D9A36701EB4E1F600036272 /* SASectionView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9A366F1EB4E1F600036272 /* SASectionView2.m */; };
 		8D9A36761EB4E47900036272 /* SASectionView2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D9A36751EB4E47900036272 /* SASectionView2.xib */; };
@@ -158,6 +159,8 @@
 		8D4824901EB2353400D2FE5B /* SANewsFeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANewsFeedTableViewCell.m; sourceTree = "<group>"; };
 		8D7A63B81EAA5A9000418D39 /* SAProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAProfileViewController.h; sourceTree = "<group>"; };
 		8D7A63B91EAA5A9000418D39 /* SAProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAProfileViewController.m; sourceTree = "<group>"; };
+		8D8693461EC09D4E0007D716 /* SAInterestsNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAInterestsNavigationController.h; sourceTree = "<group>"; };
+		8D8693471EC09D4E0007D716 /* SAInterestsNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAInterestsNavigationController.m; sourceTree = "<group>"; };
 		8D9A36631EB3BBDE00036272 /* SACustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACustomCell.xib; sourceTree = "<group>"; };
 		8D9A366E1EB4E1F600036272 /* SASectionView2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASectionView2.h; sourceTree = "<group>"; };
 		8D9A366F1EB4E1F600036272 /* SASectionView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SASectionView2.m; sourceTree = "<group>"; };
@@ -374,6 +377,8 @@
 				84CBE4771EBA57BF00ACD0DF /* SAClosedEventDescriptionTableViewCell.m */,
 				8DD37CDF1EBBEEEC00E1CC1D /* SAAskPhoneViewController.h */,
 				8DD37CE01EBBEEEC00E1CC1D /* SAAskPhoneViewController.m */,
+				8D8693461EC09D4E0007D716 /* SAInterestsNavigationController.h */,
+				8D8693471EC09D4E0007D716 /* SAInterestsNavigationController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -612,6 +617,7 @@
 				AE66FF381EB10EFA008EBC5E /* SAForgotPasswordViewController.m in Sources */,
 				AE16029D1EBBC27100E8E68F /* SAInterestsCollectionReusableView.m in Sources */,
 				84DC117D1EACF32100A9A90C /* SAActivity.m in Sources */,
+				8D8693481EC09D4E0007D716 /* SAInterestsNavigationController.m in Sources */,
 				8406A8D91EA6761500C60267 /* main.m in Sources */,
 				84DC11801EACF3D200A9A90C /* SAMatchMakerCore.m in Sources */,
 				29A4CA521EB22F9C00DCA3FA /* SANewEvent3ViewController.m in Sources */,

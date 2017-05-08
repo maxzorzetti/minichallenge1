@@ -29,7 +29,7 @@
     printf("%s", __PRETTY_FUNCTION__);
     _telephoneNumber = _phoneNumber.text;
     
-    _telephoneNumber = @"999999999999";
+    //_telephoneNumber = @"999999999999";
     
     if (_telephoneNumber ==nil || [_telephoneNumber length] < 8 )
         
@@ -42,7 +42,7 @@
         CKDatabase *publicDatabase = [container publicCloudDatabase];
         
         //_personRecord[@"phone"] = _telephoneNumber;
-        
+        NSLog(@"%@", _personRecord[@"email"]);
         
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"email = %@", _personRecord[@"email"]];
         CKQuery *query = [[CKQuery alloc] initWithRecordType:@"SAPerson" predicate:predicate];
@@ -54,7 +54,7 @@
             }
             else {
     
-                    [results firstObject][@"phone"] = _telephoneNumber;
+                    [results firstObject][@"telephone"] = _telephoneNumber;
                     
                     [publicDatabase saveRecord:[results firstObject]  completionHandler:^(CKRecord *artworkRecord, NSError *error){
                         if (error) {

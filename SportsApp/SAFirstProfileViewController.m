@@ -14,6 +14,8 @@
 #import "SAUser.h"
 #import "SAPerson.h"
 #import "SAPersonConnector.h"
+#import "SAInterestsCollectionViewController.h"
+#import "SAInterestsNavigationController.h"
 
 @interface SAFirstProfileViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *imgProfilePhoto;
@@ -88,7 +90,9 @@
                 if (error) {
                     NSLog(@"Record Identity not created. Error: %@", error.description);
                 }
-                else
+                else{
+                    
+                
                     NSLog(@"Record Identity created. New person in the app.");
                 SAPerson *person = [SAPersonConnector getPersonFromRecord:artworkRecord andPicture:nil];
                 
@@ -104,6 +108,11 @@
                 //sets current user
                 SAUser *obj = [SAUser new];
                 [obj setCurrentPerson:person];
+                   
+                [self goToInterestsView];
+                  
+                    
+                }
                 
             }];
     
@@ -116,6 +125,29 @@
 
 
 }
+
+- (void)goToInterestsView{
+    
+    UIStoryboard *secondary = [UIStoryboard storyboardWithName:@"Secondary" bundle:nil];
+    SAInterestsNavigationController *destination = [secondary instantiateViewControllerWithIdentifier:@"intNavController"];
+    
+    
+//    SAInterestsCollectionViewController *destView = [[SAInterestsCollectionViewController alloc]initWithNibName:@"SAInterestsCollectionViewController" bundle:nil];
+//            destView.email = _email;
+
+    
+    destination.email= _email;
+    SAInterestsCollectionViewController *vai = destination.topViewController;
+    vai.email = _email;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:destination animated:YES completion:^{
+            
+        }];
+    });
+}
+
+
 
 
 - (NSString *)sha1:(NSString *)password
@@ -182,14 +214,25 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    
+//    if ([segue.identifier isEqualToString: @"goToInterests"]) {
+//        
+//       SAInterestsNavigationController *destView = segue.destinationViewController;
+//        destView.email= _email;
+//        
+//    }
+//}
+//    
+
+    
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-}
-*/
+
+
 
 @end
