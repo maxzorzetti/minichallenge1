@@ -10,8 +10,9 @@
 #import "SAActivity.h"
 #import "SAPerson.h"
 #import "SAParty.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface SANewEvent4ViewController : UIViewController
+@interface SANewEvent4ViewController : UIViewController <CLLocationManagerDelegate>
 
 @property (nonatomic) SAParty *party;
 @end

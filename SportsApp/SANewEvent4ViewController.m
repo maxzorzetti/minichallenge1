@@ -22,13 +22,38 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
+@property (nonatomic) CLLocationManager *locationManager;
+
 @end
 
 @implementation SANewEvent4ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    //CHECK IF USER HAS ALLOWED LOCATION SERVICES, IF YES REQUEST USER'S CURRENT LOCATION
+    switch ([CLLocationManager authorizationStatus]) {
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+            self.locationManager = [[CLLocationManager alloc]init];
+            [self startStandartUpdates];
+            
+            //THIS METHOD MAKES THE LOCATION MANAGER GET THE LOCATION, ONCE IT GETS THE LOCATION IT WILL CALL THE LOCATION didUpdateLocations METHOD DOWN DOWN BELOW
+            [self.locationManager startUpdatingLocation];
+            break;
+            //        case kCLAuthorizationStatusNotDetermined:
+            //            self.locationManager = [[CLLocationManager alloc]init];
+            //            [self startStandartUpdates];
+            //
+            //            self.user.locationManager = self.locationManager;
+            //            [self.locationManager requestWhenInUseAuthorization];
+            //            [self.locationManager requestLocation];
+            //            break;
+        default:
+            break;
+    }
+    
+    
+    
+    
 	
 	//self.locationRadiusSlider.value
 	self.locationRadiusLabel.text = [[NSString alloc] initWithFormat:@"%.0f km", self.locationRadiusSlider.value];
@@ -101,5 +126,56 @@
 - (IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
 	
 }
+
+#pragma location methods
+- (void)startStandartUpdates{
+    if (self.locationManager == nil) {
+        self.locationManager = [[CLLocationManager alloc]init];
+    }
+    
+    self.locationManager.delegate = self;
+    self.locationManager.distanceFilter = 1000;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+    
+    [self.locationManager startUpdatingLocation];
+}
+
+//THIS METHOD WILL BE CALLED ONCE THE LOCATION MANAGER GET ANY LOCATION FROM THE USER DEVICE
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
+    //DO WHAT YOU WANT WITH THE LOCATION
+    
+    //EXAMPLE DOWN BELOW
+    
+    
+//    NSArray *sortedArray;
+//    
+//    sortedArray = [locations sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+//        CLLocation *loc1 = obj1;
+//        CLLocation *loc2 = obj2;
+//        
+//        return [loc1.timestamp compare:loc2.timestamp];
+//    }];
+//    
+//    
+//    //make locationReadable
+//    CLGeocoder *geocoder = [[CLGeocoder alloc]init];
+//    [geocoder reverseGeocodeLocation:[sortedArray firstObject] completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+//        if (!error) {
+//            CLPlacemark *placemark = [placemarks objectAtIndex:0];
+//            NSLog(@"Location from event4 view: %@", [NSString stringWithFormat:@"%@",placemark.locality.capitalizedString]);
+//        }
+//    }];
+}
+
+- (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    if (error) {
+        NSLog(@"Error when fetching location: %@", error.description);
+    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [self.locationManager stopUpdatingLocation];
+}
+
 
 @end
