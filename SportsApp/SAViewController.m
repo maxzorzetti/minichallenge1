@@ -447,9 +447,10 @@
                                          //sets current user
                                          SAUser *obj = [SAUser new];
                                          [obj setCurrentPerson:person];
+                                             _personRecord = personRecord;
                                          
-                                         
-                                         [self goToFeed];
+                                         //[self goToFeed];
+                                             [self goToPhoneView];
                                          }}];
                                      
                                      
@@ -477,8 +478,9 @@
                                      [obj setCurrentPerson:person];
                                      
                                      //[self goToPhoneView];
-                                     
-                                   [self goToFeed];
+                                     _personRecord = personRecord;
+                                     [self goToPhoneView];
+                                   //[self goToFeed];
                                      
 
                                  }

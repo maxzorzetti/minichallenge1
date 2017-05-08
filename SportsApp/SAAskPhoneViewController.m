@@ -7,7 +7,8 @@
 //
 
 #import "SAAskPhoneViewController.h"
-
+#import "SAInterestsNavigationController.h"
+#import "SAInterestsCollectionViewController.h"
 
 @interface SAAskPhoneViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *infoLabel;
@@ -62,7 +63,7 @@
                         }
                         else{
                             NSLog(@"Telephone salvo");
-                            [self goToFeed];
+                            [self goToInterests];
                             }
                     }];
                 
@@ -99,9 +100,15 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)goToFeed{
-    UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *destination = [main instantiateViewControllerWithIdentifier:@"view2"];
+- (void)goToInterests{
+    UIStoryboard *main = [UIStoryboard storyboardWithName:@"Secondary" bundle:nil];
+    SAInterestsNavigationController *destination = [main instantiateViewControllerWithIdentifier:@"intNavController"];
+    
+    destination.email= _personRecord[@"email"];
+    SAInterestsCollectionViewController *vai = destination.topViewController;
+    vai.email = _personRecord[@"email"];
+    
+    
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self presentViewController:destination animated:YES completion:^{

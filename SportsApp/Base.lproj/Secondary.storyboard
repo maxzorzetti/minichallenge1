@@ -120,7 +120,6 @@
                         <outlet property="passwordField" destination="SUy-pP-9B4" id="bBn-4o-hRc"/>
                         <segue destination="Ca5-HR-2Da" kind="show" identifier="logInSegue2" id="skD-6j-B2n"/>
                         <segue destination="526-og-d5l" kind="show" identifier="askPhoneSegue" id="YdC-QQ-bLh"/>
-                        <segue destination="FPz-WS-qJT" kind="show" identifier="skipPhoneSegue" id="MCk-Zz-WNz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fSw-Sf-7CU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -282,7 +281,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kHP-ap-ofF">
                                 <rect key="frame" x="141" y="323" width="94" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Done!"/>
                                 <connections>
                                     <action selector="completed:" destination="526-og-d5l" eventType="touchUpInside" id="s64-HO-YlV"/>
                                 </connections>
@@ -313,7 +312,6 @@
                     <connections>
                         <outlet property="infoLabel" destination="b43-iE-8M5" id="hvd-Eo-Psb"/>
                         <outlet property="phoneNumber" destination="Yme-jQ-aFx" id="BXr-FL-y75"/>
-                        <segue destination="FPz-WS-qJT" kind="show" identifier="toBarbaraSegue" id="ijz-IC-F5n"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="skm-Ue-3Se" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -397,7 +395,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lrc-wy-SrX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3744.8000000000002" y="163.26836581709148"/>
+            <point key="canvasLocation" x="3961" y="163"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hYW-1I-cmL">
@@ -434,7 +432,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Yd-1f-UfQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2805.5999999999999" y="163.26836581709148"/>
+            <point key="canvasLocation" x="3038" y="164"/>
         </scene>
     </scenes>
     <resources>
@@ -443,7 +441,4 @@
         <image name="camera" width="54" height="54"/>
         <image name="img_placeholder" width="101" height="101"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="MCk-Zz-WNz"/>
-    </inferredMetricsTieBreakers>
 </document>
