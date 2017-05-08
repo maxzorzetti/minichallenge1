@@ -63,6 +63,9 @@
 //@property NSArray <NSString *> *securityQuestions;
 
 
+@property (nonatomic) CLLocationManager *locationManager;
+
+
 @end
 
 @implementation SAViewController
@@ -553,8 +556,50 @@
     //self.profilePicture.hidden = shouldHide;
 }
 
+#pragma location methods
+- (void)startStandartUpdates{
+    if (self.locationManager == nil) {
+        self.locationManager = [[CLLocationManager alloc]init];
+    }
+    
+    self.locationManager.delegate = self;
+    self.locationManager.distanceFilter = 1000;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+    
+    [self.locationManager startUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
+}
+
+- (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    if (error) {
+        NSLog(@"Error when fetching location: %@", error.description);
+    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [self.locationManager stopUpdatingLocation];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    SAPerson *person = [SAPerson new];
+    
+    switch ([CLLocationManager authorizationStatus]) {
+            case kCLAuthorizationStatusNotDetermined:
+                self.locationManager = [[CLLocationManager alloc]init];
+                [self startStandartUpdates];
+            
+                person.locationManager = self.locationManager;
+                [self.locationManager requestWhenInUseAuthorization];
+                [self.locationManager requestLocation];
+                break;
+        default:
+            break;
+    }
+    
    	
     [self changeJoinUsButton];
     [self changeUserTextField];

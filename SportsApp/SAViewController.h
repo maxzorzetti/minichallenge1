@@ -10,10 +10,11 @@
 //#import <FacebookSDK/FacebookSDK.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <CloudKit/CloudKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 
 
-@interface SAViewController : UIViewController <FBSDKLoginButtonDelegate>
+@interface SAViewController : UIViewController <FBSDKLoginButtonDelegate, CLLocationManagerDelegate>
 
 -(void)toggleHiddenState:(BOOL)shouldHide;
 
