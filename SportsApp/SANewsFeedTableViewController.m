@@ -29,6 +29,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableWithEvents;
 @property CKRecordID *userRecordID;
 @property int section;
+@property SAPerson *currentUser;
+@property CLLocationManager *locationManager;
 
 @end
 
@@ -37,36 +39,40 @@
 
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
+    
+    NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];
+    self.currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
     
     [self.navigationController.navigationBar setTranslucent:NO];
 
-    printf("%s", __PRETTY_FUNCTION__);
-//    CKContainer *container = [CKContainer defaultContainer];
-////    
-//    [container fetchUserRecordIDWithCompletionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) {
-//        if (!error){
-//            _userRecordID = recordID;
-//        }
-//        else
-//            NSLog(@"SEU ERRO == %@", error.description);
-////            
-//           }];
-  
-
+    
+    switch ([CLLocationManager authorizationStatus]) {
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+            self.locationManager = [[CLLocationManager alloc]init];
+            [self startStandartUpdates];
+            self.currentUser.locationManager = self.locationManager;
+            [self.locationManager requestLocation];
+            break;
+        case kCLAuthorizationStatusNotDetermined:
+            self.locationManager = [[CLLocationManager alloc]init];
+            [self startStandartUpdates];
+            
+            self.currentUser.locationManager = self.locationManager;
+            [self.locationManager requestWhenInUseAuthorization];
+            [self.locationManager requestLocation];
+            break;
+        default:
+            break;
+    }
+    
     _lastArray = [[NSMutableArray alloc]init];
     _todayEvents = [[NSMutableArray alloc]init];
     _eventArray = [[NSMutableArray alloc]init];
     
     
-    
-    NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];
-    SAPerson *currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
-    
-    
    
-    CKRecordID *personId = currentUser.personId;
+    CKRecordID *personId = self.currentUser.personId;
     
     [SAEventConnector getEventsByPersonId:personId handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
         if (!error) {
@@ -95,21 +101,8 @@
     }];
     
     
-//    SAEvent *eventPakas = [[SAEvent alloc]init];
-//    SAPerson *person = [[SAPerson alloc]init];
-//    SAActivity *act = [[SAActivity alloc]initWithName:@"Futebol" minimumPeople:0 maximumPeople:0 picture:nil AndActivityId:nil];
-//    //act.name = ;
-//    person.name = @"Pablo Diego José Francisco de Paula Juan Nepomuceno María de los Remedios Cipriano de la Santísima Trinidad Ruiz y Picasso";
-//    person.facebookId = @"957060131063735";
-//    eventPakas.name = @"Evento Pakas do Pablo Diego José Francisco de Paula Juan Nepomuceno María de los Remedios Cipriano de la Santísima Trinidad Ruiz y Picasso";
-//    eventPakas.date = [NSDate date];
-//    eventPakas.owner = person;
-//    eventPakas.activity= act;
-    //[_eventArray addObject:event];
-    
     
     NSMutableArray *friendList = [[NSMutableArray alloc] init];
-//
     
     
     
@@ -193,29 +186,12 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    
-    
-    NSInteger numberOfEvents = 0;
-    //if (section ==0) {
-        
-        numberOfEvents = _eventArray.count;
-    //}
-    //if (section==1) {
-        //numberOfEvents = _friendsEvents.count;
-    //}
-    return numberOfEvents;
-    
+    return _eventArray.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    printf("%s SECTION = %ld ROW = %ld\n", __PRETTY_FUNCTION__, (long)indexPath.section, (long)indexPath.row);
-    
     SANewsFeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
-    
-    
     
     if (!cell)
     {
@@ -223,58 +199,29 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
     }
     
-    //if (indexPath.section == 0)
-        [cell initWithEvent:self.eventArray[indexPath.row]];
-    //if (indexPath.section ==1 ){
-        //[cell initWithEvent:self.friendsEvents[_section]];
-       // _section ++;
-        
-    //}
     
-    //cell.cellEvent = self.eventArray[indexPath.row];
-    //cell.ownerName.text = @"vamooooooooo";
+    [cell initWithEvent:self.eventArray[indexPath.row]];
     
-    
-   
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
 
 - (void)updateTableWithEventList:(NSArray<SAEvent *>*)events {
-    printf("%s\n", __PRETTY_FUNCTION__);
     
-    
-//    NSMutableSet *set1 = [NSMutableSet setWithArray: events];
-//    NSSet *set2 = [NSSet setWithArray: _lastArray];
-//    
-//    [set1 intersectSet: set2];
-//    NSArray *resultArray = [set1 allObjects];
-//    
     _eventArray= [[NSMutableArray alloc] init];
    
     for (SAEvent *event in events)
        if (! [_lastArray containsObject:event])
           [ _eventArray addObject:event];
-           
-           // passar pra
-//            [events removeObj
-//        _eventArray=[[NSMutableArray alloc]initWithArray:resultArray];
-//
     
-    
-   
-    //[_eventArray addObjectsFromArray:events];
     [_lastArray addObjectsFromArray:events];
-    //[_lastArray addObjectsFromArray:events];
     
     [self.tableWithEvents reloadData];
     
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
-    printf("%s", __PRETTY_FUNCTION__);
     static NSString *CellIdentifier = @"myHeader2";
  
     SASectionView2  *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:CellIdentifier];
@@ -347,56 +294,49 @@
         ClosedEventDescriptionViewController *destView = segue.destinationViewController;
         destView.event = sender.cellEvent;
     }
-	
-    
 }
 
 - (IBAction)backFromDescription:(UIStoryboardSegue *)segue{
     
 }
 
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
+#pragma location methods
+- (void)startStandartUpdates{
+    if (self.locationManager == nil) {
+        self.locationManager = [[CLLocationManager alloc]init];
+    }
+    
+    self.locationManager.delegate = self;
+    self.locationManager.distanceFilter = 10000;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+    
+    [self.locationManager startUpdatingLocation];
+}
 
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
+    NSArray *sortedArray;
+    
+    sortedArray = [locations sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        CLLocation *loc1 = obj1;
+        CLLocation *loc2 = obj2;
+        
+        return [loc1.timestamp compare:loc2.timestamp];
+    }];
+    
+    CLLocation *earlierLoc = [sortedArray firstObject];
+    
+    if (self.currentUser.location.timestamp < earlierLoc.timestamp) {
+        [self.currentUser setLocation:earlierLoc];
+        NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:self.currentUser];
+        [[NSUserDefaults standardUserDefaults] setObject:userData forKey:@"user"];
+    }
+    [self.locationManager stopUpdatingLocation];
+}
 
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+- (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    if (error) {
+        NSLog(@"Error when fetching location: %@", error.description);
+    }
+}
 
 @end

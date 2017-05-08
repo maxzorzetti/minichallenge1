@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CloudKit/CloudKit.h>
+@class CLLocationManager;
 @class SAEvent;
 @class SAActivity;
 
@@ -22,6 +23,8 @@
 @property NSData *photo;
 @property (nonatomic) NSString *gender;
 @property (nonatomic) id facebookId;
+@property (strong) CLLocationManager *locationManager;
+@property (nonatomic) CLLocation *location;
 
 - (void)addInterest:(SAActivity *)interest;
 - (void)removeInterest:(SAActivity *)interest;

@@ -19,6 +19,8 @@
 #import "SAUser.h"
 
 @interface AppDelegate ()
+@property CLLocationManager *locationManager;
+@property SAPerson *currentUser;
 
 @end
 
@@ -82,16 +84,29 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     }else{
         //check if there is already a user logged in
         if ([userDefaults dataForKey:@"user"]) {
+            NSData *dataUser = [userDefaults dataForKey:@"user"];
+            self.currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:dataUser];
+            
+            //check if user has accepted location services
+            switch ([CLLocationManager authorizationStatus]) {
+                case kCLAuthorizationStatusAuthorizedWhenInUse:
+                    self.locationManager = [[CLLocationManager alloc]init];
+                    [self startStandartUpdates];
+                    self.currentUser.locationManager = self.locationManager;
+                    [self.locationManager requestLocation];
+                    break;
+                default:
+                    break;
+            }
+            
             //SHOW FEED
             UIViewController *initialView = [mainStoryboard instantiateViewControllerWithIdentifier:@"view2"];
             self.window.rootViewController = initialView;
             [self.window makeKeyAndVisible];
             
-            NSData *dataUser = [userDefaults dataForKey:@"user"];
-            SAPerson *person = [NSKeyedUnarchiver unarchiveObjectWithData:dataUser];
-            SAUser *objToRegister = [SAUser new];
-            
-            [objToRegister setCurrentPerson:person];
+//            SAUser *objToRegister = [SAUser new];
+//            
+//            [objToRegister setCurrentPerson:person];
         }
         else
             //check if there is login info to perform the login operation
@@ -184,6 +199,50 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma location methods
+- (void)startStandartUpdates{
+    if (self.locationManager == nil) {
+        self.locationManager = [[CLLocationManager alloc]init];
+    }
+    
+    self.locationManager.delegate = self;
+    self.locationManager.distanceFilter = 10000;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+    
+    [self.locationManager startUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
+    NSArray *sortedArray;
+    //NSLog(@"SOH VEIO AGORA %@", [locations lastObject]);
+    
+    sortedArray = [locations sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        CLLocation *loc1 = obj1;
+        CLLocation *loc2 = obj2;
+        
+        return [loc1.timestamp compare:loc2.timestamp];
+    }];
+    
+    CLLocation *earlierLoc = [sortedArray firstObject];
+    
+    [self.currentUser setLocation:earlierLoc];
+    NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:self.currentUser];
+    [[NSUserDefaults standardUserDefaults] setObject:userData forKey:@"user"];
+    
+    if (self.currentUser.location.timestamp < earlierLoc.timestamp) {
+        [self.currentUser setLocation:earlierLoc];
+        NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:self.currentUser];
+        [[NSUserDefaults standardUserDefaults] setObject:userData forKey:@"user"];
+    }
+    [self.locationManager stopUpdatingLocation];
+}
+
+- (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    if (error) {
+        NSLog(@"Error when fetching location: %@", error.description);
+    }
 }
 
 
