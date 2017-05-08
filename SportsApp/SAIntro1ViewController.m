@@ -10,6 +10,8 @@
 
 @interface SAIntro1ViewController ()
 //@property (strong, nonatomic) IBOutlet UIView *intro1view;
+@property (weak, nonatomic) IBOutlet UIView *signupView;
+@property (weak, nonatomic) IBOutlet UIView *loginView;
 
 @end
 
@@ -19,18 +21,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    UIColor *lightcolor = [UIColor colorWithRed:119.0f/255.0f green:90.0f/255.0f blue:218.0f/255.0f alpha:0.56f];
-//    UIColor *darkcolor = [UIColor colorWithRed:119.0f/255.0f green:90.0f/255.0f blue:218.0f/255.0f alpha:1.0f];
-//    
-//    CAGradientLayer *gradient = [CAGradientLayer layer];
-//    gradient.frame = [_intro1view bounds];
-//    gradient.colors = @[(id)lightcolor, (id)darkcolor];
-//    gradient.startPoint = CGPointMake(0.5, 1.0);
-//    gradient.endPoint = CGPointMake(0.5, 0.0);
-//    
-//    [self.view.layer insertSublayer:gradient atIndex:0];
-    
-    
+    //add border and margin to buttons view
+    self.signupView.layer.borderColor = [UIColor colorWithRed:50/255.0 green:226/255.0 blue:196/255.0 alpha:1.0].CGColor;
+    self.signupView.layer.borderWidth = 2.0;
+    self.signupView.layer.cornerRadius = 8.0;
+    self.loginView.layer.borderColor = [UIColor colorWithRed:50/255.0 green:226/255.0 blue:196/255.0 alpha:1.0].CGColor;
+    self.loginView.layer.borderWidth = 2.0;
+    self.loginView.layer.cornerRadius = 8.0;
     
     [self setNeedsStatusBarAppearanceUpdate];
 }
