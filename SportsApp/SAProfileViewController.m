@@ -26,17 +26,41 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *viewToBorder;
 @property (nonatomic) SAPerson *user;
+@property (nonatomic) CLLocationManager *locationManager;
 
 @end
 
 @implementation SAProfileViewController
 
+- (void)viewDidDisappear:(BOOL)animated{
+    [self.locationManager stopUpdatingLocation];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];
     self.user = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
-
+    
+    switch ([CLLocationManager authorizationStatus]) {
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+            self.locationManager = [[CLLocationManager alloc]init];
+            [self startStandartUpdates];
+            self.user.locationManager = self.locationManager;
+            [self.locationManager startUpdatingLocation];
+            break;
+            //        case kCLAuthorizationStatusNotDetermined:
+            //            self.locationManager = [[CLLocationManager alloc]init];
+            //            [self startStandartUpdates];
+            //
+            //            self.user.locationManager = self.locationManager;
+            //            [self.locationManager requestWhenInUseAuthorization];
+            //            [self.locationManager requestLocation];
+            //            break;
+        default:
+            break;
+    }
+    
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     [self.collectionView registerNib:[UINib nibWithNibName:@"SACollectionButtonViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
@@ -62,28 +86,6 @@
             self.genderIcon.image = [UIImage imageNamed:@"Icon_Male"];
         }
     }
-    
-    //make locationReadable
-    CLGeocoder *geocoder = [[CLGeocoder alloc]init];
-    NSLog(@"%@",self.user.location);
-    [geocoder reverseGeocodeLocation:self.user.location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-        if (!error) {
-            CLPlacemark *placemark = [placemarks objectAtIndex:0];
-            self.locationLabel.text = [NSString stringWithFormat:@"%@",placemark.locality.capitalizedString];
-        }
-    }];
-    
-    
-    
-    //TODO COMMENT THIS LINES ONCE INTERESTS ARE BEING SET
-    NSMutableArray *arrayOfActivities = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"ArrayOfDictionariesContainingTheActivities"];
-    NSMutableArray<SAActivity *> *activities = [NSMutableArray new];
-    for (NSDictionary *activityDic in arrayOfActivities) {
-        SAActivity *activity = [NSKeyedUnarchiver unarchiveObjectWithData:activityDic[@"activityData"]];
-        [activities addObject: activity];
-    }
-    
-    self.user.interests = activities;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -110,6 +112,49 @@
         default: numberOfItems = 0;
     }
     return numberOfItems;
+}
+
+
+#pragma location methods
+- (void)startStandartUpdates{
+    if (self.locationManager == nil) {
+        self.locationManager = [[CLLocationManager alloc]init];
+    }
+    
+    self.locationManager.delegate = self;
+    self.locationManager.distanceFilter = 1000;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+    
+    [self.locationManager startUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
+    NSArray *sortedArray;
+    
+    sortedArray = [locations sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        CLLocation *loc1 = obj1;
+        CLLocation *loc2 = obj2;
+        
+        return [loc1.timestamp compare:loc2.timestamp];
+    }];
+    
+    [self.user setLocation:[sortedArray firstObject]];
+    
+    //make locationReadable
+    CLGeocoder *geocoder = [[CLGeocoder alloc]init];
+    NSLog(@"%@",self.user.location);
+    [geocoder reverseGeocodeLocation:self.user.location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        if (!error) {
+            CLPlacemark *placemark = [placemarks objectAtIndex:0];
+            self.locationLabel.text = [NSString stringWithFormat:@"%@",placemark.locality.capitalizedString];
+        }
+    }];
+}
+
+- (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    if (error) {
+        NSLog(@"Error when fetching location: %@", error.description);
+    }
 }
 
 

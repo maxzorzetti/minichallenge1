@@ -40,12 +40,13 @@
 			
 			compatibleEvent = [self createEventForParty:party];
 
-			[self updateEvent:compatibleEvent];
+			[self updateEvent:compatibleEvent handler:^(CKRecord *record, NSError *error) {
+				compatibleEvent.eventId = record.recordID;
+				handler(compatibleEvent, error);
+			}];
 			
 		}//else [compatibleEvent addParticipant:party.creator];
 		
-		
-		handler(compatibleEvent, nil);
 	}];
 }
 
@@ -101,10 +102,12 @@
 	return event;
 }
 
-- (void)updateEvent:(SAEvent *)event{
+- (void)updateEvent:(SAEvent *)event handler:(void (^ _Nonnull)(CKRecord * _Nullable, NSError * _Nullable))handler{
 	SAEventDAO *eventDAO =  [SAEventDAO new];
 	
-	[eventDAO saveEvent:event];
+	[eventDAO saveEvent:event handler:^(CKRecord * _Nullable event, NSError * _Nullable error) {
+		handler(event, error);
+	}];
 }
 
 - (void)getEventQueueForActivity:(SAActivity *)activity completionHandler: (void (^)(NSArray<SAEvent *> *, NSError *))handler{

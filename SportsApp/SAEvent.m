@@ -18,6 +18,26 @@
 
 @implementation SAEvent
 
+- (instancetype)init
+{
+	self = [super init];
+	if (self) {
+		_eventId = nil;
+		_name = nil;
+		_minPeople = nil;
+		_maxPeople = nil;
+		_activity = nil;
+		_privateParticipants = [NSMutableArray new];
+		_category = nil;
+		_shift = nil;
+		_sex = nil;
+		_date = nil;
+		_owner = nil;
+		_location = nil;
+		_distance = nil;
+	}
+	return self;
+}
 
 - (instancetype)initWithName:(NSString *)name andRequiredParticipants:(NSNumber *)requiredParticipants andMaxParticipants:(NSNumber *)maxParticipants andActivity:(SAActivity *)activity andId:(CKRecordID *)eventId andCategory:(NSString *)category andSex:(NSString *)sex andDate:(NSDate *)date andParticipants:(NSArray<SAPerson *> *)participants andLocation:(CLLocation *)location andDistance:(NSNumber *)distance
 {

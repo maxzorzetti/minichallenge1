@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface SAProfileViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface SAProfileViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource,CLLocationManagerDelegate>
 
 @end
