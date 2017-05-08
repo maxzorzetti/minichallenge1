@@ -14,7 +14,7 @@
 
 @interface SAEvent : NSObject
 
-@property (nonatomic, readonly) CKRecordID *eventId;
+@property (nonatomic) CKRecordID *eventId;
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSNumber *minPeople, *maxPeople;
 @property (atomic) SAActivity *activity;
