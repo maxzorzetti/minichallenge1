@@ -251,6 +251,7 @@
                     <connections>
                         <outlet property="btnJoinUs" destination="ucE-QO-opS" id="0Xy-pf-iUm"/>
                         <outlet property="imgProfilePhoto" destination="OMR-ct-9xk" id="XLH-BO-su4"/>
+                        <outlet property="infoLabel" destination="DzW-yw-tfI" id="NQc-tJ-JZN"/>
                         <outlet property="txtFirstName" destination="IYi-Q0-fQc" id="Spd-Og-bOd"/>
                         <outlet property="txtLastName" destination="Gpz-DV-zJa" id="iAD-je-qBz"/>
                         <outlet property="txtPhoneNumber" destination="MV1-aT-hCP" id="5Jy-4x-SDb"/>

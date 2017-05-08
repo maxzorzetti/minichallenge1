@@ -9,7 +9,7 @@
 #import "SAInterestsCollectionViewController.h"
 #import "SAInterestsCollectionReusableView.h"
 #import "SAActivity.h"
-
+#import <CloudKit/CloudKit.h>
 @interface SAInterestsCollectionViewController ()
 
 @property (weak, nonatomic) IBOutlet UICollectionView *viewOfCollectionView;
@@ -17,6 +17,7 @@
 @property NSArray<SAActivity *> *activities;
 @property NSString *reuseIdentifier;
 @property NSMutableSet *interestedActivities;
+@property NSMutableArray *activitiesRefs;
 
 @end
 
@@ -25,12 +26,45 @@
 
 - (IBAction)buttonPressed:(UIBarButtonItem *)sender {
     
+    _activitiesRefs = [[NSMutableArray alloc] init];
     //printf("%s", __PRETTY_FUNCTION__);
+    CKContainer *container = [CKContainer defaultContainer];
+    CKDatabase *publicDatabase = [container publicCloudDatabase];
+    
+   for (SAActivity *activity in _interestedActivities)
+   {
+       //SAActivity *Activity = [activities firstObject];
+       CKReference *ref = [[CKReference alloc] initWithRecordID:activity.activityId action:CKReferenceActionNone];
+       [_activitiesRefs addObject:ref];
+       
+   }
+   
+    
+    //NSLog(@"%@", _email);
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"email = %@", _email];
+    CKQuery *query = [[CKQuery alloc] initWithRecordType:@"SAPerson" predicate:predicate];
     
     
-    
-    
-    
+    [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
+        if (error) {
+            NSLog(@"error: %@",error.localizedDescription);
+        }
+        else {
+            
+            [results firstObject][@"interestedActivities"] = _activitiesRefs;
+            [publicDatabase saveRecord:[results firstObject]  completionHandler:^(CKRecord *artworkRecord, NSError *error){
+                if (error) {
+                    NSLog(@"Telefone nao salvo. Error: %@", error.description);
+                }
+                else{
+                    NSLog(@"Telephone salvo");
+                    [self goToFeed];
+                }
+            }];
+            
+            
+        }}];
 }
 
 
@@ -40,6 +74,10 @@
 - (void)viewDidLoad {
     printf("%s", __PRETTY_FUNCTION__);
     [super viewDidLoad];
+    
+    _interestedActivities = [[NSMutableSet alloc] init];
+    //_activities = [[NSMutableArray alloc]init];
+    _activitiesRefs = [[NSMutableArray alloc]init];
     
     self.reuseIdentifier = @"cell";
     
@@ -55,6 +93,10 @@
     
     NSMutableArray *arrayOfActivities = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"ArrayOfDictionariesContainingTheActivities"];
     NSMutableArray<SAActivity *> *activities = [NSMutableArray new];
+    
+    
+    
+    
     for (NSDictionary *activityDic in arrayOfActivities) {
         SAActivity *activity = [NSKeyedUnarchiver unarchiveObjectWithData:activityDic[@"activityData"]];
         NSLog(@"ACTIVITY %@", activity);
@@ -73,6 +115,17 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (void)goToFeed{
+    UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *destination = [main instantiateViewControllerWithIdentifier:@"view2"];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:destination animated:YES completion:^{
+            
+        }];
+    });
+}
 /*
 #pragma mark - Navigation
 
@@ -133,6 +186,7 @@
 */
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
     SAActivity *activity = self.activities[indexPath.item];
     [self.interestedActivities addObject:activity];
     NSLog(@"%@", activity.name);

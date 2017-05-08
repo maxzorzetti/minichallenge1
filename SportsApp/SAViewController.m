@@ -55,8 +55,6 @@
 @property NSString *lastName;
 @property NSString *fullName;
 @property NSString *password;
-
-
 @property NSString *email;
 //@property NSArray <NSString *>*choosenQuestions; //POR QUE ID
 
@@ -78,8 +76,17 @@
     _email = [NSString stringWithFormat:@"%@", _emailField.text];
     _password = [NSString stringWithFormat:@"%@", _passwordField.text];
     
-    
-    
+    if ([_email isEqual:@""] || [_password  isEqual:@""])
+    {
+        //CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        //maskLayer.frame = textField.bounds;
+        
+         _firstLabel.text = @"User nil";
+        _myLabel.text = @"You must fill the gaps";
+        _emailField.text =@"";
+        _passwordField.text=@"";
+    }
+    else{
     
     CKContainer *container = [CKContainer defaultContainer];
     CKDatabase *publicDatabase = [container publicCloudDatabase];
@@ -127,7 +134,7 @@
 }
     }];
 }
-
+}
 
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(SAViewController *)sender{
@@ -600,13 +607,18 @@
     [self changeTextFieldBorderWithField:textField andMaskPath:maskPath];
 }
 
-- (void) changeTextFieldBorderWithField: (UITextField *)textField andMaskPath:(UIBezierPath *)maskPath{
+- (void) changeTextFieldBorderWithField: (UITextField *)textField andMaskPath:(UIBezierPath *)maskPath {
     
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
     maskLayer.frame = textField.bounds;
     maskLayer.path = maskPath.CGPath;
     maskLayer.lineWidth = 1.0;
+    
+    
     maskLayer.strokeColor = [UIColor colorWithRed:50.0f/255.0f green:226.0f/255.0f blue:196.0f/255.0f alpha:1.0f].CGColor;
+    
+
+    
     maskLayer.fillColor = [UIColor clearColor].CGColor;
     
     [textField.layer addSublayer:maskLayer];

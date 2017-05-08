@@ -155,6 +155,8 @@
                       ];
                         
                     }
+                    else
+                        NSLog(@"%@", error.description);
                 }];
               NSLog(@" na moral funfa vai friend list = %@",  friendList);
                

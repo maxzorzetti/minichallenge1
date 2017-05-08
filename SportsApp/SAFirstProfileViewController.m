@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnJoinUs;
 
 
+@property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 
 
 
@@ -62,6 +63,18 @@
     NSString *firstName = [NSString stringWithFormat:@"%@", _txtFirstName.text];
     NSString *lastName = [NSString stringWithFormat:@"%@", _txtLastName.text];
     NSString *fullName = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
+    
+    
+    if ([firstName isEqualToString:@""] || [lastName isEqualToString:@""]  || [_txtPhoneNumber.text isEqualToString:@""] )
+    {
+        
+        _infoLabel.text = @"Please, fill all the gaps";
+        _txtFirstName.text = @"";
+        _txtPhoneNumber.text = @"";
+        _txtLastName.text = @"";
+        
+    }
+    else{
     
     personRecord[@"email"] = _email;
     personRecord[@"telephone"] = _txtPhoneNumber.text;
@@ -125,7 +138,7 @@
 
 
 }
-
+}
 - (void)goToInterestsView{
     
     UIStoryboard *secondary = [UIStoryboard storyboardWithName:@"Secondary" bundle:nil];
@@ -208,6 +221,10 @@
     
     [textField.layer addSublayer:maskLayer];
 }
+
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
