@@ -28,6 +28,7 @@
 
 @property NSArray *dicListOfComingEvents, *dicListOfPastEvents;
 @property CLLocationManager *locationManager;
+@property SAPerson *user;
 
 @end
 
@@ -36,22 +37,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if (![CLLocationManager locationServicesEnabled]){
-        if (nil == self.locationManager){
-            self.locationManager = [[CLLocationManager alloc] init];
-            self.locationManager.delegate = self;
-        }
-        
-        [self.locationManager requestLocation];
-    }
-    [self.locationManager requestLocation];
+    NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];
+    self.user = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
     
     //check if 3d touch is available, if it is, assign current view as delegate
     if ([self isForceTouchAvailable]) {
         self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.view];
     }
-    
-    
     
     self.tableWithEvents.tableHeaderView = nil;
     _currentArray = [NSArray new];
@@ -59,10 +51,7 @@
     self.tableWithEvents.delegate = self;
     self.tableWithEvents.dataSource = self;
     
-    NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];
-    SAPerson *user = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
-    
-    CKRecordID *personId = user.personId;
+    CKRecordID *personId = self.user.personId;
     [SAEventConnector getEventsByPersonId:personId handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
         if (!error) {
             events = [events sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {

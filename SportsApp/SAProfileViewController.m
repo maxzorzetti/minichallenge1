@@ -14,6 +14,8 @@
 #import "SAPerson.h"
 #import "SAActivity.h"
 #import "SACollectionButtonViewCell.h"
+#import <CoreLocation/CLGeocoder.h>
+#import <CoreLocation/CLPlacemark.h>
 
 @interface SAProfileViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *profilePhoto;
@@ -61,14 +63,15 @@
         }
     }
     
-//    //make locationReadable
-//    CLGeocoder *geocoder = [[CLGeocoder alloc]init];
-//    [geocoder reverseGeocodeLocation:self.cellEvent.location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-//        if (!error) {
-//            CLPlacemark *placemark = [placemarks objectAtIndex:0];
-//            self.locationLabel.text = [NSString stringWithFormat:@"%@, %@",placemark.subLocality ,placemark.locality];
-//        }
-//    }];
+    //make locationReadable
+    CLGeocoder *geocoder = [[CLGeocoder alloc]init];
+    NSLog(@"%@",self.user.location);
+    [geocoder reverseGeocodeLocation:self.user.location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        if (!error) {
+            CLPlacemark *placemark = [placemarks objectAtIndex:0];
+            self.locationLabel.text = [NSString stringWithFormat:@"%@",placemark.locality.capitalizedString];
+        }
+    }];
     
     
     
