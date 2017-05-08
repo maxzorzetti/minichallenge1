@@ -47,7 +47,7 @@
             self.locationManager = [[CLLocationManager alloc]init];
             [self startStandartUpdates];
             self.user.locationManager = self.locationManager;
-            [self.locationManager startUpdatingLocation];
+            [self.locationManager requestLocation];
             break;
             //        case kCLAuthorizationStatusNotDetermined:
             //            self.locationManager = [[CLLocationManager alloc]init];
@@ -142,7 +142,6 @@
     
     //make locationReadable
     CLGeocoder *geocoder = [[CLGeocoder alloc]init];
-    NSLog(@"%@",self.user.location);
     [geocoder reverseGeocodeLocation:self.user.location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
         if (!error) {
             CLPlacemark *placemark = [placemarks objectAtIndex:0];

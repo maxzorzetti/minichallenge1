@@ -37,6 +37,9 @@
 
 @implementation SANewsFeedTableViewController
 
+- (void)viewDidDisappear:(BOOL)animated{
+    [self.locationManager stopUpdatingLocation];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -52,16 +55,16 @@
             self.locationManager = [[CLLocationManager alloc]init];
             [self startStandartUpdates];
             self.currentUser.locationManager = self.locationManager;
-            [self.locationManager requestLocation];
+            [self.locationManager startUpdatingLocation];
             break;
-        case kCLAuthorizationStatusNotDetermined:
-            self.locationManager = [[CLLocationManager alloc]init];
-            [self startStandartUpdates];
-            
-            self.currentUser.locationManager = self.locationManager;
-            [self.locationManager requestWhenInUseAuthorization];
-            [self.locationManager requestLocation];
-            break;
+            //        case kCLAuthorizationStatusNotDetermined:
+            //            self.locationManager = [[CLLocationManager alloc]init];
+            //            [self startStandartUpdates];
+            //
+            //            self.user.locationManager = self.locationManager;
+            //            [self.locationManager requestWhenInUseAuthorization];
+            //            [self.locationManager requestLocation];
+            //            break;
         default:
             break;
     }
@@ -70,8 +73,6 @@
     _todayEvents = [[NSMutableArray alloc]init];
     _eventArray = [[NSMutableArray alloc]init];
     
-    
-   
     CKRecordID *personId = self.currentUser.personId;
     
     [SAEventConnector getEventsByPersonId:personId handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
@@ -325,14 +326,7 @@
         return [loc1.timestamp compare:loc2.timestamp];
     }];
     
-    CLLocation *earlierLoc = [sortedArray firstObject];
-    
-    if (self.currentUser.location.timestamp < earlierLoc.timestamp) {
-        [self.currentUser setLocation:earlierLoc];
-        NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:self.currentUser];
-        [[NSUserDefaults standardUserDefaults] setObject:userData forKey:@"user"];
-    }
-    [self.locationManager stopUpdatingLocation];
+    [self.currentUser setLocation:[sortedArray firstObject]];
 }
 
 - (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
