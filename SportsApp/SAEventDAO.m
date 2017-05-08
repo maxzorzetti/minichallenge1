@@ -110,35 +110,40 @@ CKDatabase *publicDatabase;
 
 
 
-- (void)saveEvent:(SAEvent *)event{
+- (void)saveEvent:(SAEvent *)event handler: (void (^_Nonnull)(CKRecord * _Nullable event, NSError * _Nullable error))handler {
 	[self connectToPublicDatabase];
-	
+	// Create event record
 	CKRecord *eventRecord = [[CKRecord alloc]initWithRecordType:@"Event"];
-
-
-	NSLog(@"%@", event.activity.activityId);
 	
-	CKReference *activityRef = [[CKReference alloc]initWithRecordID:event.activity.activityId action:CKReferenceActionNone];
-	NSMutableArray *personList = [NSMutableArray new];
+	// Create the activity reference
+	CKReference *activityReference = [[CKReference alloc] initWithRecordID:event.activity.activityId action:CKReferenceActionNone];
+	
+	// Create event owner reference
+	CKReference *ownerReference = [[CKReference alloc] initWithRecordID:event.owner.personId action:CKReferenceActionNone];
+	
+	// Create participants references
+	NSMutableArray<CKReference *>  *participantsReferenceList= [NSMutableArray new];
 	for (SAPerson *person in event.participants) {
-		[personList addObject: [[CKReference alloc]initWithRecordID:person.personId action:CKReferenceActionNone]];
+		[participantsReferenceList addObject: [[CKReference alloc]initWithRecordID:person.personId action:CKReferenceActionNone]];
 	}
 	
 	eventRecord[@"name"] = event.name;
-	eventRecord[@"participants"] = personList;
-	eventRecord[@"activity"] = activityRef;
+	eventRecord[@"owner"] = ownerReference;
+	eventRecord[@"participants"] = participantsReferenceList;
+	eventRecord[@"activity"] = activityReference;
 	eventRecord[@"minPeople"] = event.minPeople;
 	eventRecord[@"maxPeople"] = event.maxPeople;
 	eventRecord[@"category"] = event.category;
 	eventRecord[@"date"] = event.date;
 	eventRecord[@"shift"] = event.shift;
 	eventRecord[@"sex"] = event.sex;
-	
+		
 	[publicDatabase saveRecord:eventRecord completionHandler:^(CKRecord *eventRecord, NSError *error){
 		if (error) {
 			NSLog(@"Record Party not created. Error: %@", error.description);
 		}
 		NSLog(@"Event record created");
+		handler(eventRecord, error);
 	}];
 	
 }

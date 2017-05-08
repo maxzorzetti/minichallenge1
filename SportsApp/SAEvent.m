@@ -13,11 +13,31 @@
 @class SAPerson;
 
 @interface SAEvent ()
+
 @property (nonatomic) NSMutableArray<SAPerson *> *privateParticipants;
+
 @end
 
 @implementation SAEvent
 
+- (instancetype)init {
+	self = [super init];
+	if (self) {
+		_name = nil;
+		_owner = nil;
+		_minPeople = nil;
+		_maxPeople = nil;
+		_activity = nil;
+		_eventId = nil;
+		_category = nil;
+		_sex = nil;
+		_date = nil;
+		_location = nil;
+		_distance = nil;
+		_privateParticipants = [NSMutableArray new];
+	}
+	return self;
+}
 
 - (instancetype)initWithName:(NSString *)name andRequiredParticipants:(NSNumber *)requiredParticipants andMaxParticipants:(NSNumber *)maxParticipants andActivity:(SAActivity *)activity andId:(CKRecordID *)eventId andCategory:(NSString *)category andSex:(NSString *)sex andDate:(NSDate *)date andParticipants:(NSArray<SAPerson *> *)participants andLocation:(CLLocation *)location andDistance:(NSNumber *)distance
 {

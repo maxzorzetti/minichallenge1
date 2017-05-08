@@ -31,6 +31,6 @@
 
 - (void)updateEvent:(CKRecord *_Nonnull)event handler:(void (^_Nonnull)(CKRecord * _Nullable event, NSError * _Nullable error))handler;
 
-- (void)saveEvent:(SAEvent *_Nonnull)event;
+- (void)saveEvent:(SAEvent *_Nonnull)event handler:(void (^_Nonnull)(CKRecord * _Nullable event, NSError * _Nullable error))handler;
 
 @end
