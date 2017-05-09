@@ -169,7 +169,6 @@
 }
 
  #pragma mark - Navigation
- 
  // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	 if ([segue.identifier isEqualToString:@"newEvent5To6"]) {
@@ -185,6 +184,10 @@
 		 newEvent6.party = [self.party copy];
 	 }
  }
- 
+
+
+- (IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
+	
+}
 
 @end

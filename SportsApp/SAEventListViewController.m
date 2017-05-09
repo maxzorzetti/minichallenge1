@@ -19,6 +19,7 @@
 #import "SAPerson.h"
 #import "SAEventDescriptionViewController.h"
 #import "ClosedEventDescriptionViewController.h"
+#import "SANewEvent6ViewController.h"
 
 @interface SAEventListViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableWithEvents;
@@ -29,6 +30,8 @@
 @property NSArray *dicListOfComingEvents, *dicListOfPastEvents;
 @property CLLocationManager *locationManager;
 @property SAPerson *user;
+
+@property (nonatomic) SAEvent *tempEvent;
 
 @end
 
@@ -93,6 +96,23 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	
+	// Gamby (TM) to transition to event screens after we created an event
+	if (self.tempEvent) {
+		
+		if ( self.tempEvent.participants.count >= self.tempEvent.minPeople.integerValue ) {
+
+			[self performSegueWithIdentifier:@"descriptionEventSegue" sender:self];
+			
+		} else {
+			
+			[self performSegueWithIdentifier:@"descriptionNotClosedEventSegue" sender:self];
+		}
+	}
+}
 
 #pragma Table population methods
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -164,17 +184,56 @@
 	
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(SANewsFeedTableViewCell *)sender{
-	if ([segue.identifier isEqualToString:@"descriptionEventSegue"]) {
-        ClosedEventDescriptionViewController *destView = segue.destinationViewController;
-        destView.event = sender.cellEvent;
+- (IBAction)backWithNewEvent:(UIStoryboardSegue *)segue {
+	[self.navigationController setNavigationBarHidden:NO animated:YES];
+	
+	SANewEvent6ViewController *vc = segue.sourceViewController;
+	SAEvent *event = vc.event;
+	
+	self.tempEvent = event;
+	
+//	if (event.participants.count >= event.minPeople.integerValue) {
+//		NSLog(@"Closed Event");
+//		self.eventSegue = @"descriptionEventSegue";
+//		//[self performSegueWithIdentifier:@"startNewEvent" sender:self];
+//		
+//	} else {
+//		NSLog(@"Not Closed Event");
+//		self.eventSegue = @"descriptionNotClosedEventSegue";
+//		[self performSegueWithIdentifier:@"descriptionNotClosedEventSegue" sender:self];
+//		
+//	}
+	
+	
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(NSObject *)sender {
+	
+	// Test to see if we are going into an event screen
+	if ([segue.identifier isEqualToString:@"descriptionEventSegue"] || [segue.identifier isEqualToString:@"descriptionNotClosedEventSegue"]) {
+		SAEvent *event;
+		// See if we are going because we tapped an event cell
+		if (sender.class == SANewsFeedTableViewCell.class) {
+			event = ((SANewsFeedTableViewCell *)sender).cellEvent;
+			
+		// See if we are going because we created a new event
+		} else if (sender.class == self.class) {
+			event = ((SAEventListViewController *)sender).tempEvent;
+			self.tempEvent = nil;	// Set the event to nil so ViewDidAppear doesn't screw up everything
+		}
+		
+		// Go to the appropriate event screen depending on the event
+		if ([segue.identifier isEqualToString:@"descriptionEventSegue"]) {
+			ClosedEventDescriptionViewController *destView = segue.destinationViewController;
+			destView.event = event;
+		} else if ([segue.identifier isEqualToString:@"descriptionNotClosedEventSegue"]) {
+			SAEventDescriptionViewController *destView = segue.destinationViewController;
+			destView.currentEvent = event;
+		}
 		
 	} else if ([segue.identifier isEqualToString:@"startNewEvent"]) {
 		// :)
-    }else if ([segue.identifier isEqualToString:@"descriptionNotClosedEventSegue"]){
-        SAEventDescriptionViewController *destView = segue.destinationViewController;
-        destView.currentEvent = sender.cellEvent;
-    }
+	}
 }
 
 - (IBAction)backFromDescription:(UIStoryboardSegue *)segue{
