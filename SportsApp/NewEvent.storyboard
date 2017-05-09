@@ -52,10 +52,10 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uBl-fH-FeA">
-                                <rect key="frame" x="18.5" y="45" width="18" height="18"/>
+                                <rect key="frame" x="18.5" y="45" width="17" height="17"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="18" id="2Qu-LP-Z4X"/>
-                                    <constraint firstAttribute="width" constant="18" id="k3N-26-MM6"/>
+                                    <constraint firstAttribute="height" constant="17" id="2Qu-LP-Z4X"/>
+                                    <constraint firstAttribute="width" constant="17" id="k3N-26-MM6"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="Icon_Delete"/>
                                 <connections>
@@ -223,10 +223,23 @@
                                     <constraint firstAttribute="width" constant="323" id="vfO-NU-qf2"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arT-vB-Crb">
+                                <rect key="frame" x="18.5" y="45" width="17" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="17" id="CCI-hh-WjW"/>
+                                    <constraint firstAttribute="height" constant="17" id="Cir-SI-Uvd"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="Icon_Delete"/>
+                                <connections>
+                                    <segue destination="odN-d3-2TT" kind="unwind" unwindAction="backFromNewEvent:" id="kgi-DE-HSE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="pI5-M5-Cig" firstAttribute="top" secondItem="ZAi-O0-o97" secondAttribute="bottom" constant="42" id="64x-hc-mam"/>
+                            <constraint firstItem="arT-vB-Crb" firstAttribute="top" secondItem="QAN-3P-CbC" secondAttribute="bottom" constant="25" id="Cgy-7w-nP7"/>
+                            <constraint firstItem="arT-vB-Crb" firstAttribute="leading" secondItem="p2S-YE-yaj" secondAttribute="leading" constant="18.399999999999999" id="Igy-8o-8FW"/>
                             <constraint firstAttribute="trailing" secondItem="ZAi-O0-o97" secondAttribute="trailing" constant="24" id="NJu-sU-DlV"/>
                             <constraint firstItem="ZAi-O0-o97" firstAttribute="centerX" secondItem="p2S-YE-yaj" secondAttribute="centerX" id="T9s-4a-BSS"/>
                             <constraint firstItem="ZAi-O0-o97" firstAttribute="top" secondItem="FNt-cl-tAB" secondAttribute="bottom" constant="17" id="i2r-pw-jZr"/>
@@ -395,6 +408,17 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kpj-ae-jMF">
+                                <rect key="frame" x="18.5" y="45" width="17" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="17" id="LIG-Mh-Qk2"/>
+                                    <constraint firstAttribute="width" constant="17" id="VjM-Pi-PMy"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="Icon_Delete"/>
+                                <connections>
+                                    <segue destination="ZdV-ZB-k3U" kind="unwind" unwindAction="backFromNewEvent:" id="c6x-XA-zBv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -408,9 +432,11 @@
                             <constraint firstItem="O8C-VT-nF6" firstAttribute="top" secondItem="QbI-Yk-74Z" secondAttribute="bottom" constant="10" id="LyS-Gu-JFn"/>
                             <constraint firstItem="B6h-EP-t0W" firstAttribute="top" secondItem="jcl-wo-sRq" secondAttribute="bottom" constant="12" id="O8M-p3-b8v"/>
                             <constraint firstItem="Svj-qw-Mvy" firstAttribute="top" secondItem="43f-Hs-fM9" secondAttribute="bottom" id="PEg-z2-bhe"/>
+                            <constraint firstItem="Kpj-ae-jMF" firstAttribute="top" secondItem="PX1-Fn-utk" secondAttribute="bottom" constant="25" id="eG8-F3-DEk"/>
                             <constraint firstItem="O8C-VT-nF6" firstAttribute="centerX" secondItem="Kzc-ob-Qmb" secondAttribute="centerX" constant="-4.5" id="eU1-pQ-krW"/>
                             <constraint firstItem="QbI-Yk-74Z" firstAttribute="leading" secondItem="Kzc-ob-Qmb" secondAttribute="leading" constant="23" id="j0l-7d-R7t"/>
                             <constraint firstItem="QbI-Yk-74Z" firstAttribute="top" secondItem="PX1-Fn-utk" secondAttribute="bottom" constant="44" id="wT2-kE-edi"/>
+                            <constraint firstItem="Kpj-ae-jMF" firstAttribute="leading" secondItem="Kzc-ob-Qmb" secondAttribute="leading" constant="18.399999999999999" id="x9j-CR-Bx4"/>
                         </constraints>
                     </view>
                     <connections>
@@ -518,6 +544,17 @@
                                 <color key="textColor" red="0.13725490200000001" green="0.1215686275" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="en2-D1-721">
+                                <rect key="frame" x="18.5" y="45" width="17" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="17" id="4mP-O4-cgT"/>
+                                    <constraint firstAttribute="width" constant="17" id="kP9-52-x4g"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="Icon_Delete"/>
+                                <connections>
+                                    <segue destination="LnT-ds-wvg" kind="unwind" unwindAction="backFromNewEvent:" id="4i4-93-fsx"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -525,9 +562,11 @@
                             <constraint firstItem="Kfh-Ro-ArH" firstAttribute="leading" secondItem="WIn-eM-qUR" secondAttribute="leading" constant="23" id="5au-A3-WbU"/>
                             <constraint firstItem="4vM-V3-Xrm" firstAttribute="leading" secondItem="WIn-eM-qUR" secondAttribute="leading" id="IBQ-36-pEI"/>
                             <constraint firstItem="Qhi-j2-pcn" firstAttribute="top" secondItem="4vM-V3-Xrm" secondAttribute="bottom" id="Lkc-Vt-3UQ"/>
+                            <constraint firstItem="en2-D1-721" firstAttribute="top" secondItem="ayO-SF-U4h" secondAttribute="bottom" constant="25" id="MRv-gu-soW"/>
                             <constraint firstItem="bgV-8y-uOz" firstAttribute="centerX" secondItem="WIn-eM-qUR" secondAttribute="centerX" id="OEK-D4-PUe"/>
                             <constraint firstItem="PuI-Ew-VTa" firstAttribute="top" secondItem="ayO-SF-U4h" secondAttribute="bottom" constant="212" id="UXZ-pN-DY7"/>
                             <constraint firstItem="PuI-Ew-VTa" firstAttribute="centerX" secondItem="WIn-eM-qUR" secondAttribute="centerX" id="asg-tu-ayA"/>
+                            <constraint firstItem="en2-D1-721" firstAttribute="leading" secondItem="WIn-eM-qUR" secondAttribute="leading" constant="18.399999999999999" id="biZ-yB-1XJ"/>
                             <constraint firstItem="c0i-Qa-877" firstAttribute="top" secondItem="yR4-i7-c1o" secondAttribute="bottom" constant="22" id="dNv-gG-kuA"/>
                             <constraint firstItem="Kfh-Ro-ArH" firstAttribute="top" secondItem="ayO-SF-U4h" secondAttribute="bottom" constant="44" id="ePz-dx-gN9"/>
                             <constraint firstItem="bgV-8y-uOz" firstAttribute="top" secondItem="PuI-Ew-VTa" secondAttribute="bottom" constant="26" id="pRu-SS-QXW"/>
@@ -738,6 +777,17 @@
                                     <constraint firstAttribute="height" constant="140" id="iZq-hS-iBJ"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZWm-Oz-1ee">
+                                <rect key="frame" x="18.5" y="45" width="17" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="17" id="02w-XR-2GO"/>
+                                    <constraint firstAttribute="height" constant="17" id="3et-wx-tqA"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="Icon_Delete"/>
+                                <connections>
+                                    <segue destination="SLe-Af-TeA" kind="unwind" unwindAction="backFromNewEvent:" id="Ubn-jF-hHj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -748,7 +798,9 @@
                             <constraint firstItem="GPR-r0-uUE" firstAttribute="centerX" secondItem="Ahe-OG-D8u" secondAttribute="centerX" id="ZWD-EJ-K9q"/>
                             <constraint firstItem="Qji-FT-SVq" firstAttribute="top" secondItem="5gf-ah-Dtj" secondAttribute="bottom" constant="44" id="fux-GC-q0A"/>
                             <constraint firstItem="VzD-FJ-Ifq" firstAttribute="leading" secondItem="Ahe-OG-D8u" secondAttribute="leading" id="tTV-7a-IGK"/>
+                            <constraint firstItem="ZWm-Oz-1ee" firstAttribute="leading" secondItem="Ahe-OG-D8u" secondAttribute="leading" constant="18.399999999999999" id="uVJ-ua-q6s"/>
                             <constraint firstItem="nqj-sq-P5U" firstAttribute="top" secondItem="f6i-ZS-dkN" secondAttribute="bottom" constant="34" id="vbW-vo-SXO"/>
+                            <constraint firstItem="ZWm-Oz-1ee" firstAttribute="top" secondItem="5gf-ah-Dtj" secondAttribute="bottom" constant="25" id="w1b-Ab-3EJ"/>
                             <constraint firstItem="f6i-ZS-dkN" firstAttribute="centerX" secondItem="Ahe-OG-D8u" secondAttribute="centerX" id="xA8-2G-3kG"/>
                             <constraint firstItem="Qji-FT-SVq" firstAttribute="leading" secondItem="Ahe-OG-D8u" secondAttribute="leading" constant="23" id="xMM-kX-DSZ"/>
                             <constraint firstItem="nqj-sq-P5U" firstAttribute="centerX" secondItem="Ahe-OG-D8u" secondAttribute="centerX" id="yFP-cX-Fi1"/>
@@ -996,14 +1048,27 @@
                                             <constraint firstAttribute="width" constant="12" id="zf7-Gd-Kah"/>
                                         </constraints>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5eK-Kq-HKc">
+                                        <rect key="frame" x="13.5" y="12" width="17" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="17" id="7jd-p4-NfA"/>
+                                            <constraint firstAttribute="width" constant="17" id="WuY-7v-hJe"/>
+                                        </constraints>
+                                        <state key="normal" title="Button" image="Icon_Delete"/>
+                                        <connections>
+                                            <segue destination="7cI-zL-Kjf" kind="unwind" unwindAction="prepareForUnwind:" id="3Ei-Oq-DFn"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="gOu-wp-Tgc" firstAttribute="top" secondItem="le2-bL-OXp" secondAttribute="bottom" constant="11.6" id="1vz-fD-eVT"/>
                                     <constraint firstAttribute="height" constant="347" id="3n8-YV-km7"/>
+                                    <constraint firstItem="5eK-Kq-HKc" firstAttribute="leading" secondItem="8U7-Ym-oxD" secondAttribute="leading" constant="13" id="7TA-ra-wFI"/>
                                     <constraint firstItem="89z-aS-Iya" firstAttribute="centerX" secondItem="8U7-Ym-oxD" secondAttribute="centerX" id="8EM-yS-fAT"/>
                                     <constraint firstItem="SGx-ek-P21" firstAttribute="top" secondItem="F1E-Ny-pmT" secondAttribute="bottom" constant="20.699999999999999" id="CbR-TT-kaj"/>
                                     <constraint firstItem="le2-bL-OXp" firstAttribute="top" secondItem="hPD-pS-GMR" secondAttribute="bottom" constant="10" id="EdL-wK-Q5d"/>
+                                    <constraint firstItem="5eK-Kq-HKc" firstAttribute="top" secondItem="8U7-Ym-oxD" secondAttribute="top" constant="12" id="HIk-cv-ugp"/>
                                     <constraint firstItem="NCF-YC-E8f" firstAttribute="leading" secondItem="9Dy-wD-jfT" secondAttribute="trailing" constant="10" id="I7d-WB-CJ3"/>
                                     <constraint firstItem="wVO-SP-mnK" firstAttribute="leading" secondItem="gOu-wp-Tgc" secondAttribute="trailing" constant="61.899999999999999" id="MCv-FX-wIw"/>
                                     <constraint firstItem="9Dy-wD-jfT" firstAttribute="leading" secondItem="xDk-Ao-GbO" secondAttribute="trailing" constant="8.3000000000000007" id="N0E-qC-hH4"/>
@@ -1065,6 +1130,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ivz-RP-RPd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="7cI-zL-Kjf" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3236" y="-48.125937031484263"/>
         </scene>

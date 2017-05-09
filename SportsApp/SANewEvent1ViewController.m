@@ -132,6 +132,7 @@
 	[cell setCustomSelection:NO];
 }
 
+
 //
 //- (NSMutableAttributedString *)processPreferencesTextWithActivity:(SAActivity *)activity schedule:(NSString *)schedule people:(NSString *)people location:(NSString *)location {
 //	NSMutableString *rawText;
