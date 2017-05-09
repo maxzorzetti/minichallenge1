@@ -1127,6 +1127,7 @@
                         <outlet property="rectangleView" destination="8U7-Ym-oxD" id="hHA-rx-XUe"/>
                         <outlet property="scheduleLabel" destination="wls-GV-Xnh" id="oBW-df-0qm"/>
                         <outlet property="shiftLabel" destination="CCO-62-jiM" id="3f0-xf-OyS"/>
+                        <segue destination="7cI-zL-Kjf" kind="unwind" identifier="backToFeedWithEvent" unwindAction="backWithNewEvent:" id="ggN-8m-YbI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ivz-RP-RPd" userLabel="First Responder" sceneMemberID="firstResponder"/>

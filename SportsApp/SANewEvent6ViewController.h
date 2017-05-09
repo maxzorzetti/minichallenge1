@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "SAPerson.h"
 #import "SAParty.h"
+#import "SAEvent.h"
 
 @interface SANewEvent6ViewController : UIViewController <UICollectionViewDataSource>
 
 @property (nonatomic) SAParty *party;
+
+@property (nonatomic) SAEvent *event;
 
 @end
