@@ -114,6 +114,17 @@
     return numberOfItems;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    //do nothing;
+    SACollectionButtonViewCell *cell = (SACollectionButtonViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    [cell setCustomSelection:NO];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath{
+    //do nothing;
+    SACollectionButtonViewCell *cell = (SACollectionButtonViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    [cell setCustomSelection:NO];
+}
 
 #pragma location methods
 - (void)startStandartUpdates{

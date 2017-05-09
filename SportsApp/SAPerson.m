@@ -55,6 +55,7 @@
         _photo = [aDecoder decodeObjectForKey:@"photo"];
         _facebookId = [aDecoder decodeObjectForKey:@"facebookId"];
         _gender = [aDecoder decodeObjectForKey:@"gender"];
+        _interests = [aDecoder decodeObjectForKey:@"interests"];
     }
     return self;
 }
@@ -68,6 +69,7 @@
     [aCoder encodeObject:self.photo forKey:@"photo"];
     [aCoder encodeObject:self.facebookId forKey:@"facebookId"];
     [aCoder encodeObject:self.gender forKey:@"gender"];
+    [aCoder encodeObject:self.interests forKey:@"interests"];
 }
 
 + (void)saveToUserDefaults:(SAPerson *)person{

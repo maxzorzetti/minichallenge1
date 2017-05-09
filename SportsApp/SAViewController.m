@@ -193,17 +193,17 @@
                      {
                          
                          //create person
-                         [publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
+                         [publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *newPersonRecord, NSError *error){
                              if (!error){
-                                 CKReference *ref = [[CKReference alloc]initWithRecordID:personRecord.recordID action:CKReferenceActionNone];
+                                 CKReference *ref = [[CKReference alloc]initWithRecordID:newPersonRecord.recordID action:CKReferenceActionNone];
                                  identityRecord[@"userId"] = ref;
                                  
                                  //create identity
-                                 [publicDatabase saveRecord:identityRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
+                                 [publicDatabase saveRecord:identityRecord completionHandler:^(CKRecord *identityRecord, NSError *error){
                                      if (!error){
                                          
                                          NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
-                                         self.user = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:photo];
+                                         self.user = [SAPersonConnector getPersonFromRecord:newPersonRecord andPicture:photo];
                                          
                                          [self goToGenderSelection];
                                      }

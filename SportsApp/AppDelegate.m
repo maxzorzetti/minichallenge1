@@ -64,12 +64,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         [userDefaults setObject:[NSArray new] forKey:@"ArrayOfDictionariesContainingTheActivities"];
         [userDefaults setObject:[NSArray new] forKey:@"ArrayOfDictionariesContainingPeople"];
         
-        
-        //TODO SHOW INTRO VIEWS
-        UIViewController *initialView = [barbaraStoryboard instantiateViewControllerWithIdentifier:@"joinView"];
-        self.window.rootViewController = initialView;
-        [self.window makeKeyAndVisible];
-        
         //GET ALL ACTIVITIES INFO AVAILABLE
         [SAActivityConnector getAllActivities:^(NSArray * _Nullable activities, NSError * _Nullable error) {
             if (!error) {
@@ -80,44 +74,57 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         }];
         [userDefaults setBool:YES forKey:@"HasLaunchedOnce"];
         [userDefaults synchronize];
+        
+        //TODO SHOW INTRO VIEWS
+        UIViewController *initialView = [barbaraStoryboard instantiateViewControllerWithIdentifier:@"joinView"];
+        self.window.rootViewController = initialView;
+        [self.window makeKeyAndVisible];
     }else{
         //check if there is already a user logged in
         if ([userDefaults dataForKey:@"user"]) {
             NSData *dataUser = [userDefaults dataForKey:@"user"];
             self.currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:dataUser];
             
-            //SHOW FEED
-            UIViewController *initialView = [mainStoryboard instantiateViewControllerWithIdentifier:@"view2"];
-            self.window.rootViewController = initialView;
-            [self.window makeKeyAndVisible];
-            
-//            SAUser *objToRegister = [SAUser new];
-//            
-//            [objToRegister setCurrentPerson:person];
-        }
-        else
-            //check if there is login info to perform the login operation
-            if([userDefaults dictionaryForKey:@"loginInfo"]){
-                //TODO SHOW PERFORMING LOG IN
-                UIViewController *initialView = [barbaraStoryboard instantiateViewControllerWithIdentifier:@"joinView"];
+            //check if it is a valid user with valid recordId
+            if (self.currentUser.personId) {
+                //SHOW FEED
+                UIViewController *initialView = [mainStoryboard instantiateViewControllerWithIdentifier:@"view2"];
                 self.window.rootViewController = initialView;
                 [self.window makeKeyAndVisible];
                 
-                SAUser *objToLogin = [SAUser new];
-                [objToLogin loginWithCompletionHandler:^(int wasSuccessful) {
-                    if (wasSuccessful == 0) {
-                        //SHOW FEED
-                        UIViewController *initialView = [mainStoryboard instantiateViewControllerWithIdentifier:@"view2"];
-                        self.window.rootViewController = initialView;
-                        [self.window makeKeyAndVisible];
-                    }else{
-                        //SHOW LOGIN VIEW
-                        UIViewController *initialView = [mainStoryboard instantiateViewControllerWithIdentifier:@"loginView"];
-                        self.window.rootViewController = initialView;
-                        [self.window makeKeyAndVisible];
-                    }
-                }];
+                //            SAUser *objToRegister = [SAUser new];
+                //
+                //            [objToRegister setCurrentPerson:person];
+            }else{
+                //NOTHING WORKED, SHOW JOIN VIEW
+                UIViewController *initialView = [barbaraStoryboard instantiateViewControllerWithIdentifier:@"joinView"];
+                self.window.rootViewController = initialView;
+                [self.window makeKeyAndVisible];
             }
+        }
+//        else
+//            //check if there is login info to perform the login operation
+//            if([userDefaults dictionaryForKey:@"loginInfo"]){
+//                //TODO SHOW PERFORMING LOG IN
+//                UIViewController *initialView = [barbaraStoryboard instantiateViewControllerWithIdentifier:@"joinView"];
+//                self.window.rootViewController = initialView;
+//                [self.window makeKeyAndVisible];
+//                
+//                SAUser *objToLogin = [SAUser new];
+//                [objToLogin loginWithCompletionHandler:^(int wasSuccessful) {
+//                    if (wasSuccessful == 0) {
+//                        //SHOW FEED
+//                        UIViewController *initialView = [mainStoryboard instantiateViewControllerWithIdentifier:@"view2"];
+//                        self.window.rootViewController = initialView;
+//                        [self.window makeKeyAndVisible];
+//                    }else{
+//                        //SHOW LOGIN VIEW
+//                        UIViewController *initialView = [mainStoryboard instantiateViewControllerWithIdentifier:@"loginView"];
+//                        self.window.rootViewController = initialView;
+//                        [self.window makeKeyAndVisible];
+//                    }
+//                }];
+//            }
         else{
             //NOTHING WORKED, SHOW JOIN VIEW
             UIViewController *initialView = [barbaraStoryboard instantiateViewControllerWithIdentifier:@"joinView"];
