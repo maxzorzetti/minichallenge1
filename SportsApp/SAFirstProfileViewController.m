@@ -50,7 +50,7 @@
         NSString *lastName = [NSString new];
         for (int i=0; i<[names count]; i++) {
             if (i!=0) {
-                lastName = [NSString stringWithFormat:@"%@%@",lastName,names[i]];
+                lastName = names[i];
             }
         }
         
