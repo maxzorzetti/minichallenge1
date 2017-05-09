@@ -129,7 +129,7 @@
         <!--First Profile View Controller-->
         <scene sceneID="3ni-ep-on0">
             <objects>
-                <viewController id="Ca5-HR-2Da" customClass="SAFirstProfileViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="secondSignUpView" id="Ca5-HR-2Da" customClass="SAFirstProfileViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Nj7-s8-UYy"/>
                         <viewControllerLayoutGuide type="bottom" id="bNk-2n-tRx"/>
@@ -414,10 +414,10 @@
             </objects>
             <point key="canvasLocation" x="2973.5999999999999" y="164.16791604197903"/>
         </scene>
-        <!--View Controller-->
+        <!--Gender Selection View Controller-->
         <scene sceneID="8Nl-Jq-47S">
             <objects>
-                <viewController storyboardIdentifier="genderSelection" id="v5O-1O-aXK" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="genderSelectionView" id="v5O-1O-aXK" customClass="SAGenderSelectionViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yqa-Pk-GEd"/>
                         <viewControllerLayoutGuide type="bottom" id="uQO-op-3uC"/>
@@ -426,18 +426,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="6hK-D1-YzU">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="6hK-D1-YzU">
                                 <rect key="frame" x="23" y="541" width="329" height="50"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JgK-Nd-m8C">
-                                        <rect key="frame" x="0.0" y="0.0" width="164.5" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="160.5" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xVv-d7-sKa">
-                                                <rect key="frame" x="0.0" y="0.0" width="164.5" height="50"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="160.5" height="50"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <state key="normal" title="Female">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="genderSelected:" destination="v5O-1O-aXK" eventType="touchUpInside" id="w8R-Dv-A7s"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -448,17 +451,20 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FlS-3D-hFE">
-                                        <rect key="frame" x="164.5" y="0.0" width="164.5" height="50"/>
+                                        <rect key="frame" x="168.5" y="0.0" width="160.5" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ad-mo-TbX">
-                                                <rect key="frame" x="0.0" y="0.0" width="164.5" height="50"/>
-                                                <color key="backgroundColor" red="0.19506528973579407" green="0.88580375909805298" blue="0.76854342222213745" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="160.5" height="50"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <state key="normal" title="Male">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="genderSelected:" destination="v5O-1O-aXK" eventType="touchUpInside" id="Q1q-nO-vvl"/>
+                                                </connections>
                                             </button>
                                         </subviews>
+                                        <color key="backgroundColor" red="0.19506528970000001" green="0.88580375909999998" blue="0.76854342220000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="2ad-mo-TbX" firstAttribute="top" secondItem="FlS-3D-hFE" secondAttribute="top" id="4mn-O4-c6R"/>
                                             <constraint firstItem="2ad-mo-TbX" firstAttribute="leading" secondItem="FlS-3D-hFE" secondAttribute="leading" id="E4C-z6-QWV"/>
@@ -500,10 +506,14 @@
                             <constraint firstItem="uQO-op-3uC" firstAttribute="top" secondItem="6hK-D1-YzU" secondAttribute="bottom" constant="76" id="ql9-kT-Cz0"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="femaleView" destination="JgK-Nd-m8C" id="b2c-6p-joz"/>
+                        <segue destination="Ca5-HR-2Da" kind="show" identifier="goToPhoneNumberSignUpView" id="t5o-T7-2N6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="14x-fz-Gdq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3930.4000000000001" y="158.77061469265368"/>
+            <point key="canvasLocation" x="2490" y="-542"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hYW-1I-cmL">
@@ -530,4 +540,7 @@
         <image name="camera" width="54" height="54"/>
         <image name="img_placeholder" width="101" height="101"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="t5o-T7-2N6"/>
+    </inferredMetricsTieBreakers>
 </document>

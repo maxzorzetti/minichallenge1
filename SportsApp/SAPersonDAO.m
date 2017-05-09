@@ -65,6 +65,21 @@ CKDatabase *publicDatabase;
     [publicDatabase performQuery:query inZoneWithID:nil completionHandler:handler];
 }
 
+- (void) savePerson:(CKRecord *)user handler:(void (^)(CKRecord * _Nullable, NSError * _Nullable))handler{
+    [self connectToPublicDatabase];
+    
+    NSArray<CKRecord*> *groupRecordArray = [[NSArray alloc] initWithObjects:user, nil];
+    CKModifyRecordsOperation *updatedGroup = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:groupRecordArray recordIDsToDelete:nil];
+    updatedGroup.savePolicy = CKRecordSaveAllKeys;
+    updatedGroup.qualityOfService = NSQualityOfServiceUserInitiated;
+    updatedGroup.modifyRecordsCompletionBlock=
+    ^(NSArray * savedRecords, NSArray * deletedRecordIDs, NSError * operationError){
+        handler([savedRecords firstObject], operationError);
+    };
+    
+    [publicDatabase addOperation:updatedGroup];
+}
+
 - (void)connectToPublicDatabase{
     if (container == nil) container = [CKContainer defaultContainer];
     if (publicDatabase == nil) publicDatabase = [container publicCloudDatabase];

@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "SACollectionButtonViewCell.h"
+@class SAPerson;
 
 @interface SAInterestsCollectionViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property NSString *email;
+@property SAPerson *user;
 
 @end

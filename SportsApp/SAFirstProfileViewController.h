@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@class SAPerson;
 
 @interface SAFirstProfileViewController : UIViewController
 
 
 @property NSString *email;
 @property NSString *password;
+
+@property (nonatomic) SAPerson *user;
 
 
 

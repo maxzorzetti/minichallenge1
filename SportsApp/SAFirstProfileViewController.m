@@ -42,6 +42,22 @@
     [self changeLastNameTextField];
     [self changePhoneNumberTextField];
     [self changeButtonJoinUs];
+    
+    
+    if (self.user.facebookId) {
+        NSArray *names = [self.user.name componentsSeparatedByString:@" "];
+        NSString *firstName = [names firstObject];
+        NSString *lastName = [NSString new];
+        for (int i=0; i<[names count]; i++) {
+            if (i!=0) {
+                lastName = [NSString stringWithFormat:@"%@%@",lastName,names[i]];
+            }
+        }
+        
+        self.txtFirstName.text = firstName;
+        self.txtLastName.text = lastName;
+        self.imgProfilePhoto.image = [UIImage imageWithData:self.user.photo];
+    }
 }
 
 
@@ -60,95 +76,28 @@
     
     
     
-    NSString *firstName = [NSString stringWithFormat:@"%@", _txtFirstName.text];
-    NSString *lastName = [NSString stringWithFormat:@"%@", _txtLastName.text];
+    NSString *firstName = self.txtFirstName.text;
+    NSString *lastName = self.txtLastName.text;
     NSString *fullName = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
     
     
     if ([firstName isEqualToString:@""] || [lastName isEqualToString:@""]  || [_txtPhoneNumber.text isEqualToString:@""] )
     {
         
-        _infoLabel.text = @"Please, fill all the gaps";
-        _txtFirstName.text = @"";
-        _txtPhoneNumber.text = @"";
-        _txtLastName.text = @"";
-        
+        _infoLabel.text = @"Please, fill all the information";
     }
     else{
-    
-    personRecord[@"email"] = _email;
-    personRecord[@"telephone"] = _txtPhoneNumber.text;
-    personRecord[@"name"] = fullName;
-    
-    identityRecord[@"adapter"] = @"appLogin";
-    identityRecord[@"hash"] = [self sha1:_password];
-    
-    
-    
-    
-    [personRecord setObject:_email forKey:@"email"];
-    
-    
-    
-    [publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
-        if (error) {
-            NSLog(@"Record Party not created. Error: %@", error.description);
-        }
-        else{
-            CKReference *ref = [[CKReference alloc]initWithRecordID:personRecord.recordID action:CKReferenceActionNone];
-            identityRecord[@"userId"] = ref;
-            
-            NSLog(@"Record Person created");
-            [publicDatabase saveRecord:identityRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
-                if (error) {
-                    NSLog(@"Record Identity not created. Error: %@", error.description);
-                }
-                else{
-                    
-                
-                    NSLog(@"Record Identity created. New person in the app.");
-                SAPerson *person = [SAPersonConnector getPersonFromRecord:artworkRecord andPicture:nil];
-                
-                [SAUser saveToUserDefaults:person];
-                
-                //saves user login info in userdefaults
-                NSDictionary *dicLoginInfo = @{
-                                               @"username" : person.name,
-                                               @"password" : _password
-                                               };
-                [[NSUserDefaults standardUserDefaults] setObject:dicLoginInfo forKey:@"loginInfo"];
-                
-                //sets current user
-                SAUser *obj = [SAUser new];
-                [obj setCurrentPerson:person];
-                   
-                [self goToInterestsView];
-                  
-                    
-                }
-                
-            }];
-    
-    
-        }}];
-    
-    
-    
-    //PERFORM SEGUE
-
-
-}
+        [self.user setName:fullName];
+        [self.user setTelephone:self.txtPhoneNumber.text];
+        [self goToInterestsView];
+    }
 }
 - (void)goToInterestsView{
     
     UIStoryboard *secondary = [UIStoryboard storyboardWithName:@"Secondary" bundle:nil];
-    
-    
-//    SAInterestsCollectionViewController *destView = [[SAInterestsCollectionViewController alloc]initWithNibName:@"SAInterestsCollectionViewController" bundle:nil];
-//            destView.email = _email;
 
     SAInterestsCollectionViewController *destination = [secondary instantiateViewControllerWithIdentifier:@"interestsView"];
-    destination.email = _email;
+    destination.user = self.user;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self presentViewController:destination animated:YES completion:^{

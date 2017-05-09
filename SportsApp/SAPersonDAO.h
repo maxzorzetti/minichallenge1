@@ -21,4 +21,5 @@
 
 - (void)loginWithUsername:(NSString *_Nonnull)username andPassword:(NSString *_Nonnull)password handler:(void (^_Nonnull)(CKRecord *_Nullable, NSError *_Nullable))handler;
 
+- (void)savePerson:(CKRecord *_Nonnull)user handler:(void (^_Nonnull)(CKRecord *_Nullable, NSError *_Nullable))handler;
 @end

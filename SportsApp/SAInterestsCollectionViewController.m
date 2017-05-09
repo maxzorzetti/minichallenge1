@@ -10,6 +10,8 @@
 #import "SAInterestsCollectionReusableView.h"
 #import "SAActivity.h"
 #import <CloudKit/CloudKit.h>
+#import "SAPersonConnector.h"
+#import "SAPerson.h"
 @interface SAInterestsCollectionViewController ()
 
 @property (weak, nonatomic) IBOutlet UICollectionView *viewOfCollectionView;
@@ -17,48 +19,22 @@
 @property NSArray<SAActivity *> *activities;
 @property NSString *reuseIdentifier;
 @property NSMutableSet *interestedActivities;
-@property NSMutableArray *activitiesRefs;
 
 @end
 
 @implementation SAInterestsCollectionViewController
 
 - (IBAction)interestsSelected:(UIButton *)sender {
-    _activitiesRefs = [[NSMutableArray alloc] init];
-    CKContainer *container = [CKContainer defaultContainer];
-    CKDatabase *publicDatabase = [container publicCloudDatabase];
+    [self.user setInterests: [NSMutableArray arrayWithArray:[self.interestedActivities allObjects]]];
     
-    for (SAActivity *activity in _interestedActivities)
-    {
-        //SAActivity *Activity = [activities firstObject];
-        CKReference *ref = [[CKReference alloc] initWithRecordID:activity.activityId action:CKReferenceActionNone];
-        [_activitiesRefs addObject:ref];
-        
-    }
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"email = %@", _email];
-    CKQuery *query = [[CKQuery alloc] initWithRecordType:@"SAPerson" predicate:predicate];
-    
-    
-    [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
-        if (error) {
-            NSLog(@"error: %@",error.localizedDescription);
+    [SAPersonConnector savePerson:self.user handler:^(SAPerson * _Nullable person, NSError * _Nullable error) {
+        if (!error) {
+            NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:person];
+            [[NSUserDefaults standardUserDefaults] setObject:userData forKey:@"user"];
+            
+            [self goToFeed];
         }
-        else {
-            
-            [results firstObject][@"interestedActivities"] = _activitiesRefs;
-            [publicDatabase saveRecord:[results firstObject]  completionHandler:^(CKRecord *artworkRecord, NSError *error){
-                if (error) {
-                    NSLog(@"Telefone nao salvo. Error: %@", error.description);
-                }
-                else{
-                    NSLog(@"Telephone salvo");
-                    [self goToFeed];
-                }
-            }];
-            
-            
-        }}];
+    }];
 }
 
 - (void)viewDidLoad {
@@ -68,7 +44,6 @@
     self.viewOfCollectionView.dataSource = self;
     
     _interestedActivities = [[NSMutableSet alloc] init];
-    _activitiesRefs = [[NSMutableArray alloc]init];
     
     self.reuseIdentifier = @"activityCell";
     self.viewOfCollectionView.allowsMultipleSelection = YES;

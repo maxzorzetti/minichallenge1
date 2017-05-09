@@ -12,6 +12,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <CommonCrypto/CommonDigest.h>
+#import "SAActivity.h"
 
 @implementation SAPersonConnector
 
@@ -193,7 +194,49 @@
     }];
 }
 
++ (void)savePerson:(SAPerson *)person handler:(void (^)(SAPerson * _Nullable, NSError * _Nullable))handler{
+    SAPersonDAO *dao = [SAPersonDAO new];
+    
+    [dao savePerson:[self getRecordFromPerson:person] handler:^(CKRecord * _Nullable personRecord, NSError * _Nullable error) {
+        if(!error){
+            //facebook user? get picture
+            if (personRecord[@"facebookId"]) {
+                NSString *pathGraph = [[NSString alloc]initWithFormat:@"/%@",personRecord[@"facebookId"]];
+                FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
+                                              initWithGraphPath:pathGraph
+                                              parameters:@{ @"fields": @"picture"}
+                                              HTTPMethod:@"GET"];
+                
+                [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+                        if(!error){
+                            NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
+                            
+                            SAPerson *person = [self getPersonFromRecord:personRecord andPicture:photo];
+                            handler(person, error);
+                        }
+                        //YOU DONT HAVE ACCESS TO FACEBOOK PICTURES (PROBABLY BECAUSE YOU'RE NOT LOGGED IN)
+                        else{
+                            //ADD PLACEHOLDER profile picture
+                            NSData *photo = [NSData dataWithContentsOfFile:@"img_placeholder"];
+                            SAPerson *person = [self getPersonFromRecord:personRecord andPicture:photo];
+                            handler(person, error);
+                        }
+                    });
+                }];
+                
+            }
+            //not a facebok user? use placeholder as picture
+            else{
+                //ADD PLACEHOLDER profile picture
+                NSData *photo = [NSData dataWithContentsOfFile:@"img_placeholder"];
+                SAPerson *person = [self getPersonFromRecord:personRecord andPicture:photo];
+                handler(person, error);
+            }
 
+        }
+    }];
+}
 
 
 + (SAPerson *_Nonnull)getPersonFromRecord:(CKRecord *_Nonnull)personRecord andPicture:(NSData *_Nullable)photo{
@@ -203,6 +246,8 @@
     NSString *telephone = [NSString new];
     NSString *facebookId = [NSString new];
     NSString *gender = [NSString new];
+    NSArray *interestsRef = [NSArray new];
+    NSMutableArray *interests = [NSMutableArray new];
     
     if (personRecord[@"name"]) {
         name = personRecord[@"name"];
@@ -220,8 +265,50 @@
         gender = personRecord[@"gender"];
     }
     
+    
+    if (personRecord[@"interestedActivities"]) {
+        interestsRef = personRecord[@"interestedActivities"];
+        NSArray *arrayOfDicActivitiesUserDefaults = [[NSUserDefaults standardUserDefaults] arrayForKey:@"ArrayOfDictionariesContainingTheActivities"];
+        
+        for (CKReference *ref in interestsRef) {
+            for (NSDictionary *activityDic in arrayOfDicActivitiesUserDefaults) {
+                if ([ref.recordID.recordName isEqualToString:activityDic[@"activityId"]]) {
+                    SAActivity *activity = [NSKeyedUnarchiver unarchiveObjectWithData:activityDic[@"activityData"]];
+                    [interests addObject:activity];
+                }
+            }
+        }
+    }
+    
     SAPerson *person = [[SAPerson alloc]initWithName:name personId:personId email:email telephone:telephone facebookId:facebookId andPhoto:photo andEvents:nil andGender:gender];
+    
+    [person setInterests:interests];
     return person;
+}
+
++ (CKRecord *) getRecordFromPerson:(SAPerson *_Nonnull)person{
+    CKRecord *personRecord;
+    
+    if (person.personId) {
+        personRecord = [[CKRecord alloc]initWithRecordType:@"SAPerson" recordID:person.personId];
+    }else{
+        personRecord = [[CKRecord alloc]initWithRecordType:@"SAPerson"];
+    }
+    
+    NSMutableArray *activityReferences = [NSMutableArray new];
+    for (SAActivity *activity in person.interests) {
+        CKReference *ref = [[CKReference alloc]initWithRecordID:activity.activityId action:CKReferenceActionNone];
+        [activityReferences addObject:ref];
+    }
+    
+    personRecord[@"name"] = person.name;
+    personRecord[@"email"] = person.email;
+    personRecord[@"telephone"] = person.telephone;
+    personRecord[@"gender"] = person.gender;
+    personRecord[@"facebookId"] = person.facebookId;
+    personRecord[@"interestedActivities"] = activityReferences;
+    
+    return personRecord;
 }
 
 + (NSString *)sha1:(NSString *)password

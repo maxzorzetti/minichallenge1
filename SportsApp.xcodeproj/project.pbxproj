@@ -45,6 +45,7 @@
 		84CBE4781EBA57BF00ACD0DF /* SAClosedEventDescriptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CBE4771EBA57BF00ACD0DF /* SAClosedEventDescriptionTableViewCell.m */; };
 		84CBE47A1EBA83CB00ACD0DF /* StoryboardDaBarbara.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84CBE4791EBA83CB00ACD0DF /* StoryboardDaBarbara.storyboard */; };
 		84D4C2C91EBFACBC00291DDE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D4C2C81EBFACBC00291DDE /* CoreLocation.framework */; };
+		84D4C2CC1EC1686A00291DDE /* SAGenderSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4C2CB1EC1686A00291DDE /* SAGenderSelectionViewController.m */; };
 		84DC117D1EACF32100A9A90C /* SAActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC117C1EACF32100A9A90C /* SAActivity.m */; };
 		84DC11801EACF3D200A9A90C /* SAMatchMakerCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC117F1EACF3D200A9A90C /* SAMatchMakerCore.m */; };
 		84DC11841EAD00BD00A9A90C /* SAPersonDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC11831EAD00BD00A9A90C /* SAPersonDAO.m */; };
@@ -147,6 +148,8 @@
 		84CBE4771EBA57BF00ACD0DF /* SAClosedEventDescriptionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAClosedEventDescriptionTableViewCell.m; sourceTree = "<group>"; };
 		84CBE4791EBA83CB00ACD0DF /* StoryboardDaBarbara.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StoryboardDaBarbara.storyboard; sourceTree = "<group>"; };
 		84D4C2C81EBFACBC00291DDE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		84D4C2CA1EC1686A00291DDE /* SAGenderSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAGenderSelectionViewController.h; sourceTree = "<group>"; };
+		84D4C2CB1EC1686A00291DDE /* SAGenderSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAGenderSelectionViewController.m; sourceTree = "<group>"; };
 		84DC117B1EACF32100A9A90C /* SAActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAActivity.h; sourceTree = "<group>"; };
 		84DC117C1EACF32100A9A90C /* SAActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAActivity.m; sourceTree = "<group>"; };
 		84DC117E1EACF3D200A9A90C /* SAMatchMakerCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMatchMakerCore.h; sourceTree = "<group>"; };
@@ -379,6 +382,8 @@
 				8DD37CE01EBBEEEC00E1CC1D /* SAAskPhoneViewController.m */,
 				8D8693461EC09D4E0007D716 /* SAInterestsNavigationController.h */,
 				8D8693471EC09D4E0007D716 /* SAInterestsNavigationController.m */,
+				84D4C2CA1EC1686A00291DDE /* SAGenderSelectionViewController.h */,
+				84D4C2CB1EC1686A00291DDE /* SAGenderSelectionViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -623,6 +628,7 @@
 				29A4CA521EB22F9C00DCA3FA /* SANewEvent3ViewController.m in Sources */,
 				84DC11841EAD00BD00A9A90C /* SAPersonDAO.m in Sources */,
 				8DF864341EB22EE400777E98 /* SANewsFeedTableViewController.m in Sources */,
+				84D4C2CC1EC1686A00291DDE /* SAGenderSelectionViewController.m in Sources */,
 				29A4CA4F1EB22F8D00DCA3FA /* SANewEvent2ViewController.m in Sources */,
 				84CBE4751EBA38C100ACD0DF /* ClosedEventDescriptionViewController.m in Sources */,
 				AE66FF371EB10EFA008EBC5E /* SAFirstProfileViewController.m in Sources */,
