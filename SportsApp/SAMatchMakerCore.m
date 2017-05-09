@@ -92,7 +92,6 @@
 	
 	//event.sex = party.gender;
 	event.owner = party.creator;
-	event.date = [NSDate new];
 	event.maxPeople = [NSNumber numberWithInt:party.maxParticipants];
 	event.minPeople = [NSNumber numberWithInt:party.minParticipants];
 	
