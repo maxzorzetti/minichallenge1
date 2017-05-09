@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SACollectionButtonViewCell.h"
 
-@interface SAInterestsCollectionViewController : UICollectionViewController <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface SAInterestsCollectionViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property NSString *email;
 

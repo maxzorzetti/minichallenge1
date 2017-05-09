@@ -142,20 +142,16 @@
 - (void)goToInterestsView{
     
     UIStoryboard *secondary = [UIStoryboard storyboardWithName:@"Secondary" bundle:nil];
-    SAInterestsNavigationController *destination = [secondary instantiateViewControllerWithIdentifier:@"intNavController"];
     
     
 //    SAInterestsCollectionViewController *destView = [[SAInterestsCollectionViewController alloc]initWithNibName:@"SAInterestsCollectionViewController" bundle:nil];
 //            destView.email = _email;
 
-    
-    destination.email= _email;
-    SAInterestsCollectionViewController *vai = destination.topViewController;
-    vai.email = _email;
+    SAInterestsCollectionViewController *destination = [secondary instantiateViewControllerWithIdentifier:@"interestsView"];
+    destination.email = _email;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self presentViewController:destination animated:YES completion:^{
-            
         }];
     });
 }
@@ -234,22 +230,9 @@
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    
-//    if ([segue.identifier isEqualToString: @"goToInterests"]) {
-//        
-//       SAInterestsNavigationController *destView = segue.destinationViewController;
-//        destView.email= _email;
-//        
-//    }
-//}
-//    
-
+- (IBAction)backFromInterests:(UIStoryboardSegue *)segue{
     
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-
+}
 
 
 @end
