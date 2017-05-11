@@ -18,7 +18,8 @@
 		29A4CA4F1EB22F8D00DCA3FA /* SANewEvent2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A4CA4E1EB22F8D00DCA3FA /* SANewEvent2ViewController.m */; };
 		29A4CA521EB22F9C00DCA3FA /* SANewEvent3ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A4CA511EB22F9C00DCA3FA /* SANewEvent3ViewController.m */; };
 		29A4CA551EB22FA800DCA3FA /* SANewEvent4ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A4CA541EB22FA800DCA3FA /* SANewEvent4ViewController.m */; };
-		29A4CA591EB2320700DCA3FA /* SAActivityCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A4CA581EB2320700DCA3FA /* SAActivityCollectionViewCell.m */; };
+		29D5F7081EC4D78D005A3B1F /* SAEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29D5F7071EC4D78D005A3B1F /* SAEventViewController.m */; };
+		29D5F70B1EC4D799005A3B1F /* SAInterestsCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29D5F70A1EC4D799005A3B1F /* SAInterestsCollectionReusableView.m */; };
 		29E2480C1EB8C07000088B98 /* SAFriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E2480B1EB8C07000088B98 /* SAFriendTableViewCell.m */; };
 		29E248101EB8C67F00088B98 /* SALocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E2480F1EB8C67F00088B98 /* SALocationTableViewCell.m */; };
 		29E248131EB8CECD00088B98 /* SANewEvent5ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E248121EB8CECD00088B98 /* SANewEvent5ViewController.m */; };
@@ -31,11 +32,9 @@
 		8406A8E71EA6761500C60267 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8406A8E51EA6761500C60267 /* LaunchScreen.storyboard */; };
 		8406A8F11EA6763900C60267 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8406A8F01EA6763900C60267 /* CloudKit.framework */; };
 		842B42591EAF67EA0096BD37 /* SAEventDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 842B42581EAF67EA0096BD37 /* SAEventDAO.m */; };
-		842B42601EAF7BEA0096BD37 /* SAEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842B425F1EAF7BEA0096BD37 /* SAEventViewController.m */; };
 		842B42631EAF7C400096BD37 /* SAEventConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 842B42621EAF7C400096BD37 /* SAEventConnector.m */; };
 		847F5E351EA714180091BAE9 /* SAEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E341EA714180091BAE9 /* SAEvent.m */; };
 		847F5E391EA715170091BAE9 /* SAPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E381EA715170091BAE9 /* SAPerson.m */; };
-		847F5E3E1EA716FA0091BAE9 /* SAMatchMakingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E3D1EA716FA0091BAE9 /* SAMatchMakingViewController.m */; };
 		849AC2141EB012B800A7BD22 /* SAActivityDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 849AC2131EB012B800A7BD22 /* SAActivityDAO.m */; };
 		849AC2171EB012C600A7BD22 /* SAActivityConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 849AC2161EB012C600A7BD22 /* SAActivityConnector.m */; };
 		84CBE4691EB152EA00ACD0DF /* SAPersonConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CBE4681EB152EA00ACD0DF /* SAPersonConnector.m */; };
@@ -63,9 +62,7 @@
 		AE16028A1EB3B81F00E8E68F /* SACollectionButtonViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE1602881EB3B81F00E8E68F /* SACollectionButtonViewCell.xib */; };
 		AE1602931EB8025B00E8E68F /* SAIntro1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1602921EB8025B00E8E68F /* SAIntro1ViewController.m */; };
 		AE1602961EB95FC800E8E68F /* SANewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1602951EB95FC800E8E68F /* SANewViewController.m */; };
-		AE16029D1EBBC27100E8E68F /* SAInterestsCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE16029C1EBBC27100E8E68F /* SAInterestsCollectionReusableView.m */; };
 		AE1877D91EB38E8300CAFD1A /* SAInterestsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1877D81EB38E8300CAFD1A /* SAInterestsCollectionViewController.m */; };
-		AE1877DC1EB3909900CAFD1A /* SAInterestsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1877DB1EB3909900CAFD1A /* SAInterestsCollectionViewCell.m */; };
 		AE66FF2E1EB10EA2008EBC5E /* Secondary.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE66FF2C1EB10EA2008EBC5E /* Secondary.storyboard */; };
 		AE66FF371EB10EFA008EBC5E /* SAFirstProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE66FF301EB10EFA008EBC5E /* SAFirstProfileViewController.m */; };
 		AE66FF381EB10EFA008EBC5E /* SAForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE66FF321EB10EFA008EBC5E /* SAForgotPasswordViewController.m */; };
@@ -97,8 +94,10 @@
 		29A4CA511EB22F9C00DCA3FA /* SANewEvent3ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANewEvent3ViewController.m; sourceTree = "<group>"; };
 		29A4CA531EB22FA800DCA3FA /* SANewEvent4ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANewEvent4ViewController.h; sourceTree = "<group>"; };
 		29A4CA541EB22FA800DCA3FA /* SANewEvent4ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANewEvent4ViewController.m; sourceTree = "<group>"; };
-		29A4CA571EB2320700DCA3FA /* SAActivityCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAActivityCollectionViewCell.h; sourceTree = "<group>"; };
-		29A4CA581EB2320700DCA3FA /* SAActivityCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAActivityCollectionViewCell.m; sourceTree = "<group>"; };
+		29D5F7061EC4D78D005A3B1F /* SAEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEventViewController.h; sourceTree = "<group>"; };
+		29D5F7071EC4D78D005A3B1F /* SAEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEventViewController.m; sourceTree = "<group>"; };
+		29D5F7091EC4D799005A3B1F /* SAInterestsCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAInterestsCollectionReusableView.h; sourceTree = "<group>"; };
+		29D5F70A1EC4D799005A3B1F /* SAInterestsCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAInterestsCollectionReusableView.m; sourceTree = "<group>"; };
 		29E2480A1EB8C07000088B98 /* SAFriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAFriendTableViewCell.h; sourceTree = "<group>"; };
 		29E2480B1EB8C07000088B98 /* SAFriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAFriendTableViewCell.m; sourceTree = "<group>"; };
 		29E2480E1EB8C67F00088B98 /* SALocationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SALocationTableViewCell.h; sourceTree = "<group>"; };
@@ -122,16 +121,12 @@
 		8406A8F01EA6763900C60267 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		842B42581EAF67EA0096BD37 /* SAEventDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEventDAO.m; sourceTree = "<group>"; };
 		842B425A1EAF67F10096BD37 /* SAEventDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEventDAO.h; sourceTree = "<group>"; };
-		842B425E1EAF7BEA0096BD37 /* SAEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEventViewController.h; sourceTree = "<group>"; };
-		842B425F1EAF7BEA0096BD37 /* SAEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEventViewController.m; sourceTree = "<group>"; };
 		842B42611EAF7C400096BD37 /* SAEventConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEventConnector.h; sourceTree = "<group>"; };
 		842B42621EAF7C400096BD37 /* SAEventConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEventConnector.m; sourceTree = "<group>"; };
 		847F5E331EA714180091BAE9 /* SAEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEvent.h; sourceTree = "<group>"; };
 		847F5E341EA714180091BAE9 /* SAEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEvent.m; sourceTree = "<group>"; };
 		847F5E371EA715170091BAE9 /* SAPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAPerson.h; sourceTree = "<group>"; };
 		847F5E381EA715170091BAE9 /* SAPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAPerson.m; sourceTree = "<group>"; };
-		847F5E3C1EA716FA0091BAE9 /* SAMatchMakingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMatchMakingViewController.h; sourceTree = "<group>"; };
-		847F5E3D1EA716FA0091BAE9 /* SAMatchMakingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMatchMakingViewController.m; sourceTree = "<group>"; };
 		849AC2121EB012B800A7BD22 /* SAActivityDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAActivityDAO.h; sourceTree = "<group>"; };
 		849AC2131EB012B800A7BD22 /* SAActivityDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAActivityDAO.m; sourceTree = "<group>"; };
 		849AC2151EB012C600A7BD22 /* SAActivityConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAActivityConnector.h; sourceTree = "<group>"; };
@@ -181,12 +176,8 @@
 		AE1602921EB8025B00E8E68F /* SAIntro1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAIntro1ViewController.m; sourceTree = "<group>"; };
 		AE1602941EB95FC800E8E68F /* SANewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANewViewController.h; sourceTree = "<group>"; };
 		AE1602951EB95FC800E8E68F /* SANewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANewViewController.m; sourceTree = "<group>"; };
-		AE16029B1EBBC27100E8E68F /* SAInterestsCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAInterestsCollectionReusableView.h; sourceTree = "<group>"; };
-		AE16029C1EBBC27100E8E68F /* SAInterestsCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAInterestsCollectionReusableView.m; sourceTree = "<group>"; };
 		AE1877D71EB38E8300CAFD1A /* SAInterestsCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAInterestsCollectionViewController.h; sourceTree = "<group>"; };
 		AE1877D81EB38E8300CAFD1A /* SAInterestsCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAInterestsCollectionViewController.m; sourceTree = "<group>"; };
-		AE1877DA1EB3909900CAFD1A /* SAInterestsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAInterestsCollectionViewCell.h; sourceTree = "<group>"; };
-		AE1877DB1EB3909900CAFD1A /* SAInterestsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAInterestsCollectionViewCell.m; sourceTree = "<group>"; };
 		AE66FF2D1EB10EA2008EBC5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Secondary.storyboard; sourceTree = "<group>"; };
 		AE66FF2F1EB10EFA008EBC5E /* SAFirstProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAFirstProfileViewController.h; sourceTree = "<group>"; };
 		AE66FF301EB10EFA008EBC5E /* SAFirstProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAFirstProfileViewController.m; sourceTree = "<group>"; };
@@ -213,7 +204,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		29763C0D1EB9932F00DFEE7A /* NewEvent */ = {
+		29763C0D1EB9932F00DFEE7A /* View */ = {
 			isa = PBXGroup;
 			children = (
 				29E2480A1EB8C07000088B98 /* SAFriendTableViewCell.h */,
@@ -227,10 +218,19 @@
 				29763C141EBBC78600DFEE7A /* SANewEventButton.h */,
 				29763C151EBBC78600DFEE7A /* SANewEventButton.m */,
 			);
-			name = NewEvent;
+			name = View;
 			sourceTree = "<group>";
 		};
 		29A4CA561EB2303100DCA3FA /* NewEvent */ = {
+			isa = PBXGroup;
+			children = (
+				29763C0D1EB9932F00DFEE7A /* View */,
+				29D5F6FF1EC4CDAD005A3B1F /* Controller */,
+			);
+			name = NewEvent;
+			sourceTree = "<group>";
+		};
+		29D5F6FF1EC4CDAD005A3B1F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				29A4CA4A1EB22F7A00DCA3FA /* SANewEvent1ViewController.h */,
@@ -246,7 +246,85 @@
 				29763C071EB9709500DFEE7A /* SANewEvent6ViewController.h */,
 				29763C081EB9709500DFEE7A /* SANewEvent6ViewController.m */,
 			);
-			name = NewEvent;
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		29D5F7001EC4CE1C005A3B1F /* EventList */ = {
+			isa = PBXGroup;
+			children = (
+				84CBE46D1EB230E300ACD0DF /* SAEventListViewController.h */,
+				84CBE46E1EB230E300ACD0DF /* SAEventListViewController.m */,
+				84CBE4701EB238DB00ACD0DF /* SAEventsTableViewCell.h */,
+				84CBE4711EB238DB00ACD0DF /* SAEventsTableViewCell.m */,
+			);
+			name = EventList;
+			sourceTree = "<group>";
+		};
+		29D5F7011EC4CECC005A3B1F /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				8D1891931EB8FE1A008B050C /* SAEventDescriptionViewController.h */,
+				8D1891941EB8FE1A008B050C /* SAEventDescriptionViewController.m */,
+				84CBE4731EBA38C100ACD0DF /* ClosedEventDescriptionViewController.h */,
+				84CBE4741EBA38C100ACD0DF /* ClosedEventDescriptionViewController.m */,
+				84CBE4761EBA57BF00ACD0DF /* SAClosedEventDescriptionTableViewCell.h */,
+				84CBE4771EBA57BF00ACD0DF /* SAClosedEventDescriptionTableViewCell.m */,
+			);
+			name = Events;
+			sourceTree = "<group>";
+		};
+		29D5F7021EC4D040005A3B1F /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				AE1877D71EB38E8300CAFD1A /* SAInterestsCollectionViewController.h */,
+				AE1877D81EB38E8300CAFD1A /* SAInterestsCollectionViewController.m */,
+				AE66FF2F1EB10EFA008EBC5E /* SAFirstProfileViewController.h */,
+				AE66FF301EB10EFA008EBC5E /* SAFirstProfileViewController.m */,
+				8DD37CDF1EBBEEEC00E1CC1D /* SAAskPhoneViewController.h */,
+				8DD37CE01EBBEEEC00E1CC1D /* SAAskPhoneViewController.m */,
+				84D4C2CA1EC1686A00291DDE /* SAGenderSelectionViewController.h */,
+				84D4C2CB1EC1686A00291DDE /* SAGenderSelectionViewController.m */,
+			);
+			name = SignUp;
+			sourceTree = "<group>";
+		};
+		29D5F7031EC4D35E005A3B1F /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				8D7A63B81EAA5A9000418D39 /* SAProfileViewController.h */,
+				8D7A63B91EAA5A9000418D39 /* SAProfileViewController.m */,
+			);
+			name = Profile;
+			sourceTree = "<group>";
+		};
+		29D5F7041EC4D45B005A3B1F /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				8D9A36751EB4E47900036272 /* SASectionView2.xib */,
+				8D9A366E1EB4E1F600036272 /* SASectionView2.h */,
+				8D9A366F1EB4E1F600036272 /* SASectionView2.m */,
+				8D9A36631EB3BBDE00036272 /* SACustomCell.xib */,
+				8DF864321EB22EE400777E98 /* SANewsFeedTableViewController.h */,
+				8DF864331EB22EE400777E98 /* SANewsFeedTableViewController.m */,
+				8D48248F1EB2353400D2FE5B /* SANewsFeedTableViewCell.h */,
+				8D4824901EB2353400D2FE5B /* SANewsFeedTableViewCell.m */,
+			);
+			name = Feed;
+			sourceTree = "<group>";
+		};
+		29D5F7051EC4D5C3005A3B1F /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				8DF8642C1EB2267D00777E98 /* SALogInViewController.h */,
+				8DF8642D1EB2267D00777E98 /* SALogInViewController.m */,
+				8406A8DD1EA6761500C60267 /* SAViewController.h */,
+				8406A8DE1EA6761500C60267 /* SAViewController.m */,
+				AE66FF311EB10EFA008EBC5E /* SAForgotPasswordViewController.h */,
+				AE66FF321EB10EFA008EBC5E /* SAForgotPasswordViewController.m */,
+				AE66FF331EB10EFA008EBC5E /* SAJoinLoginViewController.h */,
+				AE66FF341EB10EFA008EBC5E /* SAJoinLoginViewController.m */,
+			);
+			name = Login;
 			sourceTree = "<group>";
 		};
 		29E2480D1EB8C08100088B98 /* CollectionButton */ = {
@@ -281,9 +359,9 @@
 			isa = PBXGroup;
 			children = (
 				8406A8EE1EA6763600C60267 /* SportsApp.entitlements */,
-				847F5E361EA714F70091BAE9 /* Model */,
-				847F5E3B1EA715730091BAE9 /* View */,
-				847F5E3A1EA715530091BAE9 /* Controller */,
+				847F5E361EA714F70091BAE9 /* Entities */,
+				847F5E3B1EA715730091BAE9 /* Views */,
+				847F5E3A1EA715530091BAE9 /* Screens */,
 				8406A8DA1EA6761500C60267 /* AppDelegate.h */,
 				8406A8DB1EA6761500C60267 /* AppDelegate.m */,
 				8406A8E31EA6761500C60267 /* Assets.xcassets */,
@@ -314,7 +392,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		847F5E361EA714F70091BAE9 /* Model */ = {
+		847F5E361EA714F70091BAE9 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
 				847F5E331EA714180091BAE9 /* SAEvent.h */,
@@ -330,79 +408,42 @@
 				84DC117B1EACF32100A9A90C /* SAActivity.h */,
 				84DC117C1EACF32100A9A90C /* SAActivity.m */,
 			);
-			name = Model;
+			name = Entities;
 			sourceTree = "<group>";
 		};
-		847F5E3A1EA715530091BAE9 /* Controller */ = {
+		847F5E3A1EA715530091BAE9 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				8D1891931EB8FE1A008B050C /* SAEventDescriptionViewController.h */,
-				8D1891941EB8FE1A008B050C /* SAEventDescriptionViewController.m */,
-				AE16029B1EBBC27100E8E68F /* SAInterestsCollectionReusableView.h */,
-				AE16029C1EBBC27100E8E68F /* SAInterestsCollectionReusableView.m */,
+				29D5F7041EC4D45B005A3B1F /* Feed */,
+				29D5F7001EC4CE1C005A3B1F /* EventList */,
+				29D5F7031EC4D35E005A3B1F /* Profile */,
+				29D5F7011EC4CECC005A3B1F /* Events */,
+				29A4CA561EB2303100DCA3FA /* NewEvent */,
 				AE16028D1EB7FEEF00E8E68F /* Intro */,
-				AE66FF2F1EB10EFA008EBC5E /* SAFirstProfileViewController.h */,
-				AE66FF301EB10EFA008EBC5E /* SAFirstProfileViewController.m */,
-				AE66FF311EB10EFA008EBC5E /* SAForgotPasswordViewController.h */,
-				AE66FF321EB10EFA008EBC5E /* SAForgotPasswordViewController.m */,
-				AE66FF331EB10EFA008EBC5E /* SAJoinLoginViewController.h */,
-				AE66FF341EB10EFA008EBC5E /* SAJoinLoginViewController.m */,
+				29D5F7021EC4D040005A3B1F /* SignUp */,
+				29D5F7051EC4D5C3005A3B1F /* Login */,
+				29D5F7091EC4D799005A3B1F /* SAInterestsCollectionReusableView.h */,
+				29D5F70A1EC4D799005A3B1F /* SAInterestsCollectionReusableView.m */,
+				29D5F7061EC4D78D005A3B1F /* SAEventViewController.h */,
+				29D5F7071EC4D78D005A3B1F /* SAEventViewController.m */,
 				AE66FF351EB10EFA008EBC5E /* SASecondaryViewController.h */,
 				AE66FF361EB10EFA008EBC5E /* SASecondaryViewController.m */,
-				8406A8DD1EA6761500C60267 /* SAViewController.h */,
-				8406A8DE1EA6761500C60267 /* SAViewController.m */,
-				847F5E3C1EA716FA0091BAE9 /* SAMatchMakingViewController.h */,
-				847F5E3D1EA716FA0091BAE9 /* SAMatchMakingViewController.m */,
-				8D7A63B81EAA5A9000418D39 /* SAProfileViewController.h */,
-				8D7A63B91EAA5A9000418D39 /* SAProfileViewController.m */,
-				842B425E1EAF7BEA0096BD37 /* SAEventViewController.h */,
-				842B425F1EAF7BEA0096BD37 /* SAEventViewController.m */,
-				8DF8642C1EB2267D00777E98 /* SALogInViewController.h */,
-				8DF8642D1EB2267D00777E98 /* SALogInViewController.m */,
-				8DF864321EB22EE400777E98 /* SANewsFeedTableViewController.h */,
-				8DF864331EB22EE400777E98 /* SANewsFeedTableViewController.m */,
-				8D9A36751EB4E47900036272 /* SASectionView2.xib */,
-				29A4CA561EB2303100DCA3FA /* NewEvent */,
-				84CBE46D1EB230E300ACD0DF /* SAEventListViewController.h */,
-				84CBE46E1EB230E300ACD0DF /* SAEventListViewController.m */,
-				8D48248F1EB2353400D2FE5B /* SANewsFeedTableViewCell.h */,
-				8D4824901EB2353400D2FE5B /* SANewsFeedTableViewCell.m */,
-				84CBE4701EB238DB00ACD0DF /* SAEventsTableViewCell.h */,
-				84CBE4711EB238DB00ACD0DF /* SAEventsTableViewCell.m */,
-				8D9A36631EB3BBDE00036272 /* SACustomCell.xib */,
-				AE1877D71EB38E8300CAFD1A /* SAInterestsCollectionViewController.h */,
-				AE1877D81EB38E8300CAFD1A /* SAInterestsCollectionViewController.m */,
-				8D9A366E1EB4E1F600036272 /* SASectionView2.h */,
-				8D9A366F1EB4E1F600036272 /* SASectionView2.m */,
-				84CBE4731EBA38C100ACD0DF /* ClosedEventDescriptionViewController.h */,
-				84CBE4741EBA38C100ACD0DF /* ClosedEventDescriptionViewController.m */,
-				84CBE4761EBA57BF00ACD0DF /* SAClosedEventDescriptionTableViewCell.h */,
-				84CBE4771EBA57BF00ACD0DF /* SAClosedEventDescriptionTableViewCell.m */,
-				8DD37CDF1EBBEEEC00E1CC1D /* SAAskPhoneViewController.h */,
-				8DD37CE01EBBEEEC00E1CC1D /* SAAskPhoneViewController.m */,
 				8D8693461EC09D4E0007D716 /* SAInterestsNavigationController.h */,
 				8D8693471EC09D4E0007D716 /* SAInterestsNavigationController.m */,
-				84D4C2CA1EC1686A00291DDE /* SAGenderSelectionViewController.h */,
-				84D4C2CB1EC1686A00291DDE /* SAGenderSelectionViewController.m */,
 			);
-			name = Controller;
+			name = Screens;
 			sourceTree = "<group>";
 		};
-		847F5E3B1EA715730091BAE9 /* View */ = {
+		847F5E3B1EA715730091BAE9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				AE66FF2C1EB10EA2008EBC5E /* Secondary.storyboard */,
 				8406A8E01EA6761500C60267 /* Main.storyboard */,
 				29A4CA481EB20D2500DCA3FA /* NewEvent.storyboard */,
-				29A4CA571EB2320700DCA3FA /* SAActivityCollectionViewCell.h */,
-				29A4CA581EB2320700DCA3FA /* SAActivityCollectionViewCell.m */,
-				AE1877DA1EB3909900CAFD1A /* SAInterestsCollectionViewCell.h */,
-				AE1877DB1EB3909900CAFD1A /* SAInterestsCollectionViewCell.m */,
-				29E2480D1EB8C08100088B98 /* CollectionButton */,
-				29763C0D1EB9932F00DFEE7A /* NewEvent */,
 				84CBE4791EBA83CB00ACD0DF /* StoryboardDaBarbara.storyboard */,
+				29E2480D1EB8C08100088B98 /* CollectionButton */,
 			);
-			name = View;
+			name = Views;
 			sourceTree = "<group>";
 		};
 		849AC2181EB012D900A7BD22 /* Connectors */ = {
@@ -602,7 +643,6 @@
 				AE66FF391EB10EFA008EBC5E /* SAJoinLoginViewController.m in Sources */,
 				29A4CA4C1EB22F7A00DCA3FA /* SANewEvent1ViewController.m in Sources */,
 				849AC2141EB012B800A7BD22 /* SAActivityDAO.m in Sources */,
-				842B42601EAF7BEA0096BD37 /* SAEventViewController.m in Sources */,
 				8406A8DF1EA6761500C60267 /* SAViewController.m in Sources */,
 				29FF42531EABD8F700304B26 /* SAUser.m in Sources */,
 				8D7A63BA1EAA5A9000418D39 /* SAProfileViewController.m in Sources */,
@@ -611,16 +651,15 @@
 				AE1602931EB8025B00E8E68F /* SAIntro1ViewController.m in Sources */,
 				847F5E391EA715170091BAE9 /* SAPerson.m in Sources */,
 				8D1891951EB8FE1A008B050C /* SAEventDescriptionViewController.m in Sources */,
-				847F5E3E1EA716FA0091BAE9 /* SAMatchMakingViewController.m in Sources */,
 				849AC2171EB012C600A7BD22 /* SAActivityConnector.m in Sources */,
 				29E2480C1EB8C07000088B98 /* SAFriendTableViewCell.m in Sources */,
+				29D5F70B1EC4D799005A3B1F /* SAInterestsCollectionReusableView.m in Sources */,
 				8406A8DC1EA6761500C60267 /* AppDelegate.m in Sources */,
 				8D9A36701EB4E1F600036272 /* SASectionView2.m in Sources */,
 				8DF8642E1EB2267D00777E98 /* SALogInViewController.m in Sources */,
 				AE1602961EB95FC800E8E68F /* SANewViewController.m in Sources */,
 				84CBE4781EBA57BF00ACD0DF /* SAClosedEventDescriptionTableViewCell.m in Sources */,
 				AE66FF381EB10EFA008EBC5E /* SAForgotPasswordViewController.m in Sources */,
-				AE16029D1EBBC27100E8E68F /* SAInterestsCollectionReusableView.m in Sources */,
 				84DC117D1EACF32100A9A90C /* SAActivity.m in Sources */,
 				8D8693481EC09D4E0007D716 /* SAInterestsNavigationController.m in Sources */,
 				8406A8D91EA6761500C60267 /* main.m in Sources */,
@@ -634,16 +673,15 @@
 				AE66FF371EB10EFA008EBC5E /* SAFirstProfileViewController.m in Sources */,
 				842B42631EAF7C400096BD37 /* SAEventConnector.m in Sources */,
 				29763C161EBBC78600DFEE7A /* SANewEventButton.m in Sources */,
-				AE1877DC1EB3909900CAFD1A /* SAInterestsCollectionViewCell.m in Sources */,
 				842B42591EAF67EA0096BD37 /* SAEventDAO.m in Sources */,
 				8D4824911EB2353400D2FE5B /* SANewsFeedTableViewCell.m in Sources */,
 				AE66FF3A1EB10EFA008EBC5E /* SASecondaryViewController.m in Sources */,
 				29763C0C1EB9723200DFEE7A /* SAFriendCollectionViewCell.m in Sources */,
 				8DD37CE11EBBEEEC00E1CC1D /* SAAskPhoneViewController.m in Sources */,
+				29D5F7081EC4D78D005A3B1F /* SAEventViewController.m in Sources */,
 				84CBE4721EB238DB00ACD0DF /* SAEventsTableViewCell.m in Sources */,
 				29763C101EB993D200DFEE7A /* SAShiftCollectionViewCell.m in Sources */,
 				29E248131EB8CECD00088B98 /* SANewEvent5ViewController.m in Sources */,
-				29A4CA591EB2320700DCA3FA /* SAActivityCollectionViewCell.m in Sources */,
 				AE1602891EB3B81F00E8E68F /* SACollectionButtonViewCell.m in Sources */,
 				29A4CA551EB22FA800DCA3FA /* SANewEvent4ViewController.m in Sources */,
 			);
