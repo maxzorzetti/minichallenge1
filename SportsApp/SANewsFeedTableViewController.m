@@ -32,10 +32,18 @@
 @property SAPerson *currentUser;
 @property CLLocationManager *locationManager;
 
+@property NSMutableArray *facebookIdOfFriends;
+@property NSArray<SAPerson *> *friends;
+@property NSMutableArray *arrayOfSectionsWithEvents;
+
 @end
 
 
 @implementation SANewsFeedTableViewController
+//make sure when location updates event methods are called once
+static dispatch_once_t predicate;
+
+
 
 - (void)viewDidDisappear:(BOOL)animated{
     [self.locationManager stopUpdatingLocation];
@@ -43,12 +51,44 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.arrayOfSectionsWithEvents = [NSMutableArray new];
+    self.facebookIdOfFriends = [NSMutableArray new];
     
     NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];
     self.currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
     
     [self.navigationController.navigationBar setTranslucent:NO];
-
+    
+    //load FB friends
+    //get fb id of friends
+    if ( [FBSDKAccessToken currentAccessToken]) {
+        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
+                                      initWithGraphPath:@"/me"
+                                      parameters:@{ @"fields": @"friends",}
+                                      HTTPMethod:@"GET"];
+        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+            
+            if (!error){
+                for (id person in [[result objectForKey:@"friends"]objectForKey:@"data"] )
+                {
+                    NSString *userID = [person objectForKey:@"id"];
+                    [self.facebookIdOfFriends addObject:userID];
+                }
+                
+                //get people record from fb id
+                if (self.facebookIdOfFriends) {
+                    [SAPersonConnector getPeopleFromFacebookIds:self.facebookIdOfFriends handler:^(NSArray<SAPerson *> * _Nullable results, NSError * _Nullable error) {
+                        if (!error)
+                        {
+                            self.friends = results;
+                        }
+                    }];
+                }
+            }
+        }];
+    }
+    
+    
     
     switch ([CLLocationManager authorizationStatus]) {
         case kCLAuthorizationStatusAuthorizedWhenInUse:
@@ -57,121 +97,17 @@
             self.currentUser.locationManager = self.locationManager;
             [self.locationManager startUpdatingLocation];
             break;
-            //        case kCLAuthorizationStatusNotDetermined:
-            //            self.locationManager = [[CLLocationManager alloc]init];
-            //            [self startStandartUpdates];
-            //
-            //            self.user.locationManager = self.locationManager;
-            //            [self.locationManager requestWhenInUseAuthorization];
-            //            [self.locationManager requestLocation];
-            //            break;
+        case kCLAuthorizationStatusNotDetermined:
+            self.locationManager = [[CLLocationManager alloc]init];
+            [self startStandartUpdates];
+
+            self.currentUser.locationManager = self.locationManager;
+            [self.locationManager requestWhenInUseAuthorization];
+            [self.locationManager requestLocation];
+            break;
         default:
             break;
     }
-    
-    _lastArray = [[NSMutableArray alloc]init];
-    _todayEvents = [[NSMutableArray alloc]init];
-    _eventArray = [[NSMutableArray alloc]init];
-    
-    CKRecordID *personId = self.currentUser.personId;
-    
-    [SAEventConnector getEventsByPersonId:personId handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
-        if (!error) {
-            
-            NSMutableArray *aux = [[NSMutableArray alloc] init];
-            for (SAEvent *event in events) {
-                
-                NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-                
-                NSCalendar *calendar = [NSCalendar currentCalendar];
-                [dateFormat setDateFormat:@"dd/MM/yyyy"];
-                NSInteger day = [calendar component:NSCalendarUnitDay fromDate:event.date];
-                
-                NSInteger dayToday = [calendar component:NSCalendarUnitDay fromDate:[NSDate date]];
-                
-                
-                
-                if (day == dayToday)
-                    [aux addObject:event];
-                    
-            }
-            
-            
-            [self updateTableWithEventList:aux];
-        }
-    }];
-    
-    
-    
-    NSMutableArray *friendList = [[NSMutableArray alloc] init];
-    
-    
-    
-    
-    if ( [FBSDKAccessToken currentAccessToken]) {
-        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
-                                      initWithGraphPath:@"/me"
-                                      parameters:@{ @"fields": @"friends",}
-                                    HTTPMethod:@"GET"];
-            [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-//            
-            if (error) {
-                NSLog(@"ERRO = %@", error.description);
-            }
-            else
-           {
-                CKContainer *container = [CKContainer defaultContainer];
-                CKDatabase *publicDatabase = [container publicCloudDatabase];
-               
-                for (id person in [[result objectForKey:@"friends"]objectForKey:@"data"] )
-                {
-                    NSString *userID = [person objectForKey:@"id"];
-                        [friendList addObject:userID];
-  
-                }
-                
-                [SAPersonConnector getPeopleFromFacebookIds:friendList handler:^(NSArray<SAPerson *> * _Nullable results, NSError * _Nullable error) {
-                    if (!error)
-                    {
-                        CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:-30.033285 longitude:-51.213884];
-//                        
-                      [SAEventConnector getSugestedEventsWithActivities:nil AndCurrentLocation:currentLocation andDistanceInMeters:1000000 AndFriends:results handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
-//                          
-//                          
-                          if(!error)
-                          {
-                              for (SAEvent *event in events) {
-                                  NSLog(@"eventos = %@", event.name);
-                              }
-                              
-                              
-                              
-                              //[_friendsEvents addObject:eventPakas];
-                              [self updateTableWithEventList:events];
-//                              
-                          }else{
-                              NSLog(@"tome: %@", error.description);
-                          }
-                          }
-                      ];
-                        
-                    }
-                    else
-                        NSLog(@"%@", error.description);
-                }];
-              NSLog(@" na moral funfa vai friend list = %@",  friendList);
-               
-           }
-        }];
-    }
-    
-    
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -185,90 +121,61 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 2;
+    return [self.arrayOfSectionsWithEvents count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _eventArray.count;
+    NSDictionary *dict = self.arrayOfSectionsWithEvents[section];
+    NSArray *arrayOfEvents = dict[@"events"];
+    
+    
+    return [arrayOfEvents count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SANewsFeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
+    NSDictionary *dict = self.arrayOfSectionsWithEvents[indexPath.section];
+    NSArray *arrayOfEvents = dict[@"events"];
     
     if (!cell)
     {
         [tableView registerNib:[UINib nibWithNibName:@"SACustomCell" bundle:nil] forCellReuseIdentifier:@"myCell"];
         cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
     }
-    
-    
-    [cell initWithEvent:self.eventArray[indexPath.row]];
+    [cell initWithEvent:arrayOfEvents[indexPath.row]];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
 
-- (void)updateTableWithEventList:(NSArray<SAEvent *>*)events {
-    
-    _eventArray= [[NSMutableArray alloc] init];
-   
-    for (SAEvent *event in events)
-       if (! [_lastArray containsObject:event])
-          [ _eventArray addObject:event];
-    
-    [_lastArray addObjectsFromArray:events];
-    
-    [self.tableWithEvents reloadData];
+- (void)updateTableView{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableWithEvents reloadData];
+    });
     
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    static NSString *CellIdentifier = @"myHeader2";
- 
-    SASectionView2  *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:CellIdentifier];
+    NSDictionary *dict = self.arrayOfSectionsWithEvents[section];
     
-    if (headerView == nil){
-        //[NSException raise:@"headerView == nil.." format:@"No cells with matching CellIdentifier loaded from your storyboard"];
-       // static NSString * const SectionHeaderViewIdentifier = ;
-        
-         [tableView registerNib:[UINib nibWithNibName:@"SASectionView2" bundle:nil] forHeaderFooterViewReuseIdentifier:@"myHeader2"];
-        headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"myHeader2"];
+    SASectionView2  *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"myHeader2"];
     
-    }
-    //UILabel *label = (UILabel *)[headerView viewWithTag:123];
-    //[label setText:@"Friends"];
-    
-    if (section == 0)
-        headerView.sectionTitle.text = @"TODAY";
-    else
-        if (section == 1)
-            headerView.sectionTitle.text = @"FRIENDS";
-    else
-            headerView.sectionTitle.text = @"SUGGESTIONS";
-    
+    [tableView registerNib:[UINib nibWithNibName:@"SASectionView2" bundle:nil] forHeaderFooterViewReuseIdentifier:@"myHeader2"];
+    headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"myHeader2"];
+    NSString *text = dict[@"section"];
+    headerView.sectionTitle.text = text;
     return headerView;
 }
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 44;
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    
-    return @"";
-}
-
-
-
 -(void) viewWillAppear:(BOOL)animated {
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
 }
-
-
-
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     SANewsFeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
@@ -327,6 +234,41 @@
     }];
     
     [self.currentUser setLocation:[sortedArray firstObject]];
+    
+    
+    //once location is set, fetch events based on location from db
+    
+    //make sure event fetch are called once
+    dispatch_once(&predicate, ^{
+        //FETCH EVENTS FOR TODAY SECTION
+        [SAEventConnector getComingEventsBasedOnFavoriteActivities:self.currentUser.interests AndCurrentLocation:self.currentUser.location AndRadiusOfDistanceDesiredInMeters:1000000 handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
+            if(!error){
+                NSDictionary *myDic = @{
+                                        @"section" : @"TODAY",
+                                        @"events" : events
+                                        };
+                
+                [self.arrayOfSectionsWithEvents addObject:myDic];
+            }
+            [self updateTableView];
+        }];
+        
+        //FETCH EVENTS FOR FRIENDS SECTION
+        [SAEventConnector getSugestedEventsWithActivities:nil AndCurrentLocation:self.currentUser.location andDistanceInMeters:1000000 AndFriends:_friends handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
+            if(!error){
+                NSDictionary *myDic = @{
+                                        @"section" : @"FRIENDS",
+                                        @"events" : events
+                                        };
+                
+                [self.arrayOfSectionsWithEvents addObject:myDic];
+            }
+            [self updateTableView];
+        }];
+    });
+    
+    
+    
 }
 
 - (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
