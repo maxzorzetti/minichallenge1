@@ -11,7 +11,7 @@
 #import "SAPerson.h"
 #import "SAParty.h"
 
-@interface SANewEvent5ViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface SANewEvent5ViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic) SAParty *party;
 

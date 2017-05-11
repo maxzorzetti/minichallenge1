@@ -58,9 +58,6 @@
 
 @implementation SAViewController
 
-
-
-
 - (IBAction)joinUsButtonPressed:(UIButton *)sender {
     
     
@@ -344,6 +341,15 @@
     [super viewDidLoad];
     self.user = [SAPerson new];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
+    
+    self.firstNameField.delegate = self;
+    self.lastNameField.delegate = self;
+    self.emailField.delegate = self;
+    self.passwordField.delegate = self;
+    
     switch ([CLLocationManager authorizationStatus]) {
             case kCLAuthorizationStatusNotDetermined:
                 self.locationManager = [[CLLocationManager alloc]init];
@@ -471,6 +477,18 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    
+    return YES;
+}
+
+- (void)dismissKeyboard{
+    [self.lastNameField resignFirstResponder];
+    [self.firstNameField resignFirstResponder];
+    [self.passwordField resignFirstResponder];
+    [self.emailField resignFirstResponder];
+}
 
 
 @end

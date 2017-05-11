@@ -36,6 +36,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.eventNameTextField.delegate = self;
+    
+    //UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    
+    //[self.view addGestureRecognizer:tap];
+    
 	self.genderCollectionView.dataSource = self;
 	self.genderCollectionView.delegate = self;
 	
@@ -188,6 +194,13 @@
 
 - (IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
 	
+}
+
+#pragma keyboard dismissing methods
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    
+    return YES;
 }
 
 @end

@@ -14,7 +14,7 @@
 
 
 
-@interface SAViewController : UIViewController <FBSDKLoginButtonDelegate, CLLocationManagerDelegate>
+@interface SAViewController : UIViewController <FBSDKLoginButtonDelegate, CLLocationManagerDelegate, UITextFieldDelegate>
 
 -(void)toggleHiddenState:(BOOL)shouldHide;
 

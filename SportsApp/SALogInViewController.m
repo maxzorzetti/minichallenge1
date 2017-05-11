@@ -406,7 +406,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.passwordField.delegate = self;
+    self.emailField.delegate = self;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
+    
     _btnLogIn.backgroundColor = [UIColor colorWithRed:50 green:226 blue:196 alpha:1];
     
     self.appLogo.layer.cornerRadius = self.appLogo.frame.size.height /2;
@@ -492,5 +499,16 @@
     });
 }
 
+#pragma keyboard dismissing methods
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    
+    return YES;
+}
+
+- (void)dismissKeyboard{
+    [self.emailField resignFirstResponder];
+    [self.passwordField resignFirstResponder];
+}
 
 @end

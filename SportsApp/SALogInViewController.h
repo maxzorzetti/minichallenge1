@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 
-@interface SALogInViewController : UIViewController  <FBSDKLoginButtonDelegate>
+@interface SALogInViewController : UIViewController  <FBSDKLoginButtonDelegate, UITextFieldDelegate>
 
 @end

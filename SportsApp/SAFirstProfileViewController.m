@@ -36,7 +36,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
+    self.txtFirstName.delegate = self;
+    self.txtLastName.delegate = self;
+    self.txtPhoneNumber.delegate = self;
+    self.txtPhoneNumber.keyboardType = UIKeyboardTypePhonePad;
     
     [self changeFirstNameTextField];
     [self changeLastNameTextField];
@@ -65,21 +72,9 @@
 
 
 - (IBAction)joinUsButtonPressed2:(UIButton *)sender {
-    
-    
-    
-    CKContainer *container = [CKContainer defaultContainer];
-    CKDatabase *publicDatabase = [container publicCloudDatabase];
-    
-    CKRecord *personRecord = [[CKRecord alloc]initWithRecordType:@"SAPerson"];
-    CKRecord *identityRecord = [[CKRecord alloc]initWithRecordType:@"SAIdentity"];
-    
-    
-    
     NSString *firstName = self.txtFirstName.text;
     NSString *lastName = self.txtLastName.text;
     NSString *fullName = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
-    
     
     if ([firstName isEqualToString:@""] || [lastName isEqualToString:@""]  || [_txtPhoneNumber.text isEqualToString:@""] )
     {
@@ -183,5 +178,58 @@
     
 }
 
+
+#pragma dismissing keyboard methods
+- (void)dismissKeyboard{
+    [self.txtPhoneNumber resignFirstResponder];
+    [self.txtLastName resignFirstResponder];
+    [self.txtFirstName resignFirstResponder];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    
+    return YES;
+}
+
+- (NSString *) removeSpecialCharacterOfString:(NSString *)string{
+    string = [string stringByReplacingOccurrencesOfString:@"(" withString:@""];
+    string = [string stringByReplacingOccurrencesOfString:@")" withString:@""];
+    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+    string = [string stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    string = [string stringByReplacingOccurrencesOfString:@"." withString:@""];
+    
+    return string;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    if (textField == self.txtPhoneNumber) {
+        int lengthOfPhoneNumber = (int)[self removeSpecialCharacterOfString:textField.text].length;
+        
+        //don't let user input more than 11 numbers
+        if (range.length==0 && lengthOfPhoneNumber == 11) {
+            return NO;
+        }
+        
+        if (lengthOfPhoneNumber == 2) {
+            NSString *formattedStr = [self removeSpecialCharacterOfString:textField.text];
+            textField.text = [NSString stringWithFormat:@"(%@) ",formattedStr];
+            if(range.length == 1){
+                textField.text = [NSString stringWithFormat:@"%@",[formattedStr substringToIndex:2]];
+            }
+        }
+        
+        if (lengthOfPhoneNumber == 7) {
+            NSString *formattedStr = [self removeSpecialCharacterOfString:textField.text];
+            textField.text = [NSString stringWithFormat:@"(%@) %@-",[formattedStr substringToIndex:2], [formattedStr substringFromIndex:2]];
+            if(range.length == 1){
+                textField.text = [NSString stringWithFormat:@"(%@) %@",[formattedStr substringToIndex:2], [formattedStr substringFromIndex:2]];
+            }
+        }
+    }
+    
+    return YES;
+}
 
 @end
