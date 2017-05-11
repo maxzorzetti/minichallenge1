@@ -51,7 +51,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     UIStoryboard *barbaraStoryboard = [UIStoryboard storyboardWithName:@"StoryboardDaBarbara" bundle:nil];
     
     //DELETE THIS WHEN FINISHED TESTING
-    [userDefaults setBool:NO forKey:@"HasLaunchedOnce"];
+    //[userDefaults setBool:NO forKey:@"HasLaunchedOnce"];
     //[userDefaults setObject:[NSData new] forKey:@"user"];
     //[userDefaults setObject:[NSDictionary new] forKey:@"loginInfo"];
     //[userDefaults setObject:[NSArray new] forKey:@"ArrayOfDictionariesContainingTheActivities"];

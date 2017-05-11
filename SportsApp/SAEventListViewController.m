@@ -45,7 +45,7 @@
     
     //check if 3d touch is available, if it is, assign current view as delegate
     if ([self isForceTouchAvailable]) {
-        self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.view];
+        self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.tableWithEvents];
     }
     
     self.tableWithEvents.tableHeaderView = nil;
@@ -347,55 +347,59 @@
     return isForceTouchAvailable;
 }
 
-//- (UIViewController *)previewingContext:(id )previewingContext viewControllerForLocation:(CGPoint)location{
-//    // check if we're not already displaying a preview controller (WebViewController is my preview controller)
+- (UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location{
+    // check if we're not already displaying a preview controller (WebViewController is my preview controller)
 //    if ([self.presentedViewController isKindOfClass:[WebViewController class]]) {
 //        return nil;
 //    }
-//    
-//    CGPoint cellPostion = [self.tableView convertPoint:location fromView:self.view];
-//    NSIndexPath *path = [self.tableView indexPathForRowAtPoint:cellPostion];
-//    
-//    if (path) {
-//        UITableViewCell *tableCell = [self.tableView cellForRowAtIndexPath:path];
-//        
-//        // get your UIStoryboard
-//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MyStoryboard" bundle:nil];
-//        
-//        // set the view controller by initializing it form the storyboard
-//        WebViewController *previewController = [storyboard instantiateViewControllerWithIdentifier:@"MyWebView"];
-//        
-//        // if you want to transport date use your custom "detailItem" function like this:
-//        previewController.detailItem = [self.data objectAtIndex:path.row];
-//        
-//        previewingContext.sourceRect = [self.view convertRect:tableCell.frame fromView:self.tableView];
-//        return previewController;
-//    }
-//    return nil;
-//}
-//
-//- (void)previewingContext:(id )previewingContext commitViewController: (UIViewController *)viewControllerToCommit {
-//    
-//    // if you want to present the selected view controller as it self us this:
-//    // [self presentViewController:viewControllerToCommit animated:YES completion:nil];
-//    
-//    // to render it with a navigation controller (more common) you should use this:
-//    [self.navigationController showViewController:viewControllerToCommit sender:nil];
-//}
-//
-//- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
-//    [super traitCollectionDidChange:previousTraitCollection];
-//    if ([self isForceTouchAvailable]) {
-//        if (!self.previewingContext) {
-//            self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.view];
-//        }
-//    } else {
-//        if (self.previewingContext) {
-//            [self unregisterForPreviewingWithContext:self.previewingContext];
-//            self.previewingContext = nil;
-//        }
-//    }
-//}
+    
+    NSIndexPath *path = [self.tableWithEvents indexPathForRowAtPoint:location];
+    
+    if (path) {
+        SANewsFeedTableViewCell *cell = [self.tableWithEvents cellForRowAtIndexPath:path];
+        
+        // get your UIStoryboard
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        
+        // set the view controller by initializing it form the storyboard
+         SAEventDescriptionViewController *previewController = [storyboard instantiateViewControllerWithIdentifier:@"eventDescription"];
+        
+        // if you want to transport date use your custom "detailItem" function like this:
+//        NSDictionary *myDic = self.currentArray[path.section];
+//        NSArray *arrayOfEvents = myDic[@"events"];
+        
+        
+        previewController.currentEvent = cell.cellEvent;
+        
+        previewingContext.sourceRect = cell.frame;
+        
+        return previewController;
+    }
+    return nil;
+}
+
+- (void)previewingContext:(id )previewingContext commitViewController: (UIViewController *)viewControllerToCommit {
+    
+    // if you want to present the selected view controller as it self us this:
+    // [self presentViewController:viewControllerToCommit animated:YES completion:nil];
+    
+    // to render it with a navigation controller (more common) you should use this:
+    [self.navigationController showViewController:viewControllerToCommit sender:nil];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    if ([self isForceTouchAvailable]) {
+        if (!self.previewingContext) {
+            self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.view];
+        }
+    } else {
+        if (self.previewingContext) {
+            [self unregisterForPreviewingWithContext:self.previewingContext];
+            self.previewingContext = nil;
+        }
+    }
+}
 
 
 @end

@@ -10,7 +10,6 @@
 #import "SANewEvent2ViewController.h"
 #import "SAActivityConnector.h"
 #import "SAActivity.h"
-#import "SAActivityCollectionViewCell.h"
 #import "SACollectionButtonViewCell.h"
 
 @interface SANewEvent1ViewController ()

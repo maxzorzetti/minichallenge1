@@ -11,6 +11,5 @@
 #import <CoreLocation/CoreLocation.h>
 
 @interface SANewsFeedTableViewController : UITableViewController <CLLocationManagerDelegate>
-- (void)updateTableWithEventList:(NSArray<SAEvent *>*)events;
 
 @end
