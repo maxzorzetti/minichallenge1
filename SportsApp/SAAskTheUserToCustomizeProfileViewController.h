@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class SAPerson;
 
 @interface SAAskTheUserToCustomizeProfileViewController : UIViewController
+
+@property (nonatomic) SAPerson *user;
 
 @end

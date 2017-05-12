@@ -21,6 +21,7 @@
 #import "SAFirstProfileViewController.h"
 #import "SAAskPhoneViewController.h"
 #import "SAGenderSelectionViewController.h"
+#import "SAAskTheUserToCustomizeProfileViewController.h"
 
 @interface SAViewController ()
 
@@ -263,7 +264,14 @@
                                      [[NSUserDefaults standardUserDefaults] setObject:dicLoginInfo forKey:@"loginInfo"];
                                      
                                      
-                                     [self goToFeed];
+                                     //check if user's profile is set
+                                     if (!self.user.gender || [self.user.interests count]==0 || !self.user.telephone) {
+                                         //user hasn't fully customized his profile
+                                         //go to view where user is asked if user wants to modify profile
+                                         [self goToProfileCustomizationDecision];
+                                     }else{
+                                         [self goToFeed];
+                                     }
                                  }
                              }
                          }];
@@ -471,6 +479,18 @@
     });
 }
 
+- (void)goToProfileCustomizationDecision{
+    UIStoryboard *secondary = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    SAAskTheUserToCustomizeProfileViewController *wantToCustomize = [secondary instantiateViewControllerWithIdentifier:@"wantToCustomize"];
+    
+    wantToCustomize.user = self.user;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:wantToCustomize animated:YES completion:^{
+            
+        }];
+    });
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -64,6 +64,9 @@
         self.txtFirstName.text = firstName;
         self.txtLastName.text = lastName;
         self.imgProfilePhoto.image = [UIImage imageWithData:self.user.photo];
+        if (self.user.telephone) {
+            self.txtPhoneNumber.text = self.user.telephone;
+        }
     }
 }
 

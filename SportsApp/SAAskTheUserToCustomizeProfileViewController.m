@@ -7,6 +7,8 @@
 //
 
 #import "SAAskTheUserToCustomizeProfileViewController.h"
+#import "SAGenderSelectionViewController.h"
+
 
 @interface SAAskTheUserToCustomizeProfileViewController ()
 
@@ -33,5 +35,27 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (IBAction)gotToFinishSignUp:(UIButton *)sender {
+    UIStoryboard *secondary = [UIStoryboard storyboardWithName:@"Secondary" bundle:nil];
+    SAGenderSelectionViewController *genderSelection = [secondary instantiateViewControllerWithIdentifier:@"genderSelectionView"];
+    
+    genderSelection.user = self.user;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:genderSelection animated:YES completion:^{
+            
+        }];
+    });
+}
+- (IBAction)goToFeed:(UIButton *)sender {
+    UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *destination = [main instantiateViewControllerWithIdentifier:@"view2"];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:destination animated:YES completion:^{
+            
+        }];
+    });
+}
 
 @end

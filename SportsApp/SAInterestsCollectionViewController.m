@@ -43,7 +43,10 @@
     self.viewOfCollectionView.delegate = self;
     self.viewOfCollectionView.dataSource = self;
     
-    _interestedActivities = [[NSMutableSet alloc] init];
+    self.interestedActivities = [NSMutableSet new];
+    for (SAActivity *activity in self.user.interests) {
+        [self.interestedActivities addObject:activity];
+    }
     
     self.reuseIdentifier = @"activityCell";
     self.viewOfCollectionView.allowsMultipleSelection = YES;
@@ -103,6 +106,10 @@
     cell.selectedImage = [UIImage imageWithData:activity.pictureWhite];
     cell.unselectedImage = [UIImage imageWithData:activity.picture];
     cell.titleLabel.text = activity.name;
+    
+    if ([self.interestedActivities containsObject:activity]) {
+        [cell setCustomSelection:YES];
+    }
     
     return cell;
 }

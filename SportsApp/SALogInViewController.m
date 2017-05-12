@@ -13,7 +13,7 @@
 #import "SAUser.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "SAGenderSelectionViewController.h"
-
+#import "SAAskTheUserToCustomizeProfileViewController.h"
 #import "SAPersonConnector.h"
 
 
@@ -186,8 +186,8 @@
                                      //check if user's profile is set
                                      if (!self.user.gender || [self.user.interests count]==0 || !self.user.telephone) {
                                          //user hasn't fully customized his profile
-                                         
                                          //go to view where user is asked if user wants to modify profile
+                                         [self goToProfileCustomizationDecision];
                                      }else{
                                          [self goToFeed];
                                      }
@@ -197,27 +197,8 @@
                      }
                  }
              }];
-             
-             
-             
-             
-             
-             
-             
-         }
-         else{
-             NSLog(@" deu erro = %@",error.description);
          }
      }];
-    
-    
-    
-    
-//[self performSegueWithIdentifier:@"finishLoginSegue" sender:self];
-    
-
-    
-    
 }
 
 
@@ -440,7 +421,18 @@
         }];
     });
 }
-
+- (void)goToProfileCustomizationDecision{
+    UIStoryboard *secondary = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    SAAskTheUserToCustomizeProfileViewController *wantToCustomize = [secondary instantiateViewControllerWithIdentifier:@"wantToCustomize"];
+    
+    wantToCustomize.user = self.user;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:wantToCustomize animated:YES completion:^{
+            
+        }];
+    });
+}
 
 
 #pragma keyboard dismissing methods

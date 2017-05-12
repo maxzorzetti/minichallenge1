@@ -16,6 +16,7 @@
 #import "SACollectionButtonViewCell.h"
 #import <CoreLocation/CLGeocoder.h>
 #import <CoreLocation/CLPlacemark.h>
+#import "SAGenderSelectionViewController.h"
 
 @interface SAProfileViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *profilePhoto;
@@ -166,6 +167,23 @@
         NSLog(@"Error when fetching location: %@", error.description);
     }
 }
+
+#pragma Finish Profile customization
+- (IBAction)goToCustomizeProfile:(UIBarButtonItem *)sender {
+    
+    //right now it shows part of the sign up proccess, TODO create a view for modifying profile
+    UIStoryboard *secondary = [UIStoryboard storyboardWithName:@"Secondary" bundle:nil];
+    SAGenderSelectionViewController *genderSelection = [secondary instantiateViewControllerWithIdentifier:@"genderSelectionView"];
+    
+    genderSelection.user = self.user;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:genderSelection animated:YES completion:^{
+            
+        }];
+    });
+}
+
 
 
 @end

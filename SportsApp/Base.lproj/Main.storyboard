@@ -243,10 +243,10 @@
             </objects>
             <point key="canvasLocation" x="-2618" y="215"/>
         </scene>
-        <!--View Controller-->
+        <!--Ask The User To Customize Profile View Controller-->
         <scene sceneID="DNL-ns-62G">
             <objects>
-                <viewController storyboardIdentifier="wantToCustomize" id="uyA-m2-aaC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="wantToCustomize" id="uyA-m2-aaC" customClass="SAAskTheUserToCustomizeProfileViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6ca-Gk-Zn1"/>
                         <viewControllerLayoutGuide type="bottom" id="1S2-2S-PmQ"/>
@@ -267,6 +267,9 @@
                                                 <state key="normal" title="No">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="goToFeed:" destination="uyA-m2-aaC" eventType="touchUpInside" id="9nB-9s-Goa"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -285,6 +288,9 @@
                                                 <state key="normal" title="Yes">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="gotToFinishSignUp:" destination="uyA-m2-aaC" eventType="touchUpInside" id="096-eo-Npy"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.19506528970000001" green="0.88580375909999998" blue="0.76854342220000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -310,11 +316,11 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_Edit_NS" translatesAutoresizingMaskIntoConstraints="NO" id="JzL-4Q-6Fu">
-                                <rect key="frame" x="154" y="139" width="67" height="97"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_Profile_S-1" translatesAutoresizingMaskIntoConstraints="NO" id="JzL-4Q-6Fu">
+                                <rect key="frame" x="161" y="112" width="53" height="124"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="67" id="Ue6-V5-hwS"/>
-                                    <constraint firstAttribute="height" constant="97" id="upd-yf-mlM"/>
+                                    <constraint firstAttribute="width" constant="53" id="Ue6-V5-hwS"/>
+                                    <constraint firstAttribute="height" constant="124" id="upd-yf-mlM"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -744,7 +750,13 @@
                             <constraint firstAttribute="trailing" secondItem="Zzh-Sv-YZ2" secondAttribute="trailing" constant="24" id="oEw-HJ-Tku"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Profile" id="BkM-Aa-cAG"/>
+                    <navigationItem key="navigationItem" title="Profile" id="BkM-Aa-cAG">
+                        <barButtonItem key="rightBarButtonItem" image="Icon_Edit_NS" id="02T-sO-V5K">
+                            <connections>
+                                <action selector="goToCustomizeProfile:" destination="cbM-AA-Fkf" id="6oB-jh-uvd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="Zzh-Sv-YZ2" id="wii-Ok-OOz"/>
                         <outlet property="genderIcon" destination="jFO-lh-glv" id="9dP-Nv-o8R"/>
@@ -1901,6 +1913,7 @@
         <image name="Icon_Pin" width="10" height="12"/>
         <image name="Icon_Profile_NS" width="9" height="21"/>
         <image name="Icon_Profile_S" width="9" height="21"/>
+        <image name="Icon_Profile_S-1" width="53" height="124"/>
         <image name="Icon_phone" width="12" height="12"/>
         <image name="Icon_shift" width="14" height="14"/>
         <image name="Join Us" width="320" height="100"/>
