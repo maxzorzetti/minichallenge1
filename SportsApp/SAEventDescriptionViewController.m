@@ -35,6 +35,7 @@
     self.ownerName.text = self.currentEvent.owner.name;
     self.eventName.text = self.currentEvent.name;
     self.eventGender.text = self.currentEvent.sex;
+    self.eventImage.image = [UIImage imageWithData:self.currentEvent.activity.picture];
     
     if ([self.currentEvent.sex isEqualToString:@"Female"]) {
         self.genderIcon.image = [UIImage imageNamed:@"Icon_Female"];
