@@ -358,22 +358,30 @@
     if (path) {
         SANewsFeedTableViewCell *cell = [self.tableWithEvents cellForRowAtIndexPath:path];
         
-        // get your UIStoryboard
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         
-        // set the view controller by initializing it form the storyboard
-         SAEventDescriptionViewController *previewController = [storyboard instantiateViewControllerWithIdentifier:@"eventDescription"];
         
-        // if you want to transport date use your custom "detailItem" function like this:
-//        NSDictionary *myDic = self.currentArray[path.section];
-//        NSArray *arrayOfEvents = myDic[@"events"];
-        
-        
-        previewController.currentEvent = cell.cellEvent;
-        
-        previewingContext.sourceRect = cell.frame;
-        
-        return previewController;
+        //check for what peek view to show
+        NSComparisonResult result = [cell.cellEvent.date compare:[NSDate date]];
+        if([cell.cellEvent.participants count] >= [cell.cellEvent.minPeople integerValue] || result == NSOrderedAscending){
+            //event closed, show closed event description
+            ClosedEventDescriptionViewController *previewController = [storyboard instantiateViewControllerWithIdentifier:@"eventFull"];
+            
+            previewController.event = cell.cellEvent;
+            
+            previewingContext.sourceRect = cell.frame;
+            
+            return previewController;
+        }else{
+            //event open, show open event description
+            SAEventDescriptionViewController *previewController = [storyboard instantiateViewControllerWithIdentifier:@"eventDescription"];
+            
+            previewController.currentEvent = cell.cellEvent;
+            
+            previewingContext.sourceRect = cell.frame;
+            
+            return previewController;
+        }
     }
     return nil;
 }
