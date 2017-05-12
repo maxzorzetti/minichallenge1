@@ -64,6 +64,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         [userDefaults setObject:[NSDictionary new] forKey:@"loginInfo"];
         [userDefaults setObject:[NSArray new] forKey:@"ArrayOfDictionariesContainingTheActivities"];
         [userDefaults setObject:[NSArray new] forKey:@"ArrayOfDictionariesContainingPeople"];
+        [FBSDKAccessToken setCurrentAccessToken:nil];
         
         //GET ALL ACTIVITIES INFO AVAILABLE
         [SAActivityConnector getAllActivities:^(NSArray * _Nullable activities, NSError * _Nullable error) {

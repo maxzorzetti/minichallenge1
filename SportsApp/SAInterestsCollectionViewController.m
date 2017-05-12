@@ -44,9 +44,7 @@
     self.viewOfCollectionView.dataSource = self;
     
     self.interestedActivities = [NSMutableSet new];
-    for (SAActivity *activity in self.user.interests) {
-        [self.interestedActivities addObject:activity];
-    }
+    
     
     self.reuseIdentifier = @"activityCell";
     self.viewOfCollectionView.allowsMultipleSelection = YES;
@@ -69,6 +67,15 @@
     }];
     
     self.activities = activities;
+    
+    //add existing interests to array of interests so it is shown selected later
+    for (SAActivity *activity in self.user.interests) {
+        for (SAActivity *activityInDb in self.activities) {
+            if ([activity.activityId.recordName isEqualToString:activityInDb.activityId.recordName]) {
+                [self.interestedActivities addObject:activityInDb];
+            }
+        }
+    }
     
 }
 
@@ -107,8 +114,10 @@
     cell.unselectedImage = [UIImage imageWithData:activity.picture];
     cell.titleLabel.text = activity.name;
     
-    if ([self.interestedActivities containsObject:activity]) {
-        [cell setCustomSelection:YES];
+    for (SAActivity *activityInterested in self.user.interests) {
+        if ([activity.activityId.recordName isEqualToString:activityInterested.activityId.recordName]) {
+            [cell setCustomSelection:YES];
+        }
     }
     
     return cell;
