@@ -11,6 +11,8 @@
 
 
 @interface SAAskTheUserToCustomizeProfileViewController ()
+@property (weak, nonatomic) IBOutlet UIView *noView;
+@property (weak, nonatomic) IBOutlet UIView *yesView;
 
 @end
 
@@ -18,7 +20,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    
+    //add border and margin to buttons view
+    self.noView.layer.borderColor = [UIColor colorWithRed:50/255.0 green:226/255.0 blue:196/255.0 alpha:1.0].CGColor;
+    self.noView.layer.borderWidth = 2.0;
+    self.noView.layer.cornerRadius = 8.0;
+    self.yesView.layer.borderColor = [UIColor colorWithRed:50/255.0 green:226/255.0 blue:196/255.0 alpha:1.0].CGColor;
+    self.yesView.layer.borderWidth = 2.0;
+    self.yesView.layer.cornerRadius = 8.0;
 }
 
 - (void)didReceiveMemoryWarning {

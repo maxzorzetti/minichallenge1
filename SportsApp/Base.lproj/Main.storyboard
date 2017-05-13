@@ -335,6 +335,10 @@
                             <constraint firstItem="JzL-4Q-6Fu" firstAttribute="centerX" secondItem="Uq2-SL-9t7" secondAttribute="centerX" id="rui-DY-XZQ"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="noView" destination="B52-JZ-MfK" id="eoM-Ju-gWl"/>
+                        <outlet property="yesView" destination="Fpy-24-XHY" id="gco-qA-4V2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Kq-rI-hat" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -912,7 +916,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="325" height="51"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CHE-KH-h27" id="11m-nX-Nww">
-                                                    <rect key="frame" x="0.0" y="0.0" width="325" height="51"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="325" height="50.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qLi-5y-wsk">

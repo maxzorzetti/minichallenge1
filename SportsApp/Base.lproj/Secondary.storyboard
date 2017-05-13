@@ -509,6 +509,7 @@
                     </view>
                     <connections>
                         <outlet property="femaleView" destination="JgK-Nd-m8C" id="b2c-6p-joz"/>
+                        <outlet property="maleView" destination="FlS-3D-hFE" id="pgf-uL-yTW"/>
                         <segue destination="Ca5-HR-2Da" kind="show" identifier="goToPhoneNumberSignUpView" id="t5o-T7-2N6"/>
                     </connections>
                 </viewController>

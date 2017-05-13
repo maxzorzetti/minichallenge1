@@ -184,7 +184,7 @@
                                      
                                      
                                      //check if user's profile is set
-                                     if (!self.user.gender || [self.user.interests count]==0 || !self.user.telephone) {
+                                     if ([self.user.gender length] == 0 || [self.user.interests count]==0 || [self.user.telephone length] == 0) {
                                          //user hasn't fully customized his profile
                                          //go to view where user is asked if user wants to modify profile
                                          [self goToProfileCustomizationDecision];
