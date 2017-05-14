@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="MrI-Tv-z4D">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="eTU-Da-2ON">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -12,7 +12,7 @@
         <!--View Controller-->
         <scene sceneID="tDX-he-4QL">
             <objects>
-                <viewController id="eTU-Da-2ON" customClass="SAViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="helloView" id="eTU-Da-2ON" customClass="SAViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YhB-6O-MhS"/>
                         <viewControllerLayoutGuide type="bottom" id="pYK-hJ-Qpu"/>
@@ -22,14 +22,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_Logo_Novo" translatesAutoresizingMaskIntoConstraints="NO" id="Au8-Dq-nOb">
-                                <rect key="frame" x="157" y="100" width="100" height="100"/>
+                                <rect key="frame" x="156.66666666666669" y="100" width="100.00000000000006" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="R2V-DF-BEI"/>
                                     <constraint firstAttribute="height" constant="100" id="wtZ-DA-6hc"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up to get started." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JS3-sL-9qt">
-                                <rect key="frame" x="122" y="245" width="171" height="21"/>
+                                <rect key="frame" x="121.66666666666669" y="245" width="171" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -71,7 +71,7 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3hP-Uf-wCE">
-                                <rect key="frame" x="166" y="221" width="83" height="16"/>
+                                <rect key="frame" x="165.66666666666666" y="221" width="83" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="83" id="7Gv-gi-H3M"/>
                                     <constraint firstAttribute="height" constant="16" id="QR0-kR-WXC"/>
@@ -89,6 +89,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qKy-m8-EHy">
+                                <rect key="frame" x="59" y="472" width="295" height="12"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" red="0.73333333329999995" green="0.74117647060000003" blue="0.74901960779999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oke-F3-2wA">
+                                <rect key="frame" x="20" y="28" width="27" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="Icon_Delete"/>
+                                <connections>
+                                    <action selector="backButtonPressed:" destination="eTU-Da-2ON" eventType="touchUpInside" id="8dT-sz-2ja"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -123,15 +138,16 @@
                         <outlet property="btnJoinUs" destination="J8N-k4-r0Q" id="9T5-hN-YJu"/>
                         <outlet property="emailField" destination="4D3-Xg-d40" id="oah-tO-o3K"/>
                         <outlet property="firstLabel" destination="3hP-Uf-wCE" id="5st-E9-qhj"/>
+                        <outlet property="infoLabel" destination="qKy-m8-EHy" id="Xs8-Eu-DmB"/>
                         <outlet property="myLabel" destination="JS3-sL-9qt" id="V51-hb-h5j"/>
                         <outlet property="myView" destination="jO6-dr-2cJ" id="Sod-rL-aZS"/>
                         <outlet property="passwordField" destination="SUy-pP-9B4" id="bBn-4o-hRc"/>
-                        <segue destination="Ca5-HR-2Da" kind="show" identifier="logInSegue2" id="skD-6j-B2n"/>
+                        <segue destination="v5O-1O-aXK" kind="show" identifier="askGenderSegue" id="LKX-il-TVn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fSw-Sf-7CU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1138.4000000000001" y="163.26836581709148"/>
+            <point key="canvasLocation" x="2044.9275362318842" y="163.04347826086959"/>
         </scene>
         <!--First Profile View Controller-->
         <scene sceneID="3ni-ep-on0">
@@ -275,6 +291,23 @@
                                     <constraint firstAttribute="height" constant="100" id="TDR-wW-3dd"/>
                                 </constraints>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yah-Gd-qIG">
+                                <rect key="frame" x="60" y="491" width="295" height="12"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" red="0.73333333329999995" green="0.74117647060000003" blue="0.74901960779999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JDF-cY-9ED">
+                                <rect key="frame" x="15" y="15" width="26" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Icon_Delete">
+                                    <color key="titleColor" red="0.13725490200000001" green="0.1215686275" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="backButtonPressed:" destination="Ca5-HR-2Da" eventType="touchUpInside" id="b4T-Rh-oTA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -307,6 +340,7 @@
                     </view>
                     <connections>
                         <outlet property="btnJoinUs" destination="ucE-QO-opS" id="0Xy-pf-iUm"/>
+                        <outlet property="errorLabel" destination="Yah-Gd-qIG" id="q34-t0-jEs"/>
                         <outlet property="imgProfilePhoto" destination="OMR-ct-9xk" id="XLH-BO-su4"/>
                         <outlet property="infoLabel" destination="DzW-yw-tfI" id="NQc-tJ-JZN"/>
                         <outlet property="txtFirstName" destination="8Us-ka-PLM" id="BAI-hM-sPD"/>
@@ -317,7 +351,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZfX-Kg-QYf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1970.4000000000001" y="162.3688155922039"/>
+            <point key="canvasLocation" x="2876.811594202899" y="162.22826086956522"/>
         </scene>
         <!--StoryboardDaBarbara-->
         <scene sceneID="ycE-yN-miN">
@@ -413,7 +447,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ztx-iU-yBx" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="PnL-Wj-tXp" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2973.5999999999999" y="164.16791604197903"/>
+            <point key="canvasLocation" x="3879.7101449275365" y="163.85869565217394"/>
         </scene>
         <!--Gender Selection View Controller-->
         <scene sceneID="8Nl-Jq-47S">
@@ -495,6 +529,16 @@
                                     <constraint firstAttribute="height" constant="97" id="xOK-6L-1zg"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cFf-B9-HLn">
+                                <rect key="frame" x="20" y="20" width="26" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Icon_Delete">
+                                    <color key="titleColor" red="0.13725490200000001" green="0.1215686275" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="XLR-sd-gUc" kind="unwind" unwindAction="backFromGender:" id="CSa-W2-tJD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.47098225360000001" green="0.34249314669999997" blue="0.85537540909999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -514,35 +558,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="14x-fz-Gdq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="XLR-sd-gUc" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2490" y="-542"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="hYW-1I-cmL">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="MrI-Tv-z4D" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YHb-Ak-Moh">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="eTU-Da-2ON" kind="relationship" relationship="rootViewController" id="YvD-kQ-ptF"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iDM-Zk-qsw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="200.80000000000001" y="164.16791604197903"/>
+            <point key="canvasLocation" x="2489.8550724637685" y="-542.11956521739137"/>
         </scene>
     </scenes>
     <resources>
+        <image name="Icon_Delete" width="18" height="17"/>
         <image name="Icon_Genre_White" width="68" height="97"/>
         <image name="Icon_Logo_Novo" width="120" height="120"/>
         <image name="camera" width="54" height="54"/>
         <image name="img_placeholder" width="101" height="101"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="t5o-T7-2N6"/>
-    </inferredMetricsTieBreakers>
 </document>

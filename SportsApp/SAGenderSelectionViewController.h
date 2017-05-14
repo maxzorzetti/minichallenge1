@@ -10,7 +10,7 @@
 @class SAPerson;
 
 @interface SAGenderSelectionViewController : UIViewController
-
+@property (nonatomic)NSString *password;
 @property (nonatomic) SAPerson *user;
 
 @end
