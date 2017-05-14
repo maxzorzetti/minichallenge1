@@ -385,6 +385,13 @@
     [self.locationManager stopUpdatingLocation];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    
+    
+    
+    
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -412,11 +419,6 @@
             break;
     }
     
-    UIColor *greenColor = [UIColor colorWithRed:50.0f/255.0f green:226.0f/255.0f blue:196.0f/255.0f alpha:1.0f];
-   	
-    [self changeJoinUsButton];
-    [self changeUserTextField:greenColor];
-    [self changePwdTextField:greenColor];
     
     //[[FBSDKLoginManager new] logOut];
     // Do any additional setup after loading the view, typically from a nib.
@@ -484,7 +486,17 @@
     [textField.layer addSublayer:maskLayer];
 }
 
-
+-(void)viewDidAppear:(BOOL)animated{
+    
+    UIColor *greenColor = [UIColor colorWithRed:50.0f/255.0f green:226.0f/255.0f blue:196.0f/255.0f alpha:1.0f];
+   	
+    //_emailField.text = @"";
+    //_passwordField.text = @"";
+    [self changeUserTextField:greenColor];
+    [self changePwdTextField:greenColor];
+    [self changeJoinUsButton];
+    
+}
 - (void)goToFeed{
     UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController *destination = [main instantiateViewControllerWithIdentifier:@"view2"];
