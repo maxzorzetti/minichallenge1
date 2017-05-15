@@ -20,6 +20,7 @@
 		29A4CA551EB22FA800DCA3FA /* SANewEvent4ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A4CA541EB22FA800DCA3FA /* SANewEvent4ViewController.m */; };
 		29D5F7081EC4D78D005A3B1F /* SAEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29D5F7071EC4D78D005A3B1F /* SAEventViewController.m */; };
 		29D5F70B1EC4D799005A3B1F /* SAInterestsCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29D5F70A1EC4D799005A3B1F /* SAInterestsCollectionReusableView.m */; };
+		29D5F70E1EC6491A005A3B1F /* SANewEvent7ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29D5F70D1EC6491A005A3B1F /* SANewEvent7ViewController.m */; };
 		29E2480C1EB8C07000088B98 /* SAFriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E2480B1EB8C07000088B98 /* SAFriendTableViewCell.m */; };
 		29E248101EB8C67F00088B98 /* SALocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E2480F1EB8C67F00088B98 /* SALocationTableViewCell.m */; };
 		29E248131EB8CECD00088B98 /* SANewEvent5ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E248121EB8CECD00088B98 /* SANewEvent5ViewController.m */; };
@@ -98,6 +99,8 @@
 		29D5F7071EC4D78D005A3B1F /* SAEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEventViewController.m; sourceTree = "<group>"; };
 		29D5F7091EC4D799005A3B1F /* SAInterestsCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAInterestsCollectionReusableView.h; sourceTree = "<group>"; };
 		29D5F70A1EC4D799005A3B1F /* SAInterestsCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAInterestsCollectionReusableView.m; sourceTree = "<group>"; };
+		29D5F70C1EC6491A005A3B1F /* SANewEvent7ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANewEvent7ViewController.h; sourceTree = "<group>"; };
+		29D5F70D1EC6491A005A3B1F /* SANewEvent7ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANewEvent7ViewController.m; sourceTree = "<group>"; };
 		29E2480A1EB8C07000088B98 /* SAFriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAFriendTableViewCell.h; sourceTree = "<group>"; };
 		29E2480B1EB8C07000088B98 /* SAFriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAFriendTableViewCell.m; sourceTree = "<group>"; };
 		29E2480E1EB8C67F00088B98 /* SALocationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SALocationTableViewCell.h; sourceTree = "<group>"; };
@@ -245,6 +248,8 @@
 				29E248121EB8CECD00088B98 /* SANewEvent5ViewController.m */,
 				29763C071EB9709500DFEE7A /* SANewEvent6ViewController.h */,
 				29763C081EB9709500DFEE7A /* SANewEvent6ViewController.m */,
+				29D5F70C1EC6491A005A3B1F /* SANewEvent7ViewController.h */,
+				29D5F70D1EC6491A005A3B1F /* SANewEvent7ViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -636,6 +641,7 @@
 			files = (
 				29028B801EA7EEB600367FE4 /* SAParty.m in Sources */,
 				29028B7D1EA7EE5F00367FE4 /* SAMatchmaker.m in Sources */,
+				29D5F70E1EC6491A005A3B1F /* SANewEvent7ViewController.m in Sources */,
 				AE1877D91EB38E8300CAFD1A /* SAInterestsCollectionViewController.m in Sources */,
 				29763C091EB9709500DFEE7A /* SANewEvent6ViewController.m in Sources */,
 				847F5E351EA714180091BAE9 /* SAEvent.m in Sources */,

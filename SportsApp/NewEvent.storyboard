@@ -833,7 +833,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="publishPressed:" destination="1U4-Xg-Xmi" eventType="touchUpInside" id="7R4-BV-9UJ"/>
+                                    <segue destination="4ZT-eV-fO7" kind="show" identifier="newEvent6To7" id="pK4-qJ-1IS"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8U7-Ym-oxD">
@@ -1114,13 +1114,65 @@
                         <outlet property="rectangleView" destination="8U7-Ym-oxD" id="hHA-rx-XUe"/>
                         <outlet property="scheduleLabel" destination="wls-GV-Xnh" id="oBW-df-0qm"/>
                         <outlet property="shiftLabel" destination="CCO-62-jiM" id="3f0-xf-OyS"/>
-                        <segue destination="7cI-zL-Kjf" kind="unwind" identifier="backToFeedWithEvent" unwindAction="backWithNewEvent:" id="ggN-8m-YbI"/>
+                        <segue destination="7cI-zL-Kjf" kind="unwind" identifier="backToEventListWithEvent" unwindAction="backWithNewEvent:" id="ggN-8m-YbI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ivz-RP-RPd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="7cI-zL-Kjf" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3236" y="-48.125937031484263"/>
+        </scene>
+        <!--New Event7 View Controller-->
+        <scene sceneID="aEa-9W-gvX">
+            <objects>
+                <viewController id="4ZT-eV-fO7" customClass="SANewEvent7ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cr2-gu-qNN"/>
+                        <viewControllerLayoutGuide type="bottom" id="f8G-Iq-DQ7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="a3R-Ja-dlR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gQg-wz-7dR">
+                                <rect key="frame" x="87.5" y="269.5" width="200" height="128"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="j9Z-UG-DKg">
+                                        <rect key="frame" x="90" y="30" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Searching for  matching events..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ecv-PR-XZI">
+                                        <rect key="frame" x="41" y="65" width="119" height="33.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Ecv-PR-XZI" firstAttribute="centerX" secondItem="gQg-wz-7dR" secondAttribute="centerX" id="2Uv-Bd-QWe"/>
+                                    <constraint firstAttribute="width" constant="200" id="7Rt-Br-Beo"/>
+                                    <constraint firstItem="j9Z-UG-DKg" firstAttribute="top" secondItem="gQg-wz-7dR" secondAttribute="top" constant="30" id="UcT-uV-YsW"/>
+                                    <constraint firstItem="j9Z-UG-DKg" firstAttribute="centerX" secondItem="gQg-wz-7dR" secondAttribute="centerX" id="W6x-PI-f1q"/>
+                                    <constraint firstItem="Ecv-PR-XZI" firstAttribute="top" secondItem="j9Z-UG-DKg" secondAttribute="bottom" constant="15" id="Xwt-2F-m0A"/>
+                                    <constraint firstAttribute="height" constant="128" id="lcA-4Y-JwU"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.78823529410000004" green="0.74117647060000003" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="gQg-wz-7dR" firstAttribute="centerY" secondItem="a3R-Ja-dlR" secondAttribute="centerY" id="aHy-4I-V92"/>
+                            <constraint firstItem="gQg-wz-7dR" firstAttribute="centerX" secondItem="a3R-Ja-dlR" secondAttribute="centerX" id="xyJ-L4-10G"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="rectangleView" destination="gQg-wz-7dR" id="ULK-Vw-hfV"/>
+                        <segue destination="P2R-9r-34w" kind="unwind" identifier="backToEventListWithEvent" unwindAction="backWithNewEvent:" id="iSZ-wR-YDS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0oS-n2-qSL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="P2R-9r-34w" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="4008.8000000000002" y="-48.125937031484263"/>
         </scene>
     </scenes>
     <resources>

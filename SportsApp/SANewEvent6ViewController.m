@@ -8,6 +8,7 @@
 
 #import "SAFriendCollectionViewCell.h"
 #import "SANewEvent6ViewController.h"
+#import "SANewEvent7ViewController.h"
 #import "SAMatchmaker.h"
 #import "SAEvent.h"
 #import "ClosedEventDescriptionViewController.h"
@@ -112,7 +113,7 @@
 }
 
 - (IBAction)publishPressed:(UIButton *)sender {
-	
+	/*
 	[SAMatchmaker enterMatchmakingWithParty:self.party handler:^(SAEvent * _Nullable event, NSError * _Nullable error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
 			//
@@ -120,39 +121,12 @@
 			self.event = event;
 			
 			[self performSegueWithIdentifier:@"backToFeedWithEvent" sender:self];
-			
-//			if ( event.participants.count >= event.minPeople.integerValue ) {
-//				NSLog(@"FULL EVENT");
-//				UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//				
-//				ClosedEventDescriptionViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"eventFull"];
-//				
-//				vc.event = event;
-//				
-//				[self presentViewController:vc animated:YES completion:^{
-//					//unwind man
-//				}];
-//			} else {
-//				NSLog(@"No event found");
-//				
-//				UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//				
-//				
-//				SAEventDescriptionViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"eventDescription"];
-//				
-//				vc.currentEvent = event;
-//				
-//				NSLog(@"%@", event);
-//				
-//				[self presentViewController:vc animated:YES completion:^{
-//					NSLog(@"%@", vc.currentEvent);
-//				}];
-//			}
+
 		});
 		
 		
 	}];
-	
+	*/
 }
 
 
@@ -160,7 +134,12 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	//NSLog(@"SEGUEUEUEUEEUU");
+	
+	if ([segue.identifier isEqualToString:@"newEvent6To7"]) {
+		SANewEvent7ViewController *newEvent7 = segue.destinationViewController;
+		
+		newEvent7.party = [self.party copy];
+	}
 	
 }
 

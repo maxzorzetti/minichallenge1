@@ -109,7 +109,6 @@
 
 #pragma mark - Navigation
 
-
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	NSLog(@"newEvent4");
@@ -127,7 +126,7 @@
 	
 }
 
-#pragma location methods
+#pragma mark - Location methods
 - (void)startStandartUpdates{
     if (self.locationManager == nil) {
         self.locationManager = [[CLLocationManager alloc]init];
