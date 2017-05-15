@@ -45,4 +45,6 @@
 
 + (void)saveToDefaults:(SAEvent *)event;
 
++ (NSArray<SAEvent *>*)getEventsFromComingUpCategory;
+
 @end

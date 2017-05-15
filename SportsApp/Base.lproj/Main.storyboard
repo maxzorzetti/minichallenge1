@@ -835,7 +835,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="segmentControl" destination="oRQ-zt-i5r" id="dKL-3F-tOE"/>
+                        <outlet property="segmentControl" destination="oRQ-zt-i5r" id="mDI-N6-DF0"/>
                         <outlet property="tableWithEvents" destination="16p-Cd-vkY" id="Ho4-vE-p0R"/>
                         <segue destination="i5n-R9-S2M" kind="show" identifier="descriptionEventSegue" id="XaM-eZ-DVw"/>
                         <segue destination="1Jd-uP-lQI" kind="show" identifier="descriptionNotClosedEventSegue" id="WWB-VW-3Vc"/>
@@ -862,11 +862,11 @@
                         <viewControllerLayoutGuide type="bottom" id="oWI-W7-rCe"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="IFq-6W-Wpt">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HBG-fW-AM6">
-                                <rect key="frame" x="24" y="84" width="325" height="515"/>
+                                <rect key="frame" x="24" y="84" width="325" height="520"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="twL-L2-ogF">
                                         <rect key="frame" x="0.0" y="0.0" width="325" height="75"/>
@@ -908,7 +908,7 @@
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="51.100000000000001" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vzL-XS-Zfy">
-                                        <rect key="frame" x="0.0" y="75" width="325" height="440"/>
+                                        <rect key="frame" x="0.0" y="75" width="325" height="445"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <inset key="separatorInset" minX="22" minY="0.0" maxX="22" maxY="0.0"/>
                                         <prototypes>
@@ -916,7 +916,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="325" height="51"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CHE-KH-h27" id="11m-nX-Nww">
-                                                    <rect key="frame" x="0.0" y="0.0" width="325" height="50.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="325" height="50.599998474121094"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qLi-5y-wsk">
@@ -1938,7 +1938,7 @@
         <image name="plus" width="21" height="21"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xtE-ti-OJ3"/>
-        <segue reference="mZr-b3-Ipg"/>
+        <segue reference="WWB-VW-3Vc"/>
+        <segue reference="XaM-eZ-DVw"/>
     </inferredMetricsTieBreakers>
 </document>
