@@ -12,7 +12,8 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "SAUser.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-
+#import "SAGenderSelectionViewController.h"
+#import "SAAskTheUserToCustomizeProfileViewController.h"
 #import "SAPersonConnector.h"
 
 
@@ -21,7 +22,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *appLogo;
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 
+@property (nonatomic) SAPerson *user;
 @property (weak, nonatomic) IBOutlet UIView *myView;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnLogIn;
@@ -41,7 +44,6 @@
 
 
 - (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error{
-    
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setValue:@"id,name,email,picture" forKey:@"fields"];
@@ -72,126 +74,71 @@
              
              identityRecord[@"adapter"] = @"Facebook";
              identityRecord[@"hash"] = userFacebookID;
-             //mexer
              
-             // CKRecord *user;
-             
-             
+             //check if user already exists in our database
              [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results1, NSError *error) {
-                 if (error) {
-                     NSLog(@"error: %@",error.localizedDescription);
-                 }
-                 else {
-                     //if (![results firstObject]) {
+                 if (!error){
+                     //if there are no user with that email, create one
                      if ([results1 count] == 0)
                      {
-                         [publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
-                             if (error) {
-                                 NSLog(@"Record Party not created. Error: %@", error.description);
-                             }
-                             else{
-                                 CKReference *ref = [[CKReference alloc]initWithRecordID:personRecord.recordID action:CKReferenceActionNone];
+                         [publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *personRecordCreatedFromDB, NSError *error){
+                             if (!error){
+                                 CKReference *ref = [[CKReference alloc]initWithRecordID:personRecordCreatedFromDB.recordID action:CKReferenceActionNone];
                                  identityRecord[@"userId"] = ref;
                                  
-                                 NSLog(@"Record Person created");
+                                 //person created, creates person identity with Facebook
                                  [publicDatabase saveRecord:identityRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
-                                     if (error) {
-                                         NSLog(@"Record Identity not created. Error: %@", error.description);
-                                     }
-                                     else
+                                     if (!error){
                                          NSLog(@"Record Identity created. New person in the app.");
                                      NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
-                                     SAPerson *person = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:[result valueForKey:@"picture"]];
+                                     self.user = [SAPersonConnector getPersonFromRecord:personRecordCreatedFromDB andPicture:photo];
                                      
-                                     [SAUser saveToUserDefaults:person];
+                                     [SAUser saveToUserDefaults:self.user];
                                      
                                      //saves user login info in userdefaults
                                      NSDictionary *dicLoginInfo = @{
-                                                                    @"username" : person.name,
+                                                                    @"username" : self.user.name,
                                                                     @"password" : _passwordField.text,
                                                                     @"facebookId" : userFacebookID
                                                                     };
                                      [[NSUserDefaults standardUserDefaults] setObject:dicLoginInfo forKey:@"loginInfo"];
                                      //sets current user
                                      SAUser *obj = [SAUser new];
-                                     [obj setCurrentPerson:person];
-                                     
-                                     
-                                     
-                                     //DESCOMENTA AQUI
-                                     
-                                     
-                                     
-                                     
-                                     //_personRecord = personRecord;
-//                                     dispatch_async(dispatch_get_main_queue(), ^{
-//                                         [self performSegueWithIdentifier:@"finishLoginSegue" sender:self];
-//                                     });
-                                     
-                                     
-                                     
+                                     [obj setCurrentPerson:self.user];
+                                         
+                                     //do sign up things
+                                     [self goToGenderSelection];
+                                    }
                                  }];
-                                 
-                                 
-                                 
-                                 
-                                 
-                                 
-                                 // _ref = [[CKReference alloc]initWithRecordID:personRecord.recordID action:CKReferenceActionNone];
-                             }
+                            }
                              
                          }];
                      }
+                     //if person already exists with that email
                      else{
-                         NSLog(@"pessoa existente");
                          
-                         
-                         
-                         // Equivalent ways to get a value.
                          id value = [[results1 firstObject] objectForKey:@"recordID"];
                          value = [results1 firstObject][@"recordID"];
-                         //user = [results firstObject];
-                         // _ref = [[CKReference alloc]initWithRecordID:user.recordID action:CKReferenceActionNone];
-                         //[self ref] = ref2;
-                         //   CKReference *ref2 = [[CKReference alloc]initWithRecordID:user.recordID action:CKReferenceActionNone];
                          
-                         //user.adapter;
-                         
-                         NSPredicate *useridPredicate = [NSPredicate predicateWithFormat:@"userId = %@", value]; //ccui
+                         NSPredicate *useridPredicate = [NSPredicate predicateWithFormat:@"userId = %@", value];
                          CKQuery *useridQuery = [[CKQuery alloc] initWithRecordType:@"SAIdentity" predicate:useridPredicate];
                          
                          
-                         NSPredicate *adapterPredicate = [NSPredicate predicateWithFormat:@"adapter = %@", identityRecord[@"adapter"]];
-                         CKQuery *adapterQuery = [[CKQuery alloc] initWithRecordType:@"SAIdentity" predicate:adapterPredicate];
-                         
-                         
-                         
+                         //check if identity is Facebook
                          [publicDatabase performQuery:useridQuery inZoneWithID:nil completionHandler:^(NSArray *results2, NSError *error){
-                             if (error) {
-                                 NSLog(@"error: %@",error.localizedDescription);
-                             }
-                             else {
+                             if (!error){
                                  
-                                 
-                                 
-                                 NSLog(@"userId already exists");
-                                 
-                                 
-                                 
-                                 
-                                 
-                                 int flag=0;
+                                 int isPersonSignedUpWithFacebook=0;
                                  
                                  for (CKRecord *record in results2) {
                                      NSString *adapter = record[@"adapter"];
                                      if ( [adapter isEqualToString:@"Facebook"]) {
                                          
-                                         flag=1;
-                                         
-                                         
+                                         isPersonSignedUpWithFacebook=1;
                                      }
                                  }
-                                 if (!flag)
+                                 //if person's identity is not with facebook, create one
+                                 if (!isPersonSignedUpWithFacebook)
                                  {
                                      [publicDatabase saveRecord:identityRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
                                          if (error) {
@@ -200,95 +147,59 @@
                                          else
                                              NSLog(@"Record Identity created. New person using facebook.");
                                          NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
-                                         SAPerson *person = [SAPersonConnector getPersonFromRecord:[results2 firstObject] andPicture:photo];
+                                         self.user = [SAPersonConnector getPersonFromRecord:[results2 firstObject] andPicture:photo];
                                          
-                                         [SAUser saveToUserDefaults:person];
+                                         [SAUser saveToUserDefaults:self.user];
                                          
                                          //saves user login info in userdefaults
                                          NSDictionary *dicLoginInfo = @{
-                                                                        @"username" : person.name,
+                                                                        @"username" : self.user.name,
                                                                         @"password" : _passwordField.text,
                                                                         @"facebookId" : userFacebookID
                                                                         };
                                          [[NSUserDefaults standardUserDefaults] setObject:dicLoginInfo forKey:@"loginInfo"];
                                          //sets current user
                                          SAUser *obj = [SAUser new];
-                                         [obj setCurrentPerson:person];
+                                         [obj setCurrentPerson:self.user];
                                          
+                                         [self goToGenderSelection];
                                      }];
-                                     
-                                     
-                                     
                                  }
+                                 
+                                 //person has signed with Facebook already
                                  else{
                                      NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
                                      
-                                     SAPerson *person = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:photo];
+                                     self.user = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:photo];
                                      
+                                     [SAUser saveToUserDefaults:self.user];
                                      
-                                     //DESCOMENTA AQUI
-                                     
-                                     
-                                     //_personRecord = personRecord;
-//                                     dispatch_async(dispatch_get_main_queue(), ^{
-//                                         [self performSegueWithIdentifier:@"finishLoginSegue" sender:self];
-//                                     });
-                                     
-                                     
-                                     
-                                     ///ESSE QUE TAVA DANDO PROBLEMA!!!!!!!!!
-                                     [SAUser saveToUserDefaults:person];
-                                     NSLog(@"oi max");
                                      //saves user login info in userdefaults
                                      NSArray *keys = @[@"username", @"password", @"facebookId"];
-                                     NSArray *values = @[person.name, _passwordField.text, userFacebookID];
+                                     NSArray *values = @[self.user.name, _passwordField.text, userFacebookID];
                                      NSDictionary *dicLoginInfo = [[NSDictionary alloc]initWithObjects:values forKeys:keys];
                                      [[NSUserDefaults standardUserDefaults] setObject:dicLoginInfo forKey:@"loginInfo"];
                                      //sets current user
                                      SAUser *obj = [SAUser new];
-                                     [obj setCurrentPerson:person];
+                                     [obj setCurrentPerson:self.user];
                                      
                                      
-                                     [self goToFeed];
+                                     //check if user's profile is set
+                                     if ([self.user.gender length] == 0 || [self.user.interests count]==0 || [self.user.telephone length] == 0) {
+                                         //user hasn't fully customized his profile
+                                         //go to view where user is asked if user wants to modify profile
+                                         [self goToProfileCustomizationDecision];
+                                     }else{
+                                         [self goToFeed];
+                                     }
                                  }
-                                 
-                                 
-                                 
                              }
-                             
-                             
-                             
-                             
                          }];
-                         
-                         
-                         
-                         
                      }
-                     
                  }
              }];
-             
-             
-             
-             
-             
-             
-             
-         }
-         else{
-             NSLog(@" deu erro = %@",error.description);
          }
      }];
-    
-    
-    
-    
-//[self performSegueWithIdentifier:@"finishLoginSegue" sender:self];
-    
-
-    
-    
 }
 
 
@@ -318,7 +229,12 @@
             if (results1.count == 0)
             {
                  dispatch_async(dispatch_get_main_queue(), ^(void){
-                _infoLabel.text = @"Wrong Username!";
+                     
+                     
+                     _errorLabel.text =@"Wrong Username!";
+                     [self changePwdTextField:[UIColor redColor]];
+                     [self changeUserTextField:[UIColor redColor]];
+                     
                  });
             }
             
@@ -373,7 +289,15 @@
                         else{
                              dispatch_async(dispatch_get_main_queue(), ^(void){
                             
-                            _infoLabel.text = @"Wrong Password!";
+                            //_infoLabel.text = @"Wrong Password!";
+                                 
+                                 _errorLabel.text = @"Wrong Password!";
+                                 
+                                 [self changeUserTextField:[UIColor redColor]];
+                                 [self changePwdTextField:[UIColor redColor]];
+                                 
+                                 
+        
                                  _emailField.text = @"";
                                  _passwordField.text = @"";
                              });
@@ -421,9 +345,6 @@
     self.appLogo.layer.borderWidth = 0;
     
     [self changeJoinUsButton];
-    [self changeUserTextField];
-    [self changePwdTextField];
-
     
     FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
     // Optional: Place the button in the center of your view.
@@ -436,34 +357,55 @@
     
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    
+    UIColor *greenColor = [UIColor colorWithRed:50.0f/255.0f green:226.0f/255.0f blue:196.0f/255.0f alpha:1.0f];
+    
+    
+    
+    [self changeUserTextField:greenColor];
+    [self changePwdTextField:greenColor];
 
+
+    
+}
 - (void) changeJoinUsButton{
+    
+    
+    UIColor *greenColor = [UIColor colorWithRed:50.0f/255.0f green:226.0f/255.0f blue:196.0f/255.0f alpha:1.0f];
+    
+    
+    _btnLogIn.backgroundColor = greenColor;
     _btnLogIn.layer.cornerRadius = 7;
 }
 
-- (void) changeUserTextField{
+- (void) changeUserTextField:(UIColor *)color{
     UITextField *textField = _emailField;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:
                               CGRectMake(1, 1, _emailField.frame.size.width-2, _emailField.frame.size.height-1) byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(7.0, 7.0)];
     
-    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath];
+    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath andColor:color ];
 }
 
-- (void) changePwdTextField{
+- (void) changePwdTextField:(UIColor *)color{
     UITextField *textField = _passwordField;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:
                               CGRectMake(1, 0, textField.frame.size.width-2, textField.frame.size.height-1) byRoundingCorners: UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(7.0, 7.0)];
     
-    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath];
+    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath andColor:color];
 }
 
-- (void) changeTextFieldBorderWithField: (UITextField *)textField andMaskPath:(UIBezierPath *)maskPath{
+- (void) changeTextFieldBorderWithField: (UITextField *)textField andMaskPath:(UIBezierPath *)maskPath andColor:(UIColor *)color{
     
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
     maskLayer.frame = textField.bounds;
     maskLayer.path = maskPath.CGPath;
     maskLayer.lineWidth = 1.0;
-    maskLayer.strokeColor = [UIColor colorWithRed:50.0f/255.0f green:226.0f/255.0f blue:196.0f/255.0f alpha:1.0f].CGColor;
+    
+    
+    
+    maskLayer.strokeColor = color.CGColor;
+    
     maskLayer.fillColor = [UIColor clearColor].CGColor;
     
     [textField.layer addSublayer:maskLayer];
@@ -498,6 +440,32 @@
        }];
     });
 }
+
+- (void)goToGenderSelection{
+    UIStoryboard *secondary = [UIStoryboard storyboardWithName:@"Secondary" bundle:nil];
+    SAGenderSelectionViewController *genderSelection = [secondary instantiateViewControllerWithIdentifier:@"genderSelectionView"];
+    
+    genderSelection.user = self.user;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:genderSelection animated:YES completion:^{
+            
+        }];
+    });
+}
+- (void)goToProfileCustomizationDecision{
+    UIStoryboard *secondary = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    SAAskTheUserToCustomizeProfileViewController *wantToCustomize = [secondary instantiateViewControllerWithIdentifier:@"wantToCustomize"];
+    
+    wantToCustomize.user = self.user;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:wantToCustomize animated:YES completion:^{
+            
+        }];
+    });
+}
+
 
 #pragma keyboard dismissing methods
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{

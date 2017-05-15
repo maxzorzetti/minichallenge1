@@ -36,12 +36,15 @@
 @property NSArray<SAPerson *> *friends;
 @property NSMutableArray *arrayOfSectionsWithEvents;
 
+@property (nonatomic, strong) id previewingContext;
+
 @end
 
 
 @implementation SANewsFeedTableViewController
 //make sure when location updates event methods are called once
 static dispatch_once_t predicate;
+static dispatch_once_t predicateForFriends;
 
 
 
@@ -53,6 +56,12 @@ static dispatch_once_t predicate;
     [super viewDidLoad];
     self.arrayOfSectionsWithEvents = [NSMutableArray new];
     self.facebookIdOfFriends = [NSMutableArray new];
+    
+    //check if 3d touch is available, if it is, assign current view as delegate
+    if ([self isForceTouchAvailable]) {
+        self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.tableWithEvents];
+    }
+    
     
     NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];
     self.currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
@@ -81,6 +90,23 @@ static dispatch_once_t predicate;
                         if (!error)
                         {
                             self.friends = results;
+                            //if location already set, fetch friends events
+                            if (self.currentUser.location) {
+                                dispatch_once(&predicateForFriends, ^{
+                                    //FETCH EVENTS FOR FRIENDS SECTION
+                                    [SAEventConnector getSugestedEventsWithActivities:nil AndCurrentLocation:self.currentUser.location andDistanceInMeters:1000000 AndFriends:_friends handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
+                                        if(!error){
+                                            NSDictionary *myDic = @{
+                                                                    @"section" : @"FRIENDS",
+                                                                    @"events" : events
+                                                                    };
+                                            
+                                            [self.arrayOfSectionsWithEvents addObject:myDic];
+                                        }
+                                        [self updateTableView];
+                                    }];
+                                });
+                            }
                         }
                     }];
                 }
@@ -233,15 +259,32 @@ static dispatch_once_t predicate;
         return [loc1.timestamp compare:loc2.timestamp];
     }];
     
-    [self.currentUser setLocation:[sortedArray firstObject]];
-    
     
     //once location is set, fetch events based on location from db
     
+    //only fetch events once friends are fetched
+    if (self.friends) {
+        //make sure event fetch are called once
+        dispatch_once(&predicateForFriends, ^{
+            //FETCH EVENTS FOR FRIENDS SECTION
+            [SAEventConnector getSugestedEventsWithActivities:nil AndCurrentLocation:[sortedArray firstObject] andDistanceInMeters:1000000 AndFriends:_friends handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
+                if(!error){
+                    NSDictionary *myDic = @{
+                                            @"section" : @"FRIENDS",
+                                            @"events" : events
+                                            };
+                    
+                    [self.arrayOfSectionsWithEvents addObject:myDic];
+                }
+                [self updateTableView];
+            }];
+
+        });
+    }
     //make sure event fetch are called once
     dispatch_once(&predicate, ^{
         //FETCH EVENTS FOR TODAY SECTION
-        [SAEventConnector getComingEventsBasedOnFavoriteActivities:self.currentUser.interests AndCurrentLocation:self.currentUser.location AndRadiusOfDistanceDesiredInMeters:1000000 handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
+        [SAEventConnector getComingEventsBasedOnFavoriteActivities:self.currentUser.interests AndCurrentLocation:[sortedArray firstObject] AndRadiusOfDistanceDesiredInMeters:1000000 handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
             if(!error){
                 NSDictionary *myDic = @{
                                         @"section" : @"TODAY",
@@ -252,22 +295,9 @@ static dispatch_once_t predicate;
             }
             [self updateTableView];
         }];
-        
-        //FETCH EVENTS FOR FRIENDS SECTION
-        [SAEventConnector getSugestedEventsWithActivities:nil AndCurrentLocation:self.currentUser.location andDistanceInMeters:1000000 AndFriends:_friends handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
-            if(!error){
-                NSDictionary *myDic = @{
-                                        @"section" : @"FRIENDS",
-                                        @"events" : events
-                                        };
-                
-                [self.arrayOfSectionsWithEvents addObject:myDic];
-            }
-            [self updateTableView];
-        }];
     });
     
-    
+    [self.currentUser setLocation:[sortedArray firstObject]];
     
 }
 
@@ -276,5 +306,78 @@ static dispatch_once_t predicate;
         NSLog(@"Error when fetching location: %@", error.description);
     }
 }
+
+
+#pragma force touch methods
+- (BOOL)isForceTouchAvailable {
+    BOOL isForceTouchAvailable = NO;
+    if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)]) {
+        isForceTouchAvailable = self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable;
+    }
+    return isForceTouchAvailable;
+}
+
+- (UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location{
+    // check if we're not already displaying a preview controller (WebViewController is my preview controller)
+    //    if ([self.presentedViewController isKindOfClass:[WebViewController class]]) {
+    //        return nil;
+    //    }
+    
+    NSIndexPath *path = [self.tableWithEvents indexPathForRowAtPoint:location];
+    
+    if (path) {
+        SANewsFeedTableViewCell *cell = [self.tableWithEvents cellForRowAtIndexPath:path];
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        
+        
+        //check for what peek view to show
+        NSComparisonResult result = [cell.cellEvent.date compare:[NSDate date]];
+        if([cell.cellEvent.participants count] >= [cell.cellEvent.minPeople integerValue] || result == NSOrderedAscending){
+            //event closed, show closed event description
+            ClosedEventDescriptionViewController *previewController = [storyboard instantiateViewControllerWithIdentifier:@"eventFull"];
+            
+            previewController.event = cell.cellEvent;
+            
+            previewingContext.sourceRect = cell.frame;
+            
+            return previewController;
+        }else{
+            //event open, show open event description
+            SAEventDescriptionViewController *previewController = [storyboard instantiateViewControllerWithIdentifier:@"eventDescription"];
+            
+            previewController.currentEvent = cell.cellEvent;
+            
+            previewingContext.sourceRect = cell.frame;
+            
+            return previewController;
+        }
+    }
+    return nil;
+}
+
+- (void)previewingContext:(id )previewingContext commitViewController: (UIViewController *)viewControllerToCommit {
+    
+    // if you want to present the selected view controller as it self us this:
+    // [self presentViewController:viewControllerToCommit animated:YES completion:nil];
+    
+    // to render it with a navigation controller (more common) you should use this:
+    [self.navigationController showViewController:viewControllerToCommit sender:nil];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    if ([self isForceTouchAvailable]) {
+        if (!self.previewingContext) {
+            self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.view];
+        }
+    } else {
+        if (self.previewingContext) {
+            [self unregisterForPreviewingWithContext:self.previewingContext];
+            self.previewingContext = nil;
+        }
+    }
+}
+
 
 @end

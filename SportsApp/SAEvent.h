@@ -12,7 +12,7 @@
 @class CKRecordID;
 @class CLLocation;
 
-@interface SAEvent : NSObject
+@interface SAEvent : NSObject <NSCoding>
 
 @property (nonatomic) CKRecordID *eventId;
 @property (nonatomic) NSString *name;
@@ -29,6 +29,10 @@
 
 - (instancetype)initWithName:(NSString *)name andRequiredParticipants:(NSNumber *)requiredParticipants andMaxParticipants:(NSNumber *)maxParticipants andActivity:(SAActivity *)activity andId:(CKRecordID *)eventId andCategory:(NSString *)category andSex:(NSString *)sex andDate:(NSDate *)date andParticipants:(NSArray<SAPerson *> *)participants andLocation:(CLLocation *)location andDistance:(NSNumber *)distance;
 
+- (void)encodeWithCoder:(NSCoder *)aCoder;
+
+- (id)initWithCoder:(NSCoder *)aDecoder;
+
 - (void)addParticipant:(SAPerson *)person;
 
 - (void)addParticipants:(NSArray *)participants;
@@ -38,5 +42,9 @@
 - (NSString *)getParticipantRole:(SAPerson *)person;
 
 - (void)replaceParticipants:(NSArray<SAPerson *>*)participants;
+
++ (void)saveToDefaults:(SAEvent *)event;
+
++ (NSArray<SAEvent *>*)getEventsFromComingUpCategory;
 
 @end

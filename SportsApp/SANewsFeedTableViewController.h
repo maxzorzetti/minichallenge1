@@ -10,6 +10,6 @@
 #import "SANewsFeedTableViewCell.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface SANewsFeedTableViewController : UITableViewController <CLLocationManagerDelegate>
+@interface SANewsFeedTableViewController : UITableViewController <CLLocationManagerDelegate, UIViewControllerPreviewingDelegate>
 
 @end

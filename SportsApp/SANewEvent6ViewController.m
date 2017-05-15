@@ -119,6 +119,9 @@
 			//
 			
 			self.event = event;
+            
+            //save or update event to user defaults
+            [SAEvent saveToDefaults:event];
 			
 			[self performSegueWithIdentifier:@"backToFeedWithEvent" sender:self];
 

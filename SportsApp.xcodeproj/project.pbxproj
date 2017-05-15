@@ -38,6 +38,7 @@
 		847F5E391EA715170091BAE9 /* SAPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E381EA715170091BAE9 /* SAPerson.m */; };
 		849AC2141EB012B800A7BD22 /* SAActivityDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 849AC2131EB012B800A7BD22 /* SAActivityDAO.m */; };
 		849AC2171EB012C600A7BD22 /* SAActivityConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 849AC2161EB012C600A7BD22 /* SAActivityConnector.m */; };
+		84B17E041EC644BD009480DA /* SAAskTheUserToCustomizeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B17E031EC644BD009480DA /* SAAskTheUserToCustomizeProfileViewController.m */; };
 		84CBE4691EB152EA00ACD0DF /* SAPersonConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CBE4681EB152EA00ACD0DF /* SAPersonConnector.m */; };
 		84CBE46F1EB230E300ACD0DF /* SAEventListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CBE46E1EB230E300ACD0DF /* SAEventListViewController.m */; };
 		84CBE4721EB238DB00ACD0DF /* SAEventsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CBE4711EB238DB00ACD0DF /* SAEventsTableViewCell.m */; };
@@ -134,6 +135,8 @@
 		849AC2131EB012B800A7BD22 /* SAActivityDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAActivityDAO.m; sourceTree = "<group>"; };
 		849AC2151EB012C600A7BD22 /* SAActivityConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAActivityConnector.h; sourceTree = "<group>"; };
 		849AC2161EB012C600A7BD22 /* SAActivityConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAActivityConnector.m; sourceTree = "<group>"; };
+		84B17E021EC644BD009480DA /* SAAskTheUserToCustomizeProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAAskTheUserToCustomizeProfileViewController.h; sourceTree = "<group>"; };
+		84B17E031EC644BD009480DA /* SAAskTheUserToCustomizeProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAAskTheUserToCustomizeProfileViewController.m; sourceTree = "<group>"; };
 		84CBE4671EB152EA00ACD0DF /* SAPersonConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAPersonConnector.h; sourceTree = "<group>"; };
 		84CBE4681EB152EA00ACD0DF /* SAPersonConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAPersonConnector.m; sourceTree = "<group>"; };
 		84CBE46D1EB230E300ACD0DF /* SAEventListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEventListViewController.h; sourceTree = "<group>"; };
@@ -289,6 +292,8 @@
 				8DD37CE01EBBEEEC00E1CC1D /* SAAskPhoneViewController.m */,
 				84D4C2CA1EC1686A00291DDE /* SAGenderSelectionViewController.h */,
 				84D4C2CB1EC1686A00291DDE /* SAGenderSelectionViewController.m */,
+				8406A8DD1EA6761500C60267 /* SAViewController.h */,
+				8406A8DE1EA6761500C60267 /* SAViewController.m */,
 			);
 			name = SignUp;
 			sourceTree = "<group>";
@@ -322,12 +327,12 @@
 			children = (
 				8DF8642C1EB2267D00777E98 /* SALogInViewController.h */,
 				8DF8642D1EB2267D00777E98 /* SALogInViewController.m */,
-				8406A8DD1EA6761500C60267 /* SAViewController.h */,
-				8406A8DE1EA6761500C60267 /* SAViewController.m */,
 				AE66FF311EB10EFA008EBC5E /* SAForgotPasswordViewController.h */,
 				AE66FF321EB10EFA008EBC5E /* SAForgotPasswordViewController.m */,
 				AE66FF331EB10EFA008EBC5E /* SAJoinLoginViewController.h */,
 				AE66FF341EB10EFA008EBC5E /* SAJoinLoginViewController.m */,
+				84B17E021EC644BD009480DA /* SAAskTheUserToCustomizeProfileViewController.h */,
+				84B17E031EC644BD009480DA /* SAAskTheUserToCustomizeProfileViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -666,6 +671,7 @@
 				AE1602961EB95FC800E8E68F /* SANewViewController.m in Sources */,
 				84CBE4781EBA57BF00ACD0DF /* SAClosedEventDescriptionTableViewCell.m in Sources */,
 				AE66FF381EB10EFA008EBC5E /* SAForgotPasswordViewController.m in Sources */,
+				84B17E041EC644BD009480DA /* SAAskTheUserToCustomizeProfileViewController.m in Sources */,
 				84DC117D1EACF32100A9A90C /* SAActivity.m in Sources */,
 				8D8693481EC09D4E0007D716 /* SAInterestsNavigationController.m in Sources */,
 				8406A8D91EA6761500C60267 /* main.m in Sources */,

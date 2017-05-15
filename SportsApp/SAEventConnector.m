@@ -20,12 +20,13 @@
 + (void)getEventById:(CKRecordID *)eventId handler:(void (^)(SAEvent * _Nullable event, NSError * _Nullable error))handler{
 	SAEventDAO *eventDAO = [SAEventDAO new];
     [eventDAO getEventById:(eventId) handler:^(CKRecord * eventRecord, NSError * erro) {
-        if(erro){
-            NSLog(@"%@", erro.description);
-            handler(nil, erro);
-        }
-        else{
+        if(!erro){
             SAEvent *eventFromDb = [self getEventFromRecord:eventRecord];
+            
+            if (eventFromDb) {
+                //save or update event to user defaults
+                [SAEvent saveToDefaults:eventFromDb];
+            }
             
             handler(eventFromDb, erro);
         }
@@ -36,16 +37,17 @@
     SAEventDAO *eventDAO = [SAEventDAO new];
     
     [eventDAO getAvailableEventsOfActivity:activity completionHandler:^(NSArray * _Nonnull events, NSError * _Nonnull error) {
-        if(error){
-            NSLog(@"%@", error.description);
-            handler(nil, error);
-        }else{
+        if(!error){
             NSMutableArray *arrayOfEvents = [NSMutableArray new];
             for (CKRecord *event in events) {
                 SAEvent *eventFromDb = [self getEventFromRecord:event];
+                
+                //save or update event to user defaults
+                [SAEvent saveToDefaults:eventFromDb];
+                
                 [arrayOfEvents addObject:eventFromDb];
             }
-            handler(arrayOfEvents, nil);
+            handler(arrayOfEvents, error);
         }
     }];
 }
@@ -66,6 +68,10 @@
         if (!error) {
             for (CKRecord *recordEvent in events) {
                 SAEvent *event = [self getEventFromRecord:recordEvent];
+                
+                //save or update event to user defaults
+                [SAEvent saveToDefaults:event];
+                
                 [eventsFromRecord addObject:event];
             }
         }
@@ -88,6 +94,10 @@
         if (!error) {
             for (CKRecord *eventRecord in eventRecords) {
                 SAEvent *event = [self getEventFromRecord:eventRecord];
+                
+                //save or update event to user defaults
+                [SAEvent saveToDefaults:event];
+                
                 [arrayOfEvents addObject:event];
             }
         }
@@ -104,6 +114,10 @@
         if (!error) {
             for (CKRecord *eventRecord in eventRecords) {
                 SAEvent *event = [self getEventFromRecord:eventRecord];
+                
+                //save or update event to user defaults
+                [SAEvent saveToDefaults:event];
+                
                 [arrayOfEvents addObject:event];
             }
         }
@@ -120,6 +134,10 @@
         if (!error) {
             for (CKRecord *eventRecord in eventRecords) {
                 SAEvent *event = [self getEventFromRecord:eventRecord];
+                
+                //save or update event to user defaults
+                [SAEvent saveToDefaults:event];
+                
                 [arrayOfEvents addObject:event];
             }
         }
@@ -136,6 +154,9 @@
         if (!error2 && eventAnswer) {
             SAEvent *eventToReturnToHandler = [SAEventConnector getEventFromRecord:eventAnswer];
             
+            //save or update event to user defaults
+            [SAEvent saveToDefaults:eventToReturnToHandler];
+            
             handler(eventToReturnToHandler, error2);
         }else{
             handler(nil, error2);
@@ -151,6 +172,9 @@
     [dao updateEvent:eventRecord handler:^(CKRecord * _Nullable eventAnswer, NSError * _Nullable error2) {
         if (!error2 && eventAnswer) {
             SAEvent *eventToReturnToHandler = [SAEventConnector getEventFromRecord:eventAnswer];
+            
+            //save or update event to user defaults
+            [SAEvent saveToDefaults:eventToReturnToHandler];
             
             handler(eventToReturnToHandler, error2);
         }else{

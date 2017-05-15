@@ -21,10 +21,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_SA_White" translatesAutoresizingMaskIntoConstraints="NO" id="V9z-2A-or2">
-                                <rect key="frame" x="20" y="273" width="334" height="120"/>
+                                <rect key="frame" x="67.5" y="289" width="239" height="88"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="PSq-MD-Dc5"/>
-                                    <constraint firstAttribute="width" constant="334" id="apa-EA-TTq"/>
+                                    <constraint firstAttribute="height" constant="88" id="PSq-MD-Dc5"/>
+                                    <constraint firstAttribute="width" constant="239" id="apa-EA-TTq"/>
                                 </constraints>
                             </imageView>
                         </subviews>

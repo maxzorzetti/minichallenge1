@@ -10,7 +10,6 @@
 #import <CloudKit/CloudKit.h>
 #import "SAPerson.h"
 #import "SAActivity.h"
-@class SAPerson;
 
 @interface SAEvent ()
 @property (nonatomic) NSMutableArray<SAPerson *> *privateParticipants;
@@ -94,6 +93,111 @@
 
 - (NSString *)description {
 	return [[NSString alloc] initWithFormat:@"%@ %@ %@", self.name, self.activity.name, self.owner];
+}
+
+#pragma NSCopying methods - to encode into a NSData
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super init];
+    if (self) {
+        _activity = [coder decodeObjectForKey:@"activity"];
+        _category = [coder decodeObjectForKey:@"category"];
+        _date = [coder decodeObjectForKey:@"date"];
+        _distance = [coder decodeObjectForKey:@"distance"];
+        _eventId = [coder decodeObjectForKey:@"eventId"];
+        _location = [coder decodeObjectForKey:@"location"];
+        _maxPeople = [coder decodeObjectForKey:@"maxPeople"];
+        _minPeople = [coder decodeObjectForKey:@"minPeople"];
+        _name = [coder decodeObjectForKey:@"name"];
+        _owner = [coder decodeObjectForKey:@"owner"];
+        _privateParticipants = [coder decodeObjectForKey:@"participants"];
+        _sex = [coder decodeObjectForKey:@"gender"];
+        _shift = [coder decodeObjectForKey:@"shift"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeObject:self.activity forKey:@"activity"];
+    [aCoder encodeObject:self.category forKey:@"category"];
+    [aCoder encodeObject:self.date forKey:@"date"];
+    [aCoder encodeObject:self.distance forKey:@"distance"];
+    [aCoder encodeObject:self.eventId forKey:@"eventId"];
+    [aCoder encodeObject:self.location forKey:@"location"];
+    [aCoder encodeObject:self.maxPeople forKey:@"maxPeople"];
+    [aCoder encodeObject:self.minPeople forKey:@"minPeople"];
+    [aCoder encodeObject:self.name forKey:@"name"];
+    [aCoder encodeObject:self.owner forKey:@"owner"];
+    [aCoder encodeObject:self.privateParticipants forKey:@"participants"];
+    [aCoder encodeObject:self.sex forKey:@"gender"];
+    [aCoder encodeObject:self.shift forKey:@"shift"];
+}
+
+
+#pragma UserDefaults methods
+
++ (NSArray<SAEvent *> *)getEventsFromComingUpCategory{
+    //need current user to check if user is a participant of the events in user defaults
+    NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];
+    SAPerson *currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
+    
+    //get array of events in user defaults
+    NSArray *arrayOfEvents = [[NSUserDefaults standardUserDefaults] arrayForKey:@"ArrayOfDictionariesContainingWithEvent"];
+    
+    //array to return containing the events in coming up section
+    NSMutableArray *arrayToReturn = [NSMutableArray new];
+    
+    for (NSDictionary *dict in arrayOfEvents) {
+        NSData *eventData = dict[@"event"];
+        SAEvent *eventToCompare = [NSKeyedUnarchiver unarchiveObjectWithData:eventData];
+        NSComparisonResult result = [eventToCompare.date compare:[NSDate date]];
+        
+        //check if date of event is greater than todays
+        if (result == NSOrderedDescending) {
+            //check if current user is a participant of the event
+            for (SAPerson *participant in eventToCompare.privateParticipants) {
+                if ([participant.personId.recordName isEqualToString:currentUser.personId.recordName]) {
+                    [arrayToReturn addObject:eventToCompare];
+                }
+            }
+        }
+    }
+
+    return arrayToReturn;
+}
+
+//saves or updates events in userdefaults
++ (void)saveToDefaults:(SAEvent *)event{
+    NSMutableArray *arrayOfEvents = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"ArrayOfDictionariesContainingWithEvent"];
+    
+    //check if event is already in user defaults
+    for (int i=0; i<arrayOfEvents.count;i++){
+        NSDictionary *eventDict = arrayOfEvents[i];
+        
+        //if event is already in user defaults, just update it
+        if ([eventDict[@"eventId"] isEqualToString:event.eventId.recordName]) {
+            NSData *eventData = [NSKeyedArchiver archivedDataWithRootObject:event];
+            NSDictionary *eventToUpdateInDb = @{
+                                                @"eventId" : event.eventId.recordName,
+                                                @"event" : eventData
+                                                };
+            
+            [arrayOfEvents replaceObjectAtIndex:i withObject:eventToUpdateInDb];
+            
+            [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithArray:arrayOfEvents] forKey:@"ArrayOfDictionariesContainingWithEvent"];
+            return;
+        }
+    }
+    
+    //if not in defaults, just add it to user defaults
+    NSData *eventData = [NSKeyedArchiver archivedDataWithRootObject:event];
+    NSDictionary *eventToSaveInDb = @{
+                                        @"event" : eventData,
+                                        @"eventId" : event.eventId.recordName
+                                        };
+    [arrayOfEvents addObject:eventToSaveInDb];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithArray:arrayOfEvents] forKey:@"ArrayOfDictionariesContainingWithEvent"];
 }
 
 @end

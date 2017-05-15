@@ -14,6 +14,7 @@
 #import "SAUser.h"
 #import "SAPerson.h"
 #import "SAPersonConnector.h"
+#import "SAGenderSelectionViewController.h"
 #import "SAInterestsCollectionViewController.h"
 #import "SAInterestsNavigationController.h"
 
@@ -24,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtPhoneNumber;
 @property (weak, nonatomic) IBOutlet UIButton *btnJoinUs;
 
+@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 
@@ -45,9 +47,6 @@
     self.txtPhoneNumber.delegate = self;
     self.txtPhoneNumber.keyboardType = UIKeyboardTypePhonePad;
     
-    [self changeFirstNameTextField];
-    [self changeLastNameTextField];
-    [self changePhoneNumberTextField];
     [self changeButtonJoinUs];
     
     
@@ -64,6 +63,9 @@
         self.txtFirstName.text = firstName;
         self.txtLastName.text = lastName;
         self.imgProfilePhoto.image = [UIImage imageWithData:self.user.photo];
+        if (self.user.telephone) {
+            self.txtPhoneNumber.text = self.user.telephone;
+        }
     }
 }
 
@@ -79,8 +81,16 @@
     if ([firstName isEqualToString:@""] || [lastName isEqualToString:@""]  || [_txtPhoneNumber.text isEqualToString:@""] )
     {
         
-        _infoLabel.text = @"Please, fill all the information";
-    }
+        
+        
+        [self changeFirstNameTextField:[UIColor redColor]];
+        [self changeLastNameTextField:[UIColor redColor]];
+        [self changePhoneNumberTextField:[UIColor redColor]];
+        
+        _errorLabel.text = @"Please, fill all the information";
+        
+        //_infoLabel.text = @"Please, fill all the information";
+           }
     else{
         [self.user setName:fullName];
         [self.user setTelephone:self.txtPhoneNumber.text];
@@ -103,22 +113,22 @@
 
 
 
-- (NSString *)sha1:(NSString *)password
-{
-    NSData *data = [password dataUsingEncoding:NSUTF8StringEncoding];
-    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
-    
-    CC_SHA1(data.bytes, data.length, digest);
-    
-    NSMutableString *output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
-    
-    for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
-    {
-        [output appendFormat:@"%02x", digest[i]];
-    }
-    
-    return output;
-}
+//- (NSString *)sha1:(NSString *)password
+//{
+//    NSData *data = [password dataUsingEncoding:NSUTF8StringEncoding];
+//    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+//    
+//    CC_SHA1(data.bytes, data.length, digest);
+//    
+//    NSMutableString *output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+//    
+//    for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
+//    {
+//        [output appendFormat:@"%02x", digest[i]];
+//    }
+//    
+//    return output;
+//}
 
 
 
@@ -126,45 +136,64 @@
     _btnJoinUs.layer.cornerRadius = 7;
 }
 
-- (void) changeFirstNameTextField{
+- (void) changeFirstNameTextField:(UIColor *)color{
     UITextField *textField = _txtFirstName;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:
-                              CGRectMake(1, 1, textField.frame.size.width, textField.frame.size.height-1) byRoundingCorners: UIRectCornerTopLeft cornerRadii:CGSizeMake(7.0, 7.0)];
+                              CGRectMake(1, 1, textField.frame.size.width-2, textField.frame.size.height-1) byRoundingCorners: UIRectCornerTopLeft cornerRadii:CGSizeMake(7.0, 7.0)];
     
-    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath];
+    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath andColor:color];
 }
 
-- (void) changeLastNameTextField{
+- (void) changeLastNameTextField:(UIColor *)color{
     UITextField *textField = _txtLastName;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:
                               CGRectMake(1, 1, textField.frame.size.width-2, textField.frame.size.height-1) byRoundingCorners: UIRectCornerTopRight cornerRadii:CGSizeMake(7.0, 7.0)];
     
-    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath];
+    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath andColor:color];
 }
 
-- (void) changePhoneNumberTextField{
+- (void) changePhoneNumberTextField:(UIColor *)color{
     UITextField *textField = _txtPhoneNumber;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:
                               CGRectMake(1, 0, textField.frame.size.width-2, textField.frame.size.height-1) byRoundingCorners: UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(7.0, 7.0)];
     
-    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath];
+    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath andColor:color];
 }
 
-- (void) changeTextFieldBorderWithField: (UITextField *)textField andMaskPath:(UIBezierPath *)maskPath{
+- (void) changeTextFieldBorderWithField: (UITextField *)textField andMaskPath:(UIBezierPath *)maskPath andColor:(UIColor *)color{
     
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
     maskLayer.frame = textField.bounds;
     maskLayer.path = maskPath.CGPath;
     maskLayer.lineWidth = 1.0;
-    maskLayer.strokeColor = [UIColor colorWithRed:50.0f/255.0f green:226.0f/255.0f blue:196.0f/255.0f alpha:1.0f].CGColor;
+    //maskLayer.strokeColor = [UIColor colorWithRed:50.0f/255.0f green:226.0f/255.0f blue:196.0f/255.0f alpha:1.0f].CGColor;
+    
+    
+    maskLayer.strokeColor = color.CGColor;
     maskLayer.fillColor = [UIColor clearColor].CGColor;
     
     [textField.layer addSublayer:maskLayer];
 }
 
 
+- (IBAction)backButtonPressed:(UIButton *)sender {
+    
+    
+    [self goToGenderSelection];
+    
+    
+}
 
-
+- (void)goToGenderSelection{
+    UIStoryboard *secondary = [UIStoryboard storyboardWithName:@"Secondary" bundle:nil];
+    SAGenderSelectionViewController *genderSelection = [secondary instantiateViewControllerWithIdentifier:@"genderSelectionView"];
+    genderSelection.user = self.user;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:genderSelection animated:YES completion:^{
+            
+        }];
+    });
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -178,6 +207,16 @@
     
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    UIColor *greenColor = [UIColor colorWithRed:50.0f/255.0f green:226.0f/255.0f blue:196.0f/255.0f alpha:1.0f];
+    
+    
+    [self changeFirstNameTextField:greenColor];
+    [self changeLastNameTextField:greenColor];
+    [self changePhoneNumberTextField:greenColor];
+    
+    
+}
 
 #pragma dismissing keyboard methods
 - (void)dismissKeyboard{
