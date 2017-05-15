@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *appLogo;
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 
 @property (nonatomic) SAPerson *user;
 @property (weak, nonatomic) IBOutlet UIView *myView;
@@ -228,7 +229,12 @@
             if (results1.count == 0)
             {
                  dispatch_async(dispatch_get_main_queue(), ^(void){
-                _infoLabel.text = @"Wrong Username!";
+                     
+                     
+                     _errorLabel.text =@"Wrong Username!";
+                     [self changePwdTextField:[UIColor redColor]];
+                     [self changeUserTextField:[UIColor redColor]];
+                     
                  });
             }
             
@@ -283,7 +289,15 @@
                         else{
                              dispatch_async(dispatch_get_main_queue(), ^(void){
                             
-                            _infoLabel.text = @"Wrong Password!";
+                            //_infoLabel.text = @"Wrong Password!";
+                                 
+                                 _errorLabel.text = @"Wrong Password!";
+                                 
+                                 [self changeUserTextField:[UIColor redColor]];
+                                 [self changePwdTextField:[UIColor redColor]];
+                                 
+                                 
+        
                                  _emailField.text = @"";
                                  _passwordField.text = @"";
                              });
@@ -331,9 +345,6 @@
     self.appLogo.layer.borderWidth = 0;
     
     [self changeJoinUsButton];
-    [self changeUserTextField];
-    [self changePwdTextField];
-
     
     FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
     // Optional: Place the button in the center of your view.
@@ -346,34 +357,55 @@
     
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    
+    UIColor *greenColor = [UIColor colorWithRed:50.0f/255.0f green:226.0f/255.0f blue:196.0f/255.0f alpha:1.0f];
+    
+    
+    
+    [self changeUserTextField:greenColor];
+    [self changePwdTextField:greenColor];
 
+
+    
+}
 - (void) changeJoinUsButton{
+    
+    
+    UIColor *greenColor = [UIColor colorWithRed:50.0f/255.0f green:226.0f/255.0f blue:196.0f/255.0f alpha:1.0f];
+    
+    
+    _btnLogIn.backgroundColor = greenColor;
     _btnLogIn.layer.cornerRadius = 7;
 }
 
-- (void) changeUserTextField{
+- (void) changeUserTextField:(UIColor *)color{
     UITextField *textField = _emailField;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:
                               CGRectMake(1, 1, _emailField.frame.size.width-2, _emailField.frame.size.height-1) byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(7.0, 7.0)];
     
-    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath];
+    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath andColor:color ];
 }
 
-- (void) changePwdTextField{
+- (void) changePwdTextField:(UIColor *)color{
     UITextField *textField = _passwordField;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:
                               CGRectMake(1, 0, textField.frame.size.width-2, textField.frame.size.height-1) byRoundingCorners: UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(7.0, 7.0)];
     
-    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath];
+    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath andColor:color];
 }
 
-- (void) changeTextFieldBorderWithField: (UITextField *)textField andMaskPath:(UIBezierPath *)maskPath{
+- (void) changeTextFieldBorderWithField: (UITextField *)textField andMaskPath:(UIBezierPath *)maskPath andColor:(UIColor *)color{
     
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
     maskLayer.frame = textField.bounds;
     maskLayer.path = maskPath.CGPath;
     maskLayer.lineWidth = 1.0;
-    maskLayer.strokeColor = [UIColor colorWithRed:50.0f/255.0f green:226.0f/255.0f blue:196.0f/255.0f alpha:1.0f].CGColor;
+    
+    
+    
+    maskLayer.strokeColor = color.CGColor;
+    
     maskLayer.fillColor = [UIColor clearColor].CGColor;
     
     [textField.layer addSublayer:maskLayer];
