@@ -31,6 +31,31 @@
     self.maleView.layer.cornerRadius = 8.0;
 }
 
+
+- (IBAction)backButtonPressed:(UIButton *)sender {
+    
+    
+    [self goBackToHelloView];
+    
+    
+}
+
+
+- (void)goBackToHelloView{
+    UIStoryboard *secondary= [UIStoryboard storyboardWithName:@"Secondary" bundle:nil];
+    UIViewController *helloView = [secondary instantiateViewControllerWithIdentifier:@"helloView"];
+    
+    
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:helloView animated:YES completion:^{
+            
+        }];
+    });
+}
+
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

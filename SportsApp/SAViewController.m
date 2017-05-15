@@ -25,6 +25,7 @@
 
 @interface SAViewController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 
 @property CKRecord *personRecord;
 @property (weak, nonatomic) IBOutlet UILabel *myLabel;
@@ -51,6 +52,7 @@
 @property NSString *fullName;
 @property NSString *password;
 @property NSString *email;
+@property int userCommingBack;
 
 @property (nonatomic) CLLocationManager *locationManager;
 
@@ -67,13 +69,12 @@
     
     if ([_email isEqual:@""] || [_password  isEqual:@""])
     {
-        //CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-        //maskLayer.frame = textField.bounds;
-        
-         _firstLabel.text = @"Empty parameters";
-        _myLabel.text = @"Please, enter your email and new password";
         _emailField.text =@"";
         _passwordField.text=@"";
+        _infoLabel.text = @"Please, enter your email and password";
+        
+        [self changeUserTextField:[UIColor redColor]];
+        [self changePwdTextField:[UIColor redColor]];
     }
     else{
     
@@ -84,9 +85,7 @@
     
     
     personRecord[@"email"] = _email;
-    
-    
-    
+ 
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"email = %@", _email];
     CKQuery *query = [[CKQuery alloc] initWithRecordType:@"SAPerson" predicate:predicate];
     
@@ -101,20 +100,48 @@
             if ([results1 count] == 0) //nao tem registro com aquele nome
             {
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self performSegueWithIdentifier:@"logInSegue2" sender:self];
-                });
                 
+                CKRecord *identityRecord = [[CKRecord alloc]initWithRecordType:@"SAIdentity"];
+                
+                identityRecord[@"hash"] = [self sha1:_password];
+                identityRecord[@"adapter"] = @"AppLogin";
+                
+                
+                [publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *newPersonRecord, NSError *error){
+                    if (!error){
+                        CKReference *ref = [[CKReference alloc]initWithRecordID:newPersonRecord.recordID action:CKReferenceActionNone];
+                        identityRecord[@"userId"] = ref;
+                        
+                        //create identity
+                        [publicDatabase saveRecord:identityRecord completionHandler:^(CKRecord *identityRecord, NSError *error){
+                            if (!error){
+                                
+                                //NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
+                                self.user = [SAPersonConnector getPersonFromRecord:newPersonRecord andPicture:nil];
+                                
+                                [self goToGenderSelection];
+                            }
+                        }];
+                    }
+                    
+                }];
+
                 
             }
             
             else{
                 dispatch_async(dispatch_get_main_queue(), ^(void){
                     //Run UI Updates
-                    _firstLabel.text= @"This email already signed up.";
-                    _myLabel.text = @"Please, choose another";
+                    //_firstLabel.text= @"This email already signed up.";
+                    //_myLabel.text = @"Please, choose another";
                     _passwordField.text = @"";
                     _emailField.text = @"";
+                    _infoLabel.text = @"This email already signed up. Please, choose another";
+                    [self changeUserTextField:[UIColor redColor]];
+                    [self changePwdTextField:[UIColor redColor]];
+                
+                
+                
                 });
               
             }
@@ -140,6 +167,15 @@
         
         SAAskPhoneViewController *destView = segue.destinationViewController;
         destView.personRecord= sender.personRecord;
+        
+    }
+    
+    if ([segue.identifier isEqualToString: @"askGenderSegue"]) {
+        SAGenderSelectionViewController *destView = segue.destinationViewController;
+        self.user.email = self.email;
+        
+        destView.password= sender.password;
+        destView.user = self.user;
         
     }
 }
@@ -306,6 +342,11 @@
 }
 
 
+- (IBAction)backButtonPressed:(UIButton *)sender {
+    
+    [self goBackToLaunch];
+    
+}
 
 
 
@@ -344,6 +385,13 @@
     [self.locationManager stopUpdatingLocation];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    
+    
+    
+    
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -371,10 +419,6 @@
             break;
     }
     
-   	
-    [self changeJoinUsButton];
-    [self changeUserTextField];
-    [self changePwdTextField];
     
     //[[FBSDKLoginManager new] logOut];
     // Do any additional setup after loading the view, typically from a nib.
@@ -409,23 +453,23 @@
     _btnJoinUs.layer.cornerRadius = 7;
 }
 
-- (void) changeUserTextField{
+- (void) changeUserTextField:(UIColor *)color{
     UITextField *textField = _emailField;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:
                               CGRectMake(1, 1, _emailField.frame.size.width-2, _emailField.frame.size.height-1) byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(7.0, 7.0)];
     
-    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath];
+    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath andColor:color];
 }
 
-- (void) changePwdTextField{
+- (void) changePwdTextField:(UIColor *)color{
     UITextField *textField = _passwordField;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:
                               CGRectMake(1, 0, textField.frame.size.width-2, textField.frame.size.height-1) byRoundingCorners: UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(7.0, 7.0)];
     
-    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath];
+    [self changeTextFieldBorderWithField:textField andMaskPath:maskPath andColor:color];
 }
 
-- (void) changeTextFieldBorderWithField: (UITextField *)textField andMaskPath:(UIBezierPath *)maskPath {
+- (void) changeTextFieldBorderWithField: (UITextField *)textField andMaskPath:(UIBezierPath *)maskPath andColor:(UIColor *)color {
     
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
     maskLayer.frame = textField.bounds;
@@ -433,16 +477,26 @@
     maskLayer.lineWidth = 1.0;
     
     
-    maskLayer.strokeColor = [UIColor colorWithRed:50.0f/255.0f green:226.0f/255.0f blue:196.0f/255.0f alpha:1.0f].CGColor;
+    //maskLayer.strokeColor = [UIColor colorWithRed:50.0f/255.0f green:226.0f/255.0f blue:196.0f/255.0f alpha:1.0f].CGColor;
     
-
+    maskLayer.strokeColor = color.CGColor;
     
     maskLayer.fillColor = [UIColor clearColor].CGColor;
     
     [textField.layer addSublayer:maskLayer];
 }
 
-
+-(void)viewDidAppear:(BOOL)animated{
+    
+    UIColor *greenColor = [UIColor colorWithRed:50.0f/255.0f green:226.0f/255.0f blue:196.0f/255.0f alpha:1.0f];
+   	
+    //_emailField.text = @"";
+    //_passwordField.text = @"";
+    [self changeUserTextField:greenColor];
+    [self changePwdTextField:greenColor];
+    [self changeJoinUsButton];
+    
+}
 - (void)goToFeed{
     UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController *destination = [main instantiateViewControllerWithIdentifier:@"view2"];
@@ -478,6 +532,32 @@
         }];
     });
 }
+
+- (void)goBackToLaunch{
+    UIStoryboard *daBarbara= [UIStoryboard storyboardWithName:@"StoryboardDaBarbara" bundle:nil];
+    UIViewController *helloView = [daBarbara instantiateViewControllerWithIdentifier:@"joinView"];
+    
+    
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:helloView animated:YES completion:^{
+            
+        }];
+    });
+}
+
+
+- (IBAction) backFromGender:(UIStoryboardSegue*)segue{
+    
+    
+    _passwordField.text = _password;
+    _emailField.text = _email;
+    _userCommingBack =1;
+    
+    
+}
+
+
 
 - (void)goToProfileCustomizationDecision{
     UIStoryboard *secondary = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
