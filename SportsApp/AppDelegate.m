@@ -56,7 +56,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //[userDefaults setObject:[NSDictionary new] forKey:@"loginInfo"];
     //[userDefaults setObject:[NSArray new] forKey:@"ArrayOfDictionariesContainingTheActivities"];
     //[userDefaults setObject:[NSArray new] forKey:@"ArrayOfDictionariesContainingPeople"];
-    
+    //[userDefaults setObject:[NSArray new] forKey:@"ArrayOfDictionariesContainingWithEvent"];
     
     //CHECK IF APP IS BEING LAUNCHED FOR THE FIRST TIME
     if (![userDefaults boolForKey:@"HasLaunchedOnce"]){
@@ -64,6 +64,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         [userDefaults setObject:[NSDictionary new] forKey:@"loginInfo"];
         [userDefaults setObject:[NSArray new] forKey:@"ArrayOfDictionariesContainingTheActivities"];
         [userDefaults setObject:[NSArray new] forKey:@"ArrayOfDictionariesContainingPeople"];
+        [userDefaults setObject:[NSArray new] forKey:@"ArrayOfDictionariesContainingWithEvent"];
         [FBSDKAccessToken setCurrentAccessToken:nil];
         
         //GET ALL ACTIVITIES INFO AVAILABLE
