@@ -130,6 +130,7 @@ CKDatabase *publicDatabase;
 	eventRecord[@"owner"] = ownerReference;
 	eventRecord[@"participants"] = participantsReferenceList;
 	eventRecord[@"activity"] = activityReference;
+	eventRecord[@"location"] = event.location;
 	eventRecord[@"minPeople"] = event.minPeople;
 	eventRecord[@"maxPeople"] = event.maxPeople;
 	eventRecord[@"category"] = event.category;

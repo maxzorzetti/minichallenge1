@@ -25,7 +25,7 @@
 
 @implementation SAMatchMakerCore
 
-- (void)startMatchmakingForParty:(SAParty *)party handler:(void (^)(SAEvent * _Nullable event, NSError * _Nullable error))handler { //return event?
+- (void)startMatchmakingForParty:(SAParty *)party handler:(void (^)(SAEvent * _Nullable event, NSError * _Nullable error))handler {
 	[self getEventQueueForActivity:party.activity completionHandler:^(NSArray<SAEvent *> *events, NSError *error){
 		
 		SAEvent * compatibleEvent = nil;
@@ -61,6 +61,8 @@
 	
 	if (![self compatibleSchedule:party.schedule withDate:event.date]) return NO;
 	
+	if ([party.location distanceFromLocation: event.location] > party.locationRadius.integerValue * 1000) return NO;
+	
 	
 	//if (![party.dates containsObject:event.date]) return NO;
 	
@@ -94,6 +96,8 @@
 	event.owner = party.creator;
 	event.maxPeople = [NSNumber numberWithInt:party.maxParticipants];
 	event.minPeople = [NSNumber numberWithInt:party.minParticipants];
+	
+	event.location = party.location;
 	
 	[event addParticipant:party.creator];
 	[event addParticipants: party.invitedPeople.allObjects];
