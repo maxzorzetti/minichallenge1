@@ -47,12 +47,6 @@
     self.txtPhoneNumber.delegate = self;
     self.txtPhoneNumber.keyboardType = UIKeyboardTypePhonePad;
     
-    UIColor *greenColor = [UIColor colorWithRed:50.0f/255.0f green:226.0f/255.0f blue:196.0f/255.0f alpha:1.0f];
-    
-    
-    [self changeFirstNameTextField:greenColor];
-    [self changeLastNameTextField:greenColor];
-    [self changePhoneNumberTextField:greenColor];
     [self changeButtonJoinUs];
     
     
@@ -145,7 +139,7 @@
 - (void) changeFirstNameTextField:(UIColor *)color{
     UITextField *textField = _txtFirstName;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:
-                              CGRectMake(1, 1, textField.frame.size.width-4, textField.frame.size.height-1) byRoundingCorners: UIRectCornerTopLeft cornerRadii:CGSizeMake(7.0, 7.0)];
+                              CGRectMake(1, 1, textField.frame.size.width-2, textField.frame.size.height-1) byRoundingCorners: UIRectCornerTopLeft cornerRadii:CGSizeMake(7.0, 7.0)];
     
     [self changeTextFieldBorderWithField:textField andMaskPath:maskPath andColor:color];
 }
@@ -153,7 +147,7 @@
 - (void) changeLastNameTextField:(UIColor *)color{
     UITextField *textField = _txtLastName;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:
-                              CGRectMake(1, 1, textField.frame.size.width-4, textField.frame.size.height-1) byRoundingCorners: UIRectCornerTopRight cornerRadii:CGSizeMake(7.0, 7.0)];
+                              CGRectMake(1, 1, textField.frame.size.width-2, textField.frame.size.height-1) byRoundingCorners: UIRectCornerTopRight cornerRadii:CGSizeMake(7.0, 7.0)];
     
     [self changeTextFieldBorderWithField:textField andMaskPath:maskPath andColor:color];
 }
@@ -161,7 +155,7 @@
 - (void) changePhoneNumberTextField:(UIColor *)color{
     UITextField *textField = _txtPhoneNumber;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:
-                              CGRectMake(1, 0, textField.frame.size.width-4, textField.frame.size.height-1) byRoundingCorners: UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(7.0, 7.0)];
+                              CGRectMake(1, 0, textField.frame.size.width-2, textField.frame.size.height-1) byRoundingCorners: UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(7.0, 7.0)];
     
     [self changeTextFieldBorderWithField:textField andMaskPath:maskPath andColor:color];
 }
@@ -213,6 +207,16 @@
     
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    UIColor *greenColor = [UIColor colorWithRed:50.0f/255.0f green:226.0f/255.0f blue:196.0f/255.0f alpha:1.0f];
+    
+    
+    [self changeFirstNameTextField:greenColor];
+    [self changeLastNameTextField:greenColor];
+    [self changePhoneNumberTextField:greenColor];
+    
+    
+}
 
 #pragma dismissing keyboard methods
 - (void)dismissKeyboard{
