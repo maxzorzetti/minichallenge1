@@ -88,6 +88,13 @@
         self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.tableWithEvents];
     }
     
+    //adds refresh control to tableview
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc]init];
+    [refreshControl addTarget:self action:@selector(refreshTable:) forControlEvents:UIControlEventValueChanged];
+    self.tableWithEvents.refreshControl = refreshControl;
+    
+    
+    
     self.tableWithEvents.tableHeaderView = nil;
     _currentArray = [NSArray new];
     
@@ -447,6 +454,77 @@
             self.previewingContext = nil;
         }
     }
+}
+
+
+
+- (void) refreshTable:(UIRefreshControl *)refreshControl{
+    //update events of coming segment
+    if (self.segmentControl.selectedSegmentIndex==1) {
+        [SAEventConnector getEventsByPersonId:self.user.personId handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
+            if (!error) {
+                events = [events sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                    SAEvent *event1 = obj1;
+                    SAEvent *event2 = obj2;
+                    
+                    if (event1.date < event2.date) {
+                        return (NSComparisonResult)NSOrderedAscending;
+                    }else if(event1.date > event2.date){
+                        return (NSComparisonResult)NSOrderedDescending;
+                    }
+                    return (NSComparisonResult)NSOrderedSame;
+                }];
+                
+                self.dicListOfComingEvents = [self sortEventsIntoMonthlySections:events];
+                [self updateTableWithEventList:self.dicListOfComingEvents];
+                
+                //stop refreshing
+                [refreshControl endRefreshing];
+                
+                //if no event was loaded
+                if ([self.dicListOfComingEvents count] == 0) {
+                    //say that there are no events :((((
+                }
+            }else{
+                [refreshControl endRefreshing];
+                //say that an error occured
+            }
+        }];
+    }
+    //update events of past segment
+    else{
+        [SAEventConnector getPastEventsByPersonId:self.user.personId handler:^(NSArray * _Nullable events, NSError * _Nullable error) {
+            if(!error){
+                events = [events sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                    SAEvent *event1 = obj1;
+                    SAEvent *event2 = obj2;
+                    
+                    if (event1.date < event2.date) {
+                        return (NSComparisonResult)NSOrderedAscending;
+                    }else if(event1.date > event2.date){
+                        return (NSComparisonResult)NSOrderedDescending;
+                    }
+                    return (NSComparisonResult)NSOrderedSame;
+                }];
+                self.dicListOfPastEvents = [self sortEventsIntoMonthlySections:events];
+                [self updateTableWithEventList:self.dicListOfPastEvents];
+                
+                //stop refreshing
+                [refreshControl endRefreshing];
+                
+                //if no event was loaded
+                if ([self.dicListOfPastEvents count] == 0) {
+                    //say that there are no events :((((
+                }
+            }
+            else{
+                [refreshControl endRefreshing];
+                //say that an error occured
+            }
+        }];
+    }
+    
+    
 }
 
 
