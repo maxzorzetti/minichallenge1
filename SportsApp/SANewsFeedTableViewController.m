@@ -62,6 +62,11 @@ static dispatch_once_t predicateForFriends;
         self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.tableWithEvents];
     }
     
+    //adds refresh control to tableview
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc]init];
+    [refreshControl addTarget:self action:@selector(refreshTable:) forControlEvents:UIControlEventValueChanged];
+    self.tableWithEvents.refreshControl = refreshControl;
+    
     
     NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];
     self.currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
@@ -143,7 +148,46 @@ static dispatch_once_t predicateForFriends;
     
 }
 
-#pragma mark - Table view data source
+#pragma mark - Table view population methods
+
+- (void)refreshTable:(UIRefreshControl *)refreshControl{
+    __block int finishedLoadingAllSectionsOfFeed = 0;
+    
+    [SAEventConnector getSugestedEventsWithActivities:nil AndCurrentLocation:self.currentUser.location andDistanceInMeters:1000000 AndFriends:self.friends handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
+        if(!error){
+            NSDictionary *myDic = @{
+                                    @"section" : @"FRIENDS",
+                                    @"events" : events
+                                    };
+            
+            [self.arrayOfSectionsWithEvents replaceObjectAtIndex:1 withObject:myDic];
+            
+            finishedLoadingAllSectionsOfFeed += 1;
+            if (finishedLoadingAllSectionsOfFeed == 2) {
+                [refreshControl endRefreshing];
+            }
+        }
+        [self updateTableView];
+    }];
+    [SAEventConnector getComingEventsBasedOnFavoriteActivities:self.currentUser.interests AndCurrentLocation:self.currentUser.location AndRadiusOfDistanceDesiredInMeters:1000000 handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
+        if(!error){
+            NSDictionary *myDic = @{
+                                    @"section" : @"TODAY",
+                                    @"events" : events
+                                    };
+            
+            [self.arrayOfSectionsWithEvents replaceObjectAtIndex:0 withObject:myDic];
+            
+            finishedLoadingAllSectionsOfFeed += 1;
+            if (finishedLoadingAllSectionsOfFeed == 2) {
+                [refreshControl endRefreshing];
+            }
+        }
+        [self updateTableView];
+    }];
+    
+}
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 

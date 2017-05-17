@@ -94,7 +94,6 @@
     self.tableWithEvents.refreshControl = refreshControl;
     
     
-    
     self.tableWithEvents.tableHeaderView = nil;
     _currentArray = [NSArray new];
     
@@ -207,6 +206,23 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    if ([self.currentArray count] == 0) {
+        //say that there are no events :((((
+        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.tableWithEvents.bounds.size.width, self.tableWithEvents.bounds.size.height)];
+        
+        messageLabel.text = @"You have no events in this section, how about creating new ones? :)";
+        messageLabel.textColor = [UIColor blackColor];
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.font = [UIFont systemFontOfSize:20];
+        [messageLabel sizeToFit];
+        
+        self.tableWithEvents.backgroundView = messageLabel;
+        self.tableWithEvents.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
+    
+    
+    
     return self.currentArray.count;
 }
 
@@ -481,13 +497,20 @@
                 //stop refreshing
                 [refreshControl endRefreshing];
                 
-                //if no event was loaded
-                if ([self.dicListOfComingEvents count] == 0) {
-                    //say that there are no events :((((
-                }
             }else{
-                [refreshControl endRefreshing];
                 //say that an error occured
+                [refreshControl endRefreshing];
+                UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.tableWithEvents.bounds.size.width, self.tableWithEvents.bounds.size.height)];
+                
+                messageLabel.text = @"An error occured, maybe you don't have internet connection?";
+                messageLabel.textColor = [UIColor blackColor];
+                messageLabel.numberOfLines = 0;
+                messageLabel.textAlignment = NSTextAlignmentCenter;
+                messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+                [messageLabel sizeToFit];
+                
+                self.tableWithEvents.backgroundView = messageLabel;
+                self.tableWithEvents.separatorStyle = UITableViewCellSeparatorStyleNone;
             }
         }];
     }
@@ -511,15 +534,22 @@
                 
                 //stop refreshing
                 [refreshControl endRefreshing];
-                
-                //if no event was loaded
-                if ([self.dicListOfPastEvents count] == 0) {
-                    //say that there are no events :((((
-                }
             }
             else{
                 [refreshControl endRefreshing];
                 //say that an error occured
+                [refreshControl endRefreshing];
+                UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.tableWithEvents.bounds.size.width, self.tableWithEvents.bounds.size.height)];
+                
+                messageLabel.text = @"An error occured, maybe you don't have internet connection?";
+                messageLabel.textColor = [UIColor blackColor];
+                messageLabel.numberOfLines = 0;
+                messageLabel.textAlignment = NSTextAlignmentCenter;
+                messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+                [messageLabel sizeToFit];
+                
+                self.tableWithEvents.backgroundView = messageLabel;
+                self.tableWithEvents.separatorStyle = UITableViewCellSeparatorStyleNone;
             }
         }];
     }
