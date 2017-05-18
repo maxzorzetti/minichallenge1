@@ -167,6 +167,71 @@
     return arrayToReturn;
 }
 
++ (NSArray<SAEvent *>*)getEventsForPastCategory{
+    //need current user to check if user is a participant of the events in user defaults
+    NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];
+    SAPerson *currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
+    
+    //get array of events in user defaults
+    NSArray *arrayOfEvents = [[NSUserDefaults standardUserDefaults] arrayForKey:@"ArrayOfDictionariesContainingWithEvent"];
+    
+    //array to return containing the events in past section
+    NSMutableArray *arrayToReturn = [NSMutableArray new];
+    
+    for (NSDictionary *dict in arrayOfEvents) {
+        NSData *eventData = dict[@"event"];
+        SAEvent *eventToCompare = [NSKeyedUnarchiver unarchiveObjectWithData:eventData];
+        NSComparisonResult result = [eventToCompare.date compare:[NSDate date]];
+        
+        //check if date of event is lower than todays
+        if (result == NSOrderedAscending) {
+            //check if current user is a participant of the event
+            for (SAPerson *participant in eventToCompare.privateParticipants) {
+                if ([participant.personId.recordName isEqualToString:currentUser.personId.recordName]) {
+                    [arrayToReturn addObject:eventToCompare];
+                }
+            }
+        }
+    }
+    
+    return arrayToReturn;
+}
+
++ (NSArray<SAEvent *>*)getEventsForTodayCategory{
+    //need current user to check if user is a participant of the events in user defaults
+    NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];
+    SAPerson *currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
+    
+    //get array of events in user defaults
+    NSArray *arrayOfEvents = [[NSUserDefaults standardUserDefaults] arrayForKey:@"ArrayOfDictionariesContainingWithEvent"];
+    
+    //array to return containing the events in today section
+    NSMutableArray *arrayToReturn = [NSMutableArray new];
+    
+    for (NSDictionary *dict in arrayOfEvents) {
+        NSData *eventData = dict[@"event"];
+        SAEvent *eventToCompare = [NSKeyedUnarchiver unarchiveObjectWithData:eventData];
+        NSComparisonResult isEventDateGreaterThanToday = [eventToCompare.date compare:[NSDate date]];
+        NSComparisonResult isEventDateLowerThanTomorrow = [eventToCompare.date compare:[NSDate dateWithTimeInterval:(24*60*60) sinceDate:[NSDate date]]];
+        
+        //check if date of event is greater than todays and lower than tomorrows
+        if (isEventDateGreaterThanToday == NSOrderedDescending && isEventDateLowerThanTomorrow == NSOrderedAscending) {
+            //check if events activity is in user interests list
+            for (int i=0; i<[currentUser.interests count]; i++) {
+                SAActivity *interest = currentUser.interests[i];
+                //if user is interested in activity of event
+                if ([interest.activityId.recordName isEqualToString:eventToCompare.activity.activityId.recordName]) {
+                    //add event to be returned
+                    [arrayToReturn addObject:eventToCompare];
+                    //stop checking in interests for the event
+                    i = (int)[currentUser.interests count];
+                }
+            }
+        }
+    }
+    return arrayToReturn;
+}
+
 //saves or updates events in userdefaults
 + (void)saveToDefaults:(SAEvent *)event{
     NSMutableArray *arrayOfEvents = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"ArrayOfDictionariesContainingWithEvent"];

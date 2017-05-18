@@ -47,4 +47,8 @@
 
 + (NSArray<SAEvent *>*)getEventsFromComingUpCategory;
 
++ (NSArray<SAEvent *>*)getEventsForTodayCategory;
+
++ (NSArray<SAEvent *>*)getEventsForPastCategory;
+
 @end

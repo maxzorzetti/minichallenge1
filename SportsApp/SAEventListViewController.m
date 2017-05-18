@@ -40,38 +40,50 @@
 - (void)viewWillAppear:(BOOL)animated{
     //only try to update from userdefaults once events from cloudkit were already fetched
     if (self.dicListOfComingEvents) {
-        //get all events fetched from cloudkit
-        NSMutableArray *alreadyFetchedEvents = [NSMutableArray new];
-        for (NSDictionary *dictionaryOfSectionsContainingComingUpEvents in self.dicListOfComingEvents) {
-            [alreadyFetchedEvents addObjectsFromArray:dictionaryOfSectionsContainingComingUpEvents[@"events"]];
-        }
-
-        NSArray *comingUpEventsInDefaults = [SAEvent getEventsFromComingUpCategory];
         
-        //if there are more events in defaults than the ones fetched
-        if ([comingUpEventsInDefaults count] != [alreadyFetchedEvents count]) {
-//            //find the inexisting ones and add to view
-//            for (SAEvent *eventFromDefaults in comingUpEventsInDefaults) {
-//                int wasEventAlreadyFetched = 0;
-//                for (SAEvent *eventInView in alreadyFetchedEvents) {
-//                    if ([eventFromDefaults.eventId.recordName isEqualToString:eventInView.eventId.recordName]) {
-//                        wasEventAlreadyFetched = 1;
-//                    }
-//                }
-//                if (!wasEventAlreadyFetched) {
-//                    [alreadyFetchedEvents addObject:eventFromDefaults];
-//                }
-//            }
-            alreadyFetchedEvents = [NSMutableArray arrayWithArray:comingUpEventsInDefaults];
+        NSMutableArray *alreadyFetchedEvents = [NSMutableArray new];
+        
+
+        //if segment control is selected with the coming up section
+        if (self.segmentControl.selectedSegmentIndex == 1) {
+            //get all events fetched from cloudkit
+            for (NSDictionary *dictionaryOfSectionsContainingComingUpEvents in self.dicListOfComingEvents) {
+                [alreadyFetchedEvents addObjectsFromArray:dictionaryOfSectionsContainingComingUpEvents[@"events"]];
+            }
             
-            //sort array into monthly section
-            NSArray *arrayOfEventsSeparatedInSectionToUpdate = [self sortEventsIntoMonthlySections:alreadyFetchedEvents];
+            NSArray *comingUpEventsInDefaults = [SAEvent getEventsFromComingUpCategory];
             
-            //replace global array
-            self.dicListOfComingEvents = arrayOfEventsSeparatedInSectionToUpdate;
-            
-            if (self.segmentControl.selectedSegmentIndex == 1) {
+            //if there are more events in defaults than the ones fetched
+            if ([comingUpEventsInDefaults count] != [alreadyFetchedEvents count]) {
+                alreadyFetchedEvents = [NSMutableArray arrayWithArray:comingUpEventsInDefaults];
+                
+                //sort array into monthly section
+                NSArray *arrayOfEventsSeparatedInSectionToUpdate = [self sortEventsIntoMonthlySections:alreadyFetchedEvents];
+                
+                //replace global array
+                self.dicListOfComingEvents = arrayOfEventsSeparatedInSectionToUpdate;
+                
                 [self updateTableWithEventList:self.dicListOfComingEvents];
+            }
+        }else{
+            //get all events fetched from cloudkit for past category
+            for (NSDictionary *dictionaryOfSectionsContainingPastEvents in self.dicListOfPastEvents) {
+                [alreadyFetchedEvents addObjectsFromArray:dictionaryOfSectionsContainingPastEvents[@"events"]];
+            }
+            
+            NSArray *pastEventsInUserDefaults   = [SAEvent getEventsForPastCategory];
+            
+            //if there are more events in defaults than the ones fetched
+            if ([pastEventsInUserDefaults count] != [alreadyFetchedEvents count]) {
+                alreadyFetchedEvents = [NSMutableArray arrayWithArray:pastEventsInUserDefaults];
+                
+                //sort array into monthly section
+                NSArray *arrayOfEventsSeparatedInSectionToUpdate = [self sortEventsIntoMonthlySections:alreadyFetchedEvents];
+                
+                //replace global array
+                self.dicListOfPastEvents = arrayOfEventsSeparatedInSectionToUpdate;
+                
+                [self updateTableWithEventList:self.dicListOfPastEvents];
             }
         }
     }
