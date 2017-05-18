@@ -124,6 +124,12 @@ CKDatabase *publicDatabase;
 	for (SAPerson *person in event.participants) {
 		[participantsReferenceList addObject: [[CKReference alloc]initWithRecordID:person.personId action:CKReferenceActionNone]];
 	}
+    
+    // Create invitees references
+    NSMutableArray<CKReference *>  *inviteesReferenceList = [NSMutableArray new];
+    for (SAPerson *person in event.invitees) {
+        [inviteesReferenceList addObject: [[CKReference alloc]initWithRecordID:person.personId action:CKReferenceActionNone]];
+    }
 	
 	// Insert data into event record
 	eventRecord[@"name"] = event.name;
@@ -137,7 +143,8 @@ CKDatabase *publicDatabase;
 	eventRecord[@"date"] = event.date;
 	eventRecord[@"shift"] = event.shift;
 	eventRecord[@"sex"] = event.sex;
-	
+    eventRecord[@"invitee"] = inviteesReferenceList;
+	 
 	// Atempt to save event record
 	[publicDatabase saveRecord:eventRecord completionHandler:^(CKRecord *eventRecord, NSError *error){
 		if (error) {

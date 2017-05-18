@@ -26,7 +26,13 @@
         self.profileImageBruno.layer.cornerRadius = self.profileImageBruno.frame.size.height/2;
         self.profileImageBruno.layer.masksToBounds = YES;
         self.profileImageBruno.layer.borderWidth = 0;
-
+    }
+    if (self.profileInvitee) {
+        // Making it circular!
+        self.profileImageBruno.layer.cornerRadius = self.profileImageBruno.frame.size.height/2;
+        self.profileImageBruno.layer.masksToBounds = YES;
+        self.profileImageBruno.layer.borderWidth = 0;
+        //TODO Make it gray
     }
 	
 }

@@ -13,6 +13,7 @@
 
 @interface SAEvent ()
 @property (nonatomic) NSMutableArray<SAPerson *> *privateParticipants;
+@property (nonatomic) NSMutableArray<SAPerson *> *privateInvitees;
 @end
 
 @implementation SAEvent
@@ -27,6 +28,7 @@
 		_maxPeople = nil;
 		_activity = nil;
 		_privateParticipants = [NSMutableArray new];
+        _privateInvitees = [NSMutableArray new];
 		_category = nil;
 		_shift = nil;
 		_sex = nil;
@@ -38,7 +40,7 @@
 	return self;
 }
 
-- (instancetype)initWithName:(NSString *)name andRequiredParticipants:(NSNumber *)requiredParticipants andMaxParticipants:(NSNumber *)maxParticipants andActivity:(SAActivity *)activity andId:(CKRecordID *)eventId andCategory:(NSString *)category andSex:(NSString *)sex andDate:(NSDate *)date andParticipants:(NSArray<SAPerson *> *)participants andLocation:(CLLocation *)location andDistance:(NSNumber *)distance
+- (instancetype)initWithName:(NSString *)name andRequiredParticipants:(NSNumber *)requiredParticipants andMaxParticipants:(NSNumber *)maxParticipants andActivity:(SAActivity *)activity andId:(CKRecordID *)eventId andCategory:(NSString *)category andSex:(NSString *)sex andDate:(NSDate *)date andParticipants:(NSArray<SAPerson *> *)participants andInvitees:(NSArray<SAPerson *> *)invitees andLocation:(CLLocation *)location andDistance:(NSNumber *)distance
 {
     self = [super init];
     if (self) {
@@ -53,6 +55,7 @@
         _location = location;
         _distance = distance;
         _privateParticipants = [NSMutableArray arrayWithArray:participants];
+        _privateInvitees = [NSMutableArray arrayWithArray:invitees];
     }
     return self;
 }
@@ -90,6 +93,43 @@
 - (NSString *)getParticipantRole:(SAPerson *)person{
     return nil;
 }
+
+- (NSSet<SAPerson *> *)invitees {
+    NSSet* invitees = [[NSSet alloc] initWithArray:self.privateInvitees];
+    return [invitees copy];
+}
+
+- (void)addInvitee:(SAPerson *)invitee{
+    [self.privateInvitees addObject:invitee];
+}
+
+- (void)addInvitees:(NSArray *)invitees{
+    for (SAPerson *invitee in invitees) {
+        [self.privateInvitees addObject:invitee];
+    }
+}
+
+- (void)removeInvitee:(SAPerson *)invitee{
+    SAPerson *personToRemove;
+    for (SAPerson *participant in self.privateInvitees) {
+        if ([participant.personId.recordName isEqualToString:invitee.personId.recordName]) {
+            personToRemove = participant;
+        }
+    }
+    if (personToRemove) {
+        [self.privateInvitees removeObject:personToRemove];
+    }
+}
+
+- (void)replaceInvitees:(NSArray<SAPerson *>*)invitees{
+    [self.privateInvitees setArray:invitees];
+}
+
+- (void)makeAnInviteeAParticipant:(SAPerson *)invitee{
+    [self removeInvitee:invitee];
+    [self addParticipant:invitee];
+}
+
 
 - (NSString *)description {
 	return [[NSString alloc] initWithFormat:@"%@ %@ %@", self.name, self.activity.name, self.owner];

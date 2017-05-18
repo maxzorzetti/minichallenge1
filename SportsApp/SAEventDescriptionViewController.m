@@ -16,6 +16,7 @@
 
 @interface SAEventDescriptionViewController ()
 @property NSMutableArray *arrayOfParticipants;
+@property NSMutableArray *arrayOfInvitees;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic) SAPerson *currentUser;
 
@@ -56,6 +57,8 @@
     
     _arrayOfParticipants = [NSMutableArray arrayWithArray:self.currentEvent.participants.allObjects];
     
+    
+    //checks if parcitipants info is complete, if not, fetch from db
     __block NSMutableArray *arrayToUpdate = [NSMutableArray new];
     for (SAPerson *person in self.arrayOfParticipants) {
         //if participant info is incomplete
@@ -108,6 +111,75 @@
         
     }
     
+    
+    
+    
+    
+    
+    _arrayOfInvitees = [NSMutableArray arrayWithArray:self.currentEvent.invitees.allObjects];
+    
+    __block NSMutableArray *arrayOfInviteesToUpdate = [NSMutableArray new];
+    //checks if invitees info is complete, if not, fetch from db
+    for (SAPerson *person in self.arrayOfInvitees) {
+        //if invitee info is incomplete
+        if ([person.name length] == 0) {
+            
+            
+            //check if invitee info is in userdefaults
+            int isPersonInDefaults = 0;
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSArray *arrayOfDic = [userDefaults arrayForKey:@"ArrayOfDictionariesContainingPeople"];
+            for (NSDictionary *dicPerson in arrayOfDic) {
+                NSString *personInUDRecordName = dicPerson[@"personId"];
+                if ([person.personId.recordName isEqualToString:personInUDRecordName]) {
+                    NSData *personData = dicPerson[@"personData"];
+                    SAPerson *personToAdd = [NSKeyedUnarchiver unarchiveObjectWithData:personData];
+                    
+                    [arrayOfInviteesToUpdate addObject:personToAdd];
+                    isPersonInDefaults = 1;
+                }
+            }
+            
+            //invitee not in userdefaults
+            if (isPersonInDefaults == 0) {
+                [SAPersonConnector getPersonFromId:person.personId handler:^(SAPerson * _Nullable personFetched, NSError * _Nullable error) {
+                    if (!error && personFetched) {
+                        [arrayOfInviteesToUpdate addObject:personFetched];
+                        //once all invitees info are complete, update table view
+                        if ([arrayOfInviteesToUpdate count] == [self.arrayOfInvitees count]) {
+                            self.arrayOfInvitees = arrayOfInviteesToUpdate;
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self.collectionView reloadData];
+                            });
+                        }
+                    }else{
+                        [arrayOfInviteesToUpdate addObject:person];
+                        //once all participantss info are complete update table view
+                        if ([arrayOfInviteesToUpdate count] == [self.arrayOfInvitees count]) {
+                            self.arrayOfInvitees = arrayOfInviteesToUpdate;
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self.collectionView reloadData];
+                            });
+                        }
+                    }
+                }];
+            }
+        }
+        //invitee info was already complete, just add to array
+        else{
+            [arrayOfInviteesToUpdate addObject:person];
+        }
+        
+        //if all invitees info are complete update table view
+        if ([arrayOfInviteesToUpdate count] == [self.arrayOfInvitees count]) {
+            self.arrayOfInvitees = arrayOfInviteesToUpdate;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.collectionView reloadData];
+            });
+        }
+        
+    }
+    
     //add border and margin to main view
     self.mainView.layer.borderColor = [UIColor colorWithRed:119/255.0 green:90/255.0 blue:218/255.0 alpha:1.0].CGColor;
     self.mainView.layer.borderWidth = 1.0;
@@ -140,17 +212,37 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+
+
+
+#pragma collection view population methods
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SAFriendCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"friendCell" forIndexPath:indexPath];
     
-    SAPerson *friend = self.arrayOfParticipants[indexPath.item];
+    SAPerson *friend;
     
-    if (friend.photo) {
-        cell.profileImageBruno.image = [UIImage imageWithData:friend.photo];
-    }else{
-        cell.profileImageBruno.image = [UIImage imageNamed:@"img_placeholder.png"];
+    switch (indexPath.section) {
+        case 0:
+            //participant
+            friend = self.arrayOfParticipants[indexPath.item];
+            if (friend.photo) {
+                cell.profileImageBruno.image = [UIImage imageWithData:friend.photo];
+            }else{
+                cell.profileImageBruno.image = [UIImage imageNamed:@"img_placeholder.png"];
+            }
+            break;
+        case 1:
+            //invitee
+            friend = self.arrayOfInvitees[indexPath.item];
+            if (friend.photo) {
+                cell.profileInvitee.image = [UIImage imageWithData:friend.photo];
+            }else{
+                cell.profileInvitee.image = [UIImage imageNamed:@"img_placeholder.png"];
+            }
+        default:
+            break;
     }
-    
     
     return cell;
 }
@@ -160,11 +252,18 @@
     NSInteger numberOfItems;
     switch (section) {
         case 0: numberOfItems = [self.arrayOfParticipants count]; break;
+        case 1: numberOfItems = [self.arrayOfInvitees count]; break;
         default: numberOfItems = 0;
     }
     return numberOfItems;
 }
 
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    //participants and invitees
+    return 2;
+}
+
+#pragma methods to update participants
 
 - (void)updateCollectionViewWithParticipants:(NSArray *)participants{
     [self.currentEvent replaceParticipants:participants];
@@ -206,6 +305,7 @@
 
 - (IBAction)modifyParticipantsOfEvent:(UIButton *)sender {
     int toRegister = 1;
+    //if current user already a participant
     for (SAPerson *person in self.currentEvent.participants) {
         if ([person.personId.recordName isEqualToString:self.currentUser.personId.recordName]) {
             toRegister = 0;
@@ -217,6 +317,9 @@
                     //update participants list
                     [self updateCollectionViewWithParticipants:[event.participants allObjects]];
                     
+                    //update invitee list
+                    self.arrayOfInvitees =  [NSMutableArray arrayWithArray:[event.invitees allObjects]];
+                    
                     //update button content
                     [self updateParticipantStatus];
                 }
@@ -224,6 +327,7 @@
         }
     }
     
+    //if current user not a participant
     if (toRegister) {
         self.modifyParticipantButton.userInteractionEnabled = NO;
         
@@ -232,6 +336,9 @@
             if (!error) {
                 //update participants list
                 [self updateCollectionViewWithParticipants:[event.participants allObjects]];
+                
+                //update invitee list
+                self.arrayOfInvitees =  [NSMutableArray arrayWithArray:[event.invitees allObjects]];
                 
                 //update button content
                 [self updateParticipantStatus];

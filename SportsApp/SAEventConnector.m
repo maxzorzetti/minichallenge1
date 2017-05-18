@@ -147,6 +147,7 @@
 
 + (void)registerParticipant:(SAPerson *)participant inEvent:(SAEvent *)event handler:(void (^)(SAEvent * _Nullable, NSError * _Nullable))handler{
     [event addParticipant:participant];
+    [event removeInvitee:participant];
     CKRecord *eventRecord = [SAEventConnector getEventRecordFromEvent:event];
     
     SAEventDAO *dao = [SAEventDAO new];
@@ -188,12 +189,18 @@
     CKReference *activityRef = [[CKReference alloc]initWithRecordID:event.activity.activityId action:CKReferenceActionNone];
     CKReference *ownerRef = [[CKReference alloc] initWithRecordID:event.owner.personId action:CKReferenceActionNone];
     NSMutableArray *participantsRef = [NSMutableArray new];
+    NSMutableArray *inviteesRef = [NSMutableArray new];
     
     for (SAPerson *participant in event.participants) {
         CKReference *participantRef = [[CKReference alloc]initWithRecordID:participant.personId action:CKReferenceActionNone];
         [participantsRef addObject:participantRef];
     }
+    for (SAPerson *invitee in event.invitees) {
+        CKReference *inviteeRef = [[CKReference alloc]initWithRecordID:invitee.personId action:CKReferenceActionNone];
+        [inviteesRef addObject:inviteeRef];
+    }
     
+    eventRecord[@"invitees"] = [NSArray arrayWithArray:inviteesRef];
     eventRecord[@"activity"] = activityRef;
     eventRecord[@"category"] = event.category;
     eventRecord[@"date"] = event.date;
@@ -215,7 +222,7 @@
 + (SAEvent *)getEventFromRecord:(CKRecord *)event{
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
-    SAEvent *eventFromRecord = [[SAEvent alloc]initWithName:event[@"name"] andRequiredParticipants:event[@"minPeople"] andMaxParticipants:event[@"maxPeople"] andActivity:nil andId:event.recordID andCategory:event[@"category"] andSex:event[@"sex"] andDate:event[@"date"] andParticipants:nil andLocation:event[@"location"] andDistance:event[@"distance"]];
+    SAEvent *eventFromRecord = [[SAEvent alloc]initWithName:event[@"name"] andRequiredParticipants:event[@"minPeople"] andMaxParticipants:event[@"maxPeople"] andActivity:nil andId:event.recordID andCategory:event[@"category"] andSex:event[@"sex"] andDate:event[@"date"] andParticipants:nil andInvitees:nil andLocation:event[@"location"] andDistance:event[@"distance"]];
 
     //CHECK IF ACTIVITY IS IN NSUserdefaustao
     NSArray *arrayOfDictionaries = [userDefaults arrayForKey:@"ArrayOfDictionariesContainingTheActivities"];
@@ -274,6 +281,28 @@
         [arrayOfParticipants addObject:participantToAdd];
     }
     
+    //CHECK IF INVITEES IN NSUserdefaustao
+    NSMutableArray *arrayOfInvitees = [NSMutableArray new];
+    NSArray *arrayOfInviteeReferences = event[@"invitees"];
+    
+    for (CKReference *inviteeRef in arrayOfInviteeReferences) {
+        CKRecordID *inviteeId = inviteeRef.recordID;
+        SAPerson *inviteeToAdd;
+        
+        for (NSDictionary *ownerDic in arrayOfUsers) {
+            if ([[ownerDic objectForKey:@"personId"] isEqualToString:inviteeId.recordName]) {
+                inviteeToAdd = [NSKeyedUnarchiver unarchiveObjectWithData:ownerDic[@"personData"]];
+            }
+        }
+        
+        //nothing found, add referenced person to fetch in database in event description view
+        if (!inviteeToAdd) {
+            inviteeToAdd = [[SAPerson alloc]initWithName:nil personId:inviteeId email:nil telephone:nil facebookId:nil andPhoto:nil andEvents:nil andGender:nil];
+        }
+        [arrayOfInvitees addObject:inviteeToAdd];
+    }
+    
+    [eventFromRecord addInvitees:arrayOfInvitees];
     [eventFromRecord setOwner:ownerToSetToEvent];
     [eventFromRecord setActivity:activityToSetToEvent];
     [eventFromRecord addParticipants:arrayOfParticipants];

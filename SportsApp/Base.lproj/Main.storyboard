@@ -1810,6 +1810,7 @@
                                                 <edgeInsets key="layoutMargins" top="10" left="8" bottom="8" right="7"/>
                                                 <connections>
                                                     <outlet property="profileImageBruno" destination="F3X-a0-hv8" id="t23-JH-JqM"/>
+                                                    <outlet property="profileInvitee" destination="F3X-a0-hv8" id="KMO-s4-mF4"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
