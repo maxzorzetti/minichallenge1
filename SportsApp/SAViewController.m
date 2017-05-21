@@ -71,7 +71,18 @@
     {
         _emailField.text =@"";
         _passwordField.text=@"";
-        _infoLabel.text = @"Please, enter your email and password";
+        //_infoLabel.text = @"Please, enter your email and password";
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Warning"
+                                                                       message:@"Please, fill all the gaps!"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {}];
+        
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
+        
+        
         
         [self changeUserTextField:[UIColor redColor]];
         [self changePwdTextField:[UIColor redColor]];
@@ -136,7 +147,17 @@
                     //_myLabel.text = @"Please, choose another";
                     _passwordField.text = @"";
                     _emailField.text = @"";
-                    _infoLabel.text = @"This email already signed up. Please, choose another";
+                    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Warning"
+                                                                                   message:@"This email already registered. Please, chose another!"
+                                                                            preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                          handler:^(UIAlertAction * action) {}];
+                    
+                    [alert addAction:defaultAction];
+                    [self presentViewController:alert animated:YES completion:nil];
+                    
+
                     [self changeUserTextField:[UIColor redColor]];
                     [self changePwdTextField:[UIColor redColor]];
                 

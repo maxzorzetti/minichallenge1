@@ -25,7 +25,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtPhoneNumber;
 @property (weak, nonatomic) IBOutlet UIButton *btnJoinUs;
 
-@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
+
 
 @property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 
@@ -87,7 +87,16 @@
         [self changeLastNameTextField:[UIColor redColor]];
         [self changePhoneNumberTextField:[UIColor redColor]];
         
-        _errorLabel.text = @"Please, fill all the information";
+        
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Warning"
+                                                                       message:@"Please, fill all the gaps!"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {}];
+        
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
         
         //_infoLabel.text = @"Please, fill all the information";
            }

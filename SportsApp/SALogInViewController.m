@@ -230,8 +230,23 @@
             {
                  dispatch_async(dispatch_get_main_queue(), ^(void){
                      
+                     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Warning"
+                                                                                    message:@"This username haven't registered in the app! You may press the X button and go back to sign up"
+                                                                             preferredStyle:UIAlertControllerStyleAlert];
                      
-                     _errorLabel.text =@"Wrong Username!";
+                     UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                           handler:^(UIAlertAction * action) {}];
+                     
+                     [alert addAction:defaultAction];
+                     [self presentViewController:alert animated:YES completion:nil];
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
                      [self changePwdTextField:[UIColor redColor]];
                      [self changeUserTextField:[UIColor redColor]];
                      
@@ -291,7 +306,15 @@
                             
                             //_infoLabel.text = @"Wrong Password!";
                                  
-                                 _errorLabel.text = @"Wrong Password!";
+                                 UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Warning"
+                                                                                                message:@"The email didn't match the password! Are you sure you typed right?"
+                                                                                         preferredStyle:UIAlertControllerStyleAlert];
+                                 
+                                 UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                                       handler:^(UIAlertAction * action) {}];
+                                 
+                                 [alert addAction:defaultAction];
+                                 [self presentViewController:alert animated:YES completion:nil];
                                  
                                  [self changeUserTextField:[UIColor redColor]];
                                  [self changePwdTextField:[UIColor redColor]];
@@ -356,6 +379,30 @@
     loginButton.delegate = self;
     
 }
+
+- (IBAction)backButtonPressed:(id)sender {
+    
+    
+    [self goBackToLaunch];
+}
+
+- (void)goBackToLaunch{
+    UIStoryboard *daBarbara= [UIStoryboard storyboardWithName:@"StoryboardDaBarbara" bundle:nil];
+    UIViewController *helloView = [daBarbara instantiateViewControllerWithIdentifier:@"joinView"];
+    
+    
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:helloView animated:YES completion:^{
+            
+        }];
+    });
+}
+
+
+
+
+
 
 -(void)viewDidAppear:(BOOL)animated{
     
