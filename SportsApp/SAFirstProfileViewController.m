@@ -24,7 +24,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtLastName;
 @property (weak, nonatomic) IBOutlet UITextField *txtPhoneNumber;
 @property (weak, nonatomic) IBOutlet UIButton *btnJoinUs;
-
+@property UIImagePickerController *imagePicker;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *infoLabel;
@@ -36,8 +36,84 @@
 
 @implementation SAFirstProfileViewController
 
+
+- (IBAction)cameraButtonPressed:(UIButton *)sender {
+    
+    [self showAlert];
+   
+    
+}
+
+- (void) showAlert{
+    
+    
+    
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@""
+                                                                   message:@"Image Source"
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction* galeriaAction = [UIAlertAction actionWithTitle:@"Galeria" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                          
+                                                              self.imagePicker.allowsEditing = YES;
+                                                              self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                                                              //self.imagePicker.mediaTypes = uiimagepickercontroller;
+                                                              [self presentViewController:_imagePicker animated:true completion:NULL];
+                                                          
+                                                          }];
+    
+    UIAlertAction* cameraAction = [UIAlertAction actionWithTitle:@"Camera" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              
+                                                              self.imagePicker.allowsEditing = YES;
+                                                              self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                                                              //self.imagePicker.mediaTypes = uiimagepickercontroller;
+                                                              [self presentViewController:_imagePicker animated:true completion:NULL];
+                                                              
+                                                          }];
+    
+ 
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:cameraAction];
+    [alert addAction:galeriaAction];
+    [self presentViewController:alert animated:YES completion:nil];
+    
+    
+    
+    
+}
+
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    
+    UIImage *profilePhoto = info[UIImagePickerControllerOriginalImage];
+    if(profilePhoto)
+    {
+        _imgProfilePhoto.image = profilePhoto;
+        
+    }
+    
+    self.imgProfilePhoto.layer.cornerRadius = self.imgProfilePhoto.frame.size.height /2;
+    self.imgProfilePhoto.layer.masksToBounds = YES;
+    self.imgProfilePhoto.layer.borderWidth = 0;
+    
+    [self dismissViewControllerAnimated:true completion:nil];
+}
+
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    
+}
+
+
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _imagePicker = [[UIImagePickerController alloc]init];
+    _imagePicker.delegate = self;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     
@@ -49,8 +125,8 @@
     
     [self changeButtonJoinUs];
     
-    
-    if (self.user.facebookId) {
+    //TA SEMPRE CAINDO AQUI
+    if (! [self.user.facebookId isEqualToString: @""]) {
         NSArray *names = [self.user.name componentsSeparatedByString:@" "];
         NSString *firstName = [names firstObject];
         NSString *lastName = [NSString new];
@@ -67,6 +143,8 @@
             self.txtPhoneNumber.text = self.user.telephone;
         }
     }
+    else
+        _imgProfilePhoto.image = [UIImage imageNamed:@"img_placeholder"];
 }
 
 
@@ -148,7 +226,7 @@
 - (void) changeFirstNameTextField:(UIColor *)color{
     UITextField *textField = _txtFirstName;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:
-                              CGRectMake(1, 1, textField.frame.size.width-2, textField.frame.size.height-1) byRoundingCorners: UIRectCornerTopLeft cornerRadii:CGSizeMake(7.0, 7.0)];
+                              CGRectMake(1, 1, textField.frame.size.width, textField.frame.size.height-1) byRoundingCorners: UIRectCornerTopLeft cornerRadii:CGSizeMake(7.0, 7.0)];
     
     [self changeTextFieldBorderWithField:textField andMaskPath:maskPath andColor:color];
 }

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @class SAPerson;
 
-@interface SAFirstProfileViewController : UIViewController <UITextFieldDelegate>
+@interface SAFirstProfileViewController : UIViewController <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 
 @property NSString *email;

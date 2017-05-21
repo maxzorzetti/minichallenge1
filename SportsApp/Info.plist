@@ -70,6 +70,10 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Please, allow us to have acess to your photos</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Please, allow us to have acess to your camera</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 </dict>
