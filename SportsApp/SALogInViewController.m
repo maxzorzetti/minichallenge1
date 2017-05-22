@@ -117,8 +117,8 @@
                      //if person already exists with that email
                      else{
                          
-                         id value = [[results1 firstObject] objectForKey:@"recordID"];
-                         value = [results1 firstObject][@"recordID"];
+                         //id value = [[results1 firstObject] objectForKey:@"recordID"];
+                         id value = [results1 firstObject][@"recordID"];
                          
                          NSPredicate *useridPredicate = [NSPredicate predicateWithFormat:@"userId = %@", value];
                          CKQuery *useridQuery = [[CKQuery alloc] initWithRecordType:@"SAIdentity" predicate:useridPredicate];
@@ -140,14 +140,18 @@
                                  //if person's identity is not with facebook, create one
                                  if (!isPersonSignedUpWithFacebook)
                                  {
+                                     
+                                     CKReference *userRef = [[CKReference alloc]initWithRecordID:[results1 firstObject][@"recordID"] action:CKReferenceActionNone];
+                                     identityRecord[@"userId"] = userRef;
                                      [publicDatabase saveRecord:identityRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
                                          if (error) {
                                              NSLog(@"Record Identity not created. Error: %@", error.description);
                                          }
                                          else
-                                             NSLog(@"Record Identity created. New person using facebook.");
+                                         {
+                                             //NSLog(@"Record Identity created. New person using facebook.");
                                          NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
-                                         self.user = [SAPersonConnector getPersonFromRecord:[results2 firstObject] andPicture:photo];
+                                         self.user = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:photo];
                                          
                                          [SAUser saveToUserDefaults:self.user];
                                          
@@ -163,7 +167,7 @@
                                          [obj setCurrentPerson:self.user];
                                          
                                          [self goToGenderSelection];
-                                     }];
+                                         }}];
                                  }
                                  
                                  //person has signed with Facebook already
@@ -230,8 +234,8 @@
             {
                  dispatch_async(dispatch_get_main_queue(), ^(void){
                      
-                     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Warning"
-                                                                                    message:@"This username haven't registered in the app! You may press the X button and go back to sign up"
+                     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Oops!"
+                                                                                    message:@"This username haven't registered in the app! Press the X button to go back to sign up."
                                                                              preferredStyle:UIAlertControllerStyleAlert];
                      
                      UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
@@ -306,7 +310,7 @@
                             
                             //_infoLabel.text = @"Wrong Password!";
                                  
-                                 UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Warning"
+                                 UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Oops!"
                                                                                                 message:@"The email didn't match the password! Are you sure you typed right?"
                                                                                          preferredStyle:UIAlertControllerStyleAlert];
                                  

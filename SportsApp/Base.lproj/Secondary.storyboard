@@ -138,13 +138,13 @@
                                 <exclude reference="KWj-FB-wWD"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="Jzx-tb-5rq"/>
                                 <exclude reference="Etp-yx-7z8"/>
                                 <exclude reference="gaM-8b-hxh"/>
                                 <exclude reference="TzB-em-vLY"/>
                                 <exclude reference="pc7-c9-fHY"/>
                                 <exclude reference="3ea-ae-Msn"/>
                                 <exclude reference="6Ux-LG-hm9"/>
+                                <exclude reference="Jzx-tb-5rq"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
@@ -159,10 +159,10 @@
                                 <include reference="KWj-FB-wWD"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="Jzx-tb-5rq"/>
                                 <include reference="gaM-8b-hxh"/>
                                 <include reference="TzB-em-vLY"/>
                                 <include reference="3ea-ae-Msn"/>
+                                <include reference="Jzx-tb-5rq"/>
                             </mask>
                         </variation>
                     </view>
@@ -250,7 +250,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wkv-UX-TBr">
                                                 <rect key="frame" x="0.0" y="0.0" width="133.5" height="50"/>
                                                 <subviews>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Us-ka-PLM">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="  First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Us-ka-PLM">
                                                         <rect key="frame" x="0.0" y="0.0" width="133.5" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="vfq-lf-Tb1"/>
@@ -271,7 +271,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oL3-9D-uKI">
                                                 <rect key="frame" x="133.5" y="0.0" width="133.5" height="50"/>
                                                 <subviews>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h7m-FD-3q6">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="  Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h7m-FD-3q6">
                                                         <rect key="frame" x="0.0" y="0.0" width="133.5" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="kpM-hB-uRi"/>
@@ -298,7 +298,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1zg-XM-NXX">
                                         <rect key="frame" x="0.0" y="50" width="267" height="50"/>
                                         <subviews>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wGb-1u-7RV">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="  Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wGb-1u-7RV">
                                                 <rect key="frame" x="0.0" y="0.0" width="267" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="hEp-Lk-utu"/>

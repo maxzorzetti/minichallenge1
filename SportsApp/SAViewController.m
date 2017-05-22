@@ -72,7 +72,7 @@
         _emailField.text =@"";
         _passwordField.text=@"";
         //_infoLabel.text = @"Please, enter your email and password";
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Warning"
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Oops!"
                                                                        message:@"Please, fill all the gaps!"
                                                                 preferredStyle:UIAlertControllerStyleAlert];
         
@@ -147,7 +147,7 @@
                     //_myLabel.text = @"Please, choose another";
                     _passwordField.text = @"";
                     _emailField.text = @"";
-                    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Warning"
+                    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Oops!"
                                                                                    message:@"This email already registered. Please, chose another!"
                                                                             preferredStyle:UIAlertControllerStyleAlert];
                     
@@ -295,11 +295,16 @@
                                  //user signed in using app
                                  if (!flag)
                                  {
+                                     CKReference *userRef = [[CKReference alloc]initWithRecordID:[results1 firstObject][@"recordID"] action:CKReferenceActionNone];
+                                     identityRecord[@"userId"] = userRef;
+                                     
                                      //then create another identity for Facebook login
                                      [publicDatabase saveRecord:identityRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
                                          if (!error){
+                                             
+                                             
                                          NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
-                                         self.user = [SAPersonConnector getPersonFromRecord:[results2 firstObject] andPicture:photo];
+                                         self.user = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:photo];
                                          
                                          //send person to next view
                                              [self goToGenderSelection];
