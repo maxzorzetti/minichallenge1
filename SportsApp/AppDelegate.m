@@ -32,6 +32,15 @@
 
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Register for push notifications
+    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert categories:nil];
+    [application registerUserNotificationSettings:notificationSettings];
+    [application registerForRemoteNotifications];
+    
+    
+    
+    
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     //setting navigation bar style for the app
@@ -168,8 +177,24 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     return handled;
 } 
 
+#pragma notification methods
+- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
+    CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:userInfo];
+    
+    NSString *alertBody = cloudKitNotification.alertBody;
+    if (cloudKitNotification.notificationType == CKNotificationTypeQuery) {
+        CKRecordID *recordID = [(CKQueryNotification *)cloudKitNotification recordID];
+    }
+}
 
-
+- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
+    CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:userInfo];
+    
+    NSString *alertBody = cloudKitNotification.alertBody;
+    if (cloudKitNotification.notificationType == CKNotificationTypeQuery) {
+        CKRecordID *recordID = [(CKQueryNotification *)cloudKitNotification recordID];
+    }
+}
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {

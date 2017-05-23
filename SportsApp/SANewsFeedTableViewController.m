@@ -121,11 +121,12 @@ static dispatch_once_t predicateForFriends;
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     //checks if user already has a subscription of events for invited section
+    //[userDefaults setBool:NO forKey:@"hasSubscriptionForEventsForInvitedSection"];
     if (![userDefaults boolForKey:@"hasSubscriptionForEventsForInvitedSection"]) {
         CKReference *userRef = [[CKReference alloc]initWithRecordID:self.currentUser.personId action:CKReferenceActionNone];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ IN invitees", userRef];
-        
-        CKSubscription *subscription = [[CKSubscription alloc]initWithRecordType:@"Event" predicate:predicate options:CKSubscriptionOptionsFiresOnRecordCreation];
+        //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"minPeople >0"];
+        CKSubscription *subscription = [[CKSubscription alloc]initWithRecordType:@"Event" predicate:predicate options:CKSubscriptionOptionsFiresOnRecordCreation | CKSubscriptionOptionsFiresOnRecordUpdate];
         
         CKNotificationInfo *notificationInfo  = [CKNotificationInfo new];
         notificationInfo.alertActionLocalizationKey = @"Some of your friends added you in an event!";
@@ -447,6 +448,16 @@ static dispatch_once_t predicateForFriends;
         }
     }
 }
+
+//#pragma notification methods
+//- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
+//    CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:userInfo];
+//    
+//    NSString *alertBody = cloudKitNotification.alertBody;
+//    if (cloudKitNotification.notificationType == CKNotificationTypeQuery) {
+//        CKRecordID *recordID = [(CKQueryNotification *)cloudKitNotification recordID];
+//    }
+//}
 
 
 @end
