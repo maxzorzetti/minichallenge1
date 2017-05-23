@@ -19,6 +19,7 @@
 @property NSMutableArray *arrayOfInvitees;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic) SAPerson *currentUser;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionViewOfNotConfirmedPeople;
 
 @end
 
@@ -32,6 +33,8 @@
     
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
+    self.collectionViewOfNotConfirmedPeople.delegate = self;
+    self.collectionViewOfNotConfirmedPeople.dataSource = self;
     
     self.ownerName.text = self.currentEvent.owner.name;
     self.eventName.text = self.currentEvent.name;
@@ -218,30 +221,31 @@
 
 #pragma collection view population methods
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    SAFriendCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"friendCell" forIndexPath:indexPath];
+    SAFriendCollectionViewCell *cell;
     
     SAPerson *friend;
     
-    switch (indexPath.section) {
-        case 0:
-            //participant
-            friend = self.arrayOfParticipants[indexPath.item];
-            if (friend.photo) {
-                cell.profileImageBruno.image = [UIImage imageWithData:friend.photo];
-            }else{
-                cell.profileImageBruno.image = [UIImage imageNamed:@"img_placeholder.png"];
-            }
-            break;
-        case 1:
-            //invitee
-            friend = self.arrayOfInvitees[indexPath.item];
-            if (friend.photo) {
-                cell.profileInvitee.image = [UIImage imageWithData:friend.photo];
-            }else{
-                cell.profileInvitee.image = [UIImage imageNamed:@"img_placeholder.png"];
-            }
-        default:
-            break;
+    
+    //checks what collection view to insert person
+    //not confirmed(invitee)
+    if (collectionView == self.collectionViewOfNotConfirmedPeople) {
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"inviteeCell" forIndexPath:indexPath];
+        friend = self.arrayOfInvitees[indexPath.item];
+        if (friend.photo) {
+            cell.profileInvitee.image = [UIImage imageWithData:friend.photo];
+        }else{
+            cell.profileInvitee.image = [UIImage imageNamed:@"img_placeholder.png"];
+        }
+    }
+    //confirmed person
+    else{
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"friendCell" forIndexPath:indexPath];
+        friend = self.arrayOfParticipants[indexPath.item];
+        if (friend.photo) {
+            cell.profileImageBruno.image = [UIImage imageWithData:friend.photo];
+        }else{
+            cell.profileImageBruno.image = [UIImage imageNamed:@"img_placeholder.png"];
+        }
     }
     
     return cell;
@@ -249,18 +253,22 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
+    
+    
+    
     NSInteger numberOfItems;
-    switch (section) {
-        case 0: numberOfItems = [self.arrayOfParticipants count]; break;
-        case 1: numberOfItems = [self.arrayOfInvitees count]; break;
-        default: numberOfItems = 0;
+    
+    if (collectionView == self.collectionViewOfNotConfirmedPeople) {
+        numberOfItems = [self.arrayOfInvitees count];
+    }else{
+        numberOfItems = [self.arrayOfParticipants count];
     }
+    
     return numberOfItems;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    //participants and invitees
-    return 2;
+    return 1;
 }
 
 #pragma methods to update participants
@@ -271,6 +279,7 @@
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.collectionView reloadData];
+        [self.collectionViewOfNotConfirmedPeople reloadData];
     });
 }
 
