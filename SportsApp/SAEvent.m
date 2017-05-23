@@ -152,6 +152,7 @@
         _name = [coder decodeObjectForKey:@"name"];
         _owner = [coder decodeObjectForKey:@"owner"];
         _privateParticipants = [coder decodeObjectForKey:@"participants"];
+        _privateInvitees = [coder decodeObjectForKey:@"invitees"];
         _sex = [coder decodeObjectForKey:@"gender"];
         _shift = [coder decodeObjectForKey:@"shift"];
     }
@@ -170,6 +171,7 @@
     [aCoder encodeObject:self.name forKey:@"name"];
     [aCoder encodeObject:self.owner forKey:@"owner"];
     [aCoder encodeObject:self.privateParticipants forKey:@"participants"];
+    [aCoder encodeObject:self.privateInvitees forKey:@"invitees"];
     [aCoder encodeObject:self.sex forKey:@"gender"];
     [aCoder encodeObject:self.shift forKey:@"shift"];
 }

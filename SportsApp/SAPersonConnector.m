@@ -168,6 +168,7 @@
                                 NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
                                 
                                 SAPerson *person = [self getPersonFromRecord:personRecord andPicture:photo];
+                                [SAPerson saveToUserDefaults:person];
                                 handler(person, error);
                             }
                             //YOU DONT HAVE ACCESS TO FACEBOOK PICTURES (PROBABLY BECAUSE YOU'RE NOT LOGGED IN)
@@ -175,6 +176,7 @@
                                 //ADD PLACEHOLDER profile picture
                                 NSData *photo = [NSData dataWithContentsOfFile:@"img_placeholder"];
                                 SAPerson *person = [self getPersonFromRecord:personRecord andPicture:photo];
+                                [SAPerson saveToUserDefaults:person];
                                 handler(person, error);
                             }
                         });
@@ -186,6 +188,7 @@
                 //ADD PLACEHOLDER profile picture
                 NSData *photo = [NSData dataWithContentsOfFile:@"img_placeholder"];
                 SAPerson *person = [self getPersonFromRecord:personRecord andPicture:photo];
+                [SAPerson saveToUserDefaults:person];
                 handler(person, error);
             }
         }else{

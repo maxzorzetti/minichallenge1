@@ -143,15 +143,15 @@ CKDatabase *publicDatabase;
 	eventRecord[@"date"] = event.date;
 	eventRecord[@"shift"] = event.shift;
 	eventRecord[@"sex"] = event.sex;
-    eventRecord[@"invitee"] = inviteesReferenceList;
+    eventRecord[@"invitees"] = inviteesReferenceList;
 	 
 	// Atempt to save event record
-	[publicDatabase saveRecord:eventRecord completionHandler:^(CKRecord *eventRecord, NSError *error){
+	[publicDatabase saveRecord:eventRecord completionHandler:^(CKRecord *eventFetchedFromDb, NSError *error){
 		if (error) {
 			NSLog(@"Record Party not created. Error: %@", error.description);
 		}
 		NSLog(@"Event record created");
-		handler(eventRecord, error);
+		handler(eventFetchedFromDb, error);
 	}];
 	
 }

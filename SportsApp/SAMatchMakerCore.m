@@ -100,7 +100,7 @@
 	event.location = party.location;
 	
 	[event addParticipant:party.creator];
-	[event addParticipants: party.invitedPeople.allObjects];
+	[event addInvitees: party.invitedPeople.allObjects];
 	
 	return event;
 }

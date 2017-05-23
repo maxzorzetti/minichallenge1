@@ -152,7 +152,7 @@
                         if ([arrayOfInviteesToUpdate count] == [self.arrayOfInvitees count]) {
                             self.arrayOfInvitees = arrayOfInviteesToUpdate;
                             dispatch_async(dispatch_get_main_queue(), ^{
-                                [self.collectionView reloadData];
+                                [self.collectionViewOfNotConfirmedPeople reloadData];
                             });
                         }
                     }else{
@@ -161,7 +161,7 @@
                         if ([arrayOfInviteesToUpdate count] == [self.arrayOfInvitees count]) {
                             self.arrayOfInvitees = arrayOfInviteesToUpdate;
                             dispatch_async(dispatch_get_main_queue(), ^{
-                                [self.collectionView reloadData];
+                                [self.collectionViewOfNotConfirmedPeople reloadData];
                             });
                         }
                     }
@@ -177,7 +177,7 @@
         if ([arrayOfInviteesToUpdate count] == [self.arrayOfInvitees count]) {
             self.arrayOfInvitees = arrayOfInviteesToUpdate;
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.collectionView reloadData];
+                [self.collectionViewOfNotConfirmedPeople reloadData];
             });
         }
         
