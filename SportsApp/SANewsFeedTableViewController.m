@@ -119,8 +119,33 @@ static dispatch_once_t predicateForFriends;
         }];
     }
     
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    //checks if user already has a subscription of events for invited section
+    if (![userDefaults boolForKey:@"hasSubscriptionForEventsForInvitedSection"]) {
+        CKReference *userRef = [[CKReference alloc]initWithRecordID:self.currentUser.personId action:CKReferenceActionNone];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ IN invitees", userRef];
+        
+        CKSubscription *subscription = [[CKSubscription alloc]initWithRecordType:@"Event" predicate:predicate options:CKSubscriptionOptionsFiresOnRecordCreation];
+        
+        CKNotificationInfo *notificationInfo  = [CKNotificationInfo new];
+        notificationInfo.alertActionLocalizationKey = @"Some of your friends added you in an event!";
+        notificationInfo.shouldBadge = YES;
+        
+        subscription.notificationInfo = notificationInfo;
+        
+        
+        //saves the subscription to the database
+        CKDatabase *publicDatabase = [[CKContainer defaultContainer] publicCloudDatabase];
+        [publicDatabase saveSubscription:subscription completionHandler:^(CKSubscription * _Nullable subscription, NSError * _Nullable error) {
+            //subscription created, let user defaults know :)
+            [userDefaults setBool:YES forKey:@"hasSubscriptionForEventsForInvitedSection"];
+            [userDefaults synchronize];
+        }];
+    }
     
     
+    
+    //check location authorization status
     switch ([CLLocationManager authorizationStatus]) {
         case kCLAuthorizationStatusAuthorizedWhenInUse:
             self.locationManager = [[CLLocationManager alloc]init];
