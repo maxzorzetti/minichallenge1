@@ -33,4 +33,12 @@
 
 - (void)saveEvent:(SAEvent *_Nonnull)event handler: (void (^_Nonnull)(CKRecord * _Nullable event, NSError * _Nullable error))handler;
 
+- (void)getEventsWhereUserIsAnInvitee:(CKReference *_Nonnull)userRef handler:(void (^_Nonnull)(NSArray<CKRecord *>* _Nullable events, NSError * _Nullable error))handler;
+
+
+
+//THIS SHOULD BE IN ANOTHER CLASS
+- (void)fetchRecordByRecordId:(CKRecordID *_Nonnull)recordId handler:(void (^_Nonnull)(CKRecord * _Nullable record, NSError * _Nullable error))handler;
+
+
 @end

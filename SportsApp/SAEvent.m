@@ -179,6 +179,36 @@
 
 #pragma UserDefaults methods
 
++ (NSArray<SAEvent *>*)getEventsForInvitedCategory{
+    //need current user to check if user is a participant of the events in user defaults
+    NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];
+    SAPerson *currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
+    
+    //get array of events in user defaults
+    NSArray *arrayOfEvents = [[NSUserDefaults standardUserDefaults] arrayForKey:@"ArrayOfDictionariesContainingWithEvent"];
+    
+    //array to return containing the events in invited category
+    NSMutableArray *arrayToReturn = [NSMutableArray new];
+    
+    for (NSDictionary *dict in arrayOfEvents) {
+        NSData *eventData = dict[@"event"];
+        SAEvent *eventToCompare = [NSKeyedUnarchiver unarchiveObjectWithData:eventData];
+        NSComparisonResult result = [eventToCompare.date compare:[NSDate date]];
+        
+        //check if date of event is greater than todays
+        if (result == NSOrderedDescending) {
+            //check if current user is an invitee of the event
+            for (SAPerson *invitee in eventToCompare.privateInvitees) {
+                if ([invitee.personId.recordName isEqualToString:currentUser.personId.recordName]) {
+                    [arrayToReturn addObject:eventToCompare];
+                }
+            }
+        }
+    }
+    
+    return arrayToReturn;
+}
+
 + (NSArray<SAEvent *> *)getEventsFromComingUpCategory{
     //need current user to check if user is a participant of the events in user defaults
     NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];

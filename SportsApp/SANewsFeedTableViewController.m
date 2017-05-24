@@ -119,28 +119,43 @@ static dispatch_once_t predicateForFriends;
         }];
     }
     
+    //FETCH EVENTS FOR INVITED SECTION
+    [SAEventConnector getEventsWhereUserIsAnInvitee:self.currentUser.personId handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
+        if(!error){
+            NSDictionary *myDic = @{
+                                    @"section" : @"INVITED",
+                                    @"events" : events
+                                    };
+            
+            [self.arrayOfSectionsWithEvents addObject:myDic];
+        }
+        [self updateTableView];
+    }];
+    
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     //checks if user already has a subscription of events for invited section
     //[userDefaults setBool:NO forKey:@"hasSubscriptionForEventsForInvitedSection"];
     if (![userDefaults boolForKey:@"hasSubscriptionForEventsForInvitedSection"]) {
         CKReference *userRef = [[CKReference alloc]initWithRecordID:self.currentUser.personId action:CKReferenceActionNone];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ IN invitee", userRef];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ IN invitees", userRef];
         //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"minPeople >0"];
         CKSubscription *subscription = [[CKSubscription alloc]initWithRecordType:@"Event" predicate:predicate options:CKSubscriptionOptionsFiresOnRecordCreation | CKSubscriptionOptionsFiresOnRecordUpdate];
         
         CKNotificationInfo *notificationInfo  = [CKNotificationInfo new];
         notificationInfo.alertActionLocalizationKey = @"Some of your friends added you in an event!";
         notificationInfo.shouldBadge = YES;
-        
+        //notificationInfo.desiredKeys = [NSArray arrayWithObjects: @"recordType", nil];
         subscription.notificationInfo = notificationInfo;
-        
         
         //saves the subscription to the database
         CKDatabase *publicDatabase = [[CKContainer defaultContainer] publicCloudDatabase];
         [publicDatabase saveSubscription:subscription completionHandler:^(CKSubscription * _Nullable subscription, NSError * _Nullable error) {
-            //subscription created, let user defaults know :)
-            [userDefaults setBool:YES forKey:@"hasSubscriptionForEventsForInvitedSection"];
-            [userDefaults synchronize];
+            if (!error) {
+                //subscription created, let user defaults know :)
+                [userDefaults setBool:YES forKey:@"hasSubscriptionForEventsForInvitedSection"];
+                [userDefaults synchronize];
+            }
         }];
     }
     

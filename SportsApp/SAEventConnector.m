@@ -145,6 +145,25 @@
     }];
 }
 
++ (void)getEventsWhereUserIsAnInvitee:(CKRecordID *_Nonnull)userId handler:(void (^_Nonnull)(NSArray<SAEvent *>* _Nullable events, NSError * _Nullable error))handler{
+    SAEventDAO *eventDAO = [SAEventDAO new];
+    CKReference *userRef = [[CKReference alloc]initWithRecordID:userId action:CKReferenceActionNone];
+    [eventDAO getEventsWhereUserIsAnInvitee:userRef handler:^(NSArray<CKRecord *> * _Nullable events, NSError * _Nullable error) {
+        if(!error){
+            NSMutableArray *arrayOfEvents = [NSMutableArray new];
+            for (CKRecord *event in events) {
+                SAEvent *eventFromDb = [self getEventFromRecord:event];
+                
+                //save or update event to user defaults
+                [SAEvent saveToDefaults:eventFromDb];
+                
+                [arrayOfEvents addObject:eventFromDb];
+            }
+            handler(arrayOfEvents, error);
+        }
+    }];
+}
+
 + (void)registerParticipant:(SAPerson *)participant inEvent:(SAEvent *)event handler:(void (^)(SAEvent * _Nullable, NSError * _Nullable))handler{
     [event addParticipant:participant];
     [event removeInvitee:participant];
@@ -310,6 +329,17 @@
     return eventFromRecord;
 }
 
+
+
+
+//THIS SHOULD BE IN ANOTHER CLASS
++ (void)fetchRecordByRecordId:(CKRecordID *_Nonnull)recordId handler:(void (^_Nonnull)(CKRecord * _Nullable record, NSError * _Nullable error))handler{
+    SAEventDAO *dao = [SAEventDAO new];
+    
+    [dao fetchRecordByRecordId:recordId handler:^(CKRecord * _Nullable recordFetched, NSError * _Nullable errorFetched) {
+        handler(recordFetched, errorFetched);
+    }];
+}
 
 
 @end

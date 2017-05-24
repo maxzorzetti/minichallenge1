@@ -33,4 +33,15 @@
 
 + (void)removeParticipant:(SAPerson *_Nonnull)participant ofEvent:(SAEvent *_Nonnull)event handler:(void (^_Nonnull)(SAEvent * _Nullable event, NSError * _Nullable error))handler;
 
++ (SAEvent *_Nullable)getEventFromRecord:(CKRecord *_Nonnull)event;
+
++ (void)getEventsWhereUserIsAnInvitee:(CKRecordID *_Nonnull)userId handler:(void (^_Nonnull)(NSArray<SAEvent *>* _Nullable events, NSError * _Nullable error))handler;
+
+
+
+
+//THIS SHOULD BE IN ANOTHER CLASS
++ (void)fetchRecordByRecordId:(CKRecordID *_Nonnull)recordId handler:(void (^_Nonnull)(CKRecord * _Nullable record, NSError * _Nullable error))handler;
+
+
 @end

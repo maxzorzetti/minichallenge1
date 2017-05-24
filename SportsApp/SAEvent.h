@@ -62,4 +62,6 @@
 
 + (NSArray<SAEvent *>*)getEventsForPastCategory;
 
++ (NSArray<SAEvent *>*)getEventsForInvitedCategory;
+
 @end

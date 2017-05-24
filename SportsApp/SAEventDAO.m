@@ -89,6 +89,18 @@ CKDatabase *publicDatabase;
     [publicDatabase performQuery:query inZoneWithID:nil completionHandler:handler];
 }
 
+- (void)getEventsWhereUserIsAnInvitee:(CKReference *_Nonnull)userRef handler:(void (^_Nonnull)(NSArray<CKRecord *>* _Nullable events, NSError * _Nullable error))handler{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ IN invitees AND date > %@", userRef, [NSDate date]];
+    
+    CKQuery *query = [[CKQuery alloc]initWithRecordType:@"Event" predicate:predicate];
+    
+    [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray<CKRecord *> * _Nullable results, NSError * _Nullable errorFetched) {
+        if (!errorFetched) {
+            handler(results, errorFetched);
+        }
+    }];
+}
+
 - (void)updateEvent:(CKRecord *)event handler:(void (^_Nonnull)(CKRecord * _Nullable event, NSError * _Nullable error))handler{
     [self connectToPublicDatabase];
     
@@ -159,6 +171,18 @@ CKDatabase *publicDatabase;
 - (void)connectToPublicDatabase{
 	if (container == nil) container = [CKContainer defaultContainer];
 	if (publicDatabase == nil) publicDatabase = [container publicCloudDatabase];
+}
+
+
+
+
+//THIS SHOULD BE IN ANOTHER CLASS
+- (void)fetchRecordByRecordId:(CKRecordID *_Nonnull)recordId handler:(void (^_Nonnull)(CKRecord * _Nullable record, NSError * _Nullable error))handler{
+    [self connectToPublicDatabase];
+    
+    [publicDatabase fetchRecordWithID:recordId completionHandler:^(CKRecord * _Nullable recordFetched, NSError * _Nullable errorFetched) {
+        handler(recordFetched, errorFetched);
+    }];
 }
 
 @end

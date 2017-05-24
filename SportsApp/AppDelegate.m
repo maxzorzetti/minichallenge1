@@ -175,24 +175,40 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
                     ];
     // Add any custom logic here.
     return handled;
-} 
+}
 
 #pragma notification methods
-- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
-    CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:userInfo];
-    
-    NSString *alertBody = cloudKitNotification.alertBody;
-    if (cloudKitNotification.notificationType == CKNotificationTypeQuery) {
-        CKRecordID *recordID = [(CKQueryNotification *)cloudKitNotification recordID];
-    }
-}
+//- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
+//    CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:userInfo];
+//    
+//    //NSString *alertBody = cloudKitNotification.alertBody;
+//    if (cloudKitNotification.notificationType == CKNotificationTypeQuery) {
+//        CKRecordID *recordID = [(CKQueryNotification *)cloudKitNotification recordID];
+//        NSDictionary *dictionary = [(CKQueryNotification *)cloudKitNotification recordFields];
+//        NSString *asfoi;
+//    }
+//}
 
 - (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
     CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:userInfo];
     
-    NSString *alertBody = cloudKitNotification.alertBody;
+    //NSString *alertBody = cloudKitNotification.alertBody;
     if (cloudKitNotification.notificationType == CKNotificationTypeQuery) {
         CKRecordID *recordID = [(CKQueryNotification *)cloudKitNotification recordID];
+        
+        [SAEventConnector fetchRecordByRecordId:recordID handler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+            if (!error) {
+                //check what recordtype this record is and decide what to do with it
+                if ([record.recordType isEqualToString:@"Event"]) {
+                    SAEvent *eventFromNotification = [SAEventConnector getEventFromRecord:(record)];
+                    [SAEvent saveToDefaults:eventFromNotification];
+                }
+                //do the same with activity and other record types
+            }
+        }];
+        
+        
+        
     }
 }
 
