@@ -124,7 +124,7 @@ static dispatch_once_t predicateForFriends;
     //[userDefaults setBool:NO forKey:@"hasSubscriptionForEventsForInvitedSection"];
     if (![userDefaults boolForKey:@"hasSubscriptionForEventsForInvitedSection"]) {
         CKReference *userRef = [[CKReference alloc]initWithRecordID:self.currentUser.personId action:CKReferenceActionNone];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ IN invitees", userRef];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ IN invitee", userRef];
         //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"minPeople >0"];
         CKSubscription *subscription = [[CKSubscription alloc]initWithRecordType:@"Event" predicate:predicate options:CKSubscriptionOptionsFiresOnRecordCreation | CKSubscriptionOptionsFiresOnRecordUpdate];
         
