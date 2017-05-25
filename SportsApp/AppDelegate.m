@@ -26,12 +26,34 @@
 
 @implementation AppDelegate
 
+UNUserNotificationCenter *center;
 
 
 //  AppDelegate.m
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
-    [UNUserNotificationCenter currentNotificationCenter].delegate = self;
+    center = [UNUserNotificationCenter currentNotificationCenter];
+    
+    center.delegate = self;
+    
+    [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionBadge)
+                          completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                              // Enable or disable features based on authorization.
+                          }];
+    
+    
+    
+    // ******** sets categories for notification **********
+    
+    //user was invited to an event
+    //user can join the event
+    UNNotificationAction *joinEventAction = [UNNotificationAction actionWithIdentifier:@"joinEvent" title:@"Join" options:UNNotificationActionOptionNone];
+    UNNotificationAction *leaveEventAction = [UNNotificationAction actionWithIdentifier:@"leaveEvent" title:@"Leave" options:UNNotificationActionOptionNone];
+    UNNotificationCategory *userInvitedToEventCategory = [UNNotificationCategory categoryWithIdentifier:@"userInvitedToEvent" actions:@[joinEventAction, leaveEventAction] intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
+    
+    //register categories to notification center object
+    [center setNotificationCategories:[NSSet setWithObjects:userInvitedToEventCategory, nil]];
+    
     return YES;
 }
 

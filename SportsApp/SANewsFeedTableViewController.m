@@ -143,8 +143,9 @@ static dispatch_once_t predicateForFriends;
         CKSubscription *subscription = [[CKSubscription alloc]initWithRecordType:@"Event" predicate:predicate options:CKSubscriptionOptionsFiresOnRecordCreation | CKSubscriptionOptionsFiresOnRecordUpdate];
         
         CKNotificationInfo *notificationInfo  = [CKNotificationInfo new];
-        notificationInfo.alertActionLocalizationKey = @"Some of your friends added you in an event!";
+        notificationInfo.alertBody = @"Some of your friends added you in an event!";
         notificationInfo.shouldBadge = YES;
+        notificationInfo.category = @"userInvitedToEvent";
         //notificationInfo.desiredKeys = [NSArray arrayWithObjects: @"recordType", nil];
         subscription.notificationInfo = notificationInfo;
         
