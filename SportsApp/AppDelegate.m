@@ -30,6 +30,10 @@
 
 //  AppDelegate.m
 
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+    [UNUserNotificationCenter currentNotificationCenter].delegate = self;
+    return YES;
+}
 
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -37,10 +41,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert categories:nil];
     [application registerUserNotificationSettings:notificationSettings];
     [application registerForRemoteNotifications];
-    
-    
-    
-    
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
@@ -197,14 +197,32 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     if (cloudKitNotification.notificationType == CKNotificationTypeQuery) {
         CKRecordID *recordID = [(CKQueryNotification *)cloudKitNotification recordID];
         
+        
+        
+        UNMutableNotificationContent* content = [[UNMutableNotificationContent alloc] init];
+        content.title = [NSString localizedUserNotificationStringForKey:@"Sports time" arguments:nil];
+        content.body = [NSString localizedUserNotificationStringForKey:cloudKitNotification.alertBody
+                                                             arguments:nil];
+        // Create the request object.
+        UNNotificationRequest* request = [UNNotificationRequest
+                                          requestWithIdentifier:@"invitedToEvent" content:content trigger: [UNTimeIntervalNotificationTrigger  triggerWithTimeInterval:4 repeats:NO]];
+        [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+            
+        }];
+        
+        
+        
+        
+        
         [SAEventConnector fetchRecordByRecordId:recordID handler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
             if (!error) {
-                //check what recordtype this record is and decide what to do with it
+                //check what record type this record is and decide what to do with it
                 if ([record.recordType isEqualToString:@"Event"]) {
                     SAEvent *eventFromNotification = [SAEventConnector getEventFromRecord:(record)];
+                    //save/update event in user defaults
                     [SAEvent saveToDefaults:eventFromNotification];
                     
-                    
+                    //if view controller being presented is feed, update its tableview
                     UIViewController *presentedViewController = [self topViewController];
                     if ([presentedViewController isKindOfClass:[SANewsFeedTableViewController class]]) {
                         SANewsFeedTableViewController *currentView = (SANewsFeedTableViewController *)presentedViewController;
