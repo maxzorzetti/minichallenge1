@@ -17,6 +17,7 @@
 #import "SAPersonConnector.h"
 #import "SAPerson.h"
 #import "SAUser.h"
+#import "SANewsFeedTableViewController.h"
 
 @interface AppDelegate ()
 @property SAPerson *currentUser;
@@ -202,13 +203,21 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
                 if ([record.recordType isEqualToString:@"Event"]) {
                     SAEvent *eventFromNotification = [SAEventConnector getEventFromRecord:(record)];
                     [SAEvent saveToDefaults:eventFromNotification];
+                    
+                    
+                    UIViewController *presentedViewController = [self topViewController];
+                    if ([presentedViewController isKindOfClass:[SANewsFeedTableViewController class]]) {
+                        SANewsFeedTableViewController *currentView = (SANewsFeedTableViewController *)presentedViewController;
+                        
+                        [currentView updateEventsWithUserDefaults];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [currentView.tableView reloadData];
+                        });
+                    }
                 }
                 //do the same with activity and other record types
             }
         }];
-        
-        
-        
     }
 }
 
@@ -238,6 +247,63 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
+
+
+
+
+
+
+
+
+
+#pragma methods to find presented view controller
+
+- (UIViewController *)topViewController{
+    return [self topViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
+}
+
+- (UIViewController *)topViewController:(UIViewController *)vc
+{
+    if (vc.presentedViewController) {
+        
+        // Return presented view controller
+        return [self topViewController:vc.presentedViewController];
+        
+    } else if ([vc isKindOfClass:[UISplitViewController class]]) {
+        
+        // Return right hand side
+        UISplitViewController* svc = (UISplitViewController*) vc;
+        if (svc.viewControllers.count > 0)
+            return [self topViewController:svc.viewControllers.lastObject];
+        else
+            return vc;
+        
+    } else if ([vc isKindOfClass:[UINavigationController class]]) {
+        
+        // Return top view
+        UINavigationController* svc = (UINavigationController*) vc;
+        if (svc.viewControllers.count > 0)
+            return [self topViewController:svc.topViewController];
+        else
+            return vc;
+        
+    } else if ([vc isKindOfClass:[UITabBarController class]]) {
+        
+        // Return visible view
+        UITabBarController* svc = (UITabBarController*) vc;
+        if (svc.viewControllers.count > 0)
+            return [self topViewController:svc.selectedViewController];
+        else
+            return vc;
+        
+    } else {
+        
+        // Unknown view controller type, return last child view controller
+        return vc;
+        
+    }}
 
 
 @end

@@ -94,6 +94,14 @@ CKDatabase *publicDatabase;
     
     CKQuery *query = [[CKQuery alloc]initWithRecordType:@"Event" predicate:predicate];
     
+    //i dont know why but the call to the database next to this one only works after this is called WTF!!!!!!!!!
+    [self fetchRecordByRecordId:userRef.recordID handler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+        if (!error) {
+            
+        }
+    }];
+    
+    
     [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray<CKRecord *> * _Nullable results, NSError * _Nullable errorFetched) {
         if (!errorFetched) {
             handler(results, errorFetched);

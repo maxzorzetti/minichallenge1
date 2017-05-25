@@ -12,4 +12,6 @@
 
 @interface SANewsFeedTableViewController : UITableViewController <CLLocationManagerDelegate, UIViewControllerPreviewingDelegate>
 
+-(void) updateEventsWithUserDefaults;
+
 @end

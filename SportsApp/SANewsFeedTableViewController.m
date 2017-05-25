@@ -201,10 +201,10 @@ static dispatch_once_t predicateForFriends;
                                     @"events" : events
                                     };
             
-            [self.arrayOfSectionsWithEvents replaceObjectAtIndex:1 withObject:myDic];
+            [self.arrayOfSectionsWithEvents replaceObjectAtIndex:2 withObject:myDic];
             
             finishedLoadingAllSectionsOfFeed += 1;
-            if (finishedLoadingAllSectionsOfFeed == 2) {
+            if (finishedLoadingAllSectionsOfFeed == 3) {
                 [refreshControl endRefreshing];
             }
         }
@@ -220,7 +220,24 @@ static dispatch_once_t predicateForFriends;
             [self.arrayOfSectionsWithEvents replaceObjectAtIndex:0 withObject:myDic];
             
             finishedLoadingAllSectionsOfFeed += 1;
-            if (finishedLoadingAllSectionsOfFeed == 2) {
+            if (finishedLoadingAllSectionsOfFeed == 3) {
+                [refreshControl endRefreshing];
+            }
+        }
+        [self updateTableView];
+    }];
+    
+    [SAEventConnector getEventsWhereUserIsAnInvitee:self.currentUser.personId handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
+        if(!error && events){
+            NSDictionary *myDic = @{
+                                    @"section" : @"INVITED",
+                                    @"events" : events
+                                    };
+            
+            [self.arrayOfSectionsWithEvents replaceObjectAtIndex:1 withObject:myDic];
+            
+            finishedLoadingAllSectionsOfFeed += 1;
+            if (finishedLoadingAllSectionsOfFeed == 3) {
                 [refreshControl endRefreshing];
             }
         }
@@ -286,6 +303,22 @@ static dispatch_once_t predicateForFriends;
 
 -(void) viewWillAppear:(BOOL)animated {
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    
+    //update events from userdefaults
+    if ([self.arrayOfSectionsWithEvents count]>2) {
+        [self updateEventsWithUserDefaults];
+    }
+}
+
+-(void) updateEventsWithUserDefaults{
+    [self.arrayOfSectionsWithEvents replaceObjectAtIndex:0 withObject: @{
+                                                                         @"section" : @"TODAY",
+                                                                         @"events" : [SAEvent getEventsForTodayCategory]
+                                                                         }];
+    [self.arrayOfSectionsWithEvents replaceObjectAtIndex:1 withObject: @{
+                                                                         @"section" : @"INIVTED",
+                                                                         @"events" : [SAEvent getEventsForInvitedCategory]
+                                                                         }];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -318,7 +351,10 @@ static dispatch_once_t predicateForFriends;
 }
 
 - (IBAction)backFromDescription:(UIStoryboardSegue *)segue{
-    
+    [self updateEventsWithUserDefaults];
+    dispatch_async(dispatch_get_main_queue(), ^{
+       [self.tableView reloadData]; 
+    });
 }
 
 #pragma location methods
