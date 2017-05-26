@@ -32,6 +32,7 @@ UNUserNotificationCenter *center;
 //  AppDelegate.m
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+    //ask for notifications if not determined yet
     center = [UNUserNotificationCenter currentNotificationCenter];
     
     center.delegate = self;
@@ -41,28 +42,13 @@ UNUserNotificationCenter *center;
                               // Enable or disable features based on authorization.
                           }];
     
-    
-    
-    // ******** sets categories for notification **********
-    
-    //user was invited to an event
-    //user can join the event
-    UNNotificationAction *joinEventAction = [UNNotificationAction actionWithIdentifier:@"joinEvent" title:@"Join" options:UNNotificationActionOptionNone];
-    UNNotificationAction *leaveEventAction = [UNNotificationAction actionWithIdentifier:@"leaveEvent" title:@"Leave" options:UNNotificationActionOptionNone];
-    UNNotificationCategory *userInvitedToEventCategory = [UNNotificationCategory categoryWithIdentifier:@"userInvitedToEvent" actions:@[joinEventAction, leaveEventAction] intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
-    
-    //register categories to notification center object
-    [center setNotificationCategories:[NSSet setWithObjects:userInvitedToEventCategory, nil]];
-    
     return YES;
 }
 
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Register for push notifications
-    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert categories:nil];
-    [application registerUserNotificationSettings:notificationSettings];
-    [application registerForRemoteNotifications];
+    [self registerForNotifications];
+    
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
@@ -261,6 +247,51 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     }
 }
 
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler{
+    if ([response.notification.request.content.categoryIdentifier isEqualToString:@"userInvitedToEvent"]) {
+        if ([response.actionIdentifier isEqualToString:@"joinEvent"]) {
+            
+        }
+        if ([response.actionIdentifier isEqualToString:@"leaveEvent"]) {
+            
+        }
+    }
+}
+
+-(void)registerForNotifications{
+    //***** notification settings *****//
+    
+    UIMutableUserNotificationAction* joinEventAction = [[UIMutableUserNotificationAction alloc] init];
+    joinEventAction.identifier = @"joinEvent";
+    joinEventAction.title = @"Join";
+    joinEventAction.activationMode = UIUserNotificationActivationModeBackground;
+    joinEventAction.destructive = NO;
+    joinEventAction.authenticationRequired = YES;
+    
+    UIMutableUserNotificationAction* leaveEventAction = [[UIMutableUserNotificationAction alloc] init];
+    leaveEventAction.identifier = @"leaveEvent";
+    leaveEventAction.title = @"Leave";
+    leaveEventAction.activationMode = UIUserNotificationActivationModeBackground;
+    leaveEventAction.destructive = NO;
+    leaveEventAction.authenticationRequired = YES;
+    
+    UIMutableUserNotificationCategory *userInvitedToEventMutableCategory  = [[UIMutableUserNotificationCategory alloc]init];
+    userInvitedToEventMutableCategory.identifier = @"userInvitedToEvent";
+    [userInvitedToEventMutableCategory setActions:@[joinEventAction, leaveEventAction] forContext:UIUserNotificationActionContextDefault];
+    
+    
+    NSSet *categories = [NSSet setWithObject:userInvitedToEventMutableCategory];
+    
+    //*Register for push notifications*/
+    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert categories:categories];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+    
+    //*********************//
+}
+
+
+#pragma methods built in
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

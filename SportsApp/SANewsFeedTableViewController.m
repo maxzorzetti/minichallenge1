@@ -135,7 +135,7 @@ static dispatch_once_t predicateForFriends;
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     //checks if user already has a subscription of events for invited section
-    //[userDefaults setBool:NO forKey:@"hasSubscriptionForEventsForInvitedSection"];
+    //[userDefaults setBool:YES forKey:@"hasSubscriptionForEventsForInvitedSection"];
     if (![userDefaults boolForKey:@"hasSubscriptionForEventsForInvitedSection"]) {
         CKReference *userRef = [[CKReference alloc]initWithRecordID:self.currentUser.personId action:CKReferenceActionNone];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ IN invitees", userRef];
