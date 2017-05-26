@@ -167,6 +167,29 @@
 + (void)registerParticipant:(SAPerson *)participant inEvent:(SAEvent *)event handler:(void (^)(SAEvent * _Nullable, NSError * _Nullable))handler{
     [event addParticipant:participant];
     [event removeInvitee:participant];
+    [event removeNotGoingPerson:participant];
+    
+    CKRecord *eventRecord = [SAEventConnector getEventRecordFromEvent:event];
+    
+    SAEventDAO *dao = [SAEventDAO new];
+    [dao updateEvent:eventRecord handler:^(CKRecord * _Nullable eventAnswer, NSError * _Nullable error2) {
+        if (!error2 && eventAnswer) {
+            SAEvent *eventToReturnToHandler = [SAEventConnector getEventFromRecord:eventAnswer];
+            
+            //save or update event to user defaults
+            [SAEvent saveToDefaults:eventToReturnToHandler];
+            
+            handler(eventToReturnToHandler, error2);
+        }else{
+            handler(nil, error2);
+        }
+    }];
+}
+
++ (void)denyInvite:(SAPerson *)participant ofEvent:(SAEvent *)event handler:(void (^)(SAEvent * _Nullable, NSError * _Nullable))handler{
+    [event removeInvitee:participant];
+    [event addNotGoingPerson:participant];
+    
     CKRecord *eventRecord = [SAEventConnector getEventRecordFromEvent:event];
     
     SAEventDAO *dao = [SAEventDAO new];
@@ -209,6 +232,7 @@
     CKReference *ownerRef = [[CKReference alloc] initWithRecordID:event.owner.personId action:CKReferenceActionNone];
     NSMutableArray *participantsRef = [NSMutableArray new];
     NSMutableArray *inviteesRef = [NSMutableArray new];
+    NSMutableArray *notGoingPeopleRef = [NSMutableArray new];
     
     for (SAPerson *participant in event.participants) {
         CKReference *participantRef = [[CKReference alloc]initWithRecordID:participant.personId action:CKReferenceActionNone];
@@ -217,6 +241,10 @@
     for (SAPerson *invitee in event.invitees) {
         CKReference *inviteeRef = [[CKReference alloc]initWithRecordID:invitee.personId action:CKReferenceActionNone];
         [inviteesRef addObject:inviteeRef];
+    }
+    for (SAPerson *notGoingPerson in event.notGoing) {
+        CKReference *notGoingPersonRef = [[CKReference alloc]initWithRecordID:notGoingPerson.personId action:CKReferenceActionNone];
+        [notGoingPeopleRef addObject:notGoingPersonRef];
     }
     
     eventRecord[@"invitees"] = [NSArray arrayWithArray:inviteesRef];
@@ -228,6 +256,7 @@
     eventRecord[@"name"] = event.name;
     eventRecord[@"owner"] = ownerRef;
     eventRecord[@"participants"] = [NSArray arrayWithArray:participantsRef];
+    eventRecord[@"notGoing"] = [NSArray arrayWithArray:notGoingPeopleRef];
     eventRecord[@"sex"] = event.sex;
     eventRecord[@"shift"] = event.shift;
     eventRecord[@"location"] = event.location;
@@ -321,6 +350,28 @@
         [arrayOfInvitees addObject:inviteeToAdd];
     }
     
+    //CHECK IF NOT GOING PEOPLE IN NSUserdefaustao
+    NSMutableArray *arrayOfNotGoingPeople = [NSMutableArray new];
+    NSArray *arrayOfNotGoingPeopleReferences = event[@"notGoing"];
+    
+    for (CKReference *notGoingRef in arrayOfNotGoingPeopleReferences) {
+        CKRecordID *notGoingId = notGoingRef.recordID;
+        SAPerson *notGoingToAdd;
+        
+        for (NSDictionary *ownerDic in arrayOfUsers) {
+            if ([[ownerDic objectForKey:@"personId"] isEqualToString:notGoingId.recordName]) {
+                notGoingToAdd = [NSKeyedUnarchiver unarchiveObjectWithData:ownerDic[@"personData"]];
+            }
+        }
+        
+        //nothing found, add referenced person to fetch in database in event description view
+        if (!notGoingToAdd) {
+            notGoingToAdd = [[SAPerson alloc]initWithName:nil personId:notGoingId email:nil telephone:nil facebookId:nil andPhoto:nil andEvents:nil andGender:nil];
+        }
+        [arrayOfNotGoingPeople addObject:notGoingToAdd];
+    }
+    
+    [eventFromRecord addNotGoingPeople:arrayOfNotGoingPeople];
     [eventFromRecord addInvitees:arrayOfInvitees];
     [eventFromRecord setOwner:ownerToSetToEvent];
     [eventFromRecord setActivity:activityToSetToEvent];

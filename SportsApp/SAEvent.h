@@ -20,6 +20,7 @@
 @property (atomic) SAActivity *activity;
 @property (nonatomic, readonly) NSSet<SAPerson *> *participants;
 @property (nonatomic, readonly) NSSet<SAPerson *> *invitees;
+@property (nonatomic, readonly) NSSet<SAPerson *> *notGoing;
 @property (nonatomic) NSString *category;
 @property (nonatomic) NSString *shift;
 @property (nonatomic) NSString *sex;
@@ -53,6 +54,18 @@
 - (void)makeAnInviteeAParticipant:(SAPerson *)invitee;
 
 - (NSString *)getParticipantRole:(SAPerson *)person;
+
+- (void)makeAnInviteeANotGoingPerson:(SAPerson *)invitee;
+
+- (NSSet<SAPerson *> *)notGoing;
+
+- (void)addNotGoingPerson:(SAPerson *)notGoingPerson;
+
+- (void)addNotGoingPeople:(NSArray *)notGoingPeople;
+
+- (void)removeNotGoingPerson:(SAPerson *)notGoingPerson;
+
+- (void)replaceNotGoingPerson:(NSArray<SAPerson *>*)notGoingPeople;
 
 + (void)saveToDefaults:(SAEvent *)event;
 

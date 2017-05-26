@@ -48,7 +48,6 @@ UNUserNotificationCenter *center;
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self registerForNotifications];
-    [self createSubscriptionsForNotifications];
     
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -231,7 +230,9 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler{
     
-    //notification related to current user being invited to an event by friend
+    //************************************************************************************//
+    //     notification related to current user being invited to an event by a friend       //
+    //************************************************************************************//
     if ([response.notification.request.content.categoryIdentifier isEqualToString:@"userInvitedToEvent"]) {
         //get the event
         CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:response.notification.request.content.userInfo];
@@ -255,47 +256,25 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
             }
             //if user wants to leave the event
             if ([response.actionIdentifier isEqualToString:@"leaveEvent"]) {
-                //need to implement leave event
+                //fetch event
+                [SAEventConnector getEventById:recordID handler:^(SAEvent * _Nullable event, NSError * _Nullable error) {
+                    if (!error) {
+                        //deny invitation
+                        [SAEventConnector denyInvite:self.currentUser ofEvent:event handler:^(SAEvent * _Nullable event, NSError * _Nullable error) {
+                            if (!error) {
+                                completionHandler();
+                            }
+                        }];
+                    }
+                }];
             }
         }
     }
-}
-
-
--(void)createSubscriptionsForNotifications{
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    //checks if user already has a subscription of events for invited section
-    //[userDefaults setBool:YES forKey:@"hasSubscriptionForEventsForInvitedSection"];
-    if (![userDefaults boolForKey:@"hasSubscriptionForEventsForInvitedSection"]) {
-        CKReference *userRef = [[CKReference alloc]initWithRecordID:self.currentUser.personId action:CKReferenceActionNone];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ IN invitees", userRef];
-        //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"minPeople >0"];
-        CKSubscription *subscription = [[CKSubscription alloc]initWithRecordType:@"Event" predicate:predicate options:CKSubscriptionOptionsFiresOnRecordCreation | CKSubscriptionOptionsFiresOnRecordUpdate];
-        
-        CKNotificationInfo *notificationInfo  = [CKNotificationInfo new];
-        notificationInfo.alertBody = @"Some of your friends added you in an event!";
-        notificationInfo.shouldBadge = YES;
-        notificationInfo.category = @"userInvitedToEvent";
-        //notificationInfo.desiredKeys = [NSArray arrayWithObjects: @"recordType", nil];
-        subscription.notificationInfo = notificationInfo;
-        
-        //saves the subscription to the database
-        CKDatabase *publicDatabase = [[CKContainer defaultContainer] publicCloudDatabase];
-        [publicDatabase saveSubscription:subscription completionHandler:^(CKSubscription * _Nullable subscription, NSError * _Nullable error) {
-            if (!error) {
-                //subscription created, let user defaults know :)
-                [userDefaults setBool:YES forKey:@"hasSubscriptionForEventsForInvitedSection"];
-                [userDefaults synchronize];
-            }
-        }];
-    }
+    // ************************************************************************************ //
     
-    
-    //cheks if user already has a subscription for when invitees of user's event has confirmed
     
     
 }
-
 
 
 -(void)registerForNotifications{

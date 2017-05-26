@@ -14,6 +14,7 @@
 @interface SAEvent ()
 @property (nonatomic) NSMutableArray<SAPerson *> *privateParticipants;
 @property (nonatomic) NSMutableArray<SAPerson *> *privateInvitees;
+@property (nonatomic) NSMutableArray<SAPerson *> *privateNotGoing;
 @end
 
 @implementation SAEvent
@@ -29,6 +30,7 @@
 		_activity = nil;
 		_privateParticipants = [NSMutableArray new];
         _privateInvitees = [NSMutableArray new];
+        _privateNotGoing = [NSMutableArray new];
 		_category = nil;
 		_shift = nil;
 		_sex = nil;
@@ -56,6 +58,7 @@
         _distance = distance;
         _privateParticipants = [NSMutableArray arrayWithArray:participants];
         _privateInvitees = [NSMutableArray arrayWithArray:invitees];
+        _privateNotGoing = [NSMutableArray new];
     }
     return self;
 }
@@ -130,6 +133,41 @@
     [self addParticipant:invitee];
 }
 
+- (void)makeAnInviteeANotGoingPerson:(SAPerson *)invitee{
+    [self removeInvitee:invitee];
+    [self addNotGoingPerson:invitee];
+}
+
+- (NSSet<SAPerson *> *)notGoing {
+    NSSet* notGoingPeople = [[NSSet alloc] initWithArray:self.privateNotGoing];
+    return [notGoingPeople copy];
+}
+
+- (void)addNotGoingPerson:(SAPerson *)notGoingPerson{
+    [self.privateNotGoing addObject:notGoingPerson];
+}
+
+- (void)addNotGoingPeople:(NSArray *)notGoingPeople{
+    for (SAPerson *notGoingPerson in notGoingPeople) {
+        [self.privateNotGoing addObject:notGoingPerson];
+    }
+}
+
+- (void)removeNotGoingPerson:(SAPerson *)notGoingPerson{
+    SAPerson *personToRemove;
+    for (SAPerson *participant in self.privateNotGoing) {
+        if ([participant.personId.recordName isEqualToString:notGoingPerson.personId.recordName]) {
+            personToRemove = participant;
+        }
+    }
+    if (personToRemove) {
+        [self.privateNotGoing removeObject:personToRemove];
+    }
+}
+
+- (void)replaceNotGoingPerson:(NSArray<SAPerson *>*)notGoingPeople{
+    [self.privateNotGoing setArray:notGoingPeople];
+}
 
 - (NSString *)description {
 	return [[NSString alloc] initWithFormat:@"%@ %@ %@", self.name, self.activity.name, self.owner];

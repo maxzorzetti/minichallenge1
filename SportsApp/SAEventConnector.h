@@ -37,7 +37,7 @@
 
 + (void)getEventsWhereUserIsAnInvitee:(CKRecordID *_Nonnull)userId handler:(void (^_Nonnull)(NSArray<SAEvent *>* _Nullable events, NSError * _Nullable error))handler;
 
-
++ (void)denyInvite:(SAPerson * _Nonnull)participant ofEvent:(SAEvent * _Nonnull)event handler:(void (^ _Nonnull)(SAEvent * _Nullable, NSError * _Nullable))handler;
 
 
 //THIS SHOULD BE IN ANOTHER CLASS
