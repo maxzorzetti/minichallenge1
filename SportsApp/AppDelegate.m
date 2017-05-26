@@ -186,17 +186,15 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     return handled;
 }
 
+
+
+
+
+
+
+
+
 #pragma notification methods
-//- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
-//    CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:userInfo];
-//    
-//    //NSString *alertBody = cloudKitNotification.alertBody;
-//    if (cloudKitNotification.notificationType == CKNotificationTypeQuery) {
-//        CKRecordID *recordID = [(CKQueryNotification *)cloudKitNotification recordID];
-//        NSDictionary *dictionary = [(CKQueryNotification *)cloudKitNotification recordFields];
-//        NSString *asfoi;
-//    }
-//}
 
 - (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
     CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:userInfo];
@@ -204,23 +202,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //NSString *alertBody = cloudKitNotification.alertBody;
     if (cloudKitNotification.notificationType == CKNotificationTypeQuery) {
         CKRecordID *recordID = [(CKQueryNotification *)cloudKitNotification recordID];
-        
-        
-        
-        UNMutableNotificationContent* content = [[UNMutableNotificationContent alloc] init];
-        content.title = [NSString localizedUserNotificationStringForKey:@"Sports time" arguments:nil];
-        content.body = [NSString localizedUserNotificationStringForKey:cloudKitNotification.alertBody
-                                                             arguments:nil];
-        // Create the request object.
-        UNNotificationRequest* request = [UNNotificationRequest
-                                          requestWithIdentifier:@"invitedToEvent" content:content trigger: [UNTimeIntervalNotificationTrigger  triggerWithTimeInterval:4 repeats:NO]];
-        [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-            
-        }];
-        
-        
-        
-        
         
         [SAEventConnector fetchRecordByRecordId:recordID handler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
             if (!error) {
@@ -248,12 +229,33 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 }
 
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler{
+    
+    //notification related to current user being invited to an event by friend
     if ([response.notification.request.content.categoryIdentifier isEqualToString:@"userInvitedToEvent"]) {
-        if ([response.actionIdentifier isEqualToString:@"joinEvent"]) {
-            
-        }
-        if ([response.actionIdentifier isEqualToString:@"leaveEvent"]) {
-            
+        //get the event
+        CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:response.notification.request.content.userInfo];
+        
+        if (cloudKitNotification.notificationType == CKNotificationTypeQuery) {
+            CKRecordID *recordID = [(CKQueryNotification *)cloudKitNotification recordID];
+            //if user wants to joing the event
+            if ([response.actionIdentifier isEqualToString:@"joinEvent"]) {
+                //fetch event
+                [SAEventConnector getEventById:recordID handler:^(SAEvent * _Nullable event, NSError * _Nullable error) {
+                    if (!error) {
+                        //register user in event
+                        [SAEventConnector registerParticipant:self.currentUser inEvent:event handler:
+                         ^(SAEvent * _Nullable event, NSError * _Nullable error) {
+                             if (!error) {
+                                 
+                             }
+                         }];
+                    }
+                }];
+            }
+            //if user wants to leave the event
+            if ([response.actionIdentifier isEqualToString:@"leaveEvent"]) {
+                //need to implement leave event
+            }
         }
     }
 }
@@ -289,6 +291,14 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     //*********************//
 }
+
+
+
+
+
+
+
+
 
 
 #pragma methods built in
