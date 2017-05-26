@@ -131,37 +131,7 @@ static dispatch_once_t predicateForFriends;
         }
         [self updateTableView];
     }];
-    
-    
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    //checks if user already has a subscription of events for invited section
-    //[userDefaults setBool:YES forKey:@"hasSubscriptionForEventsForInvitedSection"];
-    if (![userDefaults boolForKey:@"hasSubscriptionForEventsForInvitedSection"]) {
-        CKReference *userRef = [[CKReference alloc]initWithRecordID:self.currentUser.personId action:CKReferenceActionNone];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ IN invitees", userRef];
-        //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"minPeople >0"];
-        CKSubscription *subscription = [[CKSubscription alloc]initWithRecordType:@"Event" predicate:predicate options:CKSubscriptionOptionsFiresOnRecordCreation | CKSubscriptionOptionsFiresOnRecordUpdate];
-        
-        CKNotificationInfo *notificationInfo  = [CKNotificationInfo new];
-        notificationInfo.alertBody = @"Some of your friends added you in an event!";
-        notificationInfo.shouldBadge = YES;
-        notificationInfo.category = @"userInvitedToEvent";
-        //notificationInfo.desiredKeys = [NSArray arrayWithObjects: @"recordType", nil];
-        subscription.notificationInfo = notificationInfo;
-        
-        //saves the subscription to the database
-        CKDatabase *publicDatabase = [[CKContainer defaultContainer] publicCloudDatabase];
-        [publicDatabase saveSubscription:subscription completionHandler:^(CKSubscription * _Nullable subscription, NSError * _Nullable error) {
-            if (!error) {
-                //subscription created, let user defaults know :)
-                [userDefaults setBool:YES forKey:@"hasSubscriptionForEventsForInvitedSection"];
-                [userDefaults synchronize];
-            }
-        }];
-    }
-    
-    
-    
+
     //check location authorization status
     switch ([CLLocationManager authorizationStatus]) {
         case kCLAuthorizationStatusAuthorizedWhenInUse:
