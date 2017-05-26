@@ -18,6 +18,7 @@
 @property NSMutableArray *arrayOfParticipants;
 @property NSMutableArray *arrayOfInvitees;
 @property NSMutableArray *arrayOfNotGoingPeople;
+@property NSMutableArray *arrayOfInvitedParticipants;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic) SAPerson *currentUser;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionViewOfNotConfirmedPeople;
@@ -344,6 +345,9 @@
             case 1:
                 numberOfItems = [self.arrayOfNotGoingPeople count];
                 break;
+//            case 2:
+//                numberOfItems = [self.arrayOfInvitedParticipants count];
+//                break;
             default:
                 break;
         }
