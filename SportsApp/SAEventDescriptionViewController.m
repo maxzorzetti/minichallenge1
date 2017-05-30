@@ -480,32 +480,43 @@
     });
 }
 
+
+//this method also modifies button behaviour
 - (void)updateParticipantStatus{
     dispatch_async(dispatch_get_main_queue(), ^{
         //define value for progress bar
         self.progressView.progress = [self.currentEvent.participants count] / [self.currentEvent.minPeople floatValue];
         self.eventCapacity.text = [NSString stringWithFormat:@"%lu/%@", (unsigned long)[self.currentEvent.participants count], self.currentEvent.minPeople];
         
-        //define border and margin of Join/Leave button
-        self.buttonView.layer.borderColor = [UIColor colorWithRed:119/255.0 green:90/255.0 blue:218/255.0 alpha:1.0].CGColor;
-        self.buttonView.layer.borderWidth = 1.0;
-        self.buttonView.layer.cornerRadius = 8.0;
-        self.modifyParticipantButton.userInteractionEnabled = YES;
         
-        for (SAPerson *participant in self.currentEvent.participants) {
-            if ([participant.personId.recordName isEqualToString:self.currentUser.personId.recordName]) {
-                //current user is a participant of the event, show LEAVE button
-                self.buttonView.backgroundColor = [UIColor whiteColor];
-                [self.modifyParticipantButton setTitle:@"LEAVE" forState:UIControlStateNormal];
-                [self.modifyParticipantButton setTitleColor:[UIColor colorWithRed:119/255.0 green:90/255.0 blue:218/255.0 alpha:1.0] forState:UIControlStateNormal];
-                return;
+        
+        NSComparisonResult result = [self.currentEvent.date compare:[NSDate date]];
+        
+        if([self.currentEvent.participants count] == [self.currentEvent.maxPeople integerValue] || result == NSOrderedAscending || [self.currentEvent.owner.personId.recordName isEqualToString:self.currentUser.personId.recordName]){
+            self.buttonView.hidden = YES;
+        }else{
+            self.buttonView.hidden = NO;
+            //define border and margin of Join/Leave button
+            self.buttonView.layer.borderColor = [UIColor colorWithRed:119/255.0 green:90/255.0 blue:218/255.0 alpha:1.0].CGColor;
+            self.buttonView.layer.borderWidth = 1.0;
+            self.buttonView.layer.cornerRadius = 8.0;
+            self.modifyParticipantButton.userInteractionEnabled = YES;
+            
+            for (SAPerson *participant in self.currentEvent.participants) {
+                if ([participant.personId.recordName isEqualToString:self.currentUser.personId.recordName]) {
+                    //current user is a participant of the event, show LEAVE button
+                    self.buttonView.backgroundColor = [UIColor whiteColor];
+                    [self.modifyParticipantButton setTitle:@"LEAVE" forState:UIControlStateNormal];
+                    [self.modifyParticipantButton setTitleColor:[UIColor colorWithRed:119/255.0 green:90/255.0 blue:218/255.0 alpha:1.0] forState:UIControlStateNormal];
+                    return;
+                }
             }
+            
+            //current user is not a participant of the event, show JOIN button
+            self.buttonView.backgroundColor = [UIColor colorWithRed:119/255.0 green:90/255.0 blue:218/255.0 alpha:1.0];
+            [self.modifyParticipantButton setTitle:@"JOIN" forState:UIControlStateNormal];
+            [self.modifyParticipantButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         }
-        
-        //current user is not a participant of the event, show JOIN button
-        self.buttonView.backgroundColor = [UIColor colorWithRed:119/255.0 green:90/255.0 blue:218/255.0 alpha:1.0];
-        [self.modifyParticipantButton setTitle:@"JOIN" forState:UIControlStateNormal];
-        [self.modifyParticipantButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     });
 }
 

@@ -163,7 +163,7 @@
 		
 		if ( self.tempEvent.participants.count >= self.tempEvent.minPeople.integerValue ) {
 
-			[self performSegueWithIdentifier:@"descriptionEventSegue" sender:self];
+			[self performSegueWithIdentifier:@"descriptionNotClosedEventSegue" sender:self];
 			
 		} else {
 			
@@ -248,7 +248,7 @@
     NSComparisonResult result = [cell.cellEvent.date compare:[NSDate date]];
     
     if([cell.cellEvent.participants count] >= [cell.cellEvent.minPeople integerValue] || result == NSOrderedAscending){
-        [self performSegueWithIdentifier:@"descriptionEventSegue" sender:cell];
+        [self performSegueWithIdentifier:@"descriptionNotClosedEventSegue" sender:cell];
     }else{
         [self performSegueWithIdentifier:@"descriptionNotClosedEventSegue" sender:cell];
     }

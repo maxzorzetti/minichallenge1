@@ -298,13 +298,19 @@ static dispatch_once_t predicateForFriends;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     SANewsFeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     
-    NSComparisonResult result = [cell.cellEvent.date compare:[NSDate date]];
+//    NSComparisonResult result = [cell.cellEvent.date compare:[NSDate date]];
+//    
+//    if([cell.cellEvent.participants count] >= [cell.cellEvent.minPeople integerValue] || result == NSOrderedAscending){
+//        [self performSegueWithIdentifier:@"closedEventSegue" sender:cell];
+//    }else{
+//        [self performSegueWithIdentifier:@"mySegue" sender:cell];
+//    }
     
-    if([cell.cellEvent.participants count] >= [cell.cellEvent.minPeople integerValue] || result == NSOrderedAscending){
-        [self performSegueWithIdentifier:@"closedEventSegue" sender:cell];
-    }else{
-        [self performSegueWithIdentifier:@"mySegue" sender:cell];
-    }
+    
+    
+    
+    //never show view with phone number
+    [self performSegueWithIdentifier:@"mySegue" sender:cell];
 }
     
     
@@ -314,14 +320,18 @@ static dispatch_once_t predicateForFriends;
 	
     
     
-    if ([segue.identifier isEqualToString: @"mySegue"]) {
-		
-		SAEventDescriptionViewController *destView = segue.destinationViewController;
-		destView.currentEvent= sender.cellEvent;
-    }else{
-        ClosedEventDescriptionViewController *destView = segue.destinationViewController;
-        destView.event = sender.cellEvent;
-    }
+//    if ([segue.identifier isEqualToString: @"mySegue"]) {
+//		
+//		SAEventDescriptionViewController *destView = segue.destinationViewController;
+//		destView.currentEvent= sender.cellEvent;
+//    }else{
+//        ClosedEventDescriptionViewController *destView = segue.destinationViewController;
+//        destView.event = sender.cellEvent;
+//    }
+    
+    //never show view with phone number
+    SAEventDescriptionViewController *destView = segue.destinationViewController;
+    destView.currentEvent= sender.cellEvent;
 }
 
 - (IBAction)backFromDescription:(UIStoryboardSegue *)segue{
