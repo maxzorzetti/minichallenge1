@@ -374,7 +374,6 @@
     if (collectionView == self.collectionViewOfNotConfirmedPeople) {
         switch (indexPath.section) {
             case 0:
-                //use cell that shows green icon
                 cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"inviteeCell" forIndexPath:indexPath];
                 friend = self.arrayOfInvitees[indexPath.item];
                 if (friend.photo) {
@@ -382,9 +381,9 @@
                 }else{
                     cell.profileInvitee.image = [UIImage imageNamed:@"img_placeholder.png"];
                 }
+                cell.profileInvitee.layer.borderColor = [UIColor colorWithRed:0/255.0 green:255/255.0 blue:0/255.0 alpha:1.0].CGColor;
                 break;
             case 1:
-                //use cell that shows x icon
                 cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"inviteeCell" forIndexPath:indexPath];
                 friend = self.arrayOfNotGoingPeople[indexPath.item];
                 if (friend.photo) {
@@ -392,9 +391,9 @@
                 }else{
                     cell.profileInvitee.image = [UIImage imageNamed:@"img_placeholder.png"];
                 }
+                cell.profileInvitee.layer.borderColor = [UIColor colorWithRed:255/255.0 green:0/255.0 blue:0/255.0 alpha:1.0].CGColor;
                 break;
             case 2:
-                //use cell that shows ? icon
                 cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"inviteeCell" forIndexPath:indexPath];
                 friend = self.arraOfNotConfirmedInvitees[indexPath.item];
                 if (friend.photo) {
@@ -402,6 +401,7 @@
                 }else{
                     cell.profileInvitee.image = [UIImage imageNamed:@"img_placeholder.png"];
                 }
+                cell.profileInvitee.layer.borderColor = [UIColor colorWithRed:122/255.0 green:122/255.0 blue:122/255.0 alpha:1.0].CGColor;
                 break;
             default:
                 break;
@@ -411,6 +411,7 @@
     else{
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"friendCell" forIndexPath:indexPath];
         friend = self.arrayOfParticipants[indexPath.item];
+        cell.profileImageBruno.layer.borderColor = [UIColor colorWithRed:0/255.0 green:255/255.0 blue:0/255.0 alpha:1.0].CGColor;
         if (friend.photo) {
             cell.profileImageBruno.image = [UIImage imageWithData:friend.photo];
         }else{
