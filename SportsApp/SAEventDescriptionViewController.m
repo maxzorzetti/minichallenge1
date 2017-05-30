@@ -18,7 +18,7 @@
 @property NSMutableArray *arrayOfParticipants;
 @property NSMutableArray *arrayOfInvitees;
 @property NSMutableArray *arrayOfNotGoingPeople;
-@property NSMutableArray *arrayOfInvitedParticipants;
+@property NSMutableArray *arraOfNotConfirmedInvitees;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic) SAPerson *currentUser;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionViewOfNotConfirmedPeople;
@@ -251,6 +251,82 @@
     }
     
     
+    
+    
+    
+    _arraOfNotConfirmedInvitees = [NSMutableArray arrayWithArray:self.currentEvent.inviteesNotConfirmed.allObjects];
+    
+    __block NSMutableArray *arrayOfInviteesNotConfirmedToUpdate = [NSMutableArray new];
+    //checks if invitees not confirmed info is complete, if not, fetch from db
+    for (SAPerson *person in self.arraOfNotConfirmedInvitees) {
+        //if invitee not confirmed info is incomplete
+        if ([person.name length] == 0) {
+            
+            
+            //check if invitee not confimred info is in userdefaults
+            int isPersonInDefaults = 0;
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSArray *arrayOfDic = [userDefaults arrayForKey:@"ArrayOfDictionariesContainingPeople"];
+            for (NSDictionary *dicPerson in arrayOfDic) {
+                NSString *personInUDRecordName = dicPerson[@"personId"];
+                if ([person.personId.recordName isEqualToString:personInUDRecordName]) {
+                    NSData *personData = dicPerson[@"personData"];
+                    SAPerson *personToAdd = [NSKeyedUnarchiver unarchiveObjectWithData:personData];
+                    
+                    [arrayOfInviteesNotConfirmedToUpdate addObject:personToAdd];
+                    isPersonInDefaults = 1;
+                }
+            }
+            
+            //invitee not confirmed not in userdefaults
+            if (isPersonInDefaults == 0) {
+                [SAPersonConnector getPersonFromId:person.personId handler:^(SAPerson * _Nullable personFetched, NSError * _Nullable error) {
+                    if (!error && personFetched) {
+                        [arrayOfInviteesNotConfirmedToUpdate addObject:personFetched];
+                        //once all invitees not confirmed info are complete, update table view
+                        if ([arrayOfInviteesNotConfirmedToUpdate count] == [self.arraOfNotConfirmedInvitees count]) {
+                            self.arraOfNotConfirmedInvitees = arrayOfInviteesNotConfirmedToUpdate;
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self.collectionViewOfNotConfirmedPeople reloadData];
+                            });
+                        }
+                    }else{
+                        [arrayOfInviteesNotConfirmedToUpdate addObject:person];
+                        //once all not confirmed invitees info are complete update table view
+                        if ([arrayOfInviteesNotConfirmedToUpdate count] == [self.arraOfNotConfirmedInvitees count]) {
+                            self.arraOfNotConfirmedInvitees = arrayOfInviteesNotConfirmedToUpdate;
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self.collectionViewOfNotConfirmedPeople reloadData];
+                            });
+                        }
+                    }
+                }];
+            }
+        }
+        //invitee info was already complete, just add to array
+        else{
+            [arrayOfInviteesNotConfirmedToUpdate addObject:person];
+        }
+        
+        //if all not confirmed invitees info are complete update table view
+        if ([arrayOfInviteesNotConfirmedToUpdate count] == [self.arraOfNotConfirmedInvitees count]) {
+            self.arraOfNotConfirmedInvitees = arrayOfInviteesNotConfirmedToUpdate;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.collectionViewOfNotConfirmedPeople reloadData];
+            });
+        }
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     //add border and margin to main view
     self.mainView.layer.borderColor = [UIColor colorWithRed:119/255.0 green:90/255.0 blue:218/255.0 alpha:1.0].CGColor;
     self.mainView.layer.borderWidth = 1.0;
@@ -293,12 +369,12 @@
     
     SAPerson *friend;
     
-    
     //checks what collection view to insert person
     //not confirmed(invitee)
     if (collectionView == self.collectionViewOfNotConfirmedPeople) {
         switch (indexPath.section) {
             case 0:
+                //use cell that shows green icon
                 cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"inviteeCell" forIndexPath:indexPath];
                 friend = self.arrayOfInvitees[indexPath.item];
                 if (friend.photo) {
@@ -308,8 +384,19 @@
                 }
                 break;
             case 1:
+                //use cell that shows x icon
                 cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"inviteeCell" forIndexPath:indexPath];
                 friend = self.arrayOfNotGoingPeople[indexPath.item];
+                if (friend.photo) {
+                    cell.profileInvitee.image = [UIImage imageWithData:friend.photo];
+                }else{
+                    cell.profileInvitee.image = [UIImage imageNamed:@"img_placeholder.png"];
+                }
+                break;
+            case 2:
+                //use cell that shows ? icon
+                cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"inviteeCell" forIndexPath:indexPath];
+                friend = self.arraOfNotConfirmedInvitees[indexPath.item];
                 if (friend.photo) {
                     cell.profileInvitee.image = [UIImage imageWithData:friend.photo];
                 }else{
@@ -345,9 +432,9 @@
             case 1:
                 numberOfItems = [self.arrayOfNotGoingPeople count];
                 break;
-//            case 2:
-//                numberOfItems = [self.arrayOfInvitedParticipants count];
-//                break;
+            case 2:
+                numberOfItems = [self.arraOfNotConfirmedInvitees count];
+                break;
             default:
                 break;
         }
@@ -362,7 +449,7 @@
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     //checks what collection view
     //not confirmed(invitee)
-    if (collectionView == self.collectionViewOfNotConfirmedPeople) {return 2;}else{return 1;};
+    if (collectionView == self.collectionViewOfNotConfirmedPeople) {return 3;}else{return 1;};
 }
 
 #pragma methods to update participants
@@ -426,6 +513,9 @@
                     //update not going people list
                     self.arrayOfNotGoingPeople = [NSMutableArray arrayWithArray:[event.notGoing allObjects]];
                     
+                    //update not confirmed people list
+                    self.arraOfNotConfirmedInvitees = [NSMutableArray arrayWithArray:[event.inviteesNotConfirmed allObjects]];
+                    
                     //update button content
                     [self updateParticipantStatus];
                 }
@@ -448,6 +538,9 @@
                 
                 //update not going people list
                 self.arrayOfNotGoingPeople = [NSMutableArray arrayWithArray:[event.notGoing allObjects]];
+                
+                //update not confirmed people list
+                self.arraOfNotConfirmedInvitees = [NSMutableArray arrayWithArray:[event.inviteesNotConfirmed allObjects]];
                 
                 //update button content
                 [self updateParticipantStatus];

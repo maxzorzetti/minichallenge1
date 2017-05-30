@@ -166,8 +166,6 @@
 
 + (void)registerParticipant:(SAPerson *)participant inEvent:(SAEvent *)event handler:(void (^)(SAEvent * _Nullable, NSError * _Nullable))handler{
     [event addParticipant:participant];
-    [event removeInvitee:participant];
-    [event removeNotGoingPerson:participant];
     
     CKRecord *eventRecord = [SAEventConnector getEventRecordFromEvent:event];
     
@@ -187,7 +185,6 @@
 }
 
 + (void)denyInvite:(SAPerson *)participant ofEvent:(SAEvent *)event handler:(void (^)(SAEvent * _Nullable, NSError * _Nullable))handler{
-    [event removeInvitee:participant];
     [event addNotGoingPerson:participant];
     
     CKRecord *eventRecord = [SAEventConnector getEventRecordFromEvent:event];
@@ -233,6 +230,7 @@
     NSMutableArray *participantsRef = [NSMutableArray new];
     NSMutableArray *inviteesRef = [NSMutableArray new];
     NSMutableArray *notGoingPeopleRef = [NSMutableArray new];
+    NSMutableArray *notConfirmedInviteesRef = [NSMutableArray new];
     
     for (SAPerson *participant in event.participants) {
         CKReference *participantRef = [[CKReference alloc]initWithRecordID:participant.personId action:CKReferenceActionNone];
@@ -246,6 +244,10 @@
         CKReference *notGoingPersonRef = [[CKReference alloc]initWithRecordID:notGoingPerson.personId action:CKReferenceActionNone];
         [notGoingPeopleRef addObject:notGoingPersonRef];
     }
+    for (SAPerson *notConfirmedInvitee in event.inviteesNotConfirmed) {
+        CKReference *notConfirmedInviteeRef = [[CKReference alloc]initWithRecordID:notConfirmedInvitee.personId action:CKReferenceActionNone];
+        [notConfirmedInviteesRef addObject:notConfirmedInviteeRef];
+    }
     
     eventRecord[@"invitees"] = [NSArray arrayWithArray:inviteesRef];
     eventRecord[@"activity"] = activityRef;
@@ -257,6 +259,7 @@
     eventRecord[@"owner"] = ownerRef;
     eventRecord[@"participants"] = [NSArray arrayWithArray:participantsRef];
     eventRecord[@"notGoing"] = [NSArray arrayWithArray:notGoingPeopleRef];
+    eventRecord[@"inviteesNotConfirmed"] = [NSArray arrayWithArray:notConfirmedInviteesRef];
     eventRecord[@"sex"] = event.sex;
     eventRecord[@"shift"] = event.shift;
     eventRecord[@"location"] = event.location;
@@ -371,8 +374,31 @@
         [arrayOfNotGoingPeople addObject:notGoingToAdd];
     }
     
+    
+    //CHECK IF NOT CONFIRMED PEOPLE IN NSUserdefaustao
+    NSMutableArray *arrayOfNotConfirmedInvitees = [NSMutableArray new];
+    NSArray *arrayOfNotConfirmedInviteesReferences = event[@"inviteesNotConfirmed"];
+    
+    for (CKReference *notConfirmedRef in arrayOfNotConfirmedInviteesReferences) {
+        CKRecordID *notConfirmedId = notConfirmedRef.recordID;
+        SAPerson *notConfirmedToAdd;
+        
+        for (NSDictionary *ownerDic in arrayOfUsers) {
+            if ([[ownerDic objectForKey:@"personId"] isEqualToString:notConfirmedId.recordName]) {
+                notConfirmedToAdd = [NSKeyedUnarchiver unarchiveObjectWithData:ownerDic[@"personData"]];
+            }
+        }
+        
+        //nothing found, add referenced person to fetch in database in event description view
+        if (!notConfirmedToAdd) {
+            notConfirmedToAdd = [[SAPerson alloc]initWithName:nil personId:notConfirmedId email:nil telephone:nil facebookId:nil andPhoto:nil andEvents:nil andGender:nil];
+        }
+        [arrayOfNotConfirmedInvitees addObject:notConfirmedToAdd];
+    }
+    
+    [eventFromRecord addInvitees:arrayOfNotConfirmedInvitees];
     [eventFromRecord addNotGoingPeople:arrayOfNotGoingPeople];
-    [eventFromRecord addInvitees:arrayOfInvitees];
+    [eventFromRecord addInviteesThatAreParticipants:arrayOfInvitees];
     [eventFromRecord setOwner:ownerToSetToEvent];
     [eventFromRecord setActivity:activityToSetToEvent];
     [eventFromRecord addParticipants:arrayOfParticipants];

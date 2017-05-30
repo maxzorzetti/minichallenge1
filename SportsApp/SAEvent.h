@@ -21,6 +21,7 @@
 @property (nonatomic, readonly) NSSet<SAPerson *> *participants;
 @property (nonatomic, readonly) NSSet<SAPerson *> *invitees;
 @property (nonatomic, readonly) NSSet<SAPerson *> *notGoing;
+@property (nonatomic, readonly) NSSet<SAPerson *> *inviteesNotConfirmed;
 @property (nonatomic) NSString *category;
 @property (nonatomic) NSString *shift;
 @property (nonatomic) NSString *sex;
@@ -34,6 +35,10 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder;
 
 - (id)initWithCoder:(NSCoder *)aDecoder;
+
+- (NSSet<SAPerson *> *)inviteesNotConfirmed;
+
+- (void)addInviteesThatAreParticipants:(NSArray *)invitees;
 
 - (void)addParticipant:(SAPerson *)person;
 

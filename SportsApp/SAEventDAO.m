@@ -151,6 +151,18 @@ CKDatabase *publicDatabase;
         [inviteesReferenceList addObject: [[CKReference alloc]initWithRecordID:person.personId action:CKReferenceActionNone]];
     }
 	
+    // Create notConfirmed references
+    NSMutableArray<CKReference *>  *inviteesNotConfirmedRef = [NSMutableArray new];
+    for (SAPerson *person in event.inviteesNotConfirmed) {
+        [inviteesNotConfirmedRef addObject: [[CKReference alloc]initWithRecordID:person.personId action:CKReferenceActionNone]];
+    }
+    
+    // Create not going references
+    NSMutableArray<CKReference *>  *inviteeNotGoingRef = [NSMutableArray new];
+    for (SAPerson *person in event.notGoing) {
+        [inviteeNotGoingRef addObject: [[CKReference alloc]initWithRecordID:person.personId action:CKReferenceActionNone]];
+    }
+    
 	// Insert data into event record
 	eventRecord[@"name"] = event.name;
 	eventRecord[@"owner"] = ownerReference;
@@ -164,6 +176,8 @@ CKDatabase *publicDatabase;
 	eventRecord[@"shift"] = event.shift;
 	eventRecord[@"sex"] = event.sex;
     eventRecord[@"invitees"] = inviteesReferenceList;
+    eventRecord[@"inviteesNotConfirmed"] = inviteesNotConfirmedRef;
+    eventRecord[@"notGoing"] = inviteeNotGoingRef;
 	 
 	// Atempt to save event record
 	[publicDatabase saveRecord:eventRecord completionHandler:^(CKRecord *eventFetchedFromDb, NSError *error){

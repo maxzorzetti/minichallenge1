@@ -15,9 +15,20 @@
 @property (nonatomic) NSMutableArray<SAPerson *> *privateParticipants;
 @property (nonatomic) NSMutableArray<SAPerson *> *privateInvitees;
 @property (nonatomic) NSMutableArray<SAPerson *> *privateNotGoing;
+@property (nonatomic) NSMutableArray<SAPerson *> *privateInviteesNotConfirmed;
+
+typedef enum
+{
+    Going = 1,
+    NotGoing,
+    NotDecided,
+    NotAnInvitee
+} ParticipantStatus;
+
 @end
 
 @implementation SAEvent
+
 
 - (instancetype)init
 {
@@ -31,6 +42,7 @@
 		_privateParticipants = [NSMutableArray new];
         _privateInvitees = [NSMutableArray new];
         _privateNotGoing = [NSMutableArray new];
+        _privateInviteesNotConfirmed = [NSMutableArray new];
 		_category = nil;
 		_shift = nil;
 		_sex = nil;
@@ -59,8 +71,14 @@
         _privateParticipants = [NSMutableArray arrayWithArray:participants];
         _privateInvitees = [NSMutableArray arrayWithArray:invitees];
         _privateNotGoing = [NSMutableArray new];
+        _privateInviteesNotConfirmed = [NSMutableArray new];
     }
     return self;
+}
+
+- (NSSet<SAPerson *> *)inviteesNotConfirmed {
+    NSSet* inviteesNotConfirmed = [[NSSet alloc] initWithArray:self.privateInviteesNotConfirmed];
+    return [inviteesNotConfirmed copy];
 }
 
 - (NSSet<SAPerson *> *)participants {
@@ -69,6 +87,13 @@
 }
 
 - (void)addParticipant:(SAPerson *)person{
+    
+    if ([self wasPersonInvited:person]) {
+        [self removeNotGoingPerson:person];
+        [self removeNotConfirmedPerson:person];
+        [self addInvitee:person];
+    }
+    
     [self.privateParticipants addObject:person];
 }
 
@@ -90,6 +115,12 @@
         }
     }
     
+    if ([self wasPersonInvited:person]) {
+        [self removeInvitee:person];
+        [self addNotGoingPerson:person];
+    }
+    
+    
     [self.privateParticipants removeObject:personToRemove];
 }
 
@@ -108,9 +139,16 @@
 
 - (void)addInvitees:(NSArray *)invitees{
     for (SAPerson *invitee in invitees) {
+        [self.privateInviteesNotConfirmed addObject:invitee];
+    }
+}
+
+- (void)addInviteesThatAreParticipants:(NSArray *)invitees{
+    for (SAPerson *invitee in invitees) {
         [self.privateInvitees addObject:invitee];
     }
 }
+
 
 - (void)removeInvitee:(SAPerson *)invitee{
     SAPerson *personToRemove;
@@ -144,6 +182,9 @@
 }
 
 - (void)addNotGoingPerson:(SAPerson *)notGoingPerson{
+    [self removeNotConfirmedPerson:notGoingPerson];
+    [self removeInvitee:notGoingPerson];
+    
     [self.privateNotGoing addObject:notGoingPerson];
 }
 
@@ -151,6 +192,31 @@
     for (SAPerson *notGoingPerson in notGoingPeople) {
         [self.privateNotGoing addObject:notGoingPerson];
     }
+}
+
+- (BOOL)wasPersonInvited:(SAPerson *)person{
+    //is person in not going list?
+    for (SAPerson *participant in self.privateNotGoing) {
+        if ([participant.personId.recordName isEqualToString:person.personId.recordName]) {
+            return true;
+        }
+    }
+    
+    //is person in going list?
+    for (SAPerson *participant in self.privateInvitees) {
+        if ([participant.personId.recordName isEqualToString:person.personId.recordName]) {
+            return true;
+        }
+    }
+    
+    //is person in not confirmed list?
+    for (SAPerson *participant in self.privateInviteesNotConfirmed) {
+        if ([participant.personId.recordName isEqualToString:person.personId.recordName]) {
+            return true;
+        }
+    }
+    
+    return false;
 }
 
 - (void)removeNotGoingPerson:(SAPerson *)notGoingPerson{
@@ -164,6 +230,19 @@
         [self.privateNotGoing removeObject:personToRemove];
     }
 }
+
+- (void)removeNotConfirmedPerson:(SAPerson *)notConfirmedPerson{
+    SAPerson *personToRemove;
+    for (SAPerson *participant in self.privateInviteesNotConfirmed) {
+        if ([participant.personId.recordName isEqualToString:notConfirmedPerson.personId.recordName]) {
+            personToRemove = participant;
+        }
+    }
+    if (personToRemove) {
+        [self.privateInviteesNotConfirmed removeObject:personToRemove];
+    }
+}
+
 
 - (void)replaceNotGoingPerson:(NSArray<SAPerson *>*)notGoingPeople{
     [self.privateNotGoing setArray:notGoingPeople];
@@ -191,6 +270,7 @@
         _owner = [coder decodeObjectForKey:@"owner"];
         _privateParticipants = [coder decodeObjectForKey:@"participants"];
         _privateInvitees = [coder decodeObjectForKey:@"invitees"];
+        _privateInviteesNotConfirmed = [coder decodeObjectForKey:@"inviteesNotConfirmed"];
         _sex = [coder decodeObjectForKey:@"gender"];
         _shift = [coder decodeObjectForKey:@"shift"];
     }
@@ -210,6 +290,7 @@
     [aCoder encodeObject:self.owner forKey:@"owner"];
     [aCoder encodeObject:self.privateParticipants forKey:@"participants"];
     [aCoder encodeObject:self.privateInvitees forKey:@"invitees"];
+    [aCoder encodeObject:self.privateInviteesNotConfirmed forKey:@"inviteesNotConfirmed"];
     [aCoder encodeObject:self.sex forKey:@"gender"];
     [aCoder encodeObject:self.shift forKey:@"shift"];
 }
