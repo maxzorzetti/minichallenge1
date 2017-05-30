@@ -486,7 +486,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         //define value for progress bar
         self.progressView.progress = [self.currentEvent.participants count] / [self.currentEvent.minPeople floatValue];
-        self.eventCapacity.text = [NSString stringWithFormat:@"%lu/%@", (unsigned long)[self.currentEvent.participants count], self.currentEvent.minPeople];
+        self.eventCapacity.text = [NSString stringWithFormat:@"%lu/%@", (unsigned long)[self.currentEvent.participants count], self.currentEvent.maxPeople];
         
         
         
