@@ -6,5 +6,6 @@ target 'SportsApp' do
   pod 'FBSDKShareKit'
   pod 'Unirest', '~> 1.1.4'
   pod 'NMRangeSlider'
+  pod 'Firebase/Core'
 
 end

@@ -34,6 +34,7 @@
 		8406A8F11EA6763900C60267 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8406A8F01EA6763900C60267 /* CloudKit.framework */; };
 		842B42591EAF67EA0096BD37 /* SAEventDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 842B42581EAF67EA0096BD37 /* SAEventDAO.m */; };
 		842B42631EAF7C400096BD37 /* SAEventConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 842B42621EAF7C400096BD37 /* SAEventConnector.m */; };
+		84596C141EDE29C600509C40 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84596C131EDE29C600509C40 /* GoogleService-Info.plist */; };
 		847F5E351EA714180091BAE9 /* SAEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E341EA714180091BAE9 /* SAEvent.m */; };
 		847F5E391EA715170091BAE9 /* SAPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 847F5E381EA715170091BAE9 /* SAPerson.m */; };
 		849AC2141EB012B800A7BD22 /* SAActivityDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 849AC2131EB012B800A7BD22 /* SAActivityDAO.m */; };
@@ -127,6 +128,7 @@
 		842B425A1EAF67F10096BD37 /* SAEventDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEventDAO.h; sourceTree = "<group>"; };
 		842B42611EAF7C400096BD37 /* SAEventConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEventConnector.h; sourceTree = "<group>"; };
 		842B42621EAF7C400096BD37 /* SAEventConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEventConnector.m; sourceTree = "<group>"; };
+		84596C131EDE29C600509C40 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		847F5E331EA714180091BAE9 /* SAEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEvent.h; sourceTree = "<group>"; };
 		847F5E341EA714180091BAE9 /* SAEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEvent.m; sourceTree = "<group>"; };
 		847F5E371EA715170091BAE9 /* SAPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAPerson.h; sourceTree = "<group>"; };
@@ -377,6 +379,7 @@
 				8406A8E31EA6761500C60267 /* Assets.xcassets */,
 				8406A8E51EA6761500C60267 /* LaunchScreen.storyboard */,
 				8406A8E81EA6761500C60267 /* Info.plist */,
+				84596C131EDE29C600509C40 /* GoogleService-Info.plist */,
 				84DC11811EACF3DD00A9A90C /* WebService */,
 				849AC2181EB012D900A7BD22 /* Connectors */,
 				8406A8D71EA6761500C60267 /* Supporting Files */,
@@ -587,6 +590,7 @@
 				8406A8E71EA6761500C60267 /* LaunchScreen.storyboard in Resources */,
 				8406A8E41EA6761500C60267 /* Assets.xcassets in Resources */,
 				8406A8E21EA6761500C60267 /* Main.storyboard in Resources */,
+				84596C141EDE29C600509C40 /* GoogleService-Info.plist in Resources */,
 				29A4CA491EB20D2500DCA3FA /* NewEvent.storyboard in Resources */,
 				AE66FF2E1EB10EA2008EBC5E /* Secondary.storyboard in Resources */,
 			);

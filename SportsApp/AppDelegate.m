@@ -20,6 +20,9 @@
 #import "SANewsFeedTableViewController.h"
 #import "SAEventDescriptionViewController.h"
 
+@import Firebase;
+@import UIKit;
+
 @interface AppDelegate ()
 @property SAPerson *currentUser;
 
@@ -48,6 +51,7 @@ UNUserNotificationCenter *center;
 
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [FIRApp configure];
     [self registerForNotifications];
     
     
