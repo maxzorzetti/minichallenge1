@@ -18,6 +18,7 @@
 #import "SAPerson.h"
 #import "SAUser.h"
 #import "SANewsFeedTableViewController.h"
+#import "SAEventDescriptionViewController.h"
 
 @interface AppDelegate ()
 @property SAPerson *currentUser;
@@ -196,13 +197,17 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
 #pragma notification methods
 
+//notification was received when app was in foreground
 - (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
     CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:userInfo];
     
-    //NSString *alertBody = cloudKitNotification.alertBody;
+    //until now, all the notifications are related to an event being created/updated
+    
+    
     if (cloudKitNotification.notificationType == CKNotificationTypeQuery) {
         CKRecordID *recordID = [(CKQueryNotification *)cloudKitNotification recordID];
         
+        //fetch the record from db
         [SAEventConnector fetchRecordByRecordId:recordID handler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
             if (!error) {
                 //check what record type this record is and decide what to do with it
@@ -211,8 +216,10 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
                     //save/update event in user defaults
                     [SAEvent saveToDefaults:eventFromNotification];
                     
-                    //if view controller being presented is feed, update its tableview
                     UIViewController *presentedViewController = [self topViewController];
+                    
+                    
+                    //if view controller being presented is feed, update its tableview
                     if ([presentedViewController isKindOfClass:[SANewsFeedTableViewController class]]) {
                         SANewsFeedTableViewController *currentView = (SANewsFeedTableViewController *)presentedViewController;
                         
@@ -221,6 +228,15 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
                             [currentView.tableView reloadData];
                         });
                     }
+                    
+                    //if view controller being presented is feed, update its collection views
+                    if ([presentedViewController isKindOfClass:[SAEventDescriptionViewController class]]) {
+                        SAEventDescriptionViewController *currentView = (SAEventDescriptionViewController *)presentedViewController;
+                        
+                        currentView.currentEvent = eventFromNotification;
+                        [currentView setInitialValueOfFieldsInScreen];
+                        [currentView updateCollectionViews];
+                    }
                 }
                 //do the same with activity and other record types
             }
@@ -228,10 +244,13 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     }
 }
 
+
+//notification was received when app was in background
+//user selected an action from the alert/banner notification
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler{
     
     //************************************************************************************//
-    //     notification related to current user being invited to an event by a friend       //
+    //     notification related to current user being invited to an event by a friend     //
     //************************************************************************************//
     if ([response.notification.request.content.categoryIdentifier isEqualToString:@"userInvitedToEvent"]) {
         //get the event
@@ -271,8 +290,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         }
     }
     // ************************************************************************************ //
-    
-    
     
 }
 

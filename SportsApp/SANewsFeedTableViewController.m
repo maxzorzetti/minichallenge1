@@ -478,8 +478,8 @@ static dispatch_once_t predicateForFriends;
 -(void)createSubscriptionsForNotifications{
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     //checks if user already has a subscription of events for invited section
-    //[userDefaults setBool:YES forKey:@"hasSubscriptionForEventsForInvitedSection"];
-    if (![userDefaults boolForKey:@"hasSubscriptionForEventsForInvitedSection"]) {
+    //[userDefaults setBool:YES forKey:@"hasSubscriptionForEventForInvitedSection"];
+    if (![userDefaults boolForKey:@"hasSubscriptionForEventForInvitedSection"]) {
         CKReference *userRef = [[CKReference alloc]initWithRecordID:self.currentUser.personId action:CKReferenceActionNone];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ IN inviteesNotConfirmed", userRef];
         //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"minPeople >0"];
@@ -497,7 +497,7 @@ static dispatch_once_t predicateForFriends;
         [publicDatabase saveSubscription:subscription completionHandler:^(CKSubscription * _Nullable subscription, NSError * _Nullable error) {
             if (!error) {
                 //subscription created, let user defaults know :)
-                [userDefaults setBool:YES forKey:@"hasSubscriptionForEventsForInvitedSection"];
+                [userDefaults setBool:YES forKey:@"hasSubscriptionForEventForInvitedSection"];
                 [userDefaults synchronize];
             }
         }];
@@ -505,7 +505,28 @@ static dispatch_once_t predicateForFriends;
     
     
     //cheks if user already has a subscription for when invitees of user's event has confirmed
-    
+    if (![userDefaults boolForKey:@"hasSubscriptionForInviteeHasJoinedEvent"]) {
+        CKReference *userRef = [[CKReference alloc]initWithRecordID:self.currentUser.personId action:CKReferenceActionNone];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"owner = %@", userRef];
+        CKSubscription *subscription = [[CKSubscription alloc]initWithRecordType:@"Event" predicate:predicate options: CKSubscriptionOptionsFiresOnRecordUpdate];
+        
+        CKNotificationInfo *notificationInfo  = [CKNotificationInfo new];
+        notificationInfo.alertBody = @"Your event has been updated! Check it out";
+        notificationInfo.shouldBadge = YES;
+        notificationInfo.category = @"eventUpdated";
+        //notificationInfo.desiredKeys = [NSArray arrayWithObjects: @"recordType", nil];
+        subscription.notificationInfo = notificationInfo;
+        
+        //saves the subscription to the database
+        CKDatabase *publicDatabase = [[CKContainer defaultContainer] publicCloudDatabase];
+        [publicDatabase saveSubscription:subscription completionHandler:^(CKSubscription * _Nullable subscription, NSError * _Nullable error) {
+            if (!error) {
+                //subscription created, let user defaults know :)
+                [userDefaults setBool:YES forKey:@"hasSubscriptionForInviteeHasJoinedEvent"];
+                [userDefaults synchronize];
+            }
+        }];
+    }
     
 }
 

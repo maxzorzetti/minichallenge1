@@ -27,12 +27,7 @@
 
 @implementation SAEventDescriptionViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];
-    _currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
-    
-    
+- (void) setInitialValueOfFieldsInScreen{
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     self.collectionViewOfNotConfirmedPeople.delegate = self;
@@ -50,6 +45,54 @@
     }else{
         self.genderIcon.image = [UIImage imageNamed:@"Icon_Mixed"];
     }
+
+    _arrayOfParticipants = [NSMutableArray arrayWithArray:self.currentEvent.participants.allObjects];
+    _arrayOfInvitees = [NSMutableArray arrayWithArray:self.currentEvent.invitees.allObjects];
+    _arrayOfNotGoingPeople = [NSMutableArray arrayWithArray:self.currentEvent.notGoing.allObjects];
+    _arraOfNotConfirmedInvitees = [NSMutableArray arrayWithArray:self.currentEvent.inviteesNotConfirmed.allObjects];
+    
+    //add border and margin to main view
+    self.mainView.layer.borderColor = [UIColor colorWithRed:119/255.0 green:90/255.0 blue:218/255.0 alpha:1.0].CGColor;
+    self.mainView.layer.borderWidth = 1.0;
+    self.mainView.layer.cornerRadius = 8.0;
+    
+    [self updateParticipantStatus];
+    
+    self.ownerPhoto.layer.cornerRadius = self.ownerPhoto.frame.size.height /2;
+    self.ownerPhoto.layer.masksToBounds = YES;
+    self.ownerPhoto.layer.borderWidth = 0;
+    
+    
+    
+    if (self.currentEvent.owner.photo==nil) {
+        self.ownerPhoto.image = [UIImage imageNamed:@"img_placeholder.png"];
+    }else{
+        self.ownerPhoto.image = [UIImage imageWithData:self.currentEvent.owner.photo];
+    }
+    
+    
+    
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"dd/MM/yyyy"];
+    
+    self.eventDate.text= [dateFormat stringFromDate:self.currentEvent.date];
+}
+
+- (void) updateCollectionViews{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectionView reloadData];
+        [self.collectionViewOfNotConfirmedPeople reloadData];
+    });
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];
+    _currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
+    
+    [self setInitialValueOfFieldsInScreen];
+    
+    
     
     //make locationReadable
     CLGeocoder *geocoder = [[CLGeocoder alloc]init];
@@ -60,7 +103,6 @@
         }
     }];
     
-    _arrayOfParticipants = [NSMutableArray arrayWithArray:self.currentEvent.participants.allObjects];
     
     
     //checks if parcitipants info is complete, if not, fetch from db
@@ -121,7 +163,6 @@
     
     
     
-    _arrayOfInvitees = [NSMutableArray arrayWithArray:self.currentEvent.invitees.allObjects];
     
     __block NSMutableArray *arrayOfInviteesToUpdate = [NSMutableArray new];
     //checks if invitees info is complete, if not, fetch from db
@@ -186,7 +227,6 @@
     }
     
     
-    _arrayOfNotGoingPeople = [NSMutableArray arrayWithArray:self.currentEvent.notGoing.allObjects];
     
     __block NSMutableArray *arrayOfNotGoingPeopleToAdd = [NSMutableArray new];
     //checks if not going people info is complete, if not, fetch from db
@@ -254,7 +294,6 @@
     
     
     
-    _arraOfNotConfirmedInvitees = [NSMutableArray arrayWithArray:self.currentEvent.inviteesNotConfirmed.allObjects];
     
     __block NSMutableArray *arrayOfInviteesNotConfirmedToUpdate = [NSMutableArray new];
     //checks if invitees not confirmed info is complete, if not, fetch from db
@@ -327,31 +366,7 @@
     
     
     
-    //add border and margin to main view
-    self.mainView.layer.borderColor = [UIColor colorWithRed:119/255.0 green:90/255.0 blue:218/255.0 alpha:1.0].CGColor;
-    self.mainView.layer.borderWidth = 1.0;
-    self.mainView.layer.cornerRadius = 8.0;
     
-    [self updateParticipantStatus];
-    
-    self.ownerPhoto.layer.cornerRadius = self.ownerPhoto.frame.size.height /2;
-    self.ownerPhoto.layer.masksToBounds = YES;
-    self.ownerPhoto.layer.borderWidth = 0;
-    
-    
-    
-    if (self.currentEvent.owner.photo==nil) {
-        self.ownerPhoto.image = [UIImage imageNamed:@"img_placeholder.png"];
-    }else{
-        self.ownerPhoto.image = [UIImage imageWithData:self.currentEvent.owner.photo];
-    }
-
-    
-    
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"dd/MM/yyyy"];
-  
-    self.eventDate.text= [dateFormat stringFromDate:self.currentEvent.date];
 }
 
 - (void)didReceiveMemoryWarning {

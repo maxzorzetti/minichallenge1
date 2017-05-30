@@ -46,4 +46,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *buttonView;
 
+- (void) setInitialValueOfFieldsInScreen;
+- (void) updateCollectionViews;
+
 @end
