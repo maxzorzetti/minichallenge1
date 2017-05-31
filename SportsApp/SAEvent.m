@@ -50,6 +50,7 @@ typedef enum
 		_owner = nil;
 		_location = nil;
 		_distance = nil;
+        _eventDescription = nil;
 	}
 	return self;
 }
@@ -72,6 +73,7 @@ typedef enum
         _privateInvitees = [NSMutableArray arrayWithArray:invitees];
         _privateNotGoing = [NSMutableArray new];
         _privateInviteesNotConfirmed = [NSMutableArray new];
+        _eventDescription = nil;
     }
     return self;
 }
@@ -98,6 +100,7 @@ typedef enum
 		_privateInvitees = [NSMutableArray arrayWithArray:((NSMutableSet *)[party.invitedPeople copy]).allObjects];
 		_privateNotGoing = [NSMutableArray new];
 		_privateInviteesNotConfirmed = [NSMutableArray new];
+        _eventDescription = nil;
 	}
 	return self;
 }
@@ -299,6 +302,7 @@ typedef enum
         _privateInviteesNotConfirmed = [coder decodeObjectForKey:@"inviteesNotConfirmed"];
         _sex = [coder decodeObjectForKey:@"gender"];
         _shift = [coder decodeObjectForKey:@"shift"];
+        _eventDescription = [coder decodeObjectForKey:@"eventDescription"];
     }
     return self;
 }
@@ -319,6 +323,7 @@ typedef enum
     [aCoder encodeObject:self.privateInviteesNotConfirmed forKey:@"inviteesNotConfirmed"];
     [aCoder encodeObject:self.sex forKey:@"gender"];
     [aCoder encodeObject:self.shift forKey:@"shift"];
+    [aCoder encodeObject:self.eventDescription forKey:@"eventDescription"];
 }
 
 

@@ -178,6 +178,7 @@ CKDatabase *publicDatabase;
     eventRecord[@"invitees"] = inviteesReferenceList;
     eventRecord[@"inviteesNotConfirmed"] = inviteesNotConfirmedRef;
     eventRecord[@"notGoing"] = inviteeNotGoingRef;
+    eventRecord[@"eventDescription"] = event.eventDescription;
 	 
 	// Atempt to save event record
 	[publicDatabase saveRecord:eventRecord completionHandler:^(CKRecord *eventFetchedFromDb, NSError *error){

@@ -100,10 +100,11 @@
         if (!error) {
             CLPlacemark *placemark = [placemarks objectAtIndex:0];
             self.eventLocation.text = [NSString stringWithFormat:@"%@, %@",placemark.subLocality ,placemark.locality];
+            self.eventLocation.text = self.currentEvent.eventDescription;
         }
     }];
     
-    
+    self.eventLocation.text = self.currentEvent.eventDescription;
     
     //checks if parcitipants info is complete, if not, fetch from db
     __block NSMutableArray *arrayToUpdate = [NSMutableArray new];
