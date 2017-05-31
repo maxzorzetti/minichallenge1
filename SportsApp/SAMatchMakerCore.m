@@ -74,7 +74,7 @@
 	//NSSortDescriptor *dateDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeIntervalSinceReferenceDate" ascending:YES];
 	event.activity =  party.activity;
 	event.name = party.activity.name;
-	event.date = [self createDateFromSchedule:party.schedule];
+	event.date = [SAParty createDateFromSchedule:party.schedule];
 	
 	switch (party.shift) {
 		case 0: event.shift = @"Morning"; break;
@@ -167,65 +167,50 @@
 	return nextDate;
 }
 
-- (BOOL)compatibleSchedule:(NSString *)schedule withDate:(NSDate *)date {
+- (BOOL)compatibleSchedule:(SASchedule)schedule withDate:(NSDate *)date {
 	
-	BOOL result = NO;
-	NSCalendar *theCalendar = [NSCalendar currentCalendar];
-	NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
-	NSDate *midnightToday = [theCalendar startOfDayForDate:[NSDate date]];
+	BOOL compatible = NO;
+	NSCalendar *calendar = [NSCalendar currentCalendar];
+	NSDate *today = [calendar startOfDayForDate:[NSDate date]];
 	
-	if ([schedule isEqualToString:@"Today"]) {
-
-		if ([midnightToday isEqualToDate:date]) result = YES;
-		
-	} else if ([schedule isEqualToString:@"Tomorrow"]) {
-		
-		dayComponent.day = 1;
-		NSDate *nextDate = [theCalendar dateByAddingComponents:dayComponent toDate:midnightToday options:0];
-		
-		if ([nextDate isEqualToDate:date]) result = YES;
-		
-	} else if ([schedule isEqualToString:@"This Week"]) {
-		
-		for (int i = 0; i < 7; i++) {
-			dayComponent.day = i;
-			NSDate *nextDate = [theCalendar dateByAddingComponents:dayComponent toDate:midnightToday options:0];
-			if ([nextDate isEqualToDate:date]) {
-				result = YES;
-				break;
-			}
-		}
-		
-	} else if ([schedule isEqualToString:@"Next Week"]) {
-		
-		for (int i = 7; i < 14; i++) {
-			dayComponent.day = i;
-			NSDate *nextDate = [theCalendar dateByAddingComponents:dayComponent toDate:midnightToday options:0];
-			if ([nextDate isEqualToDate:date]) {
-				result = YES;
-				break;
-			}
-		}
-		
-	} else if ([schedule isEqualToString:@"Next Month"]) {
-		
-		for (int i = 30; i < 60; i++) {
-			dayComponent.day = i;
-			NSDate *nextDate = [theCalendar dateByAddingComponents:dayComponent toDate:midnightToday options:0];
-			if ([nextDate isEqualToDate:date]) {
-				result = YES;
-				break;
-			}
-		}
-		
-	} else if ([schedule isEqualToString:@"Any Day"]) {
-		
-		result = YES;
+	switch (schedule) {
+		case SAToday:
+			if ([calendar isDateInToday:date]) compatible = YES;
+		break;
+			
+		case SATomorrow:
+			if ([calendar isDateInTomorrow:date]) compatible = YES;
+		break;
+			
+		case SAThisWeek:
+			// Check if its sunday, if not, check rest of the week (until it gets to the next sunday)
+			do {
+				if ([today isEqualToDate:date]) {
+					compatible = YES;
+					break;
+				}
+				today = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:today options:0];
+			} while ([calendar component:NSCalendarUnitWeekday fromDate:today] != 1);
+		break;
+			
+		case SAThisSaturday:
+			if ([calendar component:NSCalendarUnitWeekday fromDate:date] == 7) compatible = YES;
+		break;
+			
+		case SAThisSunday:
+			if ([calendar component:NSCalendarUnitWeekday fromDate:date] == 1) compatible = YES;
+		break;
+			
+		case SAAnyDay:
+			compatible = YES;
+		break;
 	}
 	
-	return result;
+	return compatible;
 }
 
+
+/* UNUSED
 + (void)registerParty:(SAParty *)party{
     CKContainer *container = [CKContainer defaultContainer];
     CKDatabase *publicDatabase = [container publicCloudDatabase];
@@ -251,6 +236,6 @@
 }
 + (void)removeParty:(SAParty *)party{
     
-}
+}*/
 
 @end
