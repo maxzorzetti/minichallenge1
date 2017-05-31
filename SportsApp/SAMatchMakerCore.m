@@ -61,12 +61,20 @@
 	
 	if (![self compatibleSchedule:party.schedule withDate:event.date]) return NO;
 	
+	if (![self compatibleFromTime:party.fromTime andToTime:party.toTime withDate: event.date]) return NO;
+	
 	if ([party.location distanceFromLocation: event.location] > party.locationRadius.integerValue * 1000) return NO;
 	
 	
 	//if (![party.dates containsObject:event.date]) return NO;
 	
 	return YES;
+}
+
+- (BOOL)compatibleFromTime:(int)fromTime andToTime:(int)toTime withDate:(NSDate *)date {
+	int dateTime = (int)[[NSCalendar currentCalendar] component:NSCalendarUnitMinute fromDate:date];
+	
+	return fromTime <= dateTime && dateTime <= toTime;
 }
 
 - (SAEvent *)createEventForParty:(SAParty *)party {
