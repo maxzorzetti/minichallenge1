@@ -30,6 +30,7 @@
 @property (atomic) SAPerson *owner;
 @property (nonatomic) CLLocation *location;
 @property (nonatomic) NSNumber *distance;
+@property (nonatomic) NSString *eventDescription;
 
 - (instancetype)initWithName:(NSString *)name andRequiredParticipants:(NSNumber *)requiredParticipants andMaxParticipants:(NSNumber *)maxParticipants andActivity:(SAActivity *)activity andId:(CKRecordID *)eventId andCategory:(NSString *)category andSex:(NSString *)sex andDate:(NSDate *)date andParticipants:(NSArray<SAPerson *> *)participants andInvitees:(NSArray<SAPerson *> *)invitees andLocation:(CLLocation *)location andDistance:(NSNumber *)distance;
 

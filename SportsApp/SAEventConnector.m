@@ -264,6 +264,7 @@
     eventRecord[@"shift"] = event.shift;
     eventRecord[@"location"] = event.location;
     eventRecord[@"distance"] = event.distance;
+    eventRecord[@"eventDescription"] = event.eventDescription;
     
     return eventRecord;
 }
@@ -395,7 +396,7 @@
         }
         [arrayOfNotConfirmedInvitees addObject:notConfirmedToAdd];
     }
-    
+    [eventFromRecord setEventDescription:event[@"eventDescription"]];
     [eventFromRecord addInvitees:arrayOfNotConfirmedInvitees];
     [eventFromRecord addNotGoingPeople:arrayOfNotGoingPeople];
     [eventFromRecord addInviteesThatAreParticipants:arrayOfInvitees];
