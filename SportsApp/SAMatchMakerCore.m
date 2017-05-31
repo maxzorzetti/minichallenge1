@@ -69,8 +69,11 @@
 	return YES;
 }
 
-- (SAEvent *)createEventForParty:(SAParty *)party{
-	SAEvent* event = [SAEvent new];
+- (SAEvent *)createEventForParty:(SAParty *)party {
+	
+	return [[SAEvent alloc] initWithParty:party];
+	
+	/*SAEvent* event = [SAEvent new];
 	//NSSortDescriptor *dateDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeIntervalSinceReferenceDate" ascending:YES];
 	event.activity =  party.activity;
 	event.name = party.activity.name;
@@ -102,7 +105,7 @@
 	[event addParticipant:party.creator];
 	[event addInvitees: party.invitedPeople.allObjects];
 	
-	return event;
+	return event;*/
 }
 
 - (void)updateEvent:(SAEvent *)event handler:(void (^ _Nonnull)(CKRecord * _Nullable, NSError * _Nullable))handler{

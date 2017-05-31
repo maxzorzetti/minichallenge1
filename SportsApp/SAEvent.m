@@ -88,11 +88,14 @@ typedef enum
 		_shift = [SAParty createStringFromShift:party.shift];
 		_sex = [SAParty createStringFromGender:party.gender];
 		_date = [SAParty createDateFromSchedule:party.schedule];
+		_date = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitMinute value:party.fromTime toDate:_date options:0];
+		NSLog(@"%d", party.fromTime);
+		NSLog(@"%@", _date);
 		_location = party.location;
 		_distance = party.locationRadius;
 		_owner = party.creator;
 		_privateParticipants = [NSMutableArray arrayWithArray:@[party.creator]];
-		_privateInvitees = [NSMutableArray arrayWithArray:[party.invitedPeople copy]];
+		_privateInvitees = [NSMutableArray arrayWithArray:((NSMutableSet *)[party.invitedPeople copy]).allObjects];
 		_privateNotGoing = [NSMutableArray new];
 		_privateInviteesNotConfirmed = [NSMutableArray new];
 	}

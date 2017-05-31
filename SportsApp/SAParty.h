@@ -34,6 +34,8 @@ typedef NS_ENUM(NSInteger, SASchedule) {
 @property (nonatomic) SAActivity *activity;
 //@property (nonatomic) NSString *schedule;
 @property (nonatomic) SASchedule schedule;
+@property (nonatomic) int fromTime; // In minutes
+@property (nonatomic) int toTime;   // Also in minutes
 @property (nonatomic) SAShift shift;
 @property (nonatomic) SAPeopleType peopleType;
 @property (nonatomic) NSMutableSet<SAPerson *> *invitedPeople;

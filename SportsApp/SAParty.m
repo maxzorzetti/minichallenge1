@@ -58,6 +58,8 @@
 	newParty.activity = self.activity;
 	//newParty.schedule = [self.schedule copyWithZone:zone]; // Used when schedule was a string, revert if necessary
 	newParty.schedule = self.schedule;
+	newParty.fromTime = self.fromTime;
+	newParty.toTime = self.toTime;
 	newParty.shift = self.shift;
 	newParty.peopleType = self.peopleType;
 	newParty.invitedPeople = self.invitedPeople;
