@@ -648,7 +648,7 @@
                                         <rect key="frame" x="0.0" y="34" width="323" height="20"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Soccer Cup" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zOu-42-fUF">
-                                                <rect key="frame" x="0.0" y="0.0" width="85" height="18"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="323" height="18"/>
                                                 <color key="textColor" red="0.12156862745098039" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -663,8 +663,10 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="Tg3-KX-7We" firstAttribute="leading" secondItem="3a8-bG-c4C" secondAttribute="leading" id="J4X-Ax-xsP"/>
+                                            <constraint firstItem="zOu-42-fUF" firstAttribute="leading" secondItem="3a8-bG-c4C" secondAttribute="leading" id="Yhr-sA-Gll"/>
                                             <constraint firstAttribute="trailing" secondItem="Tg3-KX-7We" secondAttribute="trailing" id="epX-15-gf1"/>
                                             <constraint firstAttribute="width" constant="323" id="n7Q-7d-Qjl"/>
+                                            <constraint firstAttribute="trailing" secondItem="zOu-42-fUF" secondAttribute="trailing" id="ovb-2q-CnY"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
