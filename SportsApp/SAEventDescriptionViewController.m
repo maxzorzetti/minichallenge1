@@ -76,6 +76,13 @@
     [dateFormat setDateFormat:@"dd/MM/yyyy"];
     
     self.eventDate.text= [dateFormat stringFromDate:self.currentEvent.date];
+    
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm"];
+    
+    self.shiftLabel.text = [formatter stringFromDate:self.currentEvent.date];
+    
 }
 
 - (void) updateCollectionViews{

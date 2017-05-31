@@ -61,7 +61,8 @@
 		case SANightShift:		shiftText = @"Night";		break;
 		case SANoShift:			shiftText = @"Error";		break;
 	}
-	self.shiftLabel.text = shiftText;
+    
+    self.shiftLabel.text = [self convertMinutesToHourString:self.party.fromTime];
 	
 	UIImage *genderImage;
 	NSString *genderText;
@@ -111,6 +112,19 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 	return self.party.invitedPeople.count;
 }
+    
+    
+    - (NSString *)convertMinutesToHourString:(int)minutes {
+        // Rounding the number
+        int remainder = minutes % 15;
+        minutes = remainder < 15/2 ? minutes - remainder : minutes + (15 - remainder);
+        minutes = minutes < 0 ? 0: minutes;
+        
+        return [[NSString alloc] initWithFormat:@"%02d:%02d", (minutes / 60), (minutes % 60)];
+    }
+    
+    
+    
 
 - (IBAction)publishPressed:(UIButton *)sender {
 	/*
