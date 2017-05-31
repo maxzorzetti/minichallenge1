@@ -90,7 +90,7 @@ CKDatabase *publicDatabase;
 }
 
 - (void)getEventsWhereUserIsAnInvitee:(CKReference *_Nonnull)userRef handler:(void (^_Nonnull)(NSArray<CKRecord *>* _Nullable events, NSError * _Nullable error))handler{
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ IN invitees AND date > %@", userRef, [NSDate date]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ IN inviteesNotConfirmed AND date > %@", userRef, [NSDate date]];
     
     CKQuery *query = [[CKQuery alloc]initWithRecordType:@"Event" predicate:predicate];
     

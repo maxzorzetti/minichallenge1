@@ -340,7 +340,7 @@ typedef enum
         //check if date of event is greater than todays
         if (result == NSOrderedDescending) {
             //check if current user is an invitee of the event
-            for (SAPerson *invitee in eventToCompare.privateInvitees) {
+            for (SAPerson *invitee in eventToCompare.privateInviteesNotConfirmed) {
                 if ([invitee.personId.recordName isEqualToString:currentUser.personId.recordName]) {
                     [arrayToReturn addObject:eventToCompare];
                 }
