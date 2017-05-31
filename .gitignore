@@ -112,5 +112,6 @@ iOSInjectionProject/
 !*.xcodeproj/xcshareddata/
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
+Keys/
 
 # End of https://www.gitignore.io/api/xcode,macos,objective-c
