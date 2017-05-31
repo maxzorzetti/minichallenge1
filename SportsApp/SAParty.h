@@ -43,6 +43,7 @@ typedef NS_ENUM(NSInteger, SASchedule) {
 @property (nonatomic) CLLocation *location;
 @property (nonatomic) SAGender gender;
 @property (nonatomic) NSString *eventName;
+@property (nonatomic) NSString *eventDescription;
 
 - (void)addPerson:(SAPerson *)person;
 - (void)removePerson:(SAPerson *)person;

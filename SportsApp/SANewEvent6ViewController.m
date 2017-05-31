@@ -84,7 +84,8 @@
 	}
 	self.genderLabel.text = genderText;
 	self.genderImageView.image = genderImage;
-	self.locationLabel.text = [[NSString alloc] initWithFormat: @"In up to %@ km", self.party.locationRadius.stringValue];
+	//self.locationLabel.text = [[NSString alloc] initWithFormat: @"In up to %@ km", self.party.locationRadius.stringValue];
+    self.locationLabel.text = self.party.eventDescription;
 	NSLog(@"EVENTO6 %d", self.party.minParticipants);
 	self.capacityLabel.text = [[NSString alloc] initWithFormat:@"1/%d", self.party.maxParticipants];
 	

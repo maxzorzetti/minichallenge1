@@ -97,10 +97,10 @@ typedef enum
 		_distance = party.locationRadius;
 		_owner = party.creator;
 		_privateParticipants = [NSMutableArray arrayWithArray:@[party.creator]];
-		_privateInvitees = [NSMutableArray arrayWithArray:((NSMutableSet *)[party.invitedPeople copy]).allObjects];
-		_privateNotGoing = [NSMutableArray new];
-		_privateInviteesNotConfirmed = [NSMutableArray new];
-        _eventDescription = nil;
+		_privateInvitees = [NSMutableArray new];
+        _privateNotGoing = [NSMutableArray new];
+		_privateInviteesNotConfirmed = [NSMutableArray arrayWithArray:((NSMutableSet *)[party.invitedPeople copy]).allObjects];
+        _eventDescription = party.eventDescription;
 	}
 	return self;
 }

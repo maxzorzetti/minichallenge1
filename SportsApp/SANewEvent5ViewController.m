@@ -58,7 +58,7 @@
 	
 	self.capacitySlider.minimumRange = 1;
 	
-	self.eventNameTextField.text = [[NSString alloc] initWithFormat: @"%@ event", self.party.activity.name];
+	//self.eventNameTextField.text = [[NSString alloc] initWithFormat: @"%@ event", self.party.activity.name];
 	
 	[self.genderCollectionView registerNib:[UINib nibWithNibName:@"SACollectionButtonViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
 	
@@ -124,6 +124,9 @@
 
 - (void)updateNextButton {
 	self.nextButton.enabled = self.party.gender != SANoGender;
+    if (self.eventNameTextField.text.length == 0) {
+        self.nextButton.enabled = NO;
+    }
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -179,7 +182,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	 if ([segue.identifier isEqualToString:@"newEvent5To6"]) {
 		 
-		 self.party.eventName = self.eventNameTextField.text;
+         self.party.eventName = self.party.activity.name;
+         self.party.eventDescription = self.eventNameTextField.text;
 		 
 		 self.party.minParticipants = self.capacitySlider.lowerValue;
 		 self.party.maxParticipants = self.capacitySlider.upperValue;

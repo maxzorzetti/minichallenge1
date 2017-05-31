@@ -67,7 +67,8 @@
 	newParty.gender = self.gender;
 	newParty.eventName = [self.eventName copy];
 	newParty.minParticipants = self.minParticipants;
-	newParty.maxParticipants = self.maxParticipants;	
+	newParty.maxParticipants = self.maxParticipants;
+    newParty.eventDescription = self.eventDescription;
 	return newParty;
 }
 
