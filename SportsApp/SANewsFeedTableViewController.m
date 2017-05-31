@@ -54,6 +54,9 @@ static dispatch_once_t predicateForFriends;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    
     self.arrayOfSectionsWithEvents = [NSMutableArray new];
     self.facebookIdOfFriends = [NSMutableArray new];
     
