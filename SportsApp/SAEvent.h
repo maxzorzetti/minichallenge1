@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SAParty.h"
 @class SAPerson;
 @class SAActivity;
 @class CKRecordID;
@@ -31,6 +32,8 @@
 @property (nonatomic) NSNumber *distance;
 
 - (instancetype)initWithName:(NSString *)name andRequiredParticipants:(NSNumber *)requiredParticipants andMaxParticipants:(NSNumber *)maxParticipants andActivity:(SAActivity *)activity andId:(CKRecordID *)eventId andCategory:(NSString *)category andSex:(NSString *)sex andDate:(NSDate *)date andParticipants:(NSArray<SAPerson *> *)participants andInvitees:(NSArray<SAPerson *> *)invitees andLocation:(CLLocation *)location andDistance:(NSNumber *)distance;
+
+- (instancetype)initWithParty:(SAParty *)party;
 
 - (void)encodeWithCoder:(NSCoder *)aCoder;
 

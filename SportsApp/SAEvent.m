@@ -76,6 +76,29 @@ typedef enum
     return self;
 }
 
+- (instancetype)initWithParty:(SAParty *)party {
+	self = [super init];
+	if (self) {
+		_eventId = nil;
+		_name = party.eventName;
+		_minPeople = [[NSNumber alloc] initWithInt: party.minParticipants];
+		_maxPeople = [[NSNumber alloc] initWithInt: party.maxParticipants];
+		_activity = party.activity;
+		_category = nil;
+		_shift = [SAParty createStringFromShift:party.shift];
+		_sex = [SAParty createStringFromGender:party.gender];
+		_date = [SAParty createDateFromSchedule:party.schedule];
+		_location = party.location;
+		_distance = party.locationRadius;
+		_owner = party.creator;
+		_privateParticipants = [NSMutableArray arrayWithArray:@[party.creator]];
+		_privateInvitees = [NSMutableArray arrayWithArray:[party.invitedPeople copy]];
+		_privateNotGoing = [NSMutableArray new];
+		_privateInviteesNotConfirmed = [NSMutableArray new];
+	}
+	return self;
+}
+
 - (NSSet<SAPerson *> *)inviteesNotConfirmed {
     NSSet* inviteesNotConfirmed = [[NSSet alloc] initWithArray:self.privateInviteesNotConfirmed];
     return [inviteesNotConfirmed copy];
