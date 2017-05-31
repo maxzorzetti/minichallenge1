@@ -7,5 +7,6 @@ target 'SportsApp' do
   pod 'Unirest', '~> 1.1.4'
   pod 'NMRangeSlider'
   pod 'Firebase/Core'
+  pod 'Firebase/Crash'
 
 end

@@ -520,6 +520,7 @@
 				8406A8D21EA6761500C60267 /* Resources */,
 				E17D930AA6E5F606C956BF78 /* [CP] Embed Pods Frameworks */,
 				7D88B75D23AADB94AE2FA4CD /* [CP] Copy Pods Resources */,
+				84B1D5A41EDF501800397145 /* Upload Symbols to Crash Reporting */,
 			);
 			buildRules = (
 			);
@@ -545,6 +546,7 @@
 					8406A8D31EA6761500C60267 = {
 						CreatedOnToolsVersion = 8.3.1;
 						DevelopmentTeam = M3PUPH2NBH;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -628,6 +630,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SportsApp/Pods-SportsApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		84B1D5A41EDF501800397145 /* Upload Symbols to Crash Reporting */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Upload Symbols to Crash Reporting";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Replace this path with the path to the key you just downloaded\nJSON_FILE=${PROJECT_DIR}/Keys/sports-agent-firebase-crashreporting-oaqie-c6984f77b0.json\n\n# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:1:691032338229:ios:498a18bfa899149a\n\ndefaults write com.google.SymbolUpload version -integer 1   # creates file if it does not exist\nJSON=$(cat \"${JSON_FILE}\")\n/usr/bin/plutil -replace \"app_${GOOGLE_APP_ID//:/_}\" -json \"${JSON}\" \"$HOME/Library/Preferences/com.google.SymbolUpload.plist\"\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"${PROJECT_DIR}/Keys/sports-agent-firebase-crashreporting-oaqie-c6984f77b0.json\"";
 		};
 		E17D930AA6E5F606C956BF78 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -833,6 +849,7 @@
 			baseConfigurationReference = ECB8D9221E12E0DF893859DE /* Pods-SportsApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SportsApp/SportsApp.entitlements;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = M3PUPH2NBH;
@@ -845,6 +862,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "f15256c1-09fe-4b1e-886a-b3dee676ff3f";
 				PROVISIONING_PROFILE_SPECIFIER = SportsAppProfile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -854,6 +873,7 @@
 			baseConfigurationReference = 1181F65BA0715271D7E885B4 /* Pods-SportsApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SportsApp/SportsApp.entitlements;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = M3PUPH2NBH;
@@ -866,6 +886,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "f15256c1-09fe-4b1e-886a-b3dee676ff3f";
 				PROVISIONING_PROFILE_SPECIFIER = SportsAppProfile;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
