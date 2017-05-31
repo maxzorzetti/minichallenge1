@@ -222,7 +222,7 @@
         //say that there are no events :((((
         UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.tableWithEvents.bounds.size.width, self.tableWithEvents.bounds.size.height)];
         
-        messageLabel.text = @"You have no events in this section, how about creating new ones? :)";
+        //messageLabel.text = @"You have no events in this section, how about creating new ones? :)";
         messageLabel.textColor = [UIColor blackColor];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;
