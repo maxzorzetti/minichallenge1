@@ -21,6 +21,9 @@ typedef NS_ENUM(NSInteger, SAPeopleType) {
 typedef NS_ENUM(NSInteger, SAGender) {
 	SAFemaleGender, SAMaleGender, SAMixedGender, SANoGender
 };
+typedef NS_ENUM(NSInteger, SASchedule) {
+	SAToday, SATomorrow, SAThisWeek, SAThisSaturday, SAThisSunday, SAAnyDay, SANoDay
+};
 
 @property (nonatomic, readonly) NSUUID *partyId;
 @property (nonatomic, readonly) NSSet *people;
@@ -29,7 +32,8 @@ typedef NS_ENUM(NSInteger, SAGender) {
 
 @property (nonatomic) SAPerson *creator;
 @property (nonatomic) SAActivity *activity;
-@property (nonatomic) NSString *schedule;
+//@property (nonatomic) NSString *schedule;
+@property (nonatomic) SASchedule schedule;
 @property (nonatomic) SAShift shift;
 @property (nonatomic) SAPeopleType peopleType;
 @property (nonatomic) NSMutableSet<SAPerson *> *invitedPeople;
@@ -42,6 +46,11 @@ typedef NS_ENUM(NSInteger, SAGender) {
 - (void)removePerson:(SAPerson *)person;
 
 - (instancetype) initWithPeople:(NSSet *)people dates:(NSSet<NSDate *> *)dates activity:(SAActivity *)activity maxParticipants:(int)maxParticipants AndminParticipants:(int)minParticipants;
+
++ (NSString *)createStringFromGender:(SAGender)gender;
++ (NSString *)createStringFromSchedule:(SASchedule)schedule;
++ (NSString *)createStringFromShift:(SAShift)shift;
++ (NSDate *)createDateFromSchedule:(SASchedule)schedule;
 
 
 @end
