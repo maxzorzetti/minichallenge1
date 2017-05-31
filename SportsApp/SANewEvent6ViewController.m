@@ -53,7 +53,7 @@
 	self.rectangleView.layer.borderWidth = 0;
 	
 	self.eventNameLabel.text = self.party.eventName;
-	self.scheduleLabel.text = self.party.schedule.uppercaseString;
+	self.scheduleLabel.text = [SAParty createStringFromSchedule:self.party.schedule];
 	NSString *shiftText;
 	switch (self.party.shift) {
 		case SAMorningShift:	shiftText = @"Morning";		break;

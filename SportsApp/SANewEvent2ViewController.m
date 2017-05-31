@@ -22,7 +22,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
-@property (nonatomic) NSArray *timetable;
+@property (nonatomic) NSArray<NSNumber *> *timetable;
 @property (nonatomic) NSArray<NSNumber *> *shifts;
 
 //@property (nonatomic) NSString *selectedSchedule;
@@ -48,7 +48,12 @@
 	[self.timetableCollectionView registerNib:[UINib nibWithNibName:@"SACollectionButtonViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
 
 	
-	self.timetable = @[@"Tomorrow", @"Next Week", @"Next Month", @"Today", @"This Week", @"Any Day"];
+	self.timetable = @[[NSNumber numberWithInt:SAToday],
+					   [NSNumber numberWithInt:SATomorrow],
+					   [NSNumber numberWithInt:SAThisWeek],
+					   [NSNumber numberWithInt:SAThisSaturday],
+					   [NSNumber numberWithInt:SAThisSunday],
+					   [NSNumber numberWithInt:SAAnyDay]];
 	
 	self.shifts = @[[NSNumber numberWithInteger:SAMorningShift],
 					[NSNumber numberWithInteger:SAAfternoonShift],
@@ -89,7 +94,7 @@
 		cell.iconImageView.image = [UIImage imageNamed:@"Icon_CalendarBig"];
 		cell.unselectedImage = [UIImage imageNamed:@"Icon_CalendarBig"];
 		cell.selectedImage = [UIImage imageNamed:@"Icon_Calendar_S"];
-		cell.titleLabel.text = self.timetable[indexPath.item];
+		cell.titleLabel.text = [SAParty createStringFromSchedule:self.timetable[indexPath.item].intValue];
 		
 		return cell;
 		
@@ -128,7 +133,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 	if (collectionView.tag == 0) {
 
-		self.party.schedule = self.timetable[indexPath.item];
+		self.party.schedule = self.timetable[indexPath.item].intValue;
 		SACollectionButtonViewCell *cell = (SACollectionButtonViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
 		[cell setCustomSelection:YES];
 		
@@ -144,7 +149,7 @@
 	if (collectionView.tag == 0) {
 		
 		//self.selectedSchedule = nil;
-		self.party.schedule = nil;
+		self.party.schedule = SANoDay;
 		SACollectionButtonViewCell *cell = (SACollectionButtonViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
 		[cell setCustomSelection:NO];
 		//[collectionView deselectItemAtIndexPath:indexPath animated:YES];
@@ -169,7 +174,7 @@
 //}
 
 - (void)updateNextButton {
-	self.nextButton.enabled = self.party.schedule != nil && self.party.shift != SANoShift;
+	self.nextButton.enabled = self.party.schedule != SANoDay && self.party.shift != SANoShift;
 }
 
 #pragma mark - Navigation

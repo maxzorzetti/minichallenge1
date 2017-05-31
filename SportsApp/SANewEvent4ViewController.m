@@ -75,7 +75,7 @@
 	// Insert preferences in the text
 	NSMutableString *rawText = [[NSMutableString alloc] initWithString:self.preferencesTextView.text];
 	[rawText replaceOccurrencesOfString:@"<activity>" withString: [[NSString alloc] initWithFormat:@"%@ %@", self.party.activity.auxiliarVerb, self.party.activity.name.lowercaseString] options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
-	[rawText replaceOccurrencesOfString:@"<schedule>" withString:self.party.schedule.lowercaseString options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
+	[rawText replaceOccurrencesOfString:@"<schedule>" withString:[SAParty createStringFromSchedule:self.party.schedule].lowercaseString options:NSLiteralSearch range:NSMakeRange(0, rawText.length)];
 	NSString *peopleType;
 	switch (self.party.peopleType) {
 		case 0: peopleType = @"my friends"; break;
@@ -87,7 +87,7 @@
 
 	// Get preferences indexes
 	NSRange selectedActivityRange = [rawText rangeOfString:[[NSString alloc] initWithFormat:@"%@", self.party.activity.name.lowercaseString]];
-	NSRange selectedScheduleRange = [rawText rangeOfString:self.party.schedule.lowercaseString];
+	NSRange selectedScheduleRange = [rawText rangeOfString:[SAParty createStringFromSchedule:self.party.schedule].lowercaseString];
 	NSRange selectedPeopleTypeRange = [rawText rangeOfString:peopleType];
 	
 	// Update text (we do this so we don't lose the text's attributes)
