@@ -122,6 +122,11 @@
 	[self updateNextButton];
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+	[self updateNextButton];
+	return YES;
+}
+
 - (void)updateNextButton {
 	self.nextButton.enabled = self.party.gender != SANoGender;
     if (self.eventNameTextField.text.length == 0) {
@@ -201,7 +206,7 @@
 }
 
 #pragma keyboard dismissing methods
--(BOOL)textFieldShouldReturn:(UITextField *)textField{
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     
     return YES;
