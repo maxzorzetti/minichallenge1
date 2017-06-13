@@ -12,5 +12,5 @@
 @interface SAGenderSelectionViewController : UIViewController
 @property (nonatomic)NSString *password;
 @property (nonatomic) SAPerson *user;
-
+@property NSString *previousView;
 @end

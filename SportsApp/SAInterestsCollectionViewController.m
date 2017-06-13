@@ -32,10 +32,65 @@
             NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:person];
             [[NSUserDefaults standardUserDefaults] setObject:userData forKey:@"user"];
             
-            [self goToFeed];
+            if ([_previousView  isEqual: @"profile"])
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                [self goToProfile];
+                });
+            }
+        
+            
+            else {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                [self goToFeed];
+                });
+            }
+            
+            
+        
+    }
+        
+        
+        else{
+        
         }
-    }];
+        
+        
+        
+    }
+     
+        
+        ];
+    
+    
+    
+    
+    
+    
 }
+
+
+
+
+
+
+- (void)  goToProfile{
+    
+    
+    UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UITabBarController *destination = [main instantiateViewControllerWithIdentifier:@"view2"];
+    [destination setSelectedViewController:[destination.viewControllers objectAtIndex:2]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:destination animated:YES completion:^{
+            
+        }];
+    });
+    
+    
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];

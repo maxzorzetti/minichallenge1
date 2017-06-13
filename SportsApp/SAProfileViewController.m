@@ -19,6 +19,10 @@
 #import "SAGenderSelectionViewController.h"
 
 @interface SAProfileViewController ()
+
+
+@property FBSDKProfilePictureView *profPhoto2;
+
 @property (weak, nonatomic) IBOutlet UIImageView *profilePhoto;
 @property (weak, nonatomic) IBOutlet UILabel *userName;
 @property (weak, nonatomic) IBOutlet UILabel *genderLabel;
@@ -71,10 +75,34 @@
     self.viewToBorder.layer.cornerRadius = 8.0;
     
     if (self.user.photo) {
-        self.profilePhoto.image = [UIImage imageWithData:self.user.photo];
-        self.profilePhoto.layer.cornerRadius = self.profilePhoto.frame.size.height/2;
-        self.profilePhoto.layer.masksToBounds = YES;
-        self.profilePhoto.layer.borderWidth = 0;
+//        self.profilePhoto.image = [UIImage imageWithData:self.user.photo];
+        //self.profilePhoto.layer.cornerRadius = self.profilePhoto.frame.size.height/2;
+      //  self.profilePhoto.layer.masksToBounds = YES;
+       // self.profilePhoto.layer.borderWidth = 0;
+        
+        
+       //self.profPhoto2.profileID.
+        
+       
+        
+      self.profPhoto2  = [[FBSDKProfilePictureView alloc]initWithFrame:CGRectMake(self.profilePhoto.frame.origin.x - 20, _profilePhoto.frame.origin.y, _profilePhoto.frame.size.width, _profilePhoto.frame.size.height)];
+        
+        
+        
+        if (self.user.facebookId){
+            self.profPhoto2.profileID = self.user.facebookId;
+        }
+        [self.profilePhoto addSubview:_profPhoto2];
+        
+        self.profPhoto2.layer.cornerRadius = self.profPhoto2.frame.size.height/2;
+        self.profPhoto2.layer.masksToBounds = YES;
+        self.profPhoto2.layer.borderWidth = 0;
+        
+        
+        
+        
+        
+        
     }
     self.userName.text = self.user.name;
     

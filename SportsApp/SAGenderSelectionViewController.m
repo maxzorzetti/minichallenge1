@@ -14,12 +14,15 @@
 @property (weak, nonatomic) IBOutlet UIView *femaleView;
 @property (weak, nonatomic) IBOutlet UIView *maleView;
 
+
 @end
 
 @implementation SAGenderSelectionViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
     
     
     //set margin and border to buttons
@@ -33,6 +36,7 @@
 
 
 - (IBAction)backButtonPressed:(UIButton *)sender {
+    
     
     
     [self goBackToHelloView];
@@ -70,6 +74,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     SAFirstProfileViewController *destination = segue.destinationViewController;
     
+    if ( [self.previousView isEqualToString: @"profile"] ){
+        destination.previousView = @"profile";
+    }
     destination.user = self.user;
 }
 

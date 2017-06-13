@@ -27,6 +27,8 @@
 @property UIImagePickerController *imagePicker;
 
 
+
+
 @property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 
 
@@ -190,6 +192,9 @@
 
     SAInterestsCollectionViewController *destination = [secondary instantiateViewControllerWithIdentifier:@"interestsView"];
     destination.user = self.user;
+    
+    if ([_previousView isEqualToString:@"profile"])
+        destination.previousView = @"profile";
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self presentViewController:destination animated:YES completion:^{

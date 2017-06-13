@@ -14,5 +14,5 @@
 
 @property NSString *email;
 @property SAPerson *user;
-
+@property NSString *previousView;
 @end

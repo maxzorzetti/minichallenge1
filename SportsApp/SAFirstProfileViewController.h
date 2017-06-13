@@ -14,7 +14,7 @@
 
 @property NSString *email;
 @property NSString *password;
-
+@property NSString *previousView;
 @property (nonatomic) SAPerson *user;
 
 
