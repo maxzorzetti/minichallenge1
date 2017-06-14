@@ -64,6 +64,11 @@
 - (IBAction)joinUsButtonPressed:(UIButton *)sender {
     
     
+    
+    
+    
+    
+    
     _email = [NSString stringWithFormat:@"%@", _emailField.text];
     _password = [NSString stringWithFormat:@"%@", _passwordField.text];
     
@@ -88,6 +93,19 @@
         [self changePwdTextField:[UIColor redColor]];
     }
     else{
+        
+        
+        
+        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        spinner.frame = CGRectMake(self.view.frame.size.width/2, 3 * self.view.frame.size.height/4, 10, 10);
+        [self.view addSubview:spinner];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            
+            //back to the main thread for the UI call
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [spinner startAnimating];
+            });
+        });
     
     CKContainer *container = [CKContainer defaultContainer];
     CKDatabase *publicDatabase = [container publicCloudDatabase];
@@ -241,6 +259,7 @@
              identityRecord[@"hash"] = userFacebookID;
             
              [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results1, NSError *error) {
+                 
                  if (!error) {
                      
                      //if there is no person with that email signed in app
@@ -452,9 +471,20 @@
     //Checa-se se o usuario ja aceitou os termos de uso
     //if (! [FBSDKAccessToken currentAccessToken]) {
         // User is logged in, do work such as go to next view controller.
-        FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
+        FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] initWithFrame:_myView.frame];
+    //loginButton.bounds = _myView.bounds;
+    NSLog(@"%f", _myView.frame.size.width);
+    NSLog(@"%f", _myView.frame.size.height);
+    NSLog(@"%f", _myView.frame.origin.x);
+    NSLog(@"%f", _myView.frame.origin.y);
+    //loginButton.center = self.view.center;
+    CGPoint newCenter = CGPointMake(self.view.center.x, 646);
+    
+    //loginButton.bounds = _myView.bounds;
+    loginButton.center = newCenter;
+    //loginButton.frame.origin.y = _myView.frame.origin.y;
         // Optional: Place the button in the center of your view.
-        loginButton.center = _myView.center;
+        //loginButton.center = _myView.center;
         [self.view addSubview:loginButton];
         loginButton.readPermissions =
         @[@"public_profile", @"email", @"user_friends"];
@@ -465,6 +495,12 @@
     self.appLogo.layer.cornerRadius = self.appLogo.frame.size.height /2;
     self.appLogo.layer.masksToBounds = YES;
     self.appLogo.layer.borderWidth = 0;
+    
+    
+    NSLog(@"%f", loginButton.frame.size.width);
+    NSLog(@"%f", loginButton.frame.size.height);
+    NSLog(@"%f", loginButton.frame.origin.x);
+    NSLog(@"%f", loginButton.frame.origin.y);
     
 //     [_emailField setSelectedTextRange:NSMakeRange(0, 0)];
 

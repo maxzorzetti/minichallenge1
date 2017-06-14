@@ -203,7 +203,7 @@
     [dao savePerson:[self getRecordFromPerson:person] handler:^(CKRecord * _Nullable personRecord, NSError * _Nullable error) {
         if(!error){
             //facebook user? get picture
-            if (personRecord[@"facebookId"]) {
+            if (! ([personRecord[@"facebookId"] isEqual:@""]) ) {
                 NSString *pathGraph = [[NSString alloc]initWithFormat:@"/%@",personRecord[@"facebookId"]];
                 FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
                                               initWithGraphPath:pathGraph
