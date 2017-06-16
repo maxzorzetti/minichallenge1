@@ -43,6 +43,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.collectionView.allowsSelection = NO;
 
     NSData *userData = [[NSUserDefaults standardUserDefaults] dataForKey:@"user"];
     self.user = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
