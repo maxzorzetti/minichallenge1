@@ -9,16 +9,14 @@
 #import "SANewEvent1ViewController.h"
 #import "SANewEvent4ViewController.h"
 #import "SANewEvent5ViewController.h"
+#import "SALocationRadiusPicker.h"
 
 @interface SANewEvent4ViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextView *preferencesTextView;
 
-@property (weak, nonatomic) IBOutlet UISlider *locationRadiusSlider;
+@property (weak, nonatomic) IBOutlet SALocationRadiusPicker *locationRadiusPicker;
 
-@property (weak, nonatomic) IBOutlet UILabel *locationRadiusLabel;
-
-@property (weak, nonatomic) IBOutlet UITableView *locationsTableView;
 
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
@@ -50,25 +48,13 @@
         default:
             break;
     }
-    
-    
-    
-    
 	
-	//self.locationRadiusSlider.value
-	self.locationRadiusLabel.text = [[NSString alloc] initWithFormat:@"%.0f km", self.locationRadiusSlider.value];
-	
-	self.locationRadiusSlider.value = (self.locationRadiusSlider.minimumValue + self.locationRadiusSlider.maximumValue)/2;
 	[self processPreferencesTextView];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)locationRadiusChanged:(UISlider *)sender {
-	self.locationRadiusLabel.text = [[NSString alloc] initWithFormat:@"%.0f km", sender.value];
 }
 
 - (void)processPreferencesTextView {
@@ -115,7 +101,7 @@
 	NSLog(@"%@", segue.identifier);
 	if ([segue.identifier isEqualToString: @"newEvent4To5"]) {
 		SANewEvent5ViewController *newEvent5 = segue.destinationViewController;
-		self.party.locationRadius = [NSNumber numberWithLong: lroundf(self.locationRadiusSlider.value)];
+		self.party.locationRadius = [NSNumber numberWithDouble: self.locationRadiusPicker.selectedRadius];
 		
 		
 		newEvent5.party = [self.party copy];

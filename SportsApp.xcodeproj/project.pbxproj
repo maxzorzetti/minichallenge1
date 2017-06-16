@@ -13,11 +13,14 @@
 		29763C0C1EB9723200DFEE7A /* SAFriendCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29763C0B1EB9723200DFEE7A /* SAFriendCollectionViewCell.m */; };
 		29763C101EB993D200DFEE7A /* SAShiftCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29763C0F1EB993D200DFEE7A /* SAShiftCollectionViewCell.m */; };
 		29763C161EBBC78600DFEE7A /* SANewEventButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 29763C151EBBC78600DFEE7A /* SANewEventButton.m */; };
+		298A27991EF384FA002FD858 /* SALocationRadiusPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 298A27981EF384FA002FD858 /* SALocationRadiusPicker.xib */; };
+		298A279C1EF389FE002FD858 /* SALocationRadiusPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 298A279B1EF389FE002FD858 /* SALocationRadiusPicker.m */; };
 		29A4CA491EB20D2500DCA3FA /* NewEvent.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29A4CA481EB20D2500DCA3FA /* NewEvent.storyboard */; };
 		29A4CA4C1EB22F7A00DCA3FA /* SANewEvent1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A4CA4B1EB22F7A00DCA3FA /* SANewEvent1ViewController.m */; };
 		29A4CA4F1EB22F8D00DCA3FA /* SANewEvent2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A4CA4E1EB22F8D00DCA3FA /* SANewEvent2ViewController.m */; };
 		29A4CA521EB22F9C00DCA3FA /* SANewEvent3ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A4CA511EB22F9C00DCA3FA /* SANewEvent3ViewController.m */; };
 		29A4CA551EB22FA800DCA3FA /* SANewEvent4ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A4CA541EB22FA800DCA3FA /* SANewEvent4ViewController.m */; };
+		29BFFC7F1EF1A43C00A28982 /* SALocationButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BFFC7E1EF1A43C00A28982 /* SALocationButton.m */; };
 		29D5F7081EC4D78D005A3B1F /* SAEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29D5F7071EC4D78D005A3B1F /* SAEventViewController.m */; };
 		29D5F70B1EC4D799005A3B1F /* SAInterestsCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29D5F70A1EC4D799005A3B1F /* SAInterestsCollectionReusableView.m */; };
 		29D5F70E1EC6491A005A3B1F /* SANewEvent7ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29D5F70D1EC6491A005A3B1F /* SANewEvent7ViewController.m */; };
@@ -88,6 +91,9 @@
 		29763C0F1EB993D200DFEE7A /* SAShiftCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAShiftCollectionViewCell.m; sourceTree = "<group>"; };
 		29763C141EBBC78600DFEE7A /* SANewEventButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANewEventButton.h; sourceTree = "<group>"; };
 		29763C151EBBC78600DFEE7A /* SANewEventButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANewEventButton.m; sourceTree = "<group>"; };
+		298A27981EF384FA002FD858 /* SALocationRadiusPicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SALocationRadiusPicker.xib; sourceTree = "<group>"; };
+		298A279A1EF389FE002FD858 /* SALocationRadiusPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SALocationRadiusPicker.h; sourceTree = "<group>"; };
+		298A279B1EF389FE002FD858 /* SALocationRadiusPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SALocationRadiusPicker.m; sourceTree = "<group>"; };
 		29A4CA481EB20D2500DCA3FA /* NewEvent.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewEvent.storyboard; sourceTree = "<group>"; };
 		29A4CA4A1EB22F7A00DCA3FA /* SANewEvent1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANewEvent1ViewController.h; sourceTree = "<group>"; };
 		29A4CA4B1EB22F7A00DCA3FA /* SANewEvent1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANewEvent1ViewController.m; sourceTree = "<group>"; };
@@ -97,6 +103,8 @@
 		29A4CA511EB22F9C00DCA3FA /* SANewEvent3ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANewEvent3ViewController.m; sourceTree = "<group>"; };
 		29A4CA531EB22FA800DCA3FA /* SANewEvent4ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANewEvent4ViewController.h; sourceTree = "<group>"; };
 		29A4CA541EB22FA800DCA3FA /* SANewEvent4ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANewEvent4ViewController.m; sourceTree = "<group>"; };
+		29BFFC7D1EF1A43C00A28982 /* SALocationButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SALocationButton.h; sourceTree = "<group>"; };
+		29BFFC7E1EF1A43C00A28982 /* SALocationButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SALocationButton.m; sourceTree = "<group>"; };
 		29D5F7061EC4D78D005A3B1F /* SAEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAEventViewController.h; sourceTree = "<group>"; };
 		29D5F7071EC4D78D005A3B1F /* SAEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAEventViewController.m; sourceTree = "<group>"; };
 		29D5F7091EC4D799005A3B1F /* SAInterestsCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAInterestsCollectionReusableView.h; sourceTree = "<group>"; };
@@ -215,6 +223,7 @@
 		29763C0D1EB9932F00DFEE7A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				298A279D1EF38A0D002FD858 /* LocationRadiusPicker */,
 				29E2480A1EB8C07000088B98 /* SAFriendTableViewCell.h */,
 				29E2480B1EB8C07000088B98 /* SAFriendTableViewCell.m */,
 				29763C0A1EB9723200DFEE7A /* SAFriendCollectionViewCell.h */,
@@ -227,6 +236,18 @@
 				29763C151EBBC78600DFEE7A /* SANewEventButton.m */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		298A279D1EF38A0D002FD858 /* LocationRadiusPicker */ = {
+			isa = PBXGroup;
+			children = (
+				298A27981EF384FA002FD858 /* SALocationRadiusPicker.xib */,
+				29BFFC7D1EF1A43C00A28982 /* SALocationButton.h */,
+				29BFFC7E1EF1A43C00A28982 /* SALocationButton.m */,
+				298A279A1EF389FE002FD858 /* SALocationRadiusPicker.h */,
+				298A279B1EF389FE002FD858 /* SALocationRadiusPicker.m */,
+			);
+			name = LocationRadiusPicker;
 			sourceTree = "<group>";
 		};
 		29A4CA561EB2303100DCA3FA /* NewEvent */ = {
@@ -520,7 +541,6 @@
 				8406A8D21EA6761500C60267 /* Resources */,
 				E17D930AA6E5F606C956BF78 /* [CP] Embed Pods Frameworks */,
 				7D88B75D23AADB94AE2FA4CD /* [CP] Copy Pods Resources */,
-				84B1D5A41EDF501800397145 /* Upload Symbols to Crash Reporting */,
 			);
 			buildRules = (
 			);
@@ -585,6 +605,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				298A27991EF384FA002FD858 /* SALocationRadiusPicker.xib in Resources */,
 				84CBE47A1EBA83CB00ACD0DF /* StoryboardDaBarbara.storyboard in Resources */,
 				8D9A36641EB3BBDE00036272 /* SACustomCell.xib in Resources */,
 				8D9A36761EB4E47900036272 /* SASectionView2.xib in Resources */,
@@ -630,20 +651,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SportsApp/Pods-SportsApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		84B1D5A41EDF501800397145 /* Upload Symbols to Crash Reporting */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Upload Symbols to Crash Reporting";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Replace this path with the path to the key you just downloaded\nJSON_FILE=${PROJECT_DIR}/Keys/sports-agent-firebase-crashreporting-oaqie-c6984f77b0.json\n\n# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:1:691032338229:ios:498a18bfa899149a\n\ndefaults write com.google.SymbolUpload version -integer 1   # creates file if it does not exist\nJSON=$(cat \"${JSON_FILE}\")\n/usr/bin/plutil -replace \"app_${GOOGLE_APP_ID//:/_}\" -json \"${JSON}\" \"$HOME/Library/Preferences/com.google.SymbolUpload.plist\"\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"${PROJECT_DIR}/Keys/sports-agent-firebase-crashreporting-oaqie-c6984f77b0.json\"";
 		};
 		E17D930AA6E5F606C956BF78 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -698,6 +705,7 @@
 				84DC117D1EACF32100A9A90C /* SAActivity.m in Sources */,
 				8D8693481EC09D4E0007D716 /* SAInterestsNavigationController.m in Sources */,
 				8406A8D91EA6761500C60267 /* main.m in Sources */,
+				29BFFC7F1EF1A43C00A28982 /* SALocationButton.m in Sources */,
 				84DC11801EACF3D200A9A90C /* SAMatchMakerCore.m in Sources */,
 				29A4CA521EB22F9C00DCA3FA /* SANewEvent3ViewController.m in Sources */,
 				84DC11841EAD00BD00A9A90C /* SAPersonDAO.m in Sources */,
@@ -714,6 +722,7 @@
 				29763C0C1EB9723200DFEE7A /* SAFriendCollectionViewCell.m in Sources */,
 				8DD37CE11EBBEEEC00E1CC1D /* SAAskPhoneViewController.m in Sources */,
 				29D5F7081EC4D78D005A3B1F /* SAEventViewController.m in Sources */,
+				298A279C1EF389FE002FD858 /* SALocationRadiusPicker.m in Sources */,
 				84CBE4721EB238DB00ACD0DF /* SAEventsTableViewCell.m in Sources */,
 				29763C101EB993D200DFEE7A /* SAShiftCollectionViewCell.m in Sources */,
 				29E248131EB8CECD00088B98 /* SANewEvent5ViewController.m in Sources */,
