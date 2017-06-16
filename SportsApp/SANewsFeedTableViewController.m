@@ -444,7 +444,7 @@ static dispatch_once_t predicateForFriends;
         
         
         //check for what peek view to show
-        NSComparisonResult result = [cell.cellEvent.date compare:[NSDate date]];
+        /*NSComparisonResult result = [cell.cellEvent.date compare:[NSDate date]];
         if([cell.cellEvent.participants count] >= [cell.cellEvent.minPeople integerValue] || result == NSOrderedAscending){
             //event closed, show closed event description
             ClosedEventDescriptionViewController *previewController = [storyboard instantiateViewControllerWithIdentifier:@"eventFull"];
@@ -454,7 +454,7 @@ static dispatch_once_t predicateForFriends;
             previewingContext.sourceRect = cell.frame;
             
             return previewController;
-        }else{
+        }else{*/
             //event open, show open event description
             SAEventDescriptionViewController *previewController = [storyboard instantiateViewControllerWithIdentifier:@"eventDescription"];
             
@@ -463,7 +463,7 @@ static dispatch_once_t predicateForFriends;
             previewingContext.sourceRect = cell.frame;
             
             return previewController;
-        }
+        //}
     }
     return nil;
 }

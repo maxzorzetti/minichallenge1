@@ -437,7 +437,7 @@
         
         
         //check for what peek view to show
-        NSComparisonResult result = [cell.cellEvent.date compare:[NSDate date]];
+        /*NSComparisonResult result = [cell.cellEvent.date compare:[NSDate date]];
         if([cell.cellEvent.participants count] >= [cell.cellEvent.minPeople integerValue] || result == NSOrderedAscending){
             //event closed, show closed event description
             ClosedEventDescriptionViewController *previewController = [storyboard instantiateViewControllerWithIdentifier:@"eventFull"];
@@ -447,7 +447,7 @@
             previewingContext.sourceRect = cell.frame;
             
             return previewController;
-        }else{
+        }else{*/
             //event open, show open event description
             SAEventDescriptionViewController *previewController = [storyboard instantiateViewControllerWithIdentifier:@"eventDescription"];
             
@@ -456,7 +456,7 @@
             previewingContext.sourceRect = cell.frame;
             
             return previewController;
-        }
+        //}
     }
     return nil;
 }
