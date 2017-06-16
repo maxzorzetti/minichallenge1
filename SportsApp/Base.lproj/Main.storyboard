@@ -445,7 +445,7 @@
         <!--Profile-->
         <scene sceneID="FAM-ZW-k2f">
             <objects>
-                <viewController id="cbM-AA-Fkf" customClass="SAProfileViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="profileView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cbM-AA-Fkf" customClass="SAProfileViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MSy-c1-6le"/>
                         <viewControllerLayoutGuide type="bottom" id="iYQ-So-JZp"/>

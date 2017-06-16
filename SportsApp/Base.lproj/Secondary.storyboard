@@ -165,11 +165,11 @@
                     <connections>
                         <outlet property="appLogo" destination="Au8-Dq-nOb" id="FcT-t1-Gu4"/>
                         <outlet property="btnJoinUs" destination="J8N-k4-r0Q" id="9T5-hN-YJu"/>
-                        <outlet property="emailField" destination="4D3-Xg-d40" id="oah-tO-o3K"/>
+                        <outlet property="emailField" destination="4D3-Xg-d40" id="pZr-1S-9PN"/>
                         <outlet property="firstLabel" destination="3hP-Uf-wCE" id="5st-E9-qhj"/>
                         <outlet property="logButton2" destination="jO6-dr-2cJ" id="YVs-GZ-uZg"/>
                         <outlet property="myLabel" destination="JS3-sL-9qt" id="V51-hb-h5j"/>
-                        <outlet property="passwordField" destination="SUy-pP-9B4" id="bBn-4o-hRc"/>
+                        <outlet property="passwordField" destination="SUy-pP-9B4" id="oCH-Qa-gHr"/>
                         <segue destination="v5O-1O-aXK" kind="show" identifier="askGenderSegue" id="LKX-il-TVn"/>
                     </connections>
                 </viewController>
@@ -601,7 +601,7 @@
                                     <color key="titleColor" red="0.13725490200000001" green="0.1215686275" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="XLR-sd-gUc" kind="unwind" unwindAction="backFromGender:" id="CSa-W2-tJD"/>
+                                    <action selector="backButtonPressed:" destination="v5O-1O-aXK" eventType="touchUpInside" id="esZ-1q-sy4"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -623,7 +623,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="14x-fz-Gdq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="XLR-sd-gUc" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2489.8550724637685" y="-542.11956521739137"/>
         </scene>

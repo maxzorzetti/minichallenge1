@@ -17,6 +17,9 @@
 @interface SAViewController : UIViewController <FBSDKLoginButtonDelegate, CLLocationManagerDelegate, UITextFieldDelegate>
 
 -(void)toggleHiddenState:(BOOL)shouldHide;
+@property (weak, nonatomic) IBOutlet UITextField *emailField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordField;
+
 
 @end
 

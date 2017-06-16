@@ -38,13 +38,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnJoinUs;
 
 
-@property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UIImageView *appLogo;
 
 
 @property (weak, nonatomic) IBOutlet UITextField *lastNameField;
 
-@property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
 @property (nonatomic) SAPerson *user;
 
@@ -179,6 +177,11 @@
 
                     [self changeUserTextField:[UIColor redColor]];
                     [self changePwdTextField:[UIColor redColor]];
+                    
+                    
+                            [spinner stopAnimating];
+                   
+                    
                 
                 
                 
@@ -506,6 +509,7 @@
  
     
 }
+
 
 - (void) changeJoinUsButton{
     _btnJoinUs.layer.cornerRadius = 7;

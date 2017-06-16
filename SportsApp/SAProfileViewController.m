@@ -204,6 +204,8 @@
     SAGenderSelectionViewController *genderSelection = [secondary instantiateViewControllerWithIdentifier:@"genderSelectionView"];
     
     genderSelection.user = self.user;
+    genderSelection.previousView = @"profile";
+    
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self presentViewController:genderSelection animated:YES completion:^{

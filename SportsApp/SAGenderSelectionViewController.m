@@ -9,6 +9,7 @@
 #import "SAGenderSelectionViewController.h"
 #import "SAPerson.h"
 #import "SAFirstProfileViewController.h"
+#import "SAViewController.h"
 
 @interface SAGenderSelectionViewController ()
 @property (weak, nonatomic) IBOutlet UIView *femaleView;
@@ -37,25 +38,88 @@
 
 - (IBAction)backButtonPressed:(UIButton *)sender {
     
+    if ([_previousView isEqualToString:@"profile"]){
+        [self goToProfile];
+        
+    }
+    else {
+        
+        [self goBackToHelloView];
+    }
     
     
-    [self goBackToHelloView];
+   
     
+    
+    
+    
+    
+    
+
     
 }
 
 
-- (void)goBackToHelloView{
-    UIStoryboard *secondary= [UIStoryboard storyboardWithName:@"Secondary" bundle:nil];
-    UIViewController *helloView = [secondary instantiateViewControllerWithIdentifier:@"helloView"];
+
+-(void)goToProfile{
+    
+   
     
     
-    
+    UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UITabBarController *destination = [main instantiateViewControllerWithIdentifier:@"view2"];
+    [destination setSelectedViewController:[destination.viewControllers objectAtIndex:2]];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self presentViewController:helloView animated:YES completion:^{
+        [self presentViewController:destination animated:YES completion:^{
             
         }];
     });
+    
+    
+    
+    
+    
+}
+
+- (void)goBackToHelloView{
+    UIStoryboard *secondary= [UIStoryboard storyboardWithName:@"Secondary" bundle:nil];
+    SAViewController *helloView = [secondary instantiateViewControllerWithIdentifier:@"helloView"];
+    
+    
+    CKContainer *container = [CKContainer defaultContainer];
+    CKDatabase *publicDatabase = [container publicCloudDatabase];
+
+    [publicDatabase deleteRecordWithID:_user.personId completionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) {
+        
+        if (!error)
+        {
+            
+            if (![_user.facebookId isEqualToString:@""]){
+                
+                FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
+                [loginManager logOut];
+                
+                
+            }
+            
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:helloView animated:YES completion:^{
+                    
+                }];
+            });
+            
+        }
+        
+        else{
+            
+            NSLog(@"%@", error.description);
+        }
+    }];
+    
+    
+    
+    
 }
 
 
