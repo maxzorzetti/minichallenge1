@@ -25,12 +25,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 
 @property (nonatomic) SAPerson *user;
-@property (weak, nonatomic) IBOutlet UIView *myView;
+//@property (weak, nonatomic) IBOutlet UIView *myView;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnLogIn;
 
 @property NSString *email;
 @property NSString *password;
+@property (weak, nonatomic) IBOutlet FBSDKLoginButton *loginButton;
 
 
 @end
@@ -373,15 +374,15 @@
     
     [self changeJoinUsButton];
     
-    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
+    //FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
     // Optional: Place the button in the center of your view.
-    loginButton.center = _myView.center;
-    [self.view addSubview:loginButton];
-    [_myView isHidden];
-    loginButton.readPermissions =
+    //loginButton.center = _myView.center;
+   // [self.view addSubview:loginButton];
+    //[_myView isHidden];
+    _loginButton.readPermissions =
     @[@"public_profile", @"email", @"user_friends"];
     
-    loginButton.delegate = self;
+    _loginButton.delegate = self;
     
 }
 

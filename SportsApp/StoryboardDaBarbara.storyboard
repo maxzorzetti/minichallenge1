@@ -420,10 +420,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xjq-qq-3yh">
-                                <rect key="frame" x="0.0" y="556" width="375" height="56"/>
+                            <containerView opaque="NO" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xjq-qq-3yh" customClass="FBSDKLoginButton">
+                                <rect key="frame" x="53" y="587" width="269" height="28"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="56" id="WCJ-cf-98u"/>
+                                    <constraint firstAttribute="height" constant="28" id="cP7-MA-hd8"/>
                                 </constraints>
                             </containerView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_Logo_Novo" translatesAutoresizingMaskIntoConstraints="NO" id="tYm-Mq-Xf3">
@@ -485,14 +485,15 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="CDX-gK-lPZ" firstAttribute="top" secondItem="Xjq-qq-3yh" secondAttribute="bottom" constant="55" id="20R-bU-gx7"/>
+                            <constraint firstItem="CDX-gK-lPZ" firstAttribute="top" secondItem="Xjq-qq-3yh" secondAttribute="bottom" constant="52" id="20R-bU-gx7"/>
                             <constraint firstItem="fbY-N4-H3d" firstAttribute="centerX" secondItem="ekp-ab-me2" secondAttribute="centerX" id="4hd-b1-Hjj"/>
+                            <constraint firstItem="Xjq-qq-3yh" firstAttribute="leading" secondItem="F5C-Fq-ppa" secondAttribute="leading" id="52m-ea-7nl"/>
                             <constraint firstItem="tYm-Mq-Xf3" firstAttribute="centerX" secondItem="KDc-0D-O6R" secondAttribute="centerX" multiplier="0.5" id="7u2-KD-Zqg"/>
                             <constraint firstItem="F5C-Fq-ppa" firstAttribute="trailing" secondItem="fbY-N4-H3d" secondAttribute="trailing" id="9rX-D4-DzN"/>
                             <constraint firstItem="ekp-ab-me2" firstAttribute="centerX" secondItem="KDc-0D-O6R" secondAttribute="centerX" id="DEy-8R-XKc"/>
                             <constraint firstItem="F5C-Fq-ppa" firstAttribute="top" secondItem="fbY-N4-H3d" secondAttribute="bottom" constant="8" id="FuX-hL-qJJ"/>
+                            <constraint firstItem="Xjq-qq-3yh" firstAttribute="trailing" secondItem="F5C-Fq-ppa" secondAttribute="trailing" id="N6p-QJ-HIx"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ekp-ab-me2" secondAttribute="trailing" constant="30" id="Nht-Yg-FhS"/>
-                            <constraint firstAttribute="trailing" secondItem="Xjq-qq-3yh" secondAttribute="trailing" id="OWY-DK-IX4"/>
                             <constraint firstItem="ekp-ab-me2" firstAttribute="top" secondItem="tYm-Mq-Xf3" secondAttribute="top" id="Ovv-Mm-p4M"/>
                             <constraint firstItem="xeZ-QE-wP7" firstAttribute="centerX" secondItem="KDc-0D-O6R" secondAttribute="centerX" multiplier="0.5" id="Qrl-GF-7zW"/>
                             <constraint firstItem="tYm-Mq-Xf3" firstAttribute="top" secondItem="EDd-QS-Ryd" secondAttribute="bottom" constant="43" id="TMj-ah-HzH"/>
@@ -506,12 +507,11 @@
                             <constraint firstItem="fbY-N4-H3d" firstAttribute="centerX" secondItem="KDc-0D-O6R" secondAttribute="centerX" id="gRS-kt-9Tr"/>
                             <constraint firstItem="xeZ-QE-wP7" firstAttribute="centerX" secondItem="KDc-0D-O6R" secondAttribute="centerX" id="hn0-he-EDZ"/>
                             <constraint firstItem="fbY-N4-H3d" firstAttribute="trailing" secondItem="ekp-ab-me2" secondAttribute="trailing" id="k0w-u3-GdP"/>
-                            <constraint firstItem="Xjq-qq-3yh" firstAttribute="top" relation="greaterThanOrEqual" secondItem="F5C-Fq-ppa" secondAttribute="bottom" constant="30" id="l6J-Zu-qad"/>
                             <constraint firstItem="fbY-N4-H3d" firstAttribute="top" secondItem="ekp-ab-me2" secondAttribute="bottom" id="lAb-cj-6FP"/>
                             <constraint firstItem="fbY-N4-H3d" firstAttribute="centerX" secondItem="KDc-0D-O6R" secondAttribute="centerX" multiplier="1.5" id="oqi-GU-IpO"/>
+                            <constraint firstItem="Xjq-qq-3yh" firstAttribute="centerX" secondItem="KDc-0D-O6R" secondAttribute="centerX" id="pmg-UW-kro"/>
                             <constraint firstItem="fbY-N4-H3d" firstAttribute="leading" secondItem="ekp-ab-me2" secondAttribute="leading" id="tUF-Mc-76K"/>
                             <constraint firstItem="Xjq-qq-3yh" firstAttribute="centerX" secondItem="KDc-0D-O6R" secondAttribute="centerX" multiplier="1.5" id="uds-EF-bL0"/>
-                            <constraint firstItem="Xjq-qq-3yh" firstAttribute="leading" secondItem="KDc-0D-O6R" secondAttribute="leading" id="vvw-Md-Gv1"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -527,7 +527,6 @@
                                 <exclude reference="oqi-GU-IpO"/>
                                 <exclude reference="ces-LU-URY"/>
                                 <exclude reference="uds-EF-bL0"/>
-                                <exclude reference="vvw-Md-Gv1"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
@@ -548,7 +547,6 @@
                                 <include reference="dv5-sq-e0x"/>
                                 <include reference="gRS-kt-9Tr"/>
                                 <include reference="ces-LU-URY"/>
-                                <include reference="vvw-Md-Gv1"/>
                             </mask>
                         </variation>
                     </view>
@@ -557,7 +555,7 @@
                         <outlet property="btnLogIn" destination="F5C-Fq-ppa" id="eSh-qH-scj"/>
                         <outlet property="emailField" destination="ekp-ab-me2" id="D2M-qH-rWr"/>
                         <outlet property="infoLabel" destination="xeZ-QE-wP7" id="JW8-gf-9is"/>
-                        <outlet property="myView" destination="Xjq-qq-3yh" id="J9t-lL-a01"/>
+                        <outlet property="loginButton" destination="Xjq-qq-3yh" id="Lvk-6w-2PD"/>
                         <outlet property="passwordField" destination="fbY-N4-H3d" id="w6x-Io-tVU"/>
                     </connections>
                 </viewController>

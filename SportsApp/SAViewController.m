@@ -487,7 +487,7 @@
     //[self.view addSubview:loginButton];
         _logButton2.readPermissions =
         @[@"public_profile", @"email", @"user_friends"];
-        
+   
         _logButton2.delegate = self;
     
     
