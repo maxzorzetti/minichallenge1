@@ -25,12 +25,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 
 @property (nonatomic) SAPerson *user;
-@property (weak, nonatomic) IBOutlet UIView *myView;
+//@property (weak, nonatomic) IBOutlet UIView *myView;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnLogIn;
 
 @property NSString *email;
 @property NSString *password;
+@property (weak, nonatomic) IBOutlet FBSDKLoginButton *loginButton;
 
 
 @end
@@ -230,9 +231,18 @@
         }
         else {
             
+            
+            
+
+            
             if (results1.count == 0)
             {
+                
+               
                  dispatch_async(dispatch_get_main_queue(), ^(void){
+                     
+                     
+                    
                      
                      UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Oops!"
                                                                                     message:@"This username haven't registered in the app! Press the X button to go back to sign up."
@@ -251,6 +261,7 @@
                      
                      
                      
+                     
                      [self changePwdTextField:[UIColor redColor]];
                      [self changeUserTextField:[UIColor redColor]];
                      
@@ -259,6 +270,23 @@
             
             else
             {
+                
+                
+                
+                
+                UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+                spinner.frame = CGRectMake(self.view.frame.size.width/2, 3 * self.view.frame.size.height/4, 10, 10);
+                [self.view addSubview:spinner];
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                    
+                    //back to the main thread for the UI call
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [spinner startAnimating];
+                    });
+                });
+                
+
+                
                 
                 id value = [[results1 firstObject] objectForKey:@"recordID"];
                 value = [results1 firstObject][@"recordID"];
@@ -327,6 +355,14 @@
         
                                  _emailField.text = @"";
                                  _passwordField.text = @"";
+                                 
+                                 
+                                 
+                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                     [spinner stopAnimating];
+                                 });
+
+                                 
                              });
                         }
                     }
@@ -373,14 +409,15 @@
     
     [self changeJoinUsButton];
     
-    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
+    //FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
     // Optional: Place the button in the center of your view.
-    loginButton.center = _myView.center;
-    [self.view addSubview:loginButton];
-    loginButton.readPermissions =
+    //loginButton.center = _myView.center;
+   // [self.view addSubview:loginButton];
+    //[_myView isHidden];
+    _loginButton.readPermissions =
     @[@"public_profile", @"email", @"user_friends"];
     
-    loginButton.delegate = self;
+    _loginButton.delegate = self;
     
 }
 
