@@ -31,7 +31,7 @@
 @property int section;
 @property SAPerson *currentUser;
 @property CLLocationManager *locationManager;
-
+@property int canRefresh;
 @property NSMutableArray *facebookIdOfFriends;
 @property NSArray<SAPerson *> *friends;
 @property NSMutableArray *arrayOfSectionsWithEvents;
@@ -54,6 +54,8 @@ static dispatch_once_t predicateForFriends;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _canRefresh = 0;
     
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     
@@ -115,6 +117,7 @@ static dispatch_once_t predicateForFriends;
                                             [self.arrayOfSectionsWithEvents addObject:myDic];
                                         }
                                         [self updateTableView];
+                                        self.canRefresh = 1;
                                     }];
                                 });
                             }
@@ -169,58 +172,59 @@ static dispatch_once_t predicateForFriends;
 #pragma mark - Table view population methods
 
 - (void)refreshTable:(UIRefreshControl *)refreshControl{
-    __block int finishedLoadingAllSectionsOfFeed = 0;
-    
-    [SAEventConnector getSugestedEventsWithActivities:nil AndCurrentLocation:self.currentUser.location andDistanceInMeters:1000000 AndFriends:self.friends handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
-        if(!error){
-            NSDictionary *myDic = @{
-                                    @"section" : @"FRIENDS",
-                                    @"events" : events
-                                    };
-            
-            [self.arrayOfSectionsWithEvents replaceObjectAtIndex:2 withObject:myDic];
-            
-            finishedLoadingAllSectionsOfFeed += 1;
-            if (finishedLoadingAllSectionsOfFeed == 3) {
-                [refreshControl endRefreshing];
+    if (self.canRefresh == 1) {
+        __block int finishedLoadingAllSectionsOfFeed = 0;
+        
+        [SAEventConnector getSugestedEventsWithActivities:nil AndCurrentLocation:self.currentUser.location andDistanceInMeters:1000000 AndFriends:self.friends handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
+            if(!error){
+                NSDictionary *myDic = @{
+                                        @"section" : @"FRIENDS",
+                                        @"events" : events
+                                        };
+                
+                [self.arrayOfSectionsWithEvents replaceObjectAtIndex:2 withObject:myDic];
+                
+                finishedLoadingAllSectionsOfFeed += 1;
+                if (finishedLoadingAllSectionsOfFeed == 3) {
+                    [refreshControl endRefreshing];
+                }
             }
-        }
-        [self updateTableView];
-    }];
-    [SAEventConnector getComingEventsBasedOnFavoriteActivities:self.currentUser.interests AndCurrentLocation:self.currentUser.location AndRadiusOfDistanceDesiredInMeters:1000000 handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
-        if(!error){
-            NSDictionary *myDic = @{
-                                    @"section" : @"TODAY",
-                                    @"events" : events
-                                    };
-            
-            [self.arrayOfSectionsWithEvents replaceObjectAtIndex:0 withObject:myDic];
-            
-            finishedLoadingAllSectionsOfFeed += 1;
-            if (finishedLoadingAllSectionsOfFeed == 3) {
-                [refreshControl endRefreshing];
+            [self updateTableView];
+        }];
+        [SAEventConnector getComingEventsBasedOnFavoriteActivities:self.currentUser.interests AndCurrentLocation:self.currentUser.location AndRadiusOfDistanceDesiredInMeters:1000000 handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
+            if(!error){
+                NSDictionary *myDic = @{
+                                        @"section" : @"TODAY",
+                                        @"events" : events
+                                        };
+                
+                [self.arrayOfSectionsWithEvents replaceObjectAtIndex:0 withObject:myDic];
+                
+                finishedLoadingAllSectionsOfFeed += 1;
+                if (finishedLoadingAllSectionsOfFeed == 3) {
+                    [refreshControl endRefreshing];
+                }
             }
-        }
-        [self updateTableView];
-    }];
-    
-    [SAEventConnector getEventsWhereUserIsAnInvitee:self.currentUser.personId handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
-        if(!error && events){
-            NSDictionary *myDic = @{
-                                    @"section" : @"INVITED",
-                                    @"events" : events
-                                    };
-            
-            [self.arrayOfSectionsWithEvents replaceObjectAtIndex:1 withObject:myDic];
-            
-            finishedLoadingAllSectionsOfFeed += 1;
-            if (finishedLoadingAllSectionsOfFeed == 3) {
-                [refreshControl endRefreshing];
+            [self updateTableView];
+        }];
+        
+        [SAEventConnector getEventsWhereUserIsAnInvitee:self.currentUser.personId handler:^(NSArray<SAEvent *> * _Nullable events, NSError * _Nullable error) {
+            if(!error && events){
+                NSDictionary *myDic = @{
+                                        @"section" : @"INVITED",
+                                        @"events" : events
+                                        };
+                
+                [self.arrayOfSectionsWithEvents replaceObjectAtIndex:1 withObject:myDic];
+                
+                finishedLoadingAllSectionsOfFeed += 1;
+                if (finishedLoadingAllSectionsOfFeed == 3) {
+                    [refreshControl endRefreshing];
+                }
             }
-        }
-        [self updateTableView];
-    }];
-    
+            [self updateTableView];
+        }];
+    }
 }
 
 
