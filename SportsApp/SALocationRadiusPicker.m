@@ -16,6 +16,10 @@
 @property (weak, nonatomic) IBOutlet SALocationButton *middleCircle;
 @property (weak, nonatomic) IBOutlet SALocationButton *innerCircle;
 
+@property (weak, nonatomic) IBOutlet UILabel *innerLabel;
+@property (weak, nonatomic) IBOutlet UILabel *middleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *outerLabel;
+
 @property (nonatomic) UIColor* deselectedColor;
 @property (nonatomic) UIColor* selectedColor;
 @property (nonatomic) UIColor* selectedBorderColor;
@@ -58,9 +62,11 @@
 	self.view.frame = self.bounds;
 	
 	_deselectedColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
-	_selectedColor = [UIColor colorWithRed:216.0/255 green:216.0/255 blue:216.0/255 alpha:0.2];
-	_deselectedBorderColor = [UIColor colorWithRed:50.0/255 green:226.0/255 blue:196.0/255 alpha:1];
-	_selectedBorderColor = [UIColor colorWithRed:50.0/255 green:226.0/255 blue:196.0/255 alpha:0.2];
+	//_selectedColor = [UIColor colorWithRed:216.0/255 green:216.0/255 blue:216.0/255 alpha:0.2];
+	_selectedColor = [UIColor colorWithRed:119.0/255 green:90.0/255 blue:218.0/255 alpha:0.2];
+	
+	_deselectedBorderColor = [UIColor colorWithRed:119.0/255 green:90.0/255 blue:218.0/255 alpha:0.2];
+	_selectedBorderColor = [UIColor colorWithRed:119.0/255 green:90.0/255 blue:218.0/255 alpha:0];
 
 	[self circleTouchedUpInside: self.innerCircle];
 }
@@ -77,6 +83,10 @@
 	self.middleCircle.selected = NO;
 	self.innerCircle.selected = NO;
 	
+	self.outerLabel.hidden = YES;
+	self.middleLabel.hidden = YES;
+	self.innerLabel.hidden = YES;
+	
 	sender.selected = YES;
 	
 	// Pig oriented programming - yoink yoink
@@ -84,15 +94,23 @@
 		[self selectCircle: self.outerCircle];
 		[self selectCircle: self.middleCircle];
 		[self selectCircle: self.innerCircle];
+		
+		self.outerLabel.hidden = NO;
 	} else if (sender == self.middleCircle) {
 		[self deselectCircle: self.outerCircle];
 		[self selectCircle: self.middleCircle];
 		[self selectCircle: self.innerCircle];
+		
+		self.middleLabel.hidden = NO;
 	} else if (sender == self.innerCircle) {
 		[self deselectCircle: self.outerCircle];
 		[self deselectCircle: self.middleCircle];
 		[self selectCircle: self.innerCircle];
+		
+		self.innerLabel.hidden = NO;
 	}
+	
+	sender.layer.borderColor = [[UIColor colorWithRed:119.0/255 green:90.0/255 blue:218.0/255 alpha:1] CGColor];
 }
 
 - (void)selectCircle:(SALocationButton *)circle {
