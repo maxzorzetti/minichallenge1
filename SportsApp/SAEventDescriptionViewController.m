@@ -434,7 +434,7 @@
     else{
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"friendCell" forIndexPath:indexPath];
         friend = self.arrayOfParticipants[indexPath.item];
-        cell.profileImageBruno.layer.borderColor = [UIColor colorWithRed:0/255.0 green:255/255.0 blue:0/255.0 alpha:1.0].CGColor;
+        cell.profileImageBruno.layer.borderColor = [UIColor colorWithRed:50/255.0 green:226/255.0 blue:196/255.0 alpha:1.0].CGColor;
         if (friend.photo) {
             cell.profileImageBruno.image = [UIImage imageWithData:friend.photo];
         }else{
