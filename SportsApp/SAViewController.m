@@ -24,6 +24,7 @@
 #import "SAAskTheUserToCustomizeProfileViewController.h"
 
 @interface SAViewController ()
+@property (weak, nonatomic) IBOutlet FBSDKLoginButton *logButton2;
 
 @property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 
@@ -32,7 +33,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *firstLabel;
 @property (weak, nonatomic) IBOutlet UITextField *firstNameField;
 
-@property (weak, nonatomic) IBOutlet UIView *myView;
+//@property (weak, nonatomic) IBOutlet UIView *myView;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnJoinUs;
 
@@ -471,25 +472,23 @@
     //Checa-se se o usuario ja aceitou os termos de uso
     //if (! [FBSDKAccessToken currentAccessToken]) {
         // User is logged in, do work such as go to next view controller.
-        FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] initWithFrame:_myView.frame];
+        //FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] initWithFrame:_myView.frame];
     //loginButton.bounds = _myView.bounds;
-    NSLog(@"%f", _myView.frame.size.width);
-    NSLog(@"%f", _myView.frame.size.height);
-    NSLog(@"%f", _myView.frame.origin.x);
-    NSLog(@"%f", _myView.frame.origin.y);
+    
     //loginButton.center = self.view.center;
-    CGPoint newCenter = CGPointMake(self.view.center.x, 646);
+    //CGPoint newCenter = CGPointMake(self.view.center.x, 646);
     
     //loginButton.bounds = _myView.bounds;
-    loginButton.center = newCenter;
+    //loginButton.center = _myView.center;
+    //[_myView isHidden];
     //loginButton.frame.origin.y = _myView.frame.origin.y;
         // Optional: Place the button in the center of your view.
         //loginButton.center = _myView.center;
-        [self.view addSubview:loginButton];
-        loginButton.readPermissions =
+    //[self.view addSubview:loginButton];
+        _logButton2.readPermissions =
         @[@"public_profile", @"email", @"user_friends"];
         
-        loginButton.delegate = self;
+        _logButton2.delegate = self;
     
     
     self.appLogo.layer.cornerRadius = self.appLogo.frame.size.height /2;
@@ -497,10 +496,7 @@
     self.appLogo.layer.borderWidth = 0;
     
     
-    NSLog(@"%f", loginButton.frame.size.width);
-    NSLog(@"%f", loginButton.frame.size.height);
-    NSLog(@"%f", loginButton.frame.origin.x);
-    NSLog(@"%f", loginButton.frame.origin.y);
+    
     
 //     [_emailField setSelectedTextRange:NSMakeRange(0, 0)];
 

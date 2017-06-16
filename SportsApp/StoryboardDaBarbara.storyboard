@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="FCe-wx-uJV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="FCe-wx-uJV">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -485,7 +485,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="CDX-gK-lPZ" firstAttribute="top" secondItem="Xjq-qq-3yh" secondAttribute="bottom" priority="992" constant="55" id="20R-bU-gx7"/>
+                            <constraint firstItem="CDX-gK-lPZ" firstAttribute="top" secondItem="Xjq-qq-3yh" secondAttribute="bottom" constant="55" id="20R-bU-gx7"/>
                             <constraint firstItem="fbY-N4-H3d" firstAttribute="centerX" secondItem="ekp-ab-me2" secondAttribute="centerX" id="4hd-b1-Hjj"/>
                             <constraint firstItem="tYm-Mq-Xf3" firstAttribute="centerX" secondItem="KDc-0D-O6R" secondAttribute="centerX" multiplier="0.5" id="7u2-KD-Zqg"/>
                             <constraint firstItem="F5C-Fq-ppa" firstAttribute="trailing" secondItem="fbY-N4-H3d" secondAttribute="trailing" id="9rX-D4-DzN"/>

@@ -377,6 +377,7 @@
     // Optional: Place the button in the center of your view.
     loginButton.center = _myView.center;
     [self.view addSubview:loginButton];
+    [_myView isHidden];
     loginButton.readPermissions =
     @[@"public_profile", @"email", @"user_friends"];
     
