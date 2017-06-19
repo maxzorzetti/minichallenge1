@@ -33,7 +33,7 @@
     NSDictionary *dicOfLogin = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"loginInfo"];
     
     //if facebook user, log in in a different way
-    if (dicOfLogin[@"facebookId"]) {
+    if (![dicOfLogin[@"facebookId"] isEqualToString:@""]) {
         [SAPersonConnector getPeopleFromFacebookIds:[NSArray arrayWithObject:dicOfLogin[@"facebookId"]] handler:^(NSArray<SAPerson *> * _Nullable people, NSError * _Nullable error) {
             if (!error && people) {
                 _person = people[0];

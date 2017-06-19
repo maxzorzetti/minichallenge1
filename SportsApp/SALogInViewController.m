@@ -1,4 +1,4 @@
-//
+ //
 //  SALogInViewController.m
 //  SportsApp
 //
@@ -51,7 +51,7 @@
     [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:parameters]
      startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
          if (!error) {
-             
+             printf("entered in facebook block");
              CKContainer *container = [CKContainer defaultContainer];
              CKDatabase *publicDatabase = [container publicCloudDatabase];
              
@@ -80,16 +80,20 @@
              [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results1, NSError *error) {
                  if (!error){
                      //if there are no user with that email, create one
+                     printf("entedered in the public data base looking for email");
                      if ([results1 count] == 0)
                      {
+                         printf("didnt find email in cloud kit");
                          [publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *personRecordCreatedFromDB, NSError *error){
                              if (!error){
+                                 printf("saving person in cloud kit. First time user in app");
                                  CKReference *ref = [[CKReference alloc]initWithRecordID:personRecordCreatedFromDB.recordID action:CKReferenceActionNone];
                                  identityRecord[@"userId"] = ref;
                                  
                                  //person created, creates person identity with Facebook
                                  [publicDatabase saveRecord:identityRecord completionHandler:^(CKRecord *artworkRecord, NSError *error){
                                      if (!error){
+                                         printf("enter in the save identity block");
                                          NSLog(@"Record Identity created. New person in the app.");
                                      NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
                                      self.user = [SAPersonConnector getPersonFromRecord:personRecordCreatedFromDB andPicture:photo];
@@ -117,7 +121,7 @@
                      }
                      //if person already exists with that email
                      else{
-                         
+                         printf("pessoa ja esxiste");
                          //id value = [[results1 firstObject] objectForKey:@"recordID"];
                          id value = [results1 firstObject][@"recordID"];
                          
@@ -128,6 +132,7 @@
                          //check if identity is Facebook
                          [publicDatabase performQuery:useridQuery inZoneWithID:nil completionHandler:^(NSArray *results2, NSError *error){
                              if (!error){
+                                 printf("entrou no query do identity pra pessoa ja existente");
                                  
                                  int isPersonSignedUpWithFacebook=0;
                                  
@@ -141,6 +146,7 @@
                                  //if person's identity is not with facebook, create one
                                  if (!isPersonSignedUpWithFacebook)
                                  {
+                                     printf("pessoa nunca logou com o facebook");
                                      
                                      CKReference *userRef = [[CKReference alloc]initWithRecordID:[results1 firstObject][@"recordID"] action:CKReferenceActionNone];
                                      identityRecord[@"userId"] = userRef;
@@ -150,12 +156,14 @@
                                          }
                                          else
                                          {
+                                             
+                                             printf("entrou no bloco de salvar o identity do facebook");
                                              //NSLog(@"Record Identity created. New person using facebook.");
                                          NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
                                          self.user = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:photo];
                                          
                                          [SAUser saveToUserDefaults:self.user];
-                                         
+                                             printf("voltou do user defaults");
                                          //saves user login info in userdefaults
                                          NSDictionary *dicLoginInfo = @{
                                                                         @"username" : self.user.name,
@@ -173,12 +181,14 @@
                                  
                                  //person has signed with Facebook already
                                  else{
+                                     
+                                     printf("pessoa ja tem identity do facebook");
                                      NSData *photo = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[[[result objectForKey:@"picture"]objectForKey:@"data"]objectForKey:@"url"]]];
                                      
                                      self.user = [SAPersonConnector getPersonFromRecord:[results1 firstObject] andPicture:photo];
                                      
                                      [SAUser saveToUserDefaults:self.user];
-                                     
+                                     printf("salvou pessoa no user defaults");
                                      //saves user login info in userdefaults
                                      NSArray *keys = @[@"username", @"password", @"facebookId"];
                                      NSArray *values = @[self.user.name, _passwordField.text, userFacebookID];
@@ -202,8 +212,37 @@
                          }];
                      }
                  }
+                 
+                 else {
+                     
+                     
+                     
+                     
+                     
+                 }
+                 
+                 
+                 
+                 
+                 
              }];
+             
+             
+             
+             
+             
          }
+         
+         else {
+             
+             
+             
+             
+             
+         }
+         
+         
+         
      }];
 }
 

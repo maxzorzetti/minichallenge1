@@ -22,7 +22,7 @@
     [dao loginWithUsername:username andPassword:[self sha1:password] handler:^(CKRecord * _Nullable personRecord, NSError * _Nullable error) {
         if (!error && !personRecord) {
             //facebook user? get picture
-            if (personRecord[@"facebookId"]) {
+            if (![personRecord[@"facebookId"] isEqual:@""]) {
                 NSString *pathGraph = [[NSString alloc]initWithFormat:@"/%@",personRecord[@"facebookId"]];
                 FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
                                               initWithGraphPath:pathGraph
@@ -105,7 +105,7 @@
                 CKRecord *personRecord = personRecords[i];
                 
                 //if person is a facebook user, load his/her picture before creating a SAPerson object and adding to array
-                if (![personRecord[@"facebookId"] isEqual:nil]) {
+                if (![personRecord[@"facebookId"] isEqual:@""]) {
                     NSString *pathGraph = [[NSString alloc]initWithFormat:@"/%@",personRecord[@"facebookId"]];
                     FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
                                                   initWithGraphPath:pathGraph
@@ -154,7 +154,7 @@
     [dao getPersonFromId:personId handler:^(CKRecord * _Nullable personRecord, NSError * _Nullable error) {
         if (!error) {
             //facebook user? get picture
-            if (personRecord[@"facebookId"]) {
+            if (![personRecord[@"facebookId"] isEqual:@""]) {
                 NSString *pathGraph = [[NSString alloc]initWithFormat:@"/%@",personRecord[@"facebookId"]];
                 FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
                                               initWithGraphPath:pathGraph
