@@ -541,6 +541,7 @@
 				8406A8D21EA6761500C60267 /* Resources */,
 				E17D930AA6E5F606C956BF78 /* [CP] Embed Pods Frameworks */,
 				7D88B75D23AADB94AE2FA4CD /* [CP] Copy Pods Resources */,
+				8434A83F1EF45C7700D3E843 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -651,6 +652,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SportsApp/Pods-SportsApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		8434A83F1EF45C7700D3E843 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Replace this path with the path to the key you just downloaded\nJSON_FILE=${PROJECT_DIR}/Keys/sports-agent-firebase-crashreporting-oaqie-c6984f77b0.json\n\n# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:1:691032338229:ios:498a18bfa899149a\n\ndefaults write com.google.SymbolUpload version -integer 1   # creates file if it does not exist\nJSON=$(cat \"${JSON_FILE}\")\n/usr/bin/plutil -replace \"app_${GOOGLE_APP_ID//:/_}\" -json \"${JSON}\" \"$HOME/Library/Preferences/com.google.SymbolUpload.plist\"\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"${PROJECT_DIR}/Keys/sports-agent-firebase-crashreporting-oaqie-c6984f77b0.json\"";
 		};
 		E17D930AA6E5F606C956BF78 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
